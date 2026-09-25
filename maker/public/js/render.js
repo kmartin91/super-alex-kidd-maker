@@ -5,7 +5,7 @@ import { $ } from './dom.js';
 import { state, SCREEN_W, BLOCK, SCREEN_PX_W, SCREEN_PX_H } from './state.js';
 import { levelSize, listOrigin, cellUsage } from './level.js';
 import { blockIsSolid } from './blocks.js';
-import { entityBox, entityName, specialName, entityColor, isSelected, GOAL_TYPE } from './entities.js';
+import { entityBox, entityName, specialName, entityColor, isSelected, GOAL_TYPE, startList } from './entities.js';
 import { partCanvas } from './parts.js';
 import { isBlockPart } from './brush.js';
 import { renderBubble } from './bubble.js';
@@ -111,6 +111,8 @@ export function render() {
   drawScreens(ctx, z);
   if (state.showGrid) drawGrid(ctx, z, w, h);
   drawScreenEdges(ctx, z, w, h);
+  const start = listOrigin(startList());
+  if (start) label(ctx, 'Départ · pas d\'ennemis ici', start.x * z + 6, start.y * z + 20);
   drawEntities(ctx, z);
   renderGhost();
   renderBubble();

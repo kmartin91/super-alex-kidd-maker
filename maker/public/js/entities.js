@@ -9,6 +9,7 @@ import { decodeBase64 } from './graphics.js';
 import { locate, listOrigin } from './level.js';
 import { pushUndo } from './history.js';
 import { render } from './render.js';
+import { toast } from './toast.js';
 
 // The level end (rice ball): one per level, kept in a $84 special record.
 export const GOAL_TYPE = 0x44;
@@ -128,6 +129,7 @@ export function moveEntityTo(sel, px, py) {
   if (!loc || loc.list === null) return sel;
   const lists = sel.special ? state.model.specials : state.model.entities;
   const e = lists[sel.list][sel.index];
+  if (!sel.special && loc.list !== sel.list && loc.list === startList()) return sel;
   if (loc.list !== sel.list) {
     lists[sel.list].splice(sel.index, 1);
     lists[loc.list].push(e);
@@ -139,11 +141,26 @@ export function moveEntityTo(sel, px, py) {
   return sel;
 }
 
+// Entity list of the screen the level starts on. The game only brings in a
+// screen's enemies when that screen scrolls into view, which the start screen
+// never does: enemies placed there would never appear.
+export function startList() {
+  for (const row of state.model.grid) for (const c of row) if (c) return c.entities;
+  return null;
+}
+
+function refuseStart() {
+  toast('Pas d\'ennemis sur l\'écran de départ : le jeu ne les fait pas apparaître');
+}
+
+// Returns false (and says why) when the entity cannot go there.
 export function addEntity(type, loc) {
+  if (loc.list === startList()) { refuseStart(); return false; }
   const e = { type, x: loc.lx, y: loc.ly, data: 0 };
   clampEntity(e);
   state.model.entities[loc.list].push(e);
   state.selected = { list: loc.list, index: state.model.entities[loc.list].length - 1 };
+  return true;
 }
 
 // Puts the level end at `loc`, moving the existing one if there is one.

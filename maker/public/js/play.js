@@ -2,10 +2,9 @@
 // in view, saved or not. The big button in the corner switches back and forth.
 
 import { $ } from './dom.js';
-import { state } from './state.js';
+import { state, SCREEN_PX_W } from './state.js';
 import { api } from './api.js';
 import { Player } from './player.js';
-import { viewCell } from './level.js';
 import { save } from './storage.js';
 import { normalizeSurprises } from './level-panel.js';
 import { toast } from './toast.js';
@@ -42,10 +41,13 @@ export async function playLevel(startColumn = null) {
   }
 }
 
-// Screen to start from: the one in view (simple horizontal levels only).
+// Screen to start from: the one at the left edge of the view (simple
+// horizontal levels only), so the level start as long as it is in view.
 function startColumn() {
   if (state.model.kind !== 'horizontal') return null;
-  const { col } = viewCell();
+  const wrap = $('mapWrap');
+  const left = Math.max(0, wrap.scrollLeft - $('map').offsetLeft) / state.zoom;
+  const col = Math.min(state.model.columns - 1, Math.round(left / SCREEN_PX_W));
   return col > 0 ? col : null;
 }
 

@@ -244,6 +244,7 @@ kbd {
   border: 1px solid var(--paper-3); border-bottom-width: 2px; border-radius: 4px;
   font: 600 12px var(--pixel); color: var(--paper);
 }
+body.playing #bubble { display: none; }
 body.playing #palette, body.playing #left, body.playing #right, body.playing #bottom {
   opacity: 0.35; pointer-events: none;
 }

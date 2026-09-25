@@ -239,7 +239,9 @@ def apply_edits(level, ed):
 
     # Layout: only extendable (simple horizontal) levels may change their screen row.
     d = level["descriptor"]
-    new_row = [c["screen"] for c in ed["grid"][0]] if ed.get("grid") else None
+    new_row = None
+    if level["kind"] == "horizontal" and ed.get("grid"):
+        new_row = [c["screen"] for c in ed["grid"][0] if c]
     old_row = level["layout"]["rows"][d["start_screen_y"]]["screens"]
     if level["kind"] == "horizontal" and new_row is not None and new_row != old_row[:d["width"] + 1]:
         if not extendable(level):

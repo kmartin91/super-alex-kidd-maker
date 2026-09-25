@@ -47,7 +47,11 @@ function run(cmd, cmdArgs) {
 // Video state of a level (tiles in VRAM, palettes) from the running game.
 async function levelVideo(n) {
   const file = path.join(CACHE_DIR, `video_${String(n).padStart(2, '0')}.json`);
-  if (!fs.existsSync(file)) await run(LEVELDUMP, [ROM, String(n), file]);
+  if (!fs.existsSync(file)) {
+    const tmp = `${file}.${process.pid}.${Date.now()}.tmp`;
+    await run(LEVELDUMP, [ROM, String(n), tmp]);
+    fs.renameSync(tmp, file);
+  }
   return JSON.parse(fs.readFileSync(file, 'utf8'));
 }
 
@@ -184,6 +188,10 @@ const server = http.createServer(async (req, res) => {
     return send(res, 500, { error: err.message });
   }
 });
+
+// A failing request must never stop the server.
+process.on('uncaughtException', (err) => console.error('erreur :', err.stack || err));
+process.on('unhandledRejection', (err) => console.error('erreur :', (err && err.stack) || err));
 
 server.listen(PORT, '127.0.0.1', () => {
   const url = `http://localhost:${PORT}`;

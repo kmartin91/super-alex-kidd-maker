@@ -28,9 +28,8 @@ function place(part, p) {
   const snapped = snapEntity(p);
   const at = locate(snapped.x, snapped.y);
   const spot = at && at.list !== null ? at : loc;
-  if (part.kind === 'goal') placeGoal(spot);
-  else addEntity(part.type, spot);
-  return true;
+  if (part.kind === 'goal') { placeGoal(spot); return true; }
+  return addEntity(part.type, spot);
 }
 
 // Erases what is under a level pixel: an entity, else the block.
