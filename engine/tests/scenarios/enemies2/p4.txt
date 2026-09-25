@@ -1,0 +1,9 @@
+# run: --frames 1600
+100 keys 1
+106 keys -
+700 poke C0C9 0
+701 peek C0C9 1
+800 peek C0C9 1
+900 keys R
+1000 peek C0C9 1
+1000 peek C300 20

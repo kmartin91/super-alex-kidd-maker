@@ -1,0 +1,9 @@
+{
+  "name": "super-alex-kidd-maker",
+  "private": true,
+  "description": "Unofficial fan remake of Alex Kidd in Miracle World: C engine and Mario Maker-style level editor (bring your own ROM)",
+  "scripts": {
+    "maker": "make -C engine build/alexkidd build/leveldump build/entityicons && (make -C engine web || echo \"Emscripten absent : le bouton Jouer sera indisponible\") && node maker/server.js",
+    "game": "make -C engine build/alexkidd && ./engine/build/alexkidd original.sms"
+  }
+}

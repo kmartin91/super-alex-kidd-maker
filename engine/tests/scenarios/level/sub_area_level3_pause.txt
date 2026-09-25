@@ -1,0 +1,14 @@
+# run: --frames 1600
+# Pause map opened and closed inside the level 3 sub-area (exitMapState uses level+1).
+# Run with: --level 3 --lives --frames 1200
+100 keys 1
+106 keys -
+400 poke C01F 08
+600 keys R
+700 pause
+720 peek C01F 1
+800 keys 1
+810 keys -
+900 pause
+950 peek C01F 1
+1000 keys R

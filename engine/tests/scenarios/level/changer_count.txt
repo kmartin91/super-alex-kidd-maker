@@ -1,0 +1,28 @@
+# run: --frames 1130
+# Name-table changer, data 1 (counts a punch in $C07F). Run with: --level 2 --lives --frames 560
+100 keys 1
+106 keys -
+400 poke D8A0 02
+400 poke D8A1 10
+400 poke D8A2 CC
+400 poke D8A3 03
+401 poke D8A4 14
+401 poke D8A5 CC
+401 poke D8A6 03
+401 poke C681 00
+402 poke C683 01
+402 poke C68C 30
+402 poke C68E 88
+402 poke C689 00
+403 poke C68A 00
+403 poke C680 4B
+410 keys 2
+414 keys -
+440 keys 2
+444 keys -
+470 keys 2
+474 keys -
+500 keys 2
+504 keys -
+530 peek C680 4
+530 peek C07F 1

@@ -1,0 +1,15 @@
+# run: --level 1 --frames 1750 --lives
+100 keys 1
+106 keys -
+800 poke C092 01
+802 pause
+950 pause
+952 poke C092 00
+1100 poke C092 01
+1102 pause
+1250 pause
+1252 poke C092 00
+1400 poke C092 01
+1402 pause
+1550 pause
+1552 poke C092 00

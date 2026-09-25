@@ -1,0 +1,11 @@
+# run: --level 7 --lives --frames 900
+# run: --level 2 --lives --frames 900
+# motorcycle past x=$44 (camera keeps it there)
+100 keys 1
+106 keys -
+600 poke C31D 0F
+600 poke C30F 40
+600 poke C054 07
+601 poke C31A 08
+602 poke C30C 80
+610 keys R

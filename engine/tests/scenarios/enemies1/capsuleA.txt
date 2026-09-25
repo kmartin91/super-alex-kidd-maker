@@ -1,0 +1,83 @@
+# run: --frames 5000
+100 keys 1
+106 keys -
+700 poke C054 3
+702 keys 2
+708 keys -
+709 peek C320 1
+730 peek C360 1
+760 peek C360 1
+820 keys R
+860 keys -
+900 peek C320 1
+900 peek C340 1
+1200 poke C054 3
+1202 keys 2
+1208 keys -
+1209 peek C320 1
+1230 peek C360 1
+1260 peek C360 1
+1320 keys R
+1360 keys -
+1400 peek C320 1
+1400 peek C340 1
+1700 poke C054 3
+1702 keys 2
+1708 keys -
+1709 peek C320 1
+1730 peek C360 1
+1760 peek C360 1
+1820 keys R
+1860 keys -
+1900 peek C320 1
+1900 peek C340 1
+2200 poke C054 3
+2202 keys 2
+2208 keys -
+2209 peek C320 1
+2230 peek C360 1
+2260 peek C360 1
+2320 keys R
+2360 keys -
+2400 peek C320 1
+2400 peek C340 1
+2700 poke C054 3
+2702 keys 2
+2708 keys -
+2709 peek C320 1
+2730 peek C360 1
+2760 peek C360 1
+2820 keys R
+2860 keys -
+2900 peek C320 1
+2900 peek C340 1
+3200 poke C054 3
+3202 keys 2
+3208 keys -
+3209 peek C320 1
+3230 peek C360 1
+3260 peek C360 1
+3320 keys R
+3360 keys -
+3400 peek C320 1
+3400 peek C340 1
+3700 poke C054 3
+3702 keys 2
+3708 keys -
+3709 peek C320 1
+3730 peek C360 1
+3760 peek C360 1
+3820 keys R
+3860 keys -
+3900 peek C320 1
+3900 peek C340 1
+4200 poke C054 3
+4202 keys 2
+4208 keys -
+4209 peek C320 1
+4230 peek C360 1
+4260 peek C360 1
+4320 keys R
+4360 keys -
+4400 peek C320 1
+4400 peek C340 1

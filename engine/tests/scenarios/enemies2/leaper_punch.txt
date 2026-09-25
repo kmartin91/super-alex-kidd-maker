@@ -1,0 +1,582 @@
+# run: --level 12 --lives --frames 2000
+100 keys 1
+106 keys -
+700 poke C563 0
+700 poke C56C 34
+700 poke C56E 90
+700 poke C57A 0
+700 poke C583 0
+700 poke C58C C0
+700 poke C58E 90
+700 poke C59A 0
+700 keys 2
+701 poke C561 0
+701 poke C569 0
+701 poke C56A 0
+701 poke C577 0
+701 poke C581 0
+701 poke C589 0
+701 poke C58A 0
+701 poke C597 0
+702 poke C578 0
+702 poke C576 0
+702 poke C56F 0
+702 poke C570 0
+702 poke C598 0
+702 poke C596 0
+702 poke C58F 0
+702 poke C590 0
+703 poke C571 0
+703 poke C572 0
+703 poke C565 1
+703 poke C591 0
+703 poke C592 0
+703 poke C585 1
+703 keys -
+704 poke C560 42
+704 poke C580 42
+706 keys 2
+709 keys -
+712 keys 2
+715 keys -
+718 keys 2
+721 keys -
+724 keys 2
+727 keys -
+730 keys 2
+733 keys -
+736 keys 2
+739 keys -
+742 keys 2
+745 keys -
+748 keys 2
+751 keys -
+754 keys 2
+757 keys -
+760 keys 2
+763 keys -
+766 keys 2
+769 keys -
+772 keys 2
+775 keys -
+778 keys 2
+781 keys -
+784 keys 2
+787 keys -
+790 keys 2
+793 keys -
+796 keys 2
+799 keys -
+800 poke C583 0
+800 poke C58C C0
+800 poke C58E 90
+800 poke C59A 0
+801 poke C581 0
+801 poke C589 0
+801 poke C58A 0
+801 poke C597 0
+802 poke C598 0
+802 poke C596 0
+802 poke C58F 0
+802 poke C590 0
+802 keys 2
+803 poke C591 0
+803 poke C592 0
+803 poke C585 1
+804 poke C580 42
+805 keys -
+808 keys 2
+811 keys -
+814 keys 2
+817 keys -
+820 keys 2
+823 keys -
+826 keys 2
+829 keys -
+832 keys 2
+835 keys -
+838 keys 2
+841 keys -
+844 keys 2
+847 keys -
+850 keys 2
+853 keys -
+856 keys 2
+859 keys -
+862 keys 2
+865 keys -
+868 keys 2
+871 keys -
+874 keys 2
+877 keys -
+880 keys 2
+883 keys -
+886 keys 2
+889 keys -
+892 keys 2
+895 keys -
+898 keys 2
+901 keys -
+904 keys 2
+907 keys -
+910 keys 2
+913 poke C583 0
+913 poke C58C B0
+913 poke C58E 90
+913 poke C59A 0
+913 keys -
+914 poke C581 0
+914 poke C589 0
+914 poke C58A 0
+914 poke C597 0
+915 poke C598 0
+915 poke C596 0
+915 poke C58F 0
+915 poke C590 0
+916 poke C591 0
+916 poke C592 0
+916 poke C585 1
+916 keys 2
+917 poke C580 42
+919 keys -
+922 keys 2
+925 keys -
+928 keys 2
+931 keys -
+934 keys 2
+937 keys -
+940 keys 2
+943 keys -
+946 keys 2
+949 keys -
+952 keys 2
+955 keys -
+958 keys 2
+961 keys -
+964 keys 2
+967 keys -
+970 keys 2
+973 keys -
+976 keys 2
+979 keys -
+982 keys 2
+985 keys -
+988 keys 2
+991 keys -
+994 keys 2
+997 keys -
+1000 keys 2
+1003 keys -
+1006 keys 2
+1009 keys -
+1012 keys 2
+1015 keys -
+1018 keys 2
+1021 keys -
+1024 keys 2
+1027 poke C583 0
+1027 poke C58C A0
+1027 poke C58E 90
+1027 poke C59A 0
+1027 keys -
+1028 poke C581 0
+1028 poke C589 0
+1028 poke C58A 0
+1028 poke C597 0
+1029 poke C598 0
+1029 poke C596 0
+1029 poke C58F 0
+1029 poke C590 0
+1030 poke C591 0
+1030 poke C592 0
+1030 poke C585 1
+1030 keys 2
+1031 poke C580 42
+1033 keys -
+1036 keys 2
+1039 keys -
+1042 keys 2
+1045 keys -
+1048 keys 2
+1051 keys -
+1054 keys 2
+1057 keys -
+1060 keys 2
+1063 keys -
+1066 keys 2
+1069 keys -
+1072 keys 2
+1075 keys -
+1078 keys 2
+1081 keys -
+1084 keys 2
+1087 keys -
+1090 keys 2
+1093 keys -
+1096 keys 2
+1099 keys -
+1102 keys 2
+1105 keys -
+1108 keys 2
+1111 keys -
+1114 keys 2
+1117 keys -
+1120 keys 2
+1123 keys -
+1126 keys 2
+1129 keys -
+1131 poke C583 0
+1131 poke C58C C0
+1131 poke C58E 90
+1131 poke C59A 0
+1132 poke C581 0
+1132 poke C589 0
+1132 poke C58A 0
+1132 poke C597 0
+1132 keys 2
+1133 poke C598 0
+1133 poke C596 0
+1133 poke C58F 0
+1133 poke C590 0
+1134 poke C591 0
+1134 poke C592 0
+1134 poke C585 1
+1135 poke C580 42
+1135 keys -
+1138 keys 2
+1141 keys -
+1144 keys 2
+1147 keys -
+1150 keys 2
+1153 keys -
+1156 keys 2
+1159 keys -
+1162 keys 2
+1165 keys -
+1168 keys 2
+1171 keys -
+1174 keys 2
+1177 keys -
+1180 keys 2
+1183 keys -
+1186 keys 2
+1189 keys -
+1192 keys 2
+1195 keys -
+1198 keys 2
+1201 keys -
+1204 keys 2
+1207 keys -
+1210 keys 2
+1213 keys -
+1216 keys 2
+1219 keys -
+1222 keys 2
+1225 keys -
+1228 keys 2
+1231 keys -
+1234 keys 2
+1237 keys -
+1240 keys 2
+1243 keys -
+1246 keys 2
+1249 poke C583 0
+1249 poke C58C C0
+1249 poke C58E 90
+1249 poke C59A 0
+1249 keys -
+1250 poke C581 0
+1250 poke C589 0
+1250 poke C58A 0
+1250 poke C597 0
+1251 poke C598 0
+1251 poke C596 0
+1251 poke C58F 0
+1251 poke C590 0
+1252 poke C591 0
+1252 poke C592 0
+1252 poke C585 1
+1252 keys 2
+1253 poke C580 42
+1255 keys -
+1258 keys 2
+1261 keys -
+1264 keys 2
+1267 keys -
+1270 keys 2
+1273 keys -
+1276 keys 2
+1279 keys -
+1282 keys 2
+1285 keys -
+1288 keys 2
+1291 keys -
+1294 keys 2
+1297 keys -
+1300 keys 2
+1303 keys -
+1306 keys 2
+1309 keys -
+1312 keys 2
+1315 keys -
+1318 keys 2
+1321 keys -
+1324 keys 2
+1327 keys -
+1330 keys 2
+1333 keys -
+1336 keys 2
+1339 keys -
+1342 keys 2
+1345 keys -
+1348 keys 2
+1351 keys -
+1354 keys 2
+1357 keys -
+1360 keys 2
+1363 keys -
+1366 keys 2
+1369 keys -
+1372 keys 2
+1375 keys -
+1377 poke C583 0
+1377 poke C58C C0
+1377 poke C58E 90
+1377 poke C59A 0
+1378 poke C581 0
+1378 poke C589 0
+1378 poke C58A 0
+1378 poke C597 0
+1378 keys 2
+1379 poke C598 0
+1379 poke C596 0
+1379 poke C58F 0
+1379 poke C590 0
+1380 poke C591 0
+1380 poke C592 0
+1380 poke C585 1
+1381 poke C580 42
+1381 keys -
+1384 keys 2
+1387 keys -
+1390 keys 2
+1393 keys -
+1396 keys 2
+1399 keys -
+1402 keys 2
+1405 keys -
+1408 keys 2
+1411 keys -
+1414 keys 2
+1417 keys -
+1420 keys 2
+1423 keys -
+1426 keys 2
+1429 keys -
+1432 keys 2
+1435 keys -
+1438 keys 2
+1441 keys -
+1444 keys 2
+1447 keys -
+1450 keys 2
+1453 keys -
+1456 keys 2
+1459 keys -
+1462 keys 2
+1465 keys -
+1468 keys 2
+1471 keys -
+1474 keys 2
+1477 keys -
+1480 keys 2
+1483 keys -
+1486 keys 2
+1489 keys -
+1492 keys 2
+1495 keys -
+1498 keys 2
+1500 poke C5A3 0
+1500 poke C5AC 40
+1500 poke C5AE 90
+1500 poke C5BA 0
+1501 poke C5A1 0
+1501 poke C5A9 0
+1501 poke C5AA 0
+1501 poke C5B7 0
+1501 keys -
+1502 poke C5B8 0
+1502 poke C5B6 0
+1502 poke C5AF 0
+1502 poke C5B0 0
+1503 poke C5B1 0
+1503 poke C5B2 0
+1503 poke C5A5 1
+1504 poke C5A0 42
+1504 keys 2
+1507 keys -
+1510 keys 2
+1513 keys -
+1516 keys 2
+1519 keys -
+1522 keys 2
+1525 keys -
+1528 keys 2
+1531 keys -
+1534 keys 2
+1537 keys -
+1540 keys 2
+1543 keys -
+1546 keys 2
+1549 keys -
+1552 keys 2
+1555 keys -
+1558 keys 2
+1561 keys -
+1564 keys 2
+1567 keys -
+1570 keys 2
+1573 keys -
+1576 keys 2
+1579 keys -
+1582 keys 2
+1585 keys -
+1588 keys 2
+1591 keys -
+1594 keys 2
+1597 keys -
+1600 keys 2
+1603 keys -
+1606 keys 2
+1609 keys -
+1612 keys 2
+1615 keys -
+1618 keys 2
+1621 keys -
+1624 keys 2
+1627 keys -
+1630 keys 2
+1633 keys -
+1636 keys 2
+1639 keys -
+1642 keys 2
+1645 keys -
+1648 keys 2
+1651 keys -
+1654 keys 2
+1657 keys -
+1660 keys 2
+1663 keys -
+1666 keys 2
+1669 keys -
+1672 keys 2
+1675 keys -
+1678 keys 2
+1681 keys -
+1684 keys 2
+1687 keys -
+1690 keys 2
+1693 keys -
+1696 keys 2
+1699 keys -
+1702 keys 2
+1705 keys -
+1708 keys 2
+1711 keys -
+1714 keys 2
+1717 keys -
+1720 keys 2
+1723 keys -
+1726 keys 2
+1729 keys -
+1732 keys 2
+1735 keys -
+1738 keys 2
+1741 keys -
+1744 keys 2
+1747 keys -
+1750 keys 2
+1753 keys -
+1756 keys 2
+1759 keys -
+1762 keys 2
+1765 keys -
+1768 keys 2
+1771 keys -
+1774 keys 2
+1777 keys -
+1780 keys 2
+1783 keys -
+1786 keys 2
+1789 keys -
+1792 keys 2
+1795 keys -
+1798 keys 2
+1801 keys -
+1804 keys 2
+1807 keys -
+1810 keys 2
+1813 keys -
+1816 keys 2
+1819 keys -
+1822 keys 2
+1825 keys -
+1828 keys 2
+1831 keys -
+1834 keys 2
+1837 keys -
+1840 keys 2
+1843 keys -
+1846 keys 2
+1849 keys -
+1852 keys 2
+1855 keys -
+1858 keys 2
+1861 keys -
+1864 keys 2
+1867 keys -
+1870 keys 2
+1873 keys -
+1876 keys 2
+1879 keys -
+1882 keys 2
+1885 keys -
+1888 keys 2
+1891 keys -
+1894 keys 2
+1897 keys -
+1900 keys 2
+1903 keys -
+1906 keys 2
+1909 keys -
+1912 keys 2
+1915 keys -
+1918 keys 2
+1921 keys -
+1924 keys 2
+1927 keys -
+1930 keys 2
+1933 keys -
+1936 keys 2
+1939 keys -
+1942 keys 2
+1945 keys -
+1948 keys 2
+1951 keys -
+1954 keys 2
+1957 keys -
+1960 keys 2
+1963 keys -
+1966 keys 2
+1969 keys -
+1972 keys 2
+1975 keys -
+1978 keys 2
+1981 keys -
+1984 keys 2
+1987 keys -
+1990 keys 2
+1993 keys -
+1996 keys 2
+1999 keys -
+2000 keys -

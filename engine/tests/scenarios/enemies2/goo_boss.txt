@@ -1,0 +1,950 @@
+# run: --level 11 --lives --frames 8000
+100 keys 1
+106 keys -
+798 poke C048 1
+800 poke C3A3 3
+800 poke C3AC B0
+800 poke C3AE 90
+800 poke C3BA 0
+801 poke C3A1 0
+801 poke C3A9 0
+801 poke C3AA 0
+802 poke C3A0 1D
+806 poke C317 2
+806 poke C3B7 0
+816 poke C317 2
+816 poke C3B7 0
+826 poke C317 2
+826 poke C3B7 0
+836 poke C317 2
+836 poke C3B7 0
+846 poke C317 2
+846 poke C3B7 0
+856 poke C317 2
+856 poke C3B7 0
+860 keys 2
+863 keys -
+866 poke C317 2
+866 poke C3B7 0
+876 poke C317 2
+876 poke C3B7 0
+886 poke C317 2
+886 poke C3B7 0
+896 poke C317 2
+896 poke C3B7 0
+906 poke C317 2
+906 poke C3B7 0
+910 keys 2
+913 keys -
+916 poke C317 2
+916 poke C3B7 0
+926 poke C317 2
+926 poke C3B7 0
+936 poke C317 2
+936 poke C3B7 0
+946 poke C317 2
+946 poke C3B7 0
+956 poke C317 2
+956 poke C3B7 0
+960 keys 2
+963 keys -
+966 poke C317 2
+966 poke C3B7 0
+976 poke C317 2
+976 poke C3B7 0
+986 poke C317 2
+986 poke C3B7 0
+996 poke C317 2
+996 poke C3B7 0
+1006 poke C317 2
+1006 poke C3B7 0
+1010 keys 2
+1013 keys -
+1016 poke C317 2
+1016 poke C3B7 0
+1026 poke C317 2
+1026 poke C3B7 0
+1036 poke C317 2
+1036 poke C3B7 0
+1046 poke C317 2
+1046 poke C3B7 0
+1056 poke C317 2
+1056 poke C3B7 0
+1060 keys 2
+1063 keys -
+1066 poke C317 2
+1066 poke C3B7 0
+1076 poke C317 2
+1076 poke C3B7 0
+1086 poke C317 2
+1086 poke C3B7 0
+1096 poke C317 2
+1096 poke C3B7 0
+1106 poke C317 2
+1106 poke C3B7 0
+1110 keys 2
+1113 keys -
+1116 poke C317 2
+1116 poke C3B7 0
+1126 poke C317 2
+1126 poke C3B7 0
+1136 poke C317 2
+1136 poke C3B7 0
+1146 poke C317 2
+1146 poke C3B7 0
+1156 poke C317 2
+1156 poke C3B7 0
+1160 keys 2
+1163 keys -
+1166 poke C317 2
+1166 poke C3B7 0
+1176 poke C317 2
+1176 poke C3B7 0
+1186 poke C317 2
+1186 poke C3B7 0
+1196 poke C317 2
+1196 poke C3B7 0
+1206 poke C317 2
+1206 poke C3B7 0
+1210 keys 2
+1213 keys -
+1216 poke C317 2
+1216 poke C3B7 0
+1226 poke C317 2
+1226 poke C3B7 0
+1236 poke C317 2
+1236 poke C3B7 0
+1246 poke C317 2
+1246 poke C3B7 0
+1256 poke C317 2
+1256 poke C3B7 0
+1260 keys 2
+1263 keys -
+1266 poke C317 2
+1266 poke C3B7 0
+1276 poke C317 2
+1276 poke C3B7 0
+1286 poke C317 2
+1286 poke C3B7 0
+1296 poke C317 2
+1296 poke C3B7 0
+1306 poke C317 2
+1306 poke C3B7 0
+1310 keys 2
+1313 keys -
+1316 poke C317 2
+1316 poke C3B7 0
+1326 poke C317 2
+1326 poke C3B7 0
+1336 poke C317 2
+1336 poke C3B7 0
+1346 poke C317 2
+1346 poke C3B7 0
+1356 poke C317 2
+1356 poke C3B7 0
+1360 keys 2
+1363 keys -
+1366 poke C317 2
+1366 poke C3B7 0
+1376 poke C317 2
+1376 poke C3B7 0
+1386 poke C317 2
+1386 poke C3B7 0
+1396 poke C317 2
+1396 poke C3B7 0
+1406 poke C317 2
+1406 poke C3B7 0
+1410 keys 2
+1413 keys -
+1416 poke C317 2
+1416 poke C3B7 0
+1426 poke C317 2
+1426 poke C3B7 0
+1436 poke C317 2
+1436 poke C3B7 0
+1446 poke C317 2
+1446 poke C3B7 0
+1456 poke C317 2
+1456 poke C3B7 0
+1460 keys 2
+1463 keys -
+1466 poke C317 2
+1466 poke C3B7 0
+1476 poke C317 2
+1476 poke C3B7 0
+1486 poke C317 2
+1486 poke C3B7 0
+1496 poke C317 2
+1496 poke C3B7 0
+1506 poke C317 2
+1506 poke C3B7 0
+1510 keys 2
+1513 keys -
+1516 poke C317 2
+1516 poke C3B7 0
+1526 poke C317 2
+1526 poke C3B7 0
+1536 poke C317 2
+1536 poke C3B7 0
+1546 poke C317 2
+1546 poke C3B7 0
+1556 poke C317 2
+1556 poke C3B7 0
+1560 keys 2
+1563 keys -
+1566 poke C317 2
+1566 poke C3B7 0
+1576 poke C317 2
+1576 poke C3B7 0
+1586 poke C317 2
+1586 poke C3B7 0
+1596 poke C317 2
+1596 poke C3B7 0
+1606 poke C317 2
+1606 poke C3B7 0
+1610 keys 2
+1613 keys -
+1616 poke C317 2
+1616 poke C3B7 0
+1626 poke C317 2
+1626 poke C3B7 0
+1636 poke C317 2
+1636 poke C3B7 0
+1646 poke C317 2
+1646 poke C3B7 0
+1656 poke C317 2
+1656 poke C3B7 0
+1660 keys 2
+1663 keys -
+1666 poke C317 2
+1666 poke C3B7 0
+1676 poke C317 2
+1676 poke C3B7 0
+1686 poke C317 2
+1686 poke C3B7 0
+1696 poke C317 2
+1696 poke C3B7 0
+1706 poke C317 2
+1706 poke C3B7 0
+1710 keys 2
+1713 keys -
+1716 poke C317 2
+1716 poke C3B7 0
+1726 poke C317 2
+1726 poke C3B7 0
+1736 poke C317 2
+1736 poke C3B7 0
+1746 poke C317 2
+1746 poke C3B7 0
+1756 poke C317 2
+1756 poke C3B7 0
+1760 keys 2
+1763 keys -
+1766 poke C317 2
+1766 poke C3B7 0
+1776 poke C317 2
+1776 poke C3B7 0
+1786 poke C317 2
+1786 poke C3B7 0
+1796 poke C317 2
+1796 poke C3B7 0
+1806 poke C317 2
+1806 poke C3B7 0
+1810 keys 2
+1813 keys -
+1816 poke C317 2
+1816 poke C3B7 0
+1826 poke C317 2
+1826 poke C3B7 0
+1836 poke C317 2
+1836 poke C3B7 0
+1846 poke C317 2
+1846 poke C3B7 0
+1856 poke C317 2
+1856 poke C3B7 0
+1860 keys 2
+1863 keys -
+1866 poke C317 2
+1866 poke C3B7 0
+1876 poke C317 2
+1876 poke C3B7 0
+1886 poke C317 2
+1886 poke C3B7 0
+1896 poke C317 2
+1896 poke C3B7 0
+1906 poke C317 2
+1906 poke C3B7 0
+1910 keys 2
+1913 keys -
+1916 poke C317 2
+1916 poke C3B7 0
+1926 poke C317 2
+1926 poke C3B7 0
+1936 poke C317 2
+1936 poke C3B7 0
+1946 poke C317 2
+1946 poke C3B7 0
+1956 poke C317 2
+1956 poke C3B7 0
+1960 keys 2
+1963 keys -
+1966 poke C317 2
+1966 poke C3B7 0
+1976 poke C317 2
+1976 poke C3B7 0
+1986 poke C317 2
+1986 poke C3B7 0
+1996 poke C317 2
+1996 poke C3B7 0
+2006 poke C317 2
+2006 poke C3B7 0
+2010 keys 2
+2013 keys -
+2016 poke C317 2
+2016 poke C3B7 0
+2026 poke C317 2
+2026 poke C3B7 0
+2036 poke C317 2
+2036 poke C3B7 0
+2046 poke C317 2
+2046 poke C3B7 0
+2056 poke C317 2
+2056 poke C3B7 0
+2060 keys 2
+2063 keys -
+2066 poke C317 2
+2066 poke C3B7 0
+2076 poke C317 2
+2076 poke C3B7 0
+2086 poke C317 2
+2086 poke C3B7 0
+2096 poke C317 2
+2096 poke C3B7 0
+2106 poke C317 2
+2106 poke C3B7 0
+2110 keys 2
+2113 keys -
+2116 poke C317 2
+2116 poke C3B7 0
+2126 poke C317 2
+2126 poke C3B7 0
+2136 poke C317 2
+2136 poke C3B7 0
+2146 poke C317 2
+2146 poke C3B7 0
+2156 poke C317 2
+2156 poke C3B7 0
+2160 keys 2
+2163 keys -
+2166 poke C317 2
+2166 poke C3B7 0
+2176 poke C317 2
+2176 poke C3B7 0
+2186 poke C317 2
+2186 poke C3B7 0
+2196 poke C317 2
+2196 poke C3B7 0
+2206 poke C317 2
+2206 poke C3B7 0
+2210 keys 2
+2213 keys -
+2216 poke C317 2
+2216 poke C3B7 0
+2226 poke C317 2
+2226 poke C3B7 0
+2236 poke C317 2
+2236 poke C3B7 0
+2246 poke C317 2
+2246 poke C3B7 0
+2256 poke C317 2
+2256 poke C3B7 0
+2260 keys 2
+2263 keys -
+2266 poke C317 2
+2266 poke C3B7 0
+2276 poke C317 2
+2276 poke C3B7 0
+2286 poke C317 2
+2286 poke C3B7 0
+2296 poke C317 2
+2296 poke C3B7 0
+2306 poke C317 2
+2306 poke C3B7 0
+2310 keys 2
+2313 keys -
+2316 poke C317 2
+2316 poke C3B7 0
+2326 poke C317 2
+2326 poke C3B7 0
+2336 poke C317 2
+2336 poke C3B7 0
+2346 poke C317 2
+2346 poke C3B7 0
+2356 poke C317 2
+2356 poke C3B7 0
+2360 keys 2
+2363 keys -
+2366 poke C317 2
+2366 poke C3B7 0
+2376 poke C317 2
+2376 poke C3B7 0
+2386 poke C317 2
+2386 poke C3B7 0
+2396 poke C317 2
+2396 poke C3B7 0
+2406 poke C317 2
+2406 poke C3B7 0
+2410 keys 2
+2413 keys -
+2416 poke C317 2
+2416 poke C3B7 0
+2426 poke C317 2
+2426 poke C3B7 0
+2436 poke C317 2
+2436 poke C3B7 0
+2446 poke C317 2
+2446 poke C3B7 0
+2456 poke C317 2
+2456 poke C3B7 0
+2460 keys 2
+2463 keys -
+2466 poke C317 2
+2466 poke C3B7 0
+2476 poke C317 2
+2476 poke C3B7 0
+2486 poke C317 2
+2486 poke C3B7 0
+2496 poke C317 2
+2496 poke C3B7 0
+2506 poke C317 2
+2506 poke C3B7 0
+2510 keys 2
+2513 keys -
+2516 poke C317 2
+2516 poke C3B7 0
+2526 poke C317 2
+2526 poke C3B7 0
+2536 poke C317 2
+2536 poke C3B7 0
+2546 poke C317 2
+2546 poke C3B7 0
+2556 poke C317 2
+2556 poke C3B7 0
+2560 keys 2
+2563 keys -
+2566 poke C317 2
+2566 poke C3B7 0
+2576 poke C317 2
+2576 poke C3B7 0
+2586 poke C317 2
+2586 poke C3B7 0
+2596 poke C317 2
+2596 poke C3B7 0
+2606 poke C317 2
+2606 poke C3B7 0
+2610 keys 2
+2613 keys -
+2616 poke C317 2
+2616 poke C3B7 0
+2626 poke C317 2
+2626 poke C3B7 0
+2636 poke C317 2
+2636 poke C3B7 0
+2646 poke C317 2
+2646 poke C3B7 0
+2656 poke C317 2
+2656 poke C3B7 0
+2660 keys 2
+2663 keys -
+2666 poke C317 2
+2666 poke C3B7 0
+2676 poke C317 2
+2676 poke C3B7 0
+2686 poke C317 2
+2686 poke C3B7 0
+2696 poke C317 2
+2696 poke C3B7 0
+2706 poke C317 2
+2706 poke C3B7 0
+2710 keys 2
+2713 keys -
+2716 poke C317 2
+2716 poke C3B7 0
+2726 poke C317 2
+2726 poke C3B7 0
+2736 poke C317 2
+2736 poke C3B7 0
+2746 poke C317 2
+2746 poke C3B7 0
+2756 poke C317 2
+2756 poke C3B7 0
+2760 keys 2
+2763 keys -
+2766 poke C317 2
+2766 poke C3B7 0
+2776 poke C317 2
+2776 poke C3B7 0
+2786 poke C317 2
+2786 poke C3B7 0
+2796 poke C317 2
+2796 poke C3B7 0
+2806 poke C317 2
+2806 poke C3B7 0
+2810 keys 2
+2813 keys -
+2816 poke C317 2
+2816 poke C3B7 0
+2826 poke C317 2
+2826 poke C3B7 0
+2836 poke C317 2
+2836 poke C3B7 0
+2846 poke C317 2
+2846 poke C3B7 0
+2856 poke C317 2
+2856 poke C3B7 0
+2860 keys 2
+2863 keys -
+2866 poke C317 2
+2866 poke C3B7 0
+2876 poke C317 2
+2876 poke C3B7 0
+2886 poke C317 2
+2886 poke C3B7 0
+2896 poke C317 2
+2896 poke C3B7 0
+2906 poke C317 2
+2906 poke C3B7 0
+2910 keys 2
+2913 keys -
+2916 poke C317 2
+2916 poke C3B7 0
+2926 poke C317 2
+2926 poke C3B7 0
+2936 poke C317 2
+2936 poke C3B7 0
+2946 poke C317 2
+2946 poke C3B7 0
+2956 poke C317 2
+2956 poke C3B7 0
+2960 keys 2
+2963 keys -
+2966 poke C317 2
+2966 poke C3B7 0
+2976 poke C317 2
+2976 poke C3B7 0
+2986 poke C317 2
+2986 poke C3B7 0
+2996 poke C317 2
+2996 poke C3B7 0
+3006 poke C317 2
+3006 poke C3B7 0
+3010 keys 2
+3013 keys -
+3016 poke C317 2
+3016 poke C3B7 0
+3026 poke C317 2
+3026 poke C3B7 0
+3036 poke C317 2
+3036 poke C3B7 0
+3046 poke C317 2
+3046 poke C3B7 0
+3056 poke C317 2
+3056 poke C3B7 0
+3060 keys 2
+3063 keys -
+3066 poke C317 2
+3066 poke C3B7 0
+3076 poke C317 2
+3076 poke C3B7 0
+3086 poke C317 2
+3086 poke C3B7 0
+3096 poke C317 2
+3096 poke C3B7 0
+3106 poke C317 2
+3106 poke C3B7 0
+3110 keys 2
+3113 keys -
+3116 poke C317 2
+3116 poke C3B7 0
+3126 poke C317 2
+3126 poke C3B7 0
+3136 poke C317 2
+3136 poke C3B7 0
+3146 poke C317 2
+3146 poke C3B7 0
+3156 poke C317 2
+3156 poke C3B7 0
+3160 keys 2
+3163 keys -
+3166 poke C317 2
+3166 poke C3B7 0
+3176 poke C317 2
+3176 poke C3B7 0
+3186 poke C317 2
+3186 poke C3B7 0
+3196 poke C317 2
+3196 poke C3B7 0
+3206 poke C317 2
+3206 poke C3B7 0
+3210 keys 2
+3213 keys -
+3216 poke C317 2
+3216 poke C3B7 0
+3226 poke C317 2
+3226 poke C3B7 0
+3236 poke C317 2
+3236 poke C3B7 0
+3246 poke C317 2
+3246 poke C3B7 0
+3256 poke C317 2
+3256 poke C3B7 0
+3260 keys 2
+3263 keys -
+3266 poke C317 2
+3266 poke C3B7 0
+3276 poke C317 2
+3276 poke C3B7 0
+3286 poke C317 2
+3286 poke C3B7 0
+3296 poke C317 2
+3296 poke C3B7 0
+3306 poke C317 2
+3306 poke C3B7 0
+3310 keys 2
+3313 keys -
+3316 poke C317 2
+3316 poke C3B7 0
+3326 poke C317 2
+3326 poke C3B7 0
+3336 poke C317 2
+3336 poke C3B7 0
+3346 poke C317 2
+3346 poke C3B7 0
+3356 poke C317 2
+3356 poke C3B7 0
+3360 keys 2
+3363 keys -
+3366 poke C317 2
+3366 poke C3B7 0
+3376 poke C317 2
+3376 poke C3B7 0
+3386 poke C317 2
+3386 poke C3B7 0
+3396 poke C317 2
+3396 poke C3B7 0
+3400 keys -
+3405 keys R
+3419 keys L
+3443 keys R2
+3454 keys 1
+3463 keys 1
+3467 keys 1
+3491 keys L
+3507 keys U2
+3522 keys D2
+3541 keys L2
+3561 keys R12
+3580 keys R2
+3584 keys -
+3598 keys R12
+3611 keys 12
+3627 keys L12
+3635 keys L12
+3643 keys 2
+3653 keys -
+3661 keys L2
+3669 keys L
+3688 keys L12
+3702 keys L12
+3726 keys L12
+3734 keys R12
+3750 keys D2
+3769 keys L2
+3790 keys L2
+3804 keys R12
+3812 keys 12
+3837 keys D2
+3854 keys U2
+3873 keys 2
+3891 keys R2
+3909 keys L12
+3928 keys L2
+3952 keys R12
+3969 keys L2
+3990 keys D2
+4010 keys D2
+4027 keys R12
+4051 keys 2
+4064 keys D2
+4072 keys 1
+4083 keys R12
+4095 keys R2
+4120 keys L12
+4140 keys L12
+4159 keys U2
+4181 keys 1
+4197 keys R2
+4206 keys R12
+4225 keys L2
+4249 keys 1
+4254 keys L2
+4257 keys 2
+4263 keys -
+4284 keys U2
+4288 keys R2
+4309 keys 2
+4333 keys R
+4352 keys L
+4363 keys 2
+4372 keys -
+4388 keys D2
+4392 keys -
+4406 keys L2
+4414 keys 2
+4438 keys -
+4443 keys R
+4448 keys -
+4452 keys D2
+4455 keys L2
+4466 keys L
+4474 keys D2
+4482 keys L12
+4507 keys -
+4522 keys 1
+4526 keys 2
+4533 keys -
+4536 keys L2
+4558 keys U2
+4564 keys R2
+4577 keys R12
+4580 keys R2
+4597 keys L12
+4619 keys D2
+4623 keys R2
+4638 keys 1
+4663 keys L
+4681 keys 2
+4686 keys U2
+4710 keys L2
+4716 keys -
+4733 keys L
+4752 keys 1
+4767 keys R12
+4786 keys L2
+4793 keys L2
+4804 keys R2
+4826 keys 12
+4849 keys -
+4874 keys L12
+4881 keys U2
+4885 keys R2
+4889 keys L
+4897 keys L
+4903 keys R12
+4926 keys 2
+4945 keys D2
+4949 keys 2
+4959 keys D2
+4976 keys R
+4987 keys R
+5008 keys 2
+5030 keys 1
+5055 keys L2
+5066 keys U2
+5082 keys R2
+5101 keys -
+5108 keys -
+5123 keys 12
+5131 keys R
+5150 keys D2
+5155 keys 2
+5161 keys R
+5164 keys L
+5174 keys R
+5183 keys -
+5202 keys U2
+5219 keys R12
+5231 keys L12
+5254 keys 12
+5263 keys U2
+5272 keys D2
+5288 keys 12
+5307 keys -
+5328 keys 1
+5332 keys 12
+5351 keys 1
+5359 keys R
+5383 keys R12
+5397 keys -
+5416 keys R
+5438 keys L2
+5450 keys D2
+5464 keys R2
+5467 keys U2
+5483 keys R
+5489 keys R2
+5498 keys U2
+5501 keys R12
+5505 keys 12
+5528 keys R12
+5545 keys 2
+5566 keys 1
+5571 keys -
+5583 keys -
+5597 keys R2
+5602 keys 2
+5620 keys 2
+5626 keys 1
+5640 keys 12
+5665 keys R12
+5672 keys L2
+5687 keys R
+5698 keys R
+5704 keys R
+5726 keys L2
+5749 keys 12
+5758 keys D2
+5764 keys -
+5786 keys U2
+5804 keys -
+5829 keys R12
+5841 keys L2
+5858 keys L
+5872 keys R2
+5890 keys L12
+5908 keys D2
+5924 keys R12
+5948 keys R2
+5963 keys 2
+5971 keys R12
+5993 keys R2
+6013 keys 12
+6038 keys U2
+6063 keys R
+6084 keys D2
+6105 keys R
+6110 keys L2
+6118 keys L12
+6125 keys 12
+6130 keys R
+6154 keys U2
+6158 keys L
+6170 keys 12
+6180 keys D2
+6204 keys U2
+6217 keys R12
+6225 keys L12
+6237 keys R
+6244 keys L12
+6260 keys R
+6273 keys L12
+6283 keys D2
+6302 keys R2
+6310 keys L
+6327 keys D2
+6337 keys 12
+6351 keys 1
+6358 keys R12
+6375 keys D2
+6378 keys 1
+6393 keys D2
+6401 keys 12
+6420 keys -
+6438 keys R2
+6453 keys R2
+6478 keys D2
+6494 keys D2
+6517 keys R12
+6531 keys L12
+6544 keys D2
+6568 keys R
+6578 keys L12
+6600 keys 2
+6615 keys U2
+6630 keys U2
+6633 keys L2
+6650 keys L12
+6675 keys R12
+6698 keys L
+6704 keys -
+6719 keys 2
+6740 keys 1
+6755 keys 2
+6761 keys 12
+6781 keys 2
+6792 keys D2
+6813 keys 1
+6822 keys R12
+6844 keys L
+6847 keys 1
+6871 keys 12
+6889 keys R2
+6908 keys 1
+6916 keys R12
+6941 keys 2
+6946 keys L2
+6949 keys R12
+6969 keys U2
+6993 keys R
+7014 keys R12
+7038 keys L2
+7055 keys R2
+7074 keys R12
+7077 keys R
+7099 keys L2
+7107 keys 12
+7118 keys U2
+7141 keys D2
+7148 keys -
+7156 keys R12
+7171 keys R12
+7195 keys R2
+7202 keys -
+7214 keys L12
+7231 keys -
+7245 keys -
+7265 keys 12
+7286 keys R12
+7295 keys U2
+7307 keys R12
+7330 keys L
+7348 keys D2
+7368 keys D2
+7380 keys R
+7391 keys L2
+7403 keys L2
+7426 keys R2
+7449 keys U2
+7464 keys L12
+7469 keys L12
+7492 keys 2
+7507 keys 1
+7526 keys L
+7545 keys U2
+7550 keys R2
+7554 keys 2
+7571 keys L12
+7581 keys L12
+7592 keys -
+7598 keys R
+7622 keys 12
+7636 keys 2
+7649 keys L2
+7654 keys L2
+7671 keys L2
+7679 keys R12
+7696 keys R2
+7713 keys L
+7738 keys R12
+7761 keys 2
+7772 keys L2
+7780 keys R
+7790 keys R12
+7799 keys U2
+7813 keys L
+7827 keys L
+7834 keys 2
+7845 keys L12
+7868 keys 12
+7883 keys D2
+7896 keys R2

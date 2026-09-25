@@ -1,0 +1,590 @@
+# run: --level 8 --frames 2406 --lives
+100 keys 1
+106 keys -
+700 poke C05A FF
+700 poke C05B 10
+700 poke C054 02
+701 poke C5A0 00
+702 poke C5A1 00
+702 poke C5A2 00
+702 poke C5A3 00
+702 poke C5A4 00
+703 poke C5A5 01
+703 poke C5A6 00
+703 poke C5A7 00
+703 poke C5A8 00
+704 poke C5A9 00
+704 poke C5AA 00
+704 poke C5AB 00
+704 poke C5AC 00
+705 poke C5AD 00
+705 poke C5AE 00
+705 poke C5AF 00
+705 poke C5B0 00
+706 poke C5B1 00
+706 poke C5B2 00
+706 poke C5B3 00
+706 poke C5B4 00
+707 poke C5B5 00
+707 poke C5B6 00
+707 poke C5B7 00
+707 poke C5B8 00
+708 poke C5B9 00
+708 poke C5BA 00
+708 poke C5BB 00
+708 poke C5BC 00
+709 poke C5BD 00
+709 poke C5BE 00
+709 poke C5BF 00
+709 poke C5AC 30
+710 poke C5AE 88
+710 poke C5BF 30
+710 poke C5BE 88
+710 poke C5B6 00
+711 poke C5A3 02
+712 poke C5A0 24
+713 poke C5C0 00
+714 poke C5C1 00
+714 poke C5C2 00
+714 poke C5C3 00
+714 poke C5C4 00
+715 poke C5C5 01
+715 poke C5C6 00
+715 poke C5C7 00
+715 poke C5C8 00
+716 poke C5C9 00
+716 poke C5CA 00
+716 poke C5CB 00
+716 poke C5CC 00
+717 poke C5CD 00
+717 poke C5CE 00
+717 poke C5CF 00
+717 poke C5D0 00
+718 poke C5D1 00
+718 poke C5D2 00
+718 poke C5D3 00
+718 poke C5D4 00
+719 poke C5D5 00
+719 poke C5D6 00
+719 poke C5D7 00
+719 poke C5D8 00
+720 poke C5D9 00
+720 poke C5DA 00
+720 poke C5DB 00
+720 poke C5DC 00
+721 poke C5DD 00
+721 poke C5DE 00
+721 poke C5DF 00
+721 poke C5CC 30
+722 poke C5CE 88
+722 poke C5D5 01
+722 poke C5DF 30
+722 poke C5DE 88
+723 poke C5C3 02
+723 poke C05A FF
+723 poke C05B 10
+723 poke C054 02
+724 poke C5C0 24
+725 poke C5E0 00
+726 poke C5E1 00
+726 poke C5E2 00
+726 poke C5E3 00
+726 poke C5E4 00
+727 poke C5E5 01
+727 poke C5E6 00
+727 poke C5E7 00
+727 poke C5E8 00
+728 poke C5E9 00
+728 poke C5EA 00
+728 poke C5EB 00
+728 poke C5EC 00
+729 poke C5ED 00
+729 poke C5EE 00
+729 poke C5EF 00
+729 poke C5F0 00
+730 poke C5F1 00
+730 poke C5F2 00
+730 poke C5F3 00
+730 poke C5F4 00
+731 poke C5F5 00
+731 poke C5F6 00
+731 poke C5F7 00
+731 poke C5F8 00
+732 poke C5F9 00
+732 poke C5FA 00
+732 poke C5FB 00
+732 poke C5FC 00
+733 poke C5FD 00
+733 poke C5FE 00
+733 poke C5FF 00
+733 poke C5EC 30
+734 poke C5EE 88
+734 poke C5F5 01
+734 poke C5FF 30
+734 poke C5FE 88
+735 poke C5E3 02
+736 poke C5E0 24
+743 keys 2
+747 keys -
+755 keys 2
+759 keys -
+767 keys 2
+771 keys -
+779 keys 2
+783 keys -
+791 keys 2
+795 keys -
+803 keys 2
+807 keys -
+815 keys 2
+819 keys -
+827 keys 2
+831 keys -
+839 keys 2
+843 keys -
+851 keys 2
+855 keys -
+863 keys 2
+867 keys -
+870 poke C05A FF
+870 poke C05B 10
+870 poke C054 02
+875 keys 2
+879 keys -
+887 keys 2
+891 keys -
+899 keys 2
+903 keys -
+911 keys 2
+915 keys -
+923 keys 2
+927 keys -
+935 keys 2
+939 keys -
+947 keys 2
+951 keys -
+959 keys 2
+963 keys -
+971 keys 2
+975 keys -
+983 keys 2
+987 keys -
+995 keys 2
+999 keys -
+1007 keys 2
+1011 keys -
+1019 keys 2
+1020 poke C05A FF
+1020 poke C05B 10
+1020 poke C054 02
+1023 keys -
+1031 keys 2
+1035 keys -
+1039 keys R2
+1057 keys R
+1077 keys L
+1097 keys L21
+1109 keys L2
+1132 keys L
+1151 keys L
+1164 keys L2
+1170 poke C05A FF
+1170 poke C05B 10
+1170 poke C054 02
+1175 keys R
+1182 keys R2
+1193 keys L
+1219 keys L2
+1234 keys R2
+1253 keys -
+1253 poke C05A FF
+1253 poke C05B 10
+1253 poke C054 02
+1254 poke C5A0 00
+1255 poke C5A1 00
+1255 poke C5A2 00
+1255 poke C5A3 00
+1255 poke C5A4 00
+1256 poke C5A5 01
+1256 poke C5A6 00
+1256 poke C5A7 00
+1256 poke C5A8 00
+1257 poke C5A9 00
+1257 poke C5AA 00
+1257 poke C5AB 00
+1257 poke C5AC 00
+1258 poke C5AD 00
+1258 poke C5AE 00
+1258 poke C5AF 00
+1258 poke C5B0 00
+1259 poke C5B1 00
+1259 poke C5B2 00
+1259 poke C5B3 00
+1259 poke C5B4 00
+1260 poke C5B5 00
+1260 poke C5B6 00
+1260 poke C5B7 00
+1260 poke C5B8 00
+1261 poke C5B9 00
+1261 poke C5BA 00
+1261 poke C5BB 00
+1261 poke C5BC 00
+1262 poke C5BD 00
+1262 poke C5BE 00
+1262 poke C5BF 00
+1262 poke C5AC 30
+1263 poke C5AE 88
+1263 poke C5BF 30
+1263 poke C5BE 88
+1263 poke C5B6 04
+1264 poke C5A3 00
+1265 poke C5A0 24
+1266 poke C5C0 00
+1267 poke C5C1 00
+1267 poke C5C2 00
+1267 poke C5C3 00
+1267 poke C5C4 00
+1268 poke C5C5 01
+1268 poke C5C6 00
+1268 poke C5C7 00
+1268 poke C5C8 00
+1269 poke C5C9 00
+1269 poke C5CA 00
+1269 poke C5CB 00
+1269 poke C5CC 00
+1270 poke C5CD 00
+1270 poke C5CE 00
+1270 poke C5CF 00
+1270 poke C5D0 00
+1271 poke C5D1 00
+1271 poke C5D2 00
+1271 poke C5D3 00
+1271 poke C5D4 00
+1272 poke C5D5 00
+1272 poke C5D6 00
+1272 poke C5D7 00
+1272 poke C5D8 00
+1273 poke C5D9 00
+1273 poke C5DA 00
+1273 poke C5DB 00
+1273 poke C5DC 00
+1274 poke C5DD 00
+1274 poke C5DE 00
+1274 poke C5DF 00
+1274 poke C5CC 30
+1275 poke C5CE 88
+1275 poke C5D5 01
+1275 poke C5DF 30
+1275 poke C5DE 88
+1276 poke C5C3 01
+1277 poke C5C0 24
+1278 poke C5E0 00
+1279 poke C5E1 00
+1279 poke C5E2 00
+1279 poke C5E3 00
+1279 poke C5E4 00
+1280 poke C5E5 01
+1280 poke C5E6 00
+1280 poke C5E7 00
+1280 poke C5E8 00
+1281 poke C5E9 00
+1281 poke C5EA 00
+1281 poke C5EB 00
+1281 poke C5EC 00
+1282 poke C5ED 00
+1282 poke C5EE 00
+1282 poke C5EF 00
+1282 poke C5F0 00
+1283 poke C5F1 00
+1283 poke C5F2 00
+1283 poke C5F3 00
+1283 poke C5F4 00
+1284 poke C5F5 00
+1284 poke C5F6 00
+1284 poke C5F7 00
+1284 poke C5F8 00
+1285 poke C5F9 00
+1285 poke C5FA 00
+1285 poke C5FB 00
+1285 poke C5FC 00
+1286 poke C5FD 00
+1286 poke C5FE 00
+1286 poke C5FF 00
+1286 poke C5EC 30
+1287 poke C5EE 88
+1287 poke C5F5 01
+1287 poke C5FF 30
+1287 poke C5FE 88
+1288 poke C5E3 01
+1289 poke C5E0 24
+1296 keys 2
+1300 keys -
+1308 keys 2
+1312 keys -
+1320 keys 2
+1320 poke C05A FF
+1320 poke C05B 10
+1320 poke C054 02
+1324 keys -
+1332 keys 2
+1336 keys -
+1344 keys 2
+1348 keys -
+1356 keys 2
+1360 keys -
+1368 keys 2
+1372 keys -
+1380 keys 2
+1384 keys -
+1392 keys 2
+1396 keys -
+1404 keys 2
+1408 keys -
+1416 keys 2
+1420 keys -
+1428 keys 2
+1432 keys -
+1440 keys 2
+1444 keys -
+1452 keys 2
+1456 keys -
+1464 keys 2
+1468 keys -
+1470 poke C05A FF
+1470 poke C05B 10
+1470 poke C054 02
+1476 keys 2
+1480 keys -
+1488 keys 2
+1492 keys -
+1500 keys 2
+1504 keys -
+1512 keys 2
+1516 keys -
+1524 keys 2
+1528 keys -
+1536 keys 2
+1540 keys -
+1548 keys 2
+1552 keys -
+1560 keys 2
+1564 keys -
+1572 keys 2
+1576 keys -
+1584 keys 2
+1588 keys -
+1592 keys L2
+1617 keys L
+1620 poke C05A FF
+1620 poke C05B 10
+1620 poke C054 02
+1646 keys R2
+1653 keys L2
+1660 keys L
+1667 keys R2
+1693 keys R
+1697 keys R2
+1707 keys L
+1719 keys L
+1738 keys R
+1747 keys R21
+1770 poke C05A FF
+1770 poke C05B 10
+1770 poke C054 02
+1773 keys L2
+1795 keys -
+1795 poke C05A FF
+1795 poke C05B 10
+1795 poke C054 02
+1796 poke C5A0 00
+1797 poke C5A1 00
+1797 poke C5A2 00
+1797 poke C5A3 00
+1797 poke C5A4 00
+1798 poke C5A5 01
+1798 poke C5A6 00
+1798 poke C5A7 00
+1798 poke C5A8 00
+1799 poke C5A9 00
+1799 poke C5AA 00
+1799 poke C5AB 00
+1799 poke C5AC 00
+1800 poke C5AD 00
+1800 poke C5AE 00
+1800 poke C5AF 00
+1800 poke C5B0 00
+1801 poke C5B1 00
+1801 poke C5B2 00
+1801 poke C5B3 00
+1801 poke C5B4 00
+1802 poke C5B5 00
+1802 poke C5B6 00
+1802 poke C5B7 00
+1802 poke C5B8 00
+1803 poke C5B9 00
+1803 poke C5BA 00
+1803 poke C5BB 00
+1803 poke C5BC 00
+1804 poke C5BD 00
+1804 poke C5BE 00
+1804 poke C5BF 00
+1804 poke C5AC 30
+1805 poke C5AE 88
+1805 poke C5BF 30
+1805 poke C5BE 88
+1805 poke C5B6 08
+1806 poke C5A3 02
+1807 poke C5A0 24
+1808 poke C5C0 00
+1809 poke C5C1 00
+1809 poke C5C2 00
+1809 poke C5C3 00
+1809 poke C5C4 00
+1810 poke C5C5 01
+1810 poke C5C6 00
+1810 poke C5C7 00
+1810 poke C5C8 00
+1811 poke C5C9 00
+1811 poke C5CA 00
+1811 poke C5CB 00
+1811 poke C5CC 00
+1812 poke C5CD 00
+1812 poke C5CE 00
+1812 poke C5CF 00
+1812 poke C5D0 00
+1813 poke C5D1 00
+1813 poke C5D2 00
+1813 poke C5D3 00
+1813 poke C5D4 00
+1814 poke C5D5 00
+1814 poke C5D6 00
+1814 poke C5D7 00
+1814 poke C5D8 00
+1815 poke C5D9 00
+1815 poke C5DA 00
+1815 poke C5DB 00
+1815 poke C5DC 00
+1816 poke C5DD 00
+1816 poke C5DE 00
+1816 poke C5DF 00
+1816 poke C5CC 30
+1817 poke C5CE 88
+1817 poke C5D5 01
+1817 poke C5DF 30
+1817 poke C5DE 88
+1818 poke C5C3 02
+1819 poke C5C0 24
+1820 poke C5E0 00
+1821 poke C5E1 00
+1821 poke C5E2 00
+1821 poke C5E3 00
+1821 poke C5E4 00
+1822 poke C5E5 01
+1822 poke C5E6 00
+1822 poke C5E7 00
+1822 poke C5E8 00
+1823 poke C5E9 00
+1823 poke C5EA 00
+1823 poke C5EB 00
+1823 poke C5EC 00
+1824 poke C5ED 00
+1824 poke C5EE 00
+1824 poke C5EF 00
+1824 poke C5F0 00
+1825 poke C5F1 00
+1825 poke C5F2 00
+1825 poke C5F3 00
+1825 poke C5F4 00
+1826 poke C5F5 00
+1826 poke C5F6 00
+1826 poke C5F7 00
+1826 poke C5F8 00
+1827 poke C5F9 00
+1827 poke C5FA 00
+1827 poke C5FB 00
+1827 poke C5FC 00
+1828 poke C5FD 00
+1828 poke C5FE 00
+1828 poke C5FF 00
+1828 poke C5EC 30
+1829 poke C5EE 88
+1829 poke C5F5 01
+1829 poke C5FF 30
+1829 poke C5FE 88
+1830 poke C5E3 02
+1831 poke C5E0 24
+1838 keys 2
+1842 keys -
+1850 keys 2
+1854 keys -
+1862 keys 2
+1866 keys -
+1874 keys 2
+1878 keys -
+1886 keys 2
+1890 keys -
+1898 keys 2
+1902 keys -
+1910 keys 2
+1914 keys -
+1920 poke C05A FF
+1920 poke C05B 10
+1920 poke C054 02
+1922 keys 2
+1926 keys -
+1934 keys 2
+1938 keys -
+1946 keys 2
+1950 keys -
+1958 keys 2
+1962 keys -
+1970 keys 2
+1974 keys -
+1982 keys 2
+1986 keys -
+1994 keys 2
+1998 keys -
+2006 keys 2
+2010 keys -
+2018 keys 2
+2022 keys -
+2030 keys 2
+2034 keys -
+2042 keys 2
+2046 keys -
+2054 keys 2
+2058 keys -
+2066 keys 2
+2070 keys -
+2070 poke C05A FF
+2070 poke C05B 10
+2070 poke C054 02
+2078 keys 2
+2082 keys -
+2090 keys 2
+2094 keys -
+2102 keys 2
+2106 keys -
+2114 keys 2
+2118 keys -
+2126 keys 2
+2130 keys -
+2134 keys L2
+2162 keys L1
+2172 keys L2
+2191 keys R2
+2200 keys L21
+2220 poke C05A FF
+2220 poke C05B 10
+2220 poke C054 02
+2227 keys L2
+2245 keys L2
+2273 keys L21
+2301 keys R
+2308 keys L21
+2315 keys R
+2327 keys L
+2356 keys -
+2370 poke C05A FF
+2370 poke C05B 10
+2370 poke C054 02

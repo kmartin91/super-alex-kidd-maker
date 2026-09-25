@@ -1,0 +1,10 @@
+# run: --level 17 --lives --frames 1100
+# hatch to the right of Alex; door tile at the screen edge (level 17 start x=$10)
+100 keys 1
+106 keys -
+600 poke CC86 70
+600 poke CC87 60
+610 keys U
+640 keys -
+700 poke C069 80
+701 poke C31A 11

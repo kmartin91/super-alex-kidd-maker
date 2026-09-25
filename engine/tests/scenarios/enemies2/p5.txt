@@ -1,0 +1,5 @@
+# run: --frames 1400
+100 keys 1
+106 keys -
+800 peek C0F8 3
+800 peek C560 20

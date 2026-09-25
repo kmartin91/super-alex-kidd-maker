@@ -1,0 +1,507 @@
+# run: --frames 9602
+100 keys 1
+106 keys -
+700 poke C3A3 01
+700 poke C3AC 80
+700 poke C3AE 98
+701 poke C3BA 00
+701 poke C3A9 00
+701 poke C3AA 00
+702 poke C3A0 1C
+800 peek C3A0 20
+800 peek C01F 1
+800 peek C31A 1
+1000 keys U
+1000 peek C3A0 20
+1000 peek C01F 1
+1000 peek C31A 1
+1004 keys -
+1043 keys 1
+1047 keys -
+1086 keys U
+1090 keys -
+1129 keys 1
+1133 keys -
+1172 keys U
+1176 keys -
+1200 peek C3A0 20
+1200 peek C01F 1
+1200 peek C31A 1
+1215 keys 1
+1219 keys -
+1258 keys U
+1262 keys -
+1301 keys 1
+1305 keys -
+1344 keys U
+1348 keys -
+1387 keys 1
+1391 keys -
+1400 peek C3A0 20
+1400 peek C01F 1
+1400 peek C31A 1
+1430 keys U
+1434 keys -
+1473 keys 1
+1477 keys -
+1516 keys U
+1520 keys -
+1559 keys 1
+1563 keys -
+1600 peek C3A0 20
+1600 peek C01F 1
+1600 peek C31A 1
+1602 keys U
+1606 keys -
+1645 keys 1
+1649 keys -
+1688 keys U
+1692 keys -
+1731 keys 1
+1735 keys -
+1774 keys U
+1778 keys -
+1800 peek C3A0 20
+1800 peek C01F 1
+1800 peek C31A 1
+1817 keys 1
+1821 keys -
+1860 keys U
+1864 keys -
+1903 keys 1
+1907 keys -
+1946 keys U
+1950 keys -
+1989 keys 1
+1993 keys -
+2000 peek C3A0 20
+2000 peek C01F 1
+2000 peek C31A 1
+2032 keys U
+2036 keys -
+2075 keys 1
+2079 keys -
+2118 keys U
+2122 keys -
+2161 keys 1
+2165 keys -
+2200 peek C3A0 20
+2200 peek C01F 1
+2200 peek C31A 1
+2204 keys U
+2208 keys -
+2247 keys 1
+2251 keys -
+2290 keys U
+2294 keys -
+2333 keys 1
+2337 keys -
+2376 keys U
+2380 keys -
+2400 peek C3A0 20
+2400 peek C01F 1
+2400 peek C31A 1
+2419 keys 1
+2423 keys -
+2462 keys U
+2466 keys -
+2505 keys 1
+2509 keys -
+2548 keys U
+2552 keys -
+2591 keys 1
+2595 keys -
+2600 peek C3A0 20
+2600 peek C01F 1
+2600 peek C31A 1
+2634 keys U
+2638 keys -
+2677 keys 1
+2681 keys -
+2720 keys U
+2724 keys -
+2763 keys 1
+2767 keys -
+2800 peek C3A0 20
+2800 peek C01F 1
+2800 peek C31A 1
+2806 keys U
+2810 keys -
+2849 keys 1
+2853 keys -
+2892 keys U
+2896 keys -
+2935 keys 1
+2939 keys -
+2978 keys U
+2982 keys -
+3000 peek C3A0 20
+3000 peek C01F 1
+3000 peek C31A 1
+3021 keys 1
+3025 keys -
+3064 keys U
+3068 keys -
+3107 keys 1
+3111 keys -
+3150 keys U
+3154 keys -
+3193 keys 1
+3197 keys -
+3200 peek C3A0 20
+3200 peek C01F 1
+3200 peek C31A 1
+3236 keys U
+3240 keys -
+3279 keys 1
+3283 keys -
+3322 keys U
+3326 keys -
+3365 keys 1
+3369 keys -
+3400 peek C3A0 20
+3400 peek C01F 1
+3400 peek C31A 1
+3408 keys U
+3412 keys -
+3451 keys 1
+3455 keys -
+3494 keys U
+3498 keys -
+3537 keys 1
+3541 keys -
+3580 keys U
+3584 keys -
+3600 peek C3A0 20
+3600 peek C01F 1
+3600 peek C31A 1
+3623 keys 1
+3627 keys -
+3666 keys U
+3670 keys -
+3709 keys 1
+3713 keys -
+3752 keys U
+3756 keys -
+3795 keys 1
+3799 keys -
+3800 peek C3A0 20
+3800 peek C01F 1
+3800 peek C31A 1
+3838 keys U
+3842 keys -
+3881 keys 1
+3885 keys -
+3924 keys U
+3928 keys -
+3967 keys 1
+3971 keys -
+4000 peek C3A0 20
+4000 peek C01F 1
+4000 peek C31A 1
+4010 keys U
+4014 keys -
+4053 keys 1
+4057 keys -
+4096 keys U
+4100 keys -
+4139 keys 1
+4143 keys -
+4182 keys U
+4186 keys -
+4200 peek C3A0 20
+4200 peek C01F 1
+4200 peek C31A 1
+4225 keys 1
+4229 keys -
+4268 keys U
+4272 keys -
+4311 keys 1
+4315 keys -
+4354 keys U
+4358 keys -
+4397 keys 1
+4400 peek C3A0 20
+4400 peek C01F 1
+4400 peek C31A 1
+4401 keys -
+4440 keys U
+4444 keys -
+4483 keys 1
+4487 keys -
+4526 keys U
+4530 keys -
+4569 keys 1
+4573 keys -
+4600 peek C3A0 20
+4600 peek C01F 1
+4600 peek C31A 1
+4612 keys U
+4616 keys -
+4655 keys 1
+4659 keys -
+4698 keys U
+4702 keys -
+4741 keys 1
+4745 keys -
+4784 keys U
+4788 keys -
+4800 peek C3A0 20
+4800 peek C01F 1
+4800 peek C31A 1
+4827 keys 1
+4831 keys -
+4870 keys U
+4874 keys -
+4913 keys 1
+4917 keys -
+4956 keys U
+4960 keys -
+4999 keys 1
+5000 peek C3A0 20
+5000 peek C01F 1
+5000 peek C31A 1
+5003 keys -
+5042 keys U
+5046 keys -
+5085 keys 1
+5089 keys -
+5128 keys U
+5132 keys -
+5171 keys 1
+5175 keys -
+5200 peek C3A0 20
+5200 peek C01F 1
+5200 peek C31A 1
+5214 keys U
+5218 keys -
+5257 keys 1
+5261 keys -
+5300 keys U
+5304 keys -
+5343 keys 1
+5347 keys -
+5386 keys U
+5390 keys -
+5400 peek C3A0 20
+5400 peek C01F 1
+5400 peek C31A 1
+5429 keys 1
+5433 keys -
+5472 keys U
+5476 keys -
+5515 keys 1
+5519 keys -
+5558 keys U
+5562 keys -
+5600 peek C3A0 20
+5600 peek C01F 1
+5600 peek C31A 1
+5601 keys 1
+5605 keys -
+5644 keys U
+5648 keys -
+5687 keys 1
+5691 keys -
+5730 keys U
+5734 keys -
+5773 keys 1
+5777 keys -
+5800 peek C3A0 20
+5800 peek C01F 1
+5800 peek C31A 1
+5816 keys U
+5820 keys -
+5859 keys 1
+5863 keys -
+5902 keys U
+5906 keys -
+5945 keys 1
+5949 keys -
+5988 keys U
+5992 keys -
+6000 peek C3A0 20
+6000 peek C01F 1
+6000 peek C31A 1
+6031 keys 1
+6035 keys -
+6074 keys U
+6078 keys -
+6117 keys 1
+6121 keys -
+6160 keys U
+6164 keys -
+6200 peek C3A0 20
+6200 peek C01F 1
+6200 peek C31A 1
+6203 keys 1
+6207 keys -
+6246 keys U
+6250 keys -
+6289 keys 1
+6293 keys -
+6332 keys U
+6336 keys -
+6375 keys 1
+6379 keys -
+6400 peek C3A0 20
+6400 peek C01F 1
+6400 peek C31A 1
+6418 keys U
+6422 keys -
+6461 keys 1
+6465 keys -
+6504 keys U
+6508 keys -
+6547 keys 1
+6551 keys -
+6590 keys U
+6594 keys -
+6600 peek C3A0 20
+6600 peek C01F 1
+6600 peek C31A 1
+6633 keys 1
+6637 keys -
+6676 keys U
+6680 keys -
+6719 keys 1
+6723 keys -
+6762 keys U
+6766 keys -
+6800 peek C3A0 20
+6800 peek C01F 1
+6800 peek C31A 1
+6805 keys 1
+6809 keys -
+6848 keys U
+6852 keys -
+6891 keys 1
+6895 keys -
+6934 keys U
+6938 keys -
+6977 keys 1
+6981 keys -
+7000 peek C3A0 20
+7000 peek C01F 1
+7000 peek C31A 1
+7020 keys U
+7024 keys -
+7063 keys 1
+7067 keys -
+7106 keys U
+7110 keys -
+7149 keys 1
+7153 keys -
+7192 keys U
+7196 keys -
+7200 peek C3A0 20
+7200 peek C01F 1
+7200 peek C31A 1
+7235 keys 1
+7239 keys -
+7278 keys U
+7282 keys -
+7321 keys 1
+7325 keys -
+7364 keys U
+7368 keys -
+7400 peek C3A0 20
+7400 peek C01F 1
+7400 peek C31A 1
+7407 keys 1
+7411 keys -
+7450 keys U
+7454 keys -
+7493 keys 1
+7497 keys -
+7536 keys U
+7540 keys -
+7579 keys 1
+7583 keys -
+7600 peek C3A0 20
+7600 peek C01F 1
+7600 peek C31A 1
+7622 keys U
+7626 keys -
+7665 keys 1
+7669 keys -
+7708 keys U
+7712 keys -
+7751 keys 1
+7755 keys -
+7794 keys U
+7798 keys -
+7800 peek C3A0 20
+7800 peek C01F 1
+7800 peek C31A 1
+7837 keys 1
+7841 keys -
+7880 keys U
+7884 keys -
+7923 keys 1
+7927 keys -
+7966 keys U
+7970 keys -
+8000 peek C3A0 20
+8000 peek C01F 1
+8000 peek C31A 1
+8009 keys 1
+8013 keys -
+8052 keys U
+8056 keys -
+8095 keys 1
+8099 keys -
+8138 keys U
+8142 keys -
+8181 keys 1
+8185 keys -
+8200 peek C3A0 20
+8200 peek C01F 1
+8200 peek C31A 1
+8224 keys U
+8228 keys -
+8267 keys 1
+8271 keys -
+8310 keys U
+8314 keys -
+8353 keys 1
+8357 keys -
+8396 keys U
+8400 keys -
+8400 peek C3A0 20
+8400 peek C01F 1
+8400 peek C31A 1
+8439 keys 1
+8443 keys -
+8482 keys U
+8486 keys -
+8525 keys 1
+8529 keys -
+8568 keys U
+8572 keys -
+8600 peek C3A0 20
+8600 peek C01F 1
+8600 peek C31A 1
+8611 keys 1
+8615 keys -
+8654 keys U
+8658 keys -
+8697 keys 1
+8701 keys -
+8740 keys U
+8744 keys -
+8783 keys 1
+8787 keys -
+8800 peek C3A0 20
+8800 peek C01F 1
+8800 peek C31A 1
+8826 keys U
+8830 keys -
+8869 keys 1
+8873 keys -
+8912 keys U
+8916 keys -
+8955 keys 1
+8959 keys -
+8998 keys U
+9002 keys -

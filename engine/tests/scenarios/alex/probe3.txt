@@ -1,0 +1,15 @@
+# run: --frames 1320
+100 keys 1
+106 keys -
+600 pause
+640 poke C054 01
+641 peek C054 1
+660 peek C054 1
+690 peek C054 1
+699 peek C01F 1
+700 pause
+701 peek C01F 1
+702 peek C054 1
+710 peek C054 1
+710 peek C01F 1
+720 peek C31A 1

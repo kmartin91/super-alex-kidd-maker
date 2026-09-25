@@ -1,0 +1,7 @@
+# run: --level 2 --lives --frames 800
+100 keys 1
+106 keys -
+600 poke CD0A 0D
+600 poke CD0B A0
+650 poke CD0B 80
+700 poke CC8B 20

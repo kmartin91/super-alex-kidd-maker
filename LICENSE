@@ -1,0 +1,37 @@
+This repository contains two kinds of code, under different terms.
+
+1. Code derived from the original game
+
+   The files in engine/src/gen/ and engine/src/game/ are a translation into C of the
+   program of "Alex Kidd in Miracle World" (Sega Master System, 1986). They are
+   NOT covered by the MIT License below. Alex Kidd, the game and its program are
+   the property of SEGA Corporation. These files are shared for personal,
+   educational and non-commercial fan use only. This project is not affiliated
+   with or endorsed by SEGA. No ROM image or original game asset is included.
+
+2. Everything else (editor, tools, runtime, tests, documentation)
+
+   MIT License
+
+   Copyright (c) 2026 kmartin91
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   SOFTWARE.
+
+Third-party code keeps its own license: engine/third_party/z80-superzazu (MIT,
+see its LICENSE file) and engine/third_party/stb (public domain or MIT).

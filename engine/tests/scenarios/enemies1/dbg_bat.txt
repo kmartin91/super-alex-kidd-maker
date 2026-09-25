@@ -1,0 +1,109 @@
+# run: --frames 1575
+100 keys 1
+106 keys -
+700 keys R
+700 poke C054 02
+702 keys -
+703 poke C5A0 00
+704 poke C5A1 00
+704 poke C5A2 00
+704 poke C5A3 00
+704 poke C5A4 00
+705 poke C5A5 01
+705 poke C5A6 00
+705 poke C5A7 00
+705 poke C5A8 00
+706 poke C5A9 00
+706 poke C5AA 00
+706 poke C5AB 00
+706 poke C5AC 00
+707 poke C5AD 00
+707 poke C5AE 00
+707 poke C5AF 00
+707 poke C5B0 00
+708 poke C5B1 00
+708 poke C5B2 00
+708 poke C5B3 00
+708 poke C5B4 00
+709 poke C5B5 00
+709 poke C5B6 00
+709 poke C5B7 00
+709 poke C5B8 00
+710 poke C5B9 00
+710 poke C5BA 00
+710 poke C5BB 00
+710 poke C5BC 00
+711 poke C5BD 00
+711 poke C5BE 00
+711 poke C5BF 00
+711 poke C5AC 2C
+712 poke C5AE 84
+712 poke C5B6 88
+713 poke C5A0 36
+714 peek C5A0 20
+714 peek C31C 1
+716 peek C5A0 20
+716 peek C31C 1
+718 keys 2
+718 peek C5A0 20
+718 peek C31C 1
+720 peek C5A0 20
+720 peek C31C 1
+722 keys -
+722 peek C5A0 20
+722 peek C31C 1
+724 peek C5A0 20
+724 peek C31C 1
+725 poke C054 02
+726 peek C5A0 20
+726 peek C31C 1
+728 keys 2
+728 peek C5A0 20
+728 peek C31C 1
+730 peek C5A0 20
+730 peek C31C 1
+732 keys -
+732 peek C5A0 20
+732 peek C31C 1
+734 peek C5A0 20
+734 peek C31C 1
+736 peek C5A0 20
+736 peek C31C 1
+738 keys 2
+738 peek C5A0 20
+738 peek C31C 1
+740 peek C5A0 20
+740 peek C31C 1
+742 keys -
+742 peek C5A0 20
+742 peek C31C 1
+744 peek C5A0 20
+744 peek C31C 1
+746 peek C5A0 20
+746 peek C31C 1
+748 keys 2
+748 peek C5A0 20
+748 peek C31C 1
+750 poke C054 02
+750 peek C5A0 20
+750 peek C31C 1
+752 keys -
+752 peek C5A0 20
+752 peek C31C 1
+758 keys 2
+762 keys -
+768 keys 2
+772 keys -
+775 poke C054 02
+778 keys 2
+782 keys -
+788 keys 2
+792 keys -
+800 poke C054 02
+825 poke C054 02
+850 poke C054 02
+875 poke C054 02
+900 poke C054 02
+925 poke C054 02
+950 poke C054 02
+975 poke C054 02

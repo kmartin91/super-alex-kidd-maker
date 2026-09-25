@@ -1,0 +1,24 @@
+# run: --frames 1030
+# Name-table changer (entity $4B, data 2 = touch) poked into slot 28 on Alex, with a
+# 2-patch list at $D8A0. Run with: --level 2 --lives --frames 450
+100 keys 1
+106 keys -
+399 peek C30C 3
+400 poke D8A0 02
+400 poke D8A1 10
+400 poke D8A2 CC
+400 poke D8A3 03
+401 poke D8A4 14
+401 poke D8A5 CC
+401 poke D8A6 03
+401 poke C681 00
+402 poke C683 02
+402 poke C68C 20
+402 poke C68E 88
+402 poke C689 00
+403 poke C68A 00
+403 poke C680 4B
+404 peek C680 32
+430 peek C680 32
+430 peek D8A0 8
+430 shot

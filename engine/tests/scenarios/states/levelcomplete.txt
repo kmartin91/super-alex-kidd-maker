@@ -1,0 +1,17 @@
+# run: --frames 3000
+# Level completed (poked), next level intro, then the trivial VBlank handlers
+# of states 4 and 6 (only reachable with bit 7 set, poked here).
+100 keys 1
+106 keys -
+700 poke C01F 04
+710 peek C01F 1
+1000 peek C01F 1
+1000 peek C023 1
+1400 peek C01F 1
+1500 poke C01F 84
+1501 peek C01F 1
+1600 peek C01F 1
+1700 peek C023 1
+2200 poke C01F 86
+2201 peek C01F 1
+2400 peek C01F 1

@@ -1,0 +1,20 @@
+# run: --frames 1700
+100 keys 1
+106 keys -
+600 peek C300 20
+600 peek C0AF 2
+600 peek C0BD 2
+650 pause
+660 peek C01F 1
+700 peek C01F 1
+760 keys 1
+766 keys -
+800 peek C01F 1
+860 pause
+900 peek C01F 1
+950 peek C01F 1
+960 peek C300 20
+1000 keys 2
+1006 keys -
+1100 peek C01F 1
+1100 peek C300 20

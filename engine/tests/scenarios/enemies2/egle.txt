@@ -1,0 +1,83 @@
+# run: --level 12 --lives --frames 2500
+100 keys 1
+106 keys -
+690 poke D800 0
+690 poke C07F 1
+700 poke C563 1
+700 poke C56C 80
+700 poke C56E 88
+700 poke C57A 0
+701 poke C561 0
+701 poke C569 0
+701 poke C56A 0
+701 poke C577 0
+702 poke C578 0
+702 poke C576 0
+702 poke C56F 0
+702 poke C570 0
+703 poke C571 0
+703 poke C572 0
+703 poke C565 1
+704 poke C560 51
+900 poke C07F 2
+1000 keys 2
+1025 keys -
+1050 keys 2
+1075 keys -
+1100 keys 2
+1125 keys -
+1150 keys 2
+1175 keys -
+1200 keys 2
+1225 keys -
+1250 keys 2
+1275 keys -
+1300 keys 2
+1325 keys -
+1350 keys 2
+1375 keys -
+1400 keys 2
+1425 keys -
+1450 keys 2
+1475 keys -
+1500 keys 2
+1525 keys -
+1550 keys 2
+1575 keys -
+1600 keys 2
+1625 keys -
+1650 keys 2
+1675 keys -
+1700 keys 2
+1725 keys -
+1750 keys 2
+1775 keys -
+1800 keys 2
+1825 keys -
+1850 keys 2
+1875 keys -
+1900 keys 2
+1925 keys -
+1950 keys 2
+1975 keys -
+2000 keys 2
+2025 keys -
+2050 keys 2
+2075 keys -
+2100 keys 2
+2125 keys -
+2150 keys 2
+2175 keys -
+2200 keys 2
+2225 keys -
+2250 keys 2
+2275 keys -
+2300 keys 2
+2325 keys -
+2350 keys 2
+2375 keys -
+2400 keys 2
+2425 keys -
+2450 keys 2
+2475 keys -
+2500 keys -

@@ -1,0 +1,35 @@
+# run: --frames 1320
+# Castle (level 11): Alex put above the top of the screen starts an upward room move;
+# the entered room's record at $DA20 gets a flagged position (erased on entry), then two
+# request $80 whose positions are not in the record. Run with: --level 11 --lives --frames 750
+100 keys 1
+106 keys -
+500 peek C0C9 1
+500 peek C0C4 1
+500 peek C08D 1
+500 peek C0B6 1
+500 peek C314 1
+501 poke DA20 02
+501 poke DA21 01
+501 poke DA22 25
+502 poke DA23 00
+502 poke DA24 30
+503 poke C30E F0
+540 shot
+600 peek C0C9 1
+600 peek C0C4 1
+600 peek C08D 1
+600 peek C078 2
+600 peek D700 192
+620 shot
+700 poke C204 10
+700 poke C205 CC
+700 poke C206 03
+700 poke C207 85
+701 poke C202 80
+710 poke C204 14
+710 poke C205 CA
+710 poke C206 03
+710 poke C207 85
+711 poke C202 80
+720 peek DA20 6

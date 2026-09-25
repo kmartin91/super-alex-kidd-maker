@@ -1,0 +1,177 @@
+# run: --level 12 --lives --frames 1500
+100 keys 1
+106 keys -
+800 poke C3A3 5
+800 poke C3AC B0
+800 poke C3AE 80
+800 poke C3BA 0
+801 poke C3A1 0
+801 poke C3A9 0
+801 poke C3AA 0
+802 poke C3A0 1E
+806 poke C317 2
+806 poke C3B7 0
+816 poke C317 2
+816 poke C3B7 0
+826 poke C317 2
+826 poke C3B7 0
+836 poke C317 2
+836 poke C3B7 0
+846 poke C317 2
+846 poke C3B7 0
+856 poke C317 2
+856 poke C3B7 0
+860 keys 2
+863 keys -
+866 poke C317 2
+866 poke C3B7 0
+876 poke C317 2
+876 poke C3B7 0
+886 poke C317 2
+886 poke C3B7 0
+896 poke C317 2
+896 poke C3B7 0
+906 poke C317 2
+906 poke C3B7 0
+910 keys 2
+913 keys -
+916 poke C317 2
+916 poke C3B7 0
+926 poke C317 2
+926 poke C3B7 0
+936 poke C317 2
+936 poke C3B7 0
+946 poke C317 2
+946 poke C3B7 0
+956 poke C317 2
+956 poke C3B7 0
+960 keys 2
+963 keys -
+966 poke C317 2
+966 poke C3B7 0
+976 poke C317 2
+976 poke C3B7 0
+986 poke C317 2
+986 poke C3B7 0
+996 poke C317 2
+996 poke C3B7 0
+1006 poke C317 2
+1006 poke C3B7 0
+1010 keys 2
+1013 keys -
+1016 poke C317 2
+1016 poke C3B7 0
+1026 poke C317 2
+1026 poke C3B7 0
+1036 poke C317 2
+1036 poke C3B7 0
+1046 poke C317 2
+1046 poke C3B7 0
+1056 poke C317 2
+1056 poke C3B7 0
+1060 keys 2
+1063 keys -
+1066 poke C317 2
+1066 poke C3B7 0
+1076 poke C317 2
+1076 poke C3B7 0
+1086 poke C317 2
+1086 poke C3B7 0
+1096 poke C317 2
+1096 poke C3B7 0
+1106 poke C317 2
+1106 poke C3B7 0
+1110 keys 2
+1113 keys -
+1116 poke C317 2
+1116 poke C3B7 0
+1126 poke C317 2
+1126 poke C3B7 0
+1136 poke C317 2
+1136 poke C3B7 0
+1146 poke C317 2
+1146 poke C3B7 0
+1156 poke C317 2
+1156 poke C3B7 0
+1160 keys 2
+1163 keys -
+1166 poke C317 2
+1166 poke C3B7 0
+1176 poke C317 2
+1176 poke C3B7 0
+1186 poke C317 2
+1186 poke C3B7 0
+1196 poke C317 2
+1196 poke C3B7 0
+1206 poke C317 2
+1206 poke C3B7 0
+1210 keys 2
+1213 keys -
+1216 poke C317 2
+1216 poke C3B7 0
+1226 poke C317 2
+1226 poke C3B7 0
+1236 poke C317 2
+1236 poke C3B7 0
+1246 poke C317 2
+1246 poke C3B7 0
+1256 poke C317 2
+1256 poke C3B7 0
+1260 keys 2
+1263 keys -
+1266 poke C317 2
+1266 poke C3B7 0
+1276 poke C317 2
+1276 poke C3B7 0
+1286 poke C317 2
+1286 poke C3B7 0
+1296 poke C317 2
+1296 poke C3B7 0
+1306 poke C317 2
+1306 poke C3B7 0
+1310 keys 2
+1313 keys -
+1316 poke C317 2
+1316 poke C3B7 0
+1326 poke C317 2
+1326 poke C3B7 0
+1336 poke C317 2
+1336 poke C3B7 0
+1346 poke C317 2
+1346 poke C3B7 0
+1356 poke C317 2
+1356 poke C3B7 0
+1360 keys 2
+1363 keys -
+1366 poke C317 2
+1366 poke C3B7 0
+1376 poke C317 2
+1376 poke C3B7 0
+1386 poke C317 2
+1386 poke C3B7 0
+1396 poke C317 2
+1396 poke C3B7 0
+1406 poke C317 2
+1406 poke C3B7 0
+1410 keys 2
+1413 keys -
+1416 poke C317 2
+1416 poke C3B7 0
+1426 poke C317 2
+1426 poke C3B7 0
+1436 poke C317 2
+1436 poke C3B7 0
+1446 poke C317 2
+1446 poke C3B7 0
+1456 poke C317 2
+1456 poke C3B7 0
+1460 keys 2
+1463 keys -
+1466 poke C317 2
+1466 poke C3B7 0
+1476 poke C317 2
+1476 poke C3B7 0
+1486 poke C317 2
+1486 poke C3B7 0
+1496 poke C317 2
+1496 poke C3B7 0

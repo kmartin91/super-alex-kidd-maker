@@ -1,0 +1,84 @@
+# Routines of module 'states' (address, generated name, instructions, in / out)
+076D  initOrUpdateTitleScreenState                       65  in: B C D E H L IYH IYL A' F' C' H' L'  out: B C D E IXH IXL IYH IYL A' F' B' C'
+080C  startGame                                          10  in: -  out: B C D E
+0842  handleInterruptTitleScreenState                    27  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+0872  showTitleUnderwaterFrame                           12  in: -  out: -
+0881  showTitleBoatFrame                                 12  in: -  out: -
+0890  showTitleTreeFrame                                  4  in: -  out: -
+089C  showTitlePeticopterFrame                           12  in: -  out: -
+08AB  showTitleJankenFrame                               18  in: -  out: -
+08BA  showTitlePushStartFrame                             4  in: -  out: -
+08F6  loadTitleSprites                                   33  in: -  out: C
+0951  sub_0951                                           16  in: A D E H L  out: C
+0966  return                                              1  in: -  out: -
+09E5  updateDemoState                                    35  in: C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: B C D E IXH IXL IYH IYL A' F' B' C'
+0A35  handleInterruptDemoState                           34  in: IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+0A88  initOrUpdateGameplayState                           3  in: B C D E H L IXH IXL IYH IYL A' F' C' H' L'  out: B C D E IXH IXL IYH IYL A' F' B' C'
+0A8E  updateGameplayState                                15  in: C IYH IYL A' F' B' C' D' E' H' L'  out: B C D E IXH IXL IYH IYL A' F' B' C'
+0AB1  handleInterruptGameplayState                        4  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+0ABD  initGameplayState                                 252  in: IXH IXL IYH IYL A' F'  out: B C D E IXH IXL IYH IYL A' F' B' C'
+1650  updateBonusLevelState                             195  in: IXH IXL IYH IYL A' F' B' C' H' L'  out: B C D E IXH IXL IYH IYL A' F' B' C'
+16A6  handleInterruptBonusLevelState                     79  in: -  out: -
+18CD  handleInterruptLevelCompletedState                  1  in: -  out: -
+18CE  updateLevelCompletedState                          52  in: H' L'  out: B C D E IXH IXL
+194F  updateLevelStartingState                          165  in: B C D E H L IYH IYL A' F' C' H' L'  out: B C D E IXH IXL IYH IYL A' F' B' C'
+1A01  handleInterruptLevelStartingState                  27  in: -  out: -
+1BC9  updateShopState                                   338  in: B C D E H L IYH IYL A' F' C' H' L'  out: B C D E IXH IXL IYH IYL A' F' B' C'
+1BEE  handleInterruptShopState                           40  in: IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+1FCD  updateMapState                                    240  in: B C D E H L IYH IYL A' F' C' H' L'  out: B C D E IXH IXL IYH IYL A' F' B' C'
+1FE6  handleInterruptMapState                            20  in: -  out: -
+1FE9  exitMapState                                      167  in: IXH IXL IYH IYL A' F'  out: B C D E IXH IXL IYH IYL A' F' B' C' D' E' H' L'
+2439  updateItemSelectArrow                              61  in: IXH IXL IYH IYL A' F'  out: IXH IXL IYH IYL A' F' B' C' D' E' H' L'
+24B6  pauseStateOnUpOrDownPressed                         1  in: -  out: -
+24B7  _LABEL_24B7_                                       13  in: A B IXH IXL  out: -
+24CF  _LABEL_24CF_                                       16  in: B C IXH IXL  out: B H L
+24EC  copyPauseItemsToNametable                          36  in: -  out: -
+2522  copyTileBlock                                      12  in: B C D E H L  out: -
+2532  clearRamNametableArea                              14  in: B C D E  out: H L
+255A  useMagicCapsuleA                                    6  in: -  out: -
+2568  useMagicCapsuleB                                    6  in: -  out: -
+2576  _LABEL_2576_                                        4  in: -  out: -
+2580  useCaneOfFlight                                     8  in: -  out: -
+2594  useTeleportPowder                                   8  in: -  out: -
+25A8  usePowerBracelet                                    5  in: -  out: -
+25B4  _LABEL_25B4_                                       14  in: A D E H L  out: -
+25D3  _LABEL_25D3_                                       40  in: IYH IYL A' F'  out: IXH IXL IYH IYL A' F' B' C' D' E' H' L'
+6C05  updateLifeLostState                               259  in: IYH IYL A' F'  out: B C D E IXH IXL IYH IYL A' F' B' C'
+6EA7  handleInterruptLifeLostState                        1  in: -  out: -
+6EA8  _LABEL_6EAF_                                        4  in: IXH IXL  out: C
+6EB4  _LABEL_6EBB_                                       41  in: IXH IXL  out: C
+6F1A  _LABEL_6F21_                                        8  in: IXH IXL  out: -
+6F3D  loadNewEntities                                     2  in: -  out: C
+6F41  loadEntitiesNormal_LABEL_6F48_                     24  in: -  out: C
+6F77  _LABEL_6F7E_                                       81  in: D E H L  out: C
+7143  updateJanken                                        4  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL B' C' D' E' H' L'
+7175  updateBattleInit                                   24  in: IXH IXL  out: -
+71C5  updateBattleLoadOpponentTilesAndShowTextbox1       26  in: IXH IXL  out: -
+7209  updateBattleShowTextbox2                           12  in: IXH IXL  out: IYH IYL
+7228  isTextboxGameState                                  4  in: -  out: fZ
+7230  updateBattleStartRound                             10  in: IXH IXL  out: -
+724A  updateBattleDance                                  17  in: IXH IXL  out: -
+7278  updateBattleThrow                                  24  in: IXH IXL  out: -
+72AC  updateBattleHandleThrows                           12  in: IXH IXL  out: -
+72D5  updateBattleRoundTie                                4  in: IXH IXL  out: -
+72DF  updateBattleRoundLost                              21  in: IXH IXL  out: -
+730D  updateBattleRoundWon                               21  in: IXH IXL  out: -
+733B  updateBattleShowBattleLostTextbox                   9  in: IXH IXL  out: -
+7350  updateBattleTurnAlexIntoStatue                     11  in: IXH IXL  out: -
+736B  updateBattleRespawOpponent                         24  in: IXH IXL  out: -
+73A7  _LABEL_73AE_                                       11  in: IXH IXL  out: -
+73C4  updateBattleStartFight                              6  in: IXH IXL  out: -
+73D1  _LABEL_73D8_                                       45  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+7440  _LABEL_7447_                                        5  in: IXH IXL  out: -
+744C  _LABEL_7453_                                       13  in: IXH IXL  out: -
+7468  _LABEL_746F_                                       18  in: IXH IXL  out: IYH IYL
+749D  updateBattlePatchNametable                         21  in: IXH IXL  out: -
+74C6  updateBattleNop                                     1  in: -  out: -
+74C7  updateEntity0x19                                   17  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+7502  _LABEL_7509_                                        8  in: IXH IXL  out: -
+7609  drawThoughtClouds@patchNametableWithThoughtCloud   14  in: D E  out: -
+761F  updateEntity0x0B                                   12  in: IXH IXL  out: -
+763A  destroyBattleEntities                               6  in: -  out: -
+7966  restoreSomeNametableStuff_LABEL_796D_              11  in: -  out: -
+7DC2  updateTextBoxState                                147  in: B C D E H L IXH IXL IYH IYL A' F' C' H' L'  out: B C D E IXH IXL IYH IYL A' F' B' C'
+7F22  handleInterruptTextBoxState                        22  in: IXH IXL  out: -

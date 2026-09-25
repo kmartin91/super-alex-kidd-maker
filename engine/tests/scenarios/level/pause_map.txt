@@ -1,0 +1,18 @@
+# run: --frames 1800
+# Pause map opened and closed (exitMapState reloads the level graphics).
+# Run with: --level 2 (3, 16) --lives --frames 1300
+100 keys 1
+106 keys -
+400 keys R
+500 pause
+520 peek C01F 1
+600 keys 1
+610 keys -
+700 pause
+720 peek C01F 1
+800 keys 2
+810 keys -
+900 peek C01F 1
+1000 pause
+1100 pause
+1200 peek C01F 1

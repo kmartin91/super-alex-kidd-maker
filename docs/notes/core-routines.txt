@@ -1,0 +1,67 @@
+# Routines of module 'core' (address, generated name, instructions, in / out)
+0000  start                                              14  in: IXH IXL IYH IYL A' F'  out: -
+001B  jumpToAthPointerIfBit7                              3  in: A B C H L IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+0020  jumpToAthPointer                                    1  in: A B C H L IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: H L fC
+0021  jumpToPointerAtA                                    8  in: A B C H L IXH IXL IYH IYL fS fZ fP A' F' B' C' D' E' H' L'  out: H L fC
+0038  handleInterruptEntrypoint                           1  in: A B C D E H L IXH IXL IYH IYL fS fZ fH fP fN fC B'  out: C H L A' F' B' C' D' E' H' L'
+0066  handlePauseInterrupt                               14  in: -  out: -
+009F  reset                                              21  in: IXH IXL IYH IYL A' F'  out: -
+00C0  handleInterrupt                                    63  in: A B C D E H L IXH IXL IYH IYL fS fZ fH fP fN fC B'  out: C H L A' F' B' C' D' E' H' L'
+01D6  load1bppTiles                                      21  in: A B C D E H L fC  out: -
+01F7  updateSprites                                      44  in: -  out: B
+0208  updateSprites@oddUpdate                             4  in: -  out: B
+0212  updateSprites@oddYLoop                              9  in: B C H L  out: B
+026B  initVDPRegisters                                    8  in: -  out: -
+0293  decompressTilesToVram                               9  in: D E H L  out: B
+02A0  decompressTilesToVram@bitplane                     24  in: D E H L  out: H L
+02C5  copyMirroredTilesToVramAtCurrentAddress            13  in: A B C H L  out: B C
+02D7  clearSprites                                        6  in: -  out: -
+02E6  waitForInterrupt                                    6  in: A  out: -
+02EF  disableDisplay                                      3  in: -  out: -
+02F6  enableDisplay                                       2  in: -  out: D E
+02FB  sub_02FB                                            5  in: A  out: D E
+0303  clearScroll                                         9  in: -  out: -
+0311  clearVDPTablesAndDisableScreen                     23  in: -  out: -
+0341  sleepOneSecond                                      1  in: -  out: -
+0343  sleepTenthsOfSecond                                 9  in: B  out: B
+0350  configurePPI                                       14  in: -  out: -
+0367  readInput                                          52  in: -  out: C
+03CF  takeMoney                                          17  in: L  out: B C
+03ED  addScore                                           17  in: L  out: -
+040B  sumBCD                                             17  in: B C H L  out: B C fC
+041C  subtractBCD                                        17  in: B C H L  out: C
+042D  subtractBCDToA                                     14  in: B C H L  out: C H L fC
+043B  updateHighScore                                    16  in: A  out: -
+0454  drawThreeBcdBytes                                   1  in: D E H L  out: B C
+0456  drawBCDDigits                                      25  in: C D E H L  out: B C
+04A1  fillRegisters                                       9  in: H L  out: A B D E H L
+04AA  unusedCodeB                                        12  in: H L  out: -
+04BB  unusedCodeC                                         8  in: A fC  out: -
+0759  divideHLByE                                        13  in: E H L  out: -
+09D9  clearEntities                                       6  in: -  out: C
+264F  updateInvincibility                                19  in: -  out: -
+2694  updateEntities                                     29  in: C IYH IYL A' F' B' C' D' E' H' L'  out: B D E IXH IXL IYH IYL A' F' B' C' D' E' H' L'
+26D7  updateEntitySprites                               105  in: IXH IXL  out: -
+273A  _LABEL_273A_                                       33  in: A IXH IXL  out: -
+278A  destroyCurrentEntity                                2  in: IXH IXL  out: A C H L
+278D  clearEntity                                        66  in: H L  out: A C L
+27D0  _LABEL_27D0_                                       24  in: A IXH IXL  out: A
+280E  handleEntityAnimation                              22  in: H L IXH IXL  out: D E H L
+5761  earnEntityPoints                                    7  in: IXH IXL  out: -
+5B89  spawnEntityAt                                      24  in: C D E  out: IYH IYL
+7C82  _LABEL_7C89_                                        8  in: D E fC  out: H L
+7C8D  _LABEL_7C94_                                       13  in: C E L  out: C L
+7C9C  _LABEL_7CA3_                                       18  in: B D L  out: B D E H L fS fZ fP
+7CB5  _LABEL_7CBC_                                        4  in: IXH IXL IYH IYL  out: fC
+7CBB  checkEntityCollision                               20  in: IXH IXL IYH IYL  out: B C fC
+7CDF  checkEntityCollisionSub_LABEL_7CE6_                28  in: A D E H L IXH IXL IYH IYL  out: B C fC
+7D04  isAlexAttackingEntity                               6  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: B C IYH IYL fC
+7D31  checkAlexPunchHit                                  22  in: IXH IXL  out: B C IYH IYL fC
+7D5A  _LABEL_7D61_                                        5  in: IXH IXL  out: -
+7D67  _LABEL_7D6E_                                        8  in: IXH IXL  out: -
+7D7D  _LABEL_7D84_                                        2  in: IXH IXL  out: -
+7D84  _LABEL_7D8B_                                        2  in: IXH IXL  out: -
+7D8B  _LABEL_7D92_                                        2  in: IXH IXL  out: -
+7D92  tryToKillAlexIfColliding                            6  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+7DB5  killAlexIfColliding                                 4  in: IXH IXL  out: -
+7DC1  doNotKillAlex                                       1  in: -  out: -

@@ -1,0 +1,138 @@
+# Routines of module 'level' (address, generated name, instructions, in / out)
+0E41  decompressNametable                                 6  in: D E H L  out: -
+0E4B  decompressNametable@bitplane                       24  in: D E H L  out: H L
+0E6C  loadLevelTiles                                      7  in: -  out: -
+0E9F  loadMtEthernalTileset                              16  in: -  out: -
+0EC9  loadTheBlakwoodsTileset                             8  in: -  out: -
+0EDF  loadJankensCastleTileset                           12  in: -  out: -
+0F00  loadBingooLowlandTileset                           12  in: -  out: -
+0F21  loadLakeFathomTileset                              19  in: -  out: -
+0F54  loadTheIslandOfStNurariTileset                      9  in: -  out: -
+0F6C  loadTheVillageOfNamuiTileset                       17  in: -  out: -
+0F99  loadLakeFathomPart2Tileset                          7  in: -  out: -
+0FAE  loadMtKaveTileset                                   9  in: -  out: -
+0FC6  loadRiverTileset                                   18  in: -  out: -
+0FF9  loadMtEthernalStage2Tileset                        15  in: -  out: -
+1022  loadCraggLakeTileset                               20  in: -  out: -
+1058  loadTheKingdomOfNibanaPart1Tileset                 14  in: -  out: -
+107C  updatePalette                                       7  in: -  out: -
+1089  paletteUpdater_LABEL_1089_                         21  in: -  out: -
+10B0  _LABEL_10B0_                                       23  in: -  out: -
+10DE  paletteUpdater_LABEL_10DE_                          1  in: -  out: -
+10E1  paletteUpdater_LABEL_10E1_                          1  in: -  out: -
+10E4  paletteUpdater_LABEL_10E4_                          1  in: -  out: -
+10E7  paletteUpdater_LABEL_10E7_                          1  in: -  out: -
+10EA  paletteUpdater_LABEL_10EA_                          1  in: -  out: -
+10ED  paletteUpdater_LABEL_10ED_                          1  in: -  out: -
+10F0  paletteUpdater_LABEL_10F0_                          1  in: -  out: -
+10F3  paletteUpdater_LABEL_10F3_                          1  in: -  out: -
+10F6  paletteUpdater_LABEL_10F6_                          1  in: -  out: -
+10F9  paletteUpdater_LABEL_10F9_                          1  in: -  out: -
+10FC  paletteUpdater_LABEL_10FC_                          1  in: -  out: -
+10FF  loadLevelPalette                                    9  in: -  out: B C
+1134  loadLevelSpriteTiles                                5  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+1164  loadMtEthernalSpriteTiles                           9  in: -  out: -
+117F  loadMtEthernalStage2SpriteTiles                    10  in: -  out: -
+119D  loadLakeFathomSpriteTiles                          12  in: -  out: -
+11B5  loadTheIslandOfStNurariSpriteTiles                 10  in: -  out: -
+11D3  loadLakeFathomPart2SpriteTiles                      8  in: -  out: -
+11EB  loadTheVillageOfNamuiSpriteTiles                   16  in: -  out: -
+1206  loadMtKaveSpriteTiles                               9  in: -  out: -
+1221  loadTheBlakwoodsSpriteTiles                         8  in: -  out: -
+1239  loadRiverSpriteTiles                                9  in: -  out: -
+1254  loadBingooLowlandSpriteTiles                        9  in: -  out: -
+126F  loadTheRadactianCastleSpriteTiles                  14  in: -  out: -
+1299  loadTheCityOfRadactianSpriteTiles                   7  in: -  out: -
+12AE  loadSwampSpriteTiles                                6  in: -  out: -
+12C0  loadTheKingdomOfNibanaPart1SpriteTiles              5  in: -  out: -
+12CF  loadTheKingdomOfNibanaPart2SpriteTiles             10  in: -  out: -
+12ED  loadJankensCastleSpriteTiles                       12  in: -  out: -
+1311  loadCraggLakeSpriteTiles                           10  in: -  out: -
+132F  loadSmokePuffTiles                                  4  in: -  out: -
+133B  loadMonsterBirdTiles                                7  in: -  out: -
+1350  loadMermanBubblesTiles                              4  in: -  out: -
+135C  loadMermanTiles                                     4  in: -  out: -
+1368  loadSmallFishTiles                                  7  in: -  out: -
+137D  loadKillerFishTiles                                 7  in: -  out: -
+1392  loadMonkeyLeafTiles                                 4  in: -  out: -
+139E  loadMonkeyTiles                                     4  in: -  out: -
+13AA  loadMonsterFrogTiles                                4  in: -  out: -
+13B6  loadPlantTiles                                      4  in: -  out: -
+13C2  loadSeaHorseTiles                                   4  in: -  out: -
+13DA  loadStNurariTiles                                   4  in: -  out: -
+13E6  loadFlyingFishTiles                                 7  in: -  out: -
+13FB  loadOxTiles                                         7  in: -  out: -
+1425  loadRollingRockTiles                                4  in: -  out: -
+1431  loadGrizzlyBearTiles                                4  in: -  out: -
+143D  loadLightningTiles                                  4  in: -  out: -
+1449  loadDarkCloudTiles                                  4  in: -  out: -
+1455  loadFlameTiles                                      4  in: -  out: -
+1461  loadScorpionTiles                                   7  in: -  out: -
+1476  loadEgleTiles                                       4  in: -  out: -
+1482  loadMoonlightStoneMedallionTiles                    4  in: -  out: -
+148E  loadPrincessLoraTiles                               4  in: -  out: -
+149A  loadBatTiles                                        4  in: -  out: -
+14A6  loadGreenDebrisTiles                                4  in: -  out: -
+14B2  loadDebrisATiles                                    4  in: -  out: -
+14BE  loadDebrisBTiles                                    4  in: -  out: -
+14CA  loadBlueDebrisTiles                                 4  in: -  out: -
+14D6  loadWoodsDebrisTiles                                4  in: -  out: -
+14E2  loadTelapathyBallTiles                              4  in: -  out: -
+14EE  loadLetterTiles                                     4  in: -  out: -
+14FA  loadHirottaStoneTiles                               4  in: -  out: -
+1506  loadGoldCrownTiles                                  4  in: -  out: -
+1512  loadVillageElderTiles                               4  in: -  out: -
+151E  loadTeleportPowderTiles                            16  in: -  out: -
+154A  loadPeticopterTiles                                 9  in: -  out: -
+1561  loadSunStoneMedallionTiles                          4  in: -  out: -
+158F  updateLevelTiles                                   17  in: -  out: -
+15AF  getFourFrameTileAddress                             6  in: D E  out: H L
+15BC  getSixFrameTileAddress                              5  in: D E  out: H L
+15C6  resetAnimatedTileTimer                              2  in: D E H L  out: H L
+15C8  getAnimatedTileAddress                              9  in: A D E  out: H L
+15D2  updateWaterTilesA                                   6  in: -  out: -
+15DF  updateSwampTiles                                    6  in: -  out: -
+15EC  updateLavaTilesA                                    6  in: -  out: -
+15F9  updateWaterTilesB                                  11  in: -  out: -
+1612  updateLavaTilesB                                    6  in: -  out: -
+161F  doNotUpdateTiles                                    1  in: -  out: -
+4222  handleNametableChangeRequest                        7  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+4244  _LABEL_424B_                                       60  in: B C  out: -
+42AF  _LABEL_42B6_                                        4  in: B C  out: -
+42BC  _LABEL_42C3_                                        3  in: B C  out: -
+42C6  sub_42C6                                           22  in: B C H L  out: -
+42F1  sub_42F1                                           35  in: B C D E  out: B C
+4339  handleShopDoorNametableChange                       8  in: -  out: -
+4348  _LABEL_434F_                                        9  in: -  out: -
+4358  _LABEL_435F_                                       23  in: B C D E H L  out: -
+4376  _LABEL_437D_                                       49  in: -  out: -
+43C3  _LABEL_43CA_                                       18  in: -  out: -
+43EB  _LABEL_43F2_                                       11  in: IXH IXL  out: IYH IYL
+440E  _LABEL_4415_                                       16  in: IXH IXL  out: IYH IYL
+444C  _LABEL_4453_                                       25  in: IXH IXL  out: -
+44DB  _LABEL_44E2_                                       15  in: IXH IXL  out: H L IYH IYL
+5BFA  requestBlockSound                                  15  in: A D E  out: IYH IYL
+61C6  updateNametableChanger                             40  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+6220  updateNametableChanger@setUnknown6ToOne             1  in: B C IXH IXL  out: -
+6224  updateNametableChanger@unkown6IsNotZero            34  in: B C IXH IXL  out: -
+6457  updateScrollFlags                                   2  in: -  out: C
+645B  scrollFlagsUpdater_LABEL_6462_                     16  in: -  out: -
+6476  scrollFlagsUpdater_LABEL_647D_                    106  in: -  out: C
+6532  scrollFlagsUpdater_LABEL_6539_                     31  in: -  out: -
+6574  scrollFlagsUpdater_LABEL_657B_                     25  in: -  out: -
+65AA  loadLevel                                          89  in: -  out: -
+666A  _LABEL_6671_                                       45  in: -  out: -
+67BD  updateScroll_LABEL_67C4_                          232  in: -  out: B C D E
+683A  _LABEL_6841_                                       22  in: A  out: B C D E
+685E  loadLinesToNametable_LABEL_6865_                   37  in: -  out: B C D E
+6919  draw                                               83  in: -  out: -
+69AE  updateVdpAddressAfterDraw                           8  in: -  out: -
+6A6C  _LABEL_6A73_                                        1  in: -  out: B C D E
+6A6F  _LABEL_6A76_                                       40  in: -  out: B C D E
+6B1A  _LABEL_6B21_                                        2  in: -  out: -
+6B1E  sub_6B1E                                           22  in: A  out: -
+6B42  updateNametable_LABEL_6B49_                        99  in: -  out: B C D E
+6BE8  _LABEL_6BEF_                                       19  in: D E H L  out: -
+6F88  _LABEL_6F8F_                                       11  in: B H L  out: C H L
+6F9F  _LABEL_6FA6_                                       28  in: B H L IXH IXL  out: C H L
+707D  loadEntitiesSpecial_LABEL_6F48_                    57  in: -  out: C

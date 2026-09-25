@@ -1,0 +1,14 @@
+# run: --frames 2000
+# Janken's castle throne room (level 17, _RAM_D800_ = 0), both variants.
+100 keys 1
+106 keys -
+700 poke C07F 00
+701 poke C01F 08
+800 peek C01F 1
+900 keys R
+1000 keys -
+1100 poke C07F 01
+1101 poke C01F 08
+1200 peek C01F 1
+1300 keys L
+1400 keys -

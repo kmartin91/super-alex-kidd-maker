@@ -1,0 +1,17 @@
+# run: --frames 2400
+# Bonus level (poked), pause map inside it, life lost inside it.
+100 keys 1
+106 keys -
+700 poke C01F 08
+800 peek C01F 1
+800 peek C092 1
+900 keys R
+1000 keys R1
+1010 keys R
+1100 pause
+1200 peek C01F 1
+1300 pause
+1400 peek C01F 1
+1500 poke C01F 06
+1700 peek C01F 1
+1800 keys -

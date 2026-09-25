@@ -1,0 +1,20 @@
+# run: --level 2 --lives --frames 1100
+# stun (skull box) in idle, walking and crouched states, level 2
+100 keys 1
+106 keys -
+600 poke C31C 10
+600 poke C318 08
+650 keys R
+660 poke C31C 10
+660 poke C318 06
+700 keys D
+710 poke C31C 10
+710 poke C318 06
+760 keys -
+800 poke C054 09
+810 keys 2
+816 keys -
+850 poke C054 08
+860 keys 2
+866 keys -
+900 poke CC8B 20

@@ -1,0 +1,37 @@
+# run: --level 2 --lives --frames 1200
+# peticopter (level 2): take off, climb to the top, walls, turning
+100 keys 1
+106 keys -
+600 poke C054 09
+600 poke C31D 08
+601 poke C31A 06
+620 keys 1
+622 keys -
+630 keys 1
+632 keys -
+640 keys 1
+642 keys -
+650 keys 1
+652 keys -
+660 keys 1
+662 keys -
+670 keys 1
+672 keys -
+680 keys 1
+682 keys -
+690 keys 1
+692 keys -
+700 keys 1
+702 keys -
+710 keys 1
+712 keys -
+720 keys 1
+722 keys -
+730 keys L
+790 keys LR
+800 keys R
+880 keys RL
+900 keys L
+950 keys -
+1000 keys D
+1100 keys -

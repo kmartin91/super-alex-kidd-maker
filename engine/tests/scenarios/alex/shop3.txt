@@ -1,0 +1,30 @@
+# run: --level 10 --lives --frames 1700
+# enter a shop (level 10), walk along the shelves, leave on the motorcycle
+100 keys 1
+106 keys -
+600 poke C069 10
+601 poke C31A 0D
+700 keys 2
+706 keys -
+740 keys 2
+746 keys -
+780 keys 2
+786 keys -
+820 keys 2
+826 keys -
+860 keys 2
+866 keys -
+900 peek C01F 1
+1000 keys R
+1100 keys L
+1200 poke C054 07
+1200 keys -
+1210 peek C300 20
+1250 keys U
+1300 keys -
+1400 peek C01F 1
+1400 peek C300 20
+1450 keys R
+1500 keys R1
+1520 keys R
+1600 peek C300 20

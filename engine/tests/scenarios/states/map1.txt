@@ -1,0 +1,62 @@
+# run: --frames 3700
+# Pause map: open, use the power bracelet (under the arrow at start), close.
+100 keys 1
+106 keys -
+700 poke C046 01
+700 poke C047 01
+700 poke C048 01
+700 poke C049 01
+701 poke C04A 01
+701 poke C04B 01
+701 poke C04C 01
+701 poke C04D 01
+702 poke C04E 01
+702 poke C04F 01
+750 pause
+800 peek C01F 1
+900 shot
+900 peek CF8C 1
+920 keys 1
+925 keys -
+960 peek C053 2
+960 peek C054 1
+1000 pause
+1100 peek C01F 1
+# second pause: move right to the next item
+1300 pause
+1400 keys R
+1402 keys -
+1420 keys 1
+1425 keys -
+1460 peek C054 1
+1500 pause
+1700 pause
+1800 keys R
+1828 keys -
+1830 peek CF8C 1
+1840 keys 1
+1845 keys -
+1870 peek C054 1
+1900 pause
+2100 pause
+2200 keys R
+2236 keys -
+2240 peek CF8C 1
+2250 keys 1
+2255 keys -
+2280 peek C054 1
+2300 pause
+2500 pause
+2600 keys R
+2644 keys -
+2650 keys 1
+2655 keys -
+2680 peek C054 1
+2700 pause
+2900 pause
+3000 keys R
+3052 keys -
+3060 keys 1
+3065 keys -
+3080 peek C054 1
+3100 pause

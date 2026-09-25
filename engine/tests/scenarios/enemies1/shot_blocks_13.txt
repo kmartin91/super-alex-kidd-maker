@@ -1,0 +1,214 @@
+# run: --level 13 --frames 2543 --lives
+100 keys 1
+106 keys -
+700 poke CB8D C0
+700 poke CB8F C0
+700 poke CB91 C0
+700 poke CB93 C0
+701 poke CB95 C0
+701 poke CB97 C0
+708 keys 2
+712 keys -
+718 keys 2
+722 keys -
+728 keys 2
+732 keys -
+738 keys 2
+742 keys -
+748 keys 2
+752 keys -
+758 keys 2
+762 keys -
+768 keys 2
+772 keys -
+778 keys 2
+782 keys -
+784 keys U1
+796 keys D2
+825 keys U2
+854 keys D
+883 keys L1
+897 keys R
+904 keys R2
+925 keys L
+948 keys D2
+978 keys R
+1001 keys -
+1001 poke CB8F C0
+1001 poke CB91 C0
+1001 poke CB93 C0
+1001 poke CB95 C0
+1002 poke CB97 C0
+1002 poke CB99 C0
+1009 keys 2
+1013 keys -
+1019 keys 2
+1023 keys -
+1029 keys 2
+1033 keys -
+1039 keys 2
+1043 keys -
+1049 keys 2
+1053 keys -
+1059 keys 2
+1063 keys -
+1069 keys 2
+1073 keys -
+1079 keys 2
+1083 keys -
+1085 keys D
+1108 keys L2
+1122 keys R2
+1139 keys R
+1163 keys L2
+1170 keys L21
+1200 keys L2
+1213 keys D2
+1225 keys L2
+1246 keys D21
+1273 keys D1
+1301 keys -
+1301 poke CB91 C0
+1301 poke CB93 C0
+1301 poke CB95 C0
+1301 poke CB97 C0
+1302 poke CB99 C0
+1302 poke CB9B C0
+1309 keys 2
+1313 keys -
+1319 keys 2
+1323 keys -
+1329 keys 2
+1333 keys -
+1339 keys 2
+1343 keys -
+1349 keys 2
+1353 keys -
+1359 keys 2
+1363 keys -
+1369 keys 2
+1373 keys -
+1379 keys 2
+1383 keys -
+1385 keys D
+1394 keys R
+1417 keys R2
+1439 keys L
+1449 keys R2
+1453 keys U2
+1470 keys U2
+1489 keys D21
+1494 keys R21
+1502 keys D2
+1511 keys R2
+1520 keys U
+1543 keys R
+1566 keys U2
+1580 keys R
+1590 keys -
+1590 poke CB93 C0
+1590 poke CB95 C0
+1590 poke CB97 C0
+1590 poke CB99 C0
+1591 poke CB9B C0
+1591 poke CB9D C0
+1598 keys 2
+1602 keys -
+1608 keys 2
+1612 keys -
+1618 keys 2
+1622 keys -
+1628 keys 2
+1632 keys -
+1638 keys 2
+1642 keys -
+1648 keys 2
+1652 keys -
+1658 keys 2
+1662 keys -
+1668 keys 2
+1672 keys -
+1674 keys D2
+1704 keys D
+1726 keys U
+1754 keys U
+1763 keys L
+1779 keys R
+1788 keys U
+1792 keys U
+1816 keys D1
+1837 keys L2
+1854 keys R2
+1862 keys U2
+1882 keys -
+1882 poke CB95 C0
+1882 poke CB97 C0
+1882 poke CB99 C0
+1882 poke CB9B C0
+1883 poke CB9D C0
+1883 poke CB9F C0
+1890 keys 2
+1894 keys -
+1900 keys 2
+1904 keys -
+1910 keys 2
+1914 keys -
+1920 keys 2
+1924 keys -
+1930 keys 2
+1934 keys -
+1940 keys 2
+1944 keys -
+1950 keys 2
+1954 keys -
+1960 keys 2
+1964 keys -
+1966 keys L
+1984 keys L21
+2001 keys U
+2024 keys R
+2043 keys R
+2059 keys D2
+2070 keys U21
+2094 keys U2
+2112 keys L2
+2139 keys L1
+2152 keys R21
+2161 keys D2
+2185 keys -
+2185 poke CB97 C0
+2185 poke CB99 C0
+2185 poke CB9B C0
+2185 poke CB9D C0
+2186 poke CB9F C0
+2186 poke CBA1 C0
+2193 keys 2
+2197 keys -
+2203 keys 2
+2207 keys -
+2213 keys 2
+2217 keys -
+2223 keys 2
+2227 keys -
+2233 keys 2
+2237 keys -
+2243 keys 2
+2247 keys -
+2253 keys 2
+2257 keys -
+2263 keys 2
+2267 keys -
+2269 keys U
+2285 keys D
+2296 keys L
+2317 keys R1
+2325 keys L1
+2330 keys R
+2343 keys R
+2362 keys L2
+2391 keys U2
+2403 keys D21
+2425 keys D1
+2450 keys D2
+2468 keys D2
+2493 keys -

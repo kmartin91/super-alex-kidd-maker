@@ -1,0 +1,160 @@
+# run: --level 12 --lives --frames 3000
+100 keys 1
+106 keys -
+690 poke D800 0
+700 poke C563 0
+700 poke C56C 24
+700 poke C56E 88
+700 poke C57A 0
+701 poke C561 0
+701 poke C569 0
+701 poke C56A 0
+701 poke C577 0
+702 poke C578 0
+702 poke C576 0
+702 poke C56F 0
+702 poke C570 0
+703 poke C571 0
+703 poke C572 0
+703 poke C565 1
+704 poke C560 52
+800 keys 2
+812 keys R
+838 keys 12
+856 keys L
+861 keys R
+864 keys 12
+884 keys R2
+912 keys R
+916 keys 2
+935 keys L12
+949 keys R2
+976 keys L
+1005 keys R
+1016 keys 2
+1019 keys R
+1042 keys R
+1053 keys R
+1064 keys 2
+1072 keys R2
+1084 keys U2
+1114 keys D2
+1144 keys R
+1158 keys R
+1188 keys 1
+1201 keys U2
+1216 keys L12
+1226 keys L
+1236 keys R12
+1247 keys R
+1276 keys R
+1296 keys R
+1308 keys -
+1320 keys 1
+1345 keys R2
+1375 keys R
+1394 keys 2
+1410 keys 12
+1432 keys R2
+1448 keys R12
+1456 keys 2
+1468 keys R2
+1497 keys R
+1501 keys R
+1505 keys R12
+1528 keys R2
+1547 keys L12
+1570 keys R12
+1595 keys L2
+1602 keys U2
+1611 keys R
+1627 keys 2
+1650 keys U2
+1667 keys R2
+1675 keys L2
+1691 keys D2
+1712 keys L2
+1735 keys L12
+1744 keys L2
+1750 keys R
+1754 keys D2
+1764 keys R2
+1791 keys 1
+1813 keys R
+1823 keys R
+1836 keys L
+1848 keys R12
+1851 keys -
+1865 keys D2
+1870 keys R2
+1896 keys U2
+1909 keys -
+1922 keys R2
+1935 keys L
+1962 keys U2
+1978 keys R
+2008 keys 1
+2032 keys R
+2037 keys R2
+2059 keys 2
+2076 keys R2
+2083 keys R2
+2098 keys 1
+2106 keys L2
+2127 keys -
+2141 keys -
+2158 keys L
+2172 keys R
+2200 keys L2
+2212 keys 1
+2218 keys R12
+2227 keys 12
+2236 keys R
+2240 keys -
+2244 keys D2
+2252 keys 1
+2276 keys L
+2298 keys -
+2318 keys R12
+2339 keys 2
+2352 keys -
+2358 keys R
+2377 keys R2
+2404 keys 12
+2427 keys 2
+2445 keys 2
+2455 keys R12
+2471 keys R12
+2475 keys 2
+2491 keys R12
+2501 keys U2
+2517 keys R
+2526 keys R12
+2535 keys -
+2539 keys R2
+2550 keys 2
+2569 keys 2
+2596 keys 2
+2612 keys R
+2623 keys L
+2636 keys -
+2649 keys 1
+2655 keys 1
+2670 keys U2
+2693 keys R
+2721 keys D2
+2747 keys -
+2765 keys 12
+2770 keys 12
+2779 keys R
+2800 keys L
+2813 keys R2
+2837 keys R12
+2865 keys U2
+2878 keys R
+2894 keys L12
+2903 keys U2
+2931 keys U2
+2959 keys R2
+2972 keys 12
+2990 keys R

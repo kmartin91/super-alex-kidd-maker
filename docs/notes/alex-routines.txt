@@ -1,0 +1,130 @@
+# Routines of module 'alex' (address, generated name, instructions, in / out)
+2958  updateAlex                                         17  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IXH IXL IYH IYL A' F' B' C' D' E' H' L'
+29BA  updateAlexSpawningAtCenter                          2  in: IXH IXL  out: -
+29C2  updateAlexSpawning                                 63  in: IXH IXL  out: -
+2A6E  _LABEL_2A6E_                                        6  in: IXH IXL  out: -
+2A9E  updateAlexIdle                                     44  in: IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F' B' C' D' E' H' L'
+2B0B  crouch                                              6  in: IXH IXL  out: -
+2B1F  walkLeft                                            1  in: IXH IXL  out: -
+2B23  sub_2B23                                            3  in: IXH IXL  out: -
+2B2C  walkRight                                           1  in: IXH IXL  out: -
+2B30  sub_2B30                                            3  in: IXH IXL  out: -
+2B39  walk                                                3  in: IXH IXL  out: -
+2B41  updateAlexWalking                                 124  in: IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F' B' C' D' E' H' L'
+2BFA  setAlexIdleStateAndLoadIdleAnimationDescriptor      4  in: -  out: -
+2C04  leadAlexIdleSpriteDescriptor                        6  in: -  out: -
+2CA1  fall                                                5  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F' B' C' D' E' H' L'
+2CAE  jump                                                5  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F' B' C' D' E' H' L'
+2CBC  sub_2CBC                                            7  in: A B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F' B' C' D' E' H' L'
+2CD0  updateAlexInAir                                   157  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F' B' C' D' E' H' L'
+2E60  updateAlexCrouched                                 87  in: IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F' B' C' D' E' H' L'
+2F41  _LABEL_2F41_                                       28  in: IXH IXL  out: B IYH IYL
+2F8A  updateAlexDead                                     14  in: IXH IXL  out: -
+2FA7  updateAlexRidingMotorcycle                         25  in: IXH IXL  out: IYH IYL
+2FD5  _LABEL_2FD5_                                       26  in: IXH IXL  out: IYH IYL
+302F  alexHandler_302F                                   37  in: IXH IXL  out: IYH IYL
+3094  updateAlexRidingBoat                               23  in: IXH IXL  out: IYH IYL
+30C5  _LABEL_30C5_                                       19  in: IXH IXL  out: IYH IYL
+3107  updateAlexRidingBoatInAir                          45  in: IXH IXL  out: IYH IYL
+3180  updateAlexReachingDoor                             15  in: IXH IXL  out: -
+31A8  updateAlexCrossingDoor                             13  in: IXH IXL  out: -
+31C0  sub_31C0                                            4  in: IXH IXL  out: -
+31CC  alexHandler_31CC                                   31  in: IXH IXL  out: -
+3223  alexHandler_3223                                    5  in: IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F' B' C' D' E' H' L'
+3230  _LABEL_3230_                                       16  in: IXH IXL  out: H L
+3256  alexHandler_3256                                   91  in: IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F' B' C' D' E' H' L'
+3320  _LABEL_3320_                                       11  in: IXH IXL  out: -
+3340  alexHandler_3340                                   12  in: -  out: -
+335F  saveTempAlexCopy                                    7  in: -  out: -
+336F  alexHandler_336F                                   45  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F' B' C' D' E' H' L'
+33DC  sub_33DC                                           15  in: IXH IXL  out: -
+3400  _LABEL_3400_                                       15  in: IXH IXL  out: -
+3424  _LABEL_3424_                                       14  in: IXH IXL  out: -
+3442  _LABEL_3442_                                       13  in: IXH IXL  out: -
+3468  updateAutoWalkingRight                              5  in: IXH IXL  out: -
+3478  clearEntities2to4AndMaybeReset0xC054               16  in: -  out: H L
+3498  splash                                              9  in: IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F' B' C' D' E' H' L'
+34B6  updateAlexSwiming                                  69  in: H L IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F' B' C' D' E' H' L'
+355B  sub_355B                                           91  in: H L IXH IXL  out: -
+363E  _LABEL_363E_                                       69  in: IXH IXL  out: -
+36F1  updateAlexFlyingPeticopter                         29  in: IXH IXL  out: IYH IYL
+3742  sub_3742                                           56  in: IXH IXL  out: -
+37D5  _LABEL_37D5_                                       72  in: IXH IXL  out: IYH IYL
+388E  _LABEL_388E_                                        7  in: IXH IXL  out: IYH IYL
+389C  _LABEL_389C_                                       14  in: IXH IXL  out: IYH IYL
+38C2  alexHandler_38C2                                    1  in: IXH IXL  out: -
+38C5  alexHandler_38C5                                   25  in: IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F' B' C' D' E' H' L'
+3919  alexHandler_3919                                    5  in: IXH IXL  out: -
+3928  _LABEL_3928_                                       15  in: IXH IXL  out: -
+3949  alexHandler_3949                                   11  in: IXH IXL  out: -
+3961  alexHandler_3961                                   24  in: IXH IXL  out: -
+39A5  alexHandler_39A5                                    5  in: IXH IXL  out: -
+39B4  alexHandler_39B4                                   12  in: D E IXH IXL  out: -
+39D4  alexHandler_39D4                                    3  in: IXH IXL  out: -
+39ED  _LABEL_39ED_                                       16  in: A B D E IXH IXL  out: B C D E H L fC
+3A03  isEntityCollidingWithTerrainAtOffset               10  in: A D E IXH IXL  out: A B C H L fS fZ fH fP fN fC
+3A11  _LABEL_3A11_                                       30  in: D E IXH IXL  out: fC
+3A41  _LABEL_3A41_                                       10  in: A D E IXH IXL  out: B C H L fC
+3A4F  _LABEL_3A4F_                                       15  in: D E  out: B C fC
+3A68  _LABEL_3A68_                                       38  in: D E IXH IXL  out: -
+3A7E  _LABEL_3A7E_                                       10  in: D E IXH IXL  out: -
+3ACE  _LABEL_3AD5_                                        9  in: B IXH IXL  out: -
+3AE1  _LABEL_3AE8_                                       30  in: D E IXH IXL  out: IYH IYL
+3B24  accelerateAlexLeft                                 16  in: B C D E IXH IXL  out: -
+3B44  _LABEL_3B4B_                                        2  in: D E IXH IXL  out: -
+3B49  applyFrictionMovingLeft                             3  in: D E IXH IXL  out: fC
+3B4F  resetEntityUnknown3AndAlexSpeed                     2  in: IXH IXL  out: H L
+3B56  sub_3B56                                            2  in: H L  out: -
+3B5A  leftBrake                                          13  in: D E  out: -
+3B77  accelerateAlexRight                                15  in: B C D E IXH IXL  out: -
+3B95  _LABEL_3B9C_                                        2  in: A D E IXH IXL  out: -
+3B9A  applyFrictionMovingRight                            7  in: A D E IXH IXL  out: fC
+3BAA  rightBrake                                         13  in: D E  out: -
+3BC8  _LABEL_3BCF_                                       11  in: A B C D E  out: -
+3BDA  _LABEL_3BE1_                                       12  in: A B C D E IXH IXL  out: -
+3BF0  _LABEL_3BF7_                                       12  in: D E  out: -
+3C0B  _LABEL_3C12_                                       12  in: A B C D E IXH IXL  out: -
+3C21  _LABEL_3C28_                                       13  in: D E  out: -
+3C3E  interactWithTile                                    1  in: IXH IXL  out: B C
+3C41  interactWithTileAtOffset                           75  in: D E IXH IXL  out: B C H L
+3D00  interactWithFloor                                   1  in: IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: B C
+3D03  interactWithFloorWithOffset                        31  in: D E IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: B C H L
+3D59  _LABEL_3D60_                                        2  in: -  out: -
+3D5D  _LABEL_3D64_                                        2  in: -  out: -
+3D61  _LABEL_3D68_                                        2  in: -  out: -
+3D65  _LABEL_3D6C_                                        2  in: -  out: -
+3D69  _LABEL_3D70_                                        1  in: -  out: -
+3D6B  sub_3D6B                                           38  in: C  out: -
+3DB8  _LABEL_3DBF_                                       10  in: IXH IXL  out: -
+3E04  tickJitter                                         13  in: IXH IXL  out: -
+3E39  _LABEL_3E40_                                        5  in: IXH IXL  out: -
+3E49  _LABEL_3E50_                                       16  in: IXH IXL  out: -
+3E73  sub_3E73                                            8  in: C H L IXH IXL IYH IYL  out: -
+3E89  _LABEL_3E90_                                        8  in: IXH IXL  out: -
+3E9F  _LABEL_3EA6_                                       11  in: IXH IXL  out: -
+3F55  _LABEL_3F5C_                                       10  in: IXH IXL  out: -
+3F66  _LABEL_3F6D_                                        3  in: IXH IXL  out: -
+3F6E  _LABEL_3F75_                                       30  in: IXH IXL  out: -
+3FCA  _LABEL_3FD1_                                       33  in: IXH IXL  out: -
+401E  _LABEL_4025_                                       79  in: IXH IXL  out: -
+40E0  _LABEL_40E7_                                       24  in: IXH IXL  out: -
+411D  _LABEL_4124_                                       31  in: B IXH IXL  out: -
+4157  _LABEL_415E_                                       19  in: IXH IXL  out: -
+4182  loadAlexAnimationDescriptor                        20  in: H L IXH IXL  out: -
+41A3  loadAlexSpriteDescriptor                            5  in: H L  out: H L
+41AC  requestLevelTilesUpdateIfAlexTilesChanged           8  in: -  out: B
+41B9  loadAlexTilesToVRAM2000                             5  in: A  out: B
+41C1  loadAlexTilesToVRAM                                57  in: B C  out: B
+4501  handleAction                                       12  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+4538  punch                                              12  in: IXH IXL  out: -
+4557  _LABEL_455E_                                       13  in: D E H L IXH IXL  out: H L IYH IYL
+4571  _LABEL_4578_                                       45  in: B C H L IXH IXL  out: H L IYH IYL
+45B7  requestNametableChangeBackground                   11  in: -  out: H L
+45EA  _LABEL_45F1_                                       11  in: IXH IXL  out: -
+460E  _LABEL_4615_                                       11  in: B C  out: IYH IYL
+4620  spawnMoneyBagAt                                     4  in: B C  out: IYH IYL
+4627  tickPunch                                          12  in: IXH IXL  out: H L fZ
+463A  _LABEL_4641_                                        4  in: -  out: -
+4647  _LABEL_464E_                                        3  in: -  out: -
+4652  sub_4652                                           21  in: H L  out: -
+4688  _LABEL_468F_                                        1  in: -  out: -

@@ -1,0 +1,39 @@
+# run: --frames 4600
+# Shop: enter by poking the state, buy with and without money, leave.
+100 keys 1
+106 keys -
+700 peek C01F 1
+800 poke C01F 05
+900 peek C01F 1
+1100 peek C01F 1
+1300 peek C01F 1
+1400 keys 1
+1405 keys -
+1450 peek C01F 1
+# too poor: select the cane of flight with no money
+1500 poke C056 01
+1520 peek C01F 1
+1800 keys 2
+1805 keys -
+1850 peek C01F 1
+# money: $9990
+1900 poke C030 00
+1900 poke C031 99
+1900 poke C032 09
+1950 poke C056 01
+2300 keys 2
+2305 keys -
+2400 poke C056 08
+2700 keys 2
+2705 keys -
+2800 poke C056 07
+3100 keys 2
+3105 keys -
+3200 poke C056 05
+3500 keys 2
+3505 keys -
+3600 peek C046 10
+3600 peek C054 1
+3700 poke C01F C5
+3800 peek C01F 1
+4000 peek C01F 1

@@ -1,0 +1,9 @@
+# run: --level 3 --lives --frames 1100
+100 keys 1
+106 keys -
+900 poke C812 3F
+900 poke C813 60
+900 poke C852 3F
+900 poke C853 60
+901 keys U
+1000 keys -

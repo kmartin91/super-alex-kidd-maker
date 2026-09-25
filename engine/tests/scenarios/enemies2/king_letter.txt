@@ -1,0 +1,129 @@
+# run: --level 12 --lives --frames 3000
+100 keys 1
+106 keys -
+690 poke C0C9 0
+690 poke C04C 1
+700 poke C563 0
+700 poke C56C A0
+700 poke C56E 88
+700 poke C57A 0
+701 poke C561 0
+701 poke C569 0
+701 poke C56A 0
+701 poke C577 0
+702 poke C578 0
+702 poke C576 0
+702 poke C56F 0
+702 poke C570 0
+703 poke C571 0
+703 poke C572 0
+703 poke C565 1
+704 poke C560 53
+850 keys 2
+875 keys -
+900 keys 2
+925 keys -
+950 keys 2
+975 keys -
+1000 keys 2
+1025 keys -
+1050 keys 2
+1075 keys -
+1100 keys 2
+1125 keys -
+1150 keys 2
+1175 keys -
+1200 keys 2
+1225 keys -
+1250 keys 2
+1275 keys -
+1300 keys 2
+1325 keys -
+1350 keys 2
+1375 keys -
+1400 keys 2
+1425 keys -
+1450 keys 2
+1475 keys -
+1500 keys 2
+1525 keys -
+1550 keys 2
+1575 keys -
+1600 keys 2
+1625 keys -
+1650 keys 2
+1675 keys -
+1700 keys 2
+1725 keys -
+1750 keys 2
+1775 keys -
+1800 keys 2
+1825 keys -
+1850 keys 2
+1875 keys -
+1900 keys 2
+1925 keys -
+1950 keys 2
+1975 keys -
+2000 keys -
+2000 keys R
+2021 keys R
+2026 keys R12
+2053 keys R2
+2057 keys -
+2064 keys U2
+2085 keys R12
+2112 keys D2
+2126 keys L2
+2153 keys -
+2164 keys R12
+2192 keys 2
+2218 keys R
+2234 keys L12
+2254 keys U2
+2260 keys 2
+2281 keys L12
+2306 keys R
+2332 keys R2
+2356 keys R
+2378 keys U2
+2383 keys R
+2399 keys L2
+2404 keys L2
+2432 keys 12
+2460 keys R2
+2477 keys D2
+2483 keys R
+2492 keys D2
+2515 keys R
+2527 keys R
+2531 keys 1
+2540 keys R
+2563 keys L2
+2581 keys R
+2590 keys L12
+2611 keys U2
+2636 keys R
+2655 keys -
+2678 keys L2
+2688 keys 1
+2704 keys R2
+2718 keys 1
+2724 keys R
+2743 keys U2
+2762 keys 2
+2768 keys 1
+2792 keys R2
+2804 keys D2
+2813 keys 12
+2831 keys 2
+2838 keys 1
+2847 keys R
+2877 keys D2
+2896 keys -
+2905 keys R
+2913 keys -
+2936 keys L2
+2956 keys U2
+2978 keys 1
+2990 keys L2

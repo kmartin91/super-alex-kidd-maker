@@ -1,0 +1,16 @@
+# run: --level 11 --lives --frames 1400
+# run: --level 16 --lives --frames 1400
+# flip-screen levels: Alex at the bottom of the screen (level 11)
+100 keys 1
+106 keys -
+600 poke C30E B0
+800 keys R
+810 keys R1
+812 poke C30E B0
+900 keys -
+1000 poke C314 0B
+1000 poke C30E B0
+1200 poke C314 C1
+1200 poke C312 00
+1200 poke C311 00
+1200 poke C30E B0

@@ -1,0 +1,162 @@
+# run: --frames 1992
+# Level 13: h poked to 0, flying left until the camera reaches the left edge (refused).
+# Run with: --level 13 --lives --frames 1400
+100 keys 1
+106 keys -
+401 poke C0B6 00
+402 keys L1
+412 keys L
+420 peek C30F 2
+420 peek C0AF 2
+420 peek C0C9 1
+420 peek C0B6 1
+422 keys L1
+432 keys L
+442 keys L1
+450 poke C30C 70
+452 keys L
+462 keys L1
+472 keys L
+482 keys L1
+492 keys L
+502 keys L1
+510 poke C30C 70
+512 keys L
+520 peek C30F 2
+520 peek C0AF 2
+520 peek C0C9 1
+520 peek C0B6 1
+522 keys L1
+532 keys L
+542 keys L1
+552 keys L
+562 keys L1
+570 poke C30C 70
+572 keys L
+582 keys L1
+592 keys L
+602 keys L1
+612 keys L
+620 peek C30F 2
+620 peek C0AF 2
+620 peek C0C9 1
+620 peek C0B6 1
+622 keys L1
+630 poke C30C 70
+632 keys L
+642 keys L1
+652 keys L
+662 keys L1
+672 keys L
+682 keys L1
+690 poke C30C 70
+692 keys L
+702 keys L1
+712 keys L
+720 peek C30F 2
+720 peek C0AF 2
+720 peek C0C9 1
+720 peek C0B6 1
+722 keys L1
+732 keys L
+742 keys L1
+750 poke C30C 70
+752 keys L
+762 keys L1
+772 keys L
+782 keys L1
+792 keys L
+802 keys L1
+810 poke C30C 70
+812 keys L
+820 peek C30F 2
+820 peek C0AF 2
+820 peek C0C9 1
+820 peek C0B6 1
+822 keys L1
+832 keys L
+842 keys L1
+852 keys L
+862 keys L1
+870 poke C30C 70
+872 keys L
+882 keys L1
+892 keys L
+902 keys L1
+912 keys L
+920 peek C30F 2
+920 peek C0AF 2
+920 peek C0C9 1
+920 peek C0B6 1
+922 keys L1
+930 poke C30C 70
+932 keys L
+942 keys L1
+952 keys L
+962 keys L1
+972 keys L
+982 keys L1
+990 poke C30C 70
+992 keys L
+1002 keys L1
+1012 keys L
+1020 peek C30F 2
+1020 peek C0AF 2
+1020 peek C0C9 1
+1020 peek C0B6 1
+1022 keys L1
+1032 keys L
+1042 keys L1
+1050 poke C30C 70
+1052 keys L
+1062 keys L1
+1072 keys L
+1082 keys L1
+1092 keys L
+1102 keys L1
+1110 poke C30C 70
+1112 keys L
+1120 peek C30F 2
+1120 peek C0AF 2
+1120 peek C0C9 1
+1120 peek C0B6 1
+1122 keys L1
+1132 keys L
+1142 keys L1
+1152 keys L
+1162 keys L1
+1170 poke C30C 70
+1172 keys L
+1182 keys L1
+1192 keys L
+1202 keys L1
+1212 keys L
+1220 peek C30F 2
+1220 peek C0AF 2
+1220 peek C0C9 1
+1220 peek C0B6 1
+1222 keys L1
+1230 poke C30C 70
+1232 keys L
+1242 keys L1
+1252 keys L
+1262 keys L1
+1272 keys L
+1282 keys L1
+1290 poke C30C 70
+1292 keys L
+1302 keys L1
+1312 keys L
+1320 peek C30F 2
+1320 peek C0AF 2
+1320 peek C0C9 1
+1320 peek C0B6 1
+1322 keys L1
+1332 keys L
+1342 keys L1
+1350 poke C30C 70
+1352 keys L
+1362 keys L1
+1372 keys L
+1382 keys L1
+1392 keys L

@@ -1,0 +1,4 @@
+# run: --frames 1610
+# Alex dies during a demo: back to the title.
+1000 poke C01F 06
+1010 peek C01F 1

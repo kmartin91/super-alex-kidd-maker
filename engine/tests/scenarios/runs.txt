@@ -1,0 +1,195 @@
+# Shadow runs without an input script (one set of options per line).
+--mode play --seed 1 --frames 20000
+--mode play --seed 2 --frames 20000
+--mode play --seed 3 --frames 20000
+--mode play --seed 4 --frames 20000
+--mode play --seed 5 --frames 20000
+--mode play --seed 6 --frames 10000
+--mode play --seed 7 --frames 10000
+--mode play --seed 8 --frames 10000
+--mode play --seed 1 --level 1 --lives --frames 12000
+--mode play --seed 2 --level 2 --lives --frames 12000
+--mode play --seed 3 --level 3 --lives --frames 12000
+--mode play --seed 4 --level 4 --lives --frames 6000
+--mode play --seed 5 --level 5 --lives --frames 6000
+--mode play --seed 6 --level 6 --lives --frames 6000
+--mode play --seed 7 --level 7 --lives --frames 6000
+--mode play --seed 8 --level 8 --lives --frames 6000
+--mode play --seed 9 --level 9 --lives --frames 6000
+--mode play --seed 10 --level 10 --lives --frames 6000
+--mode play --seed 11 --level 11 --lives --frames 8000
+--mode play --seed 12 --level 12 --lives --frames 8000
+--mode play --seed 13 --level 13 --lives --frames 8000
+--mode play --seed 14 --level 14 --lives --frames 6000
+--mode play --seed 15 --level 15 --lives --frames 6000
+--mode play --seed 16 --level 16 --lives --frames 6000
+--mode play --seed 17 --level 17 --lives --frames 6000
+--mode play --seed 4 --level 1 --lives --frames 8000 --depth 3
+--mode play --seed 7 --level 2 --lives --frames 8000 --depth 3
+--mode play --seed 10 --level 3 --lives --frames 8000 --depth 3
+--mode play --seed 13 --level 4 --lives --frames 8000 --depth 3
+--mode play --seed 16 --level 5 --lives --frames 8000 --depth 3
+--mode play --seed 19 --level 6 --lives --frames 8000 --depth 3
+--mode play --seed 22 --level 7 --lives --frames 8000 --depth 3
+--mode play --seed 25 --level 8 --lives --frames 8000 --depth 3
+--mode play --seed 28 --level 9 --lives --frames 8000 --depth 3
+--mode play --seed 31 --level 10 --lives --frames 8000 --depth 3
+--mode play --seed 34 --level 11 --lives --frames 8000 --depth 3
+--mode play --seed 37 --level 12 --lives --frames 8000 --depth 3
+--mode play --seed 40 --level 13 --lives --frames 8000 --depth 3
+--mode play --seed 43 --level 14 --lives --frames 8000 --depth 3
+--mode play --seed 46 --level 15 --lives --frames 8000 --depth 3
+--mode play --seed 49 --level 16 --lives --frames 8000 --depth 3
+--mode play --seed 52 --level 17 --lives --frames 8000 --depth 3
+--mode play --seed 11 --frames 10000 --depth 5
+--mode play --seed 12 --frames 10000 --depth 5
+--mode play --seed 13 --frames 10000 --depth 5
+--mode idle --frames 3000 --depth 6
+--mode idle --frames 3000 --depth 12
+--mode play --seed 1 --frames 10000 --depth 12
+--mode play --seed 2 --frames 10000 --depth 12
+--mode play --seed 3 --frames 10000 --depth 12
+--mode play --seed 4 --frames 10000 --depth 12
+--mode play --seed 4 --level 1 --lives --frames 8000 --depth 12
+--mode play --seed 7 --level 2 --lives --frames 8000 --depth 12
+--mode play --seed 10 --level 3 --lives --frames 8000 --depth 12
+--mode play --seed 13 --level 4 --lives --frames 8000 --depth 12
+--mode play --seed 16 --level 5 --lives --frames 8000 --depth 12
+--mode play --seed 19 --level 6 --lives --frames 8000 --depth 12
+--mode play --seed 22 --level 7 --lives --frames 8000 --depth 12
+--mode play --seed 25 --level 8 --lives --frames 8000 --depth 12
+--mode play --seed 28 --level 9 --lives --frames 8000 --depth 12
+--mode play --seed 31 --level 10 --lives --frames 8000 --depth 12
+--mode play --seed 34 --level 11 --lives --frames 8000 --depth 12
+--mode play --seed 37 --level 12 --lives --frames 8000 --depth 12
+--mode play --seed 40 --level 13 --lives --frames 8000 --depth 12
+--mode play --seed 43 --level 14 --lives --frames 8000 --depth 12
+--mode play --seed 46 --level 15 --lives --frames 8000 --depth 12
+--mode play --seed 49 --level 16 --lives --frames 8000 --depth 12
+--mode play --seed 52 --level 17 --lives --frames 8000 --depth 12
+--mode idle --frames 3000
+--mode idle --frames 3000 --depth 4
+--mode play --seed 1 --frames 8000 --depth 4
+--mode play --seed 2 --frames 8000 --depth 3
+--mode play --seed 7 --level 5 --lives --frames 6000 --depth 4
+--mode play --seed 28 --level 9 --lives --frames 8000 --depth 6
+--mode play --seed 29 --level 9 --lives --frames 8000 --depth 6
+--mode play --seed 30 --level 9 --lives --frames 8000 --depth 6
+--mode play --seed 31 --level 9 --lives --frames 8000 --depth 6
+--relaxed --mode idle --frames 3000
+--relaxed --mode play --seed 1 --frames 20000
+--relaxed --mode play --seed 3 --frames 20000
+--relaxed --mode play --seed 5 --frames 20000
+--relaxed --mode play --seed 4 --level 1 --lives --frames 8000
+--relaxed --mode play --seed 7 --level 2 --lives --frames 8000
+--relaxed --mode play --seed 10 --level 3 --lives --frames 8000
+--relaxed --mode play --seed 13 --level 4 --lives --frames 8000
+--relaxed --mode play --seed 16 --level 5 --lives --frames 8000
+--relaxed --mode play --seed 19 --level 6 --lives --frames 8000
+--relaxed --mode play --seed 22 --level 7 --lives --frames 8000
+--relaxed --mode play --seed 25 --level 8 --lives --frames 8000
+--relaxed --mode play --seed 28 --level 9 --lives --frames 8000
+--relaxed --mode play --seed 31 --level 10 --lives --frames 8000
+--relaxed --mode play --seed 34 --level 11 --lives --frames 8000
+--relaxed --mode play --seed 37 --level 12 --lives --frames 8000
+--relaxed --mode play --seed 40 --level 13 --lives --frames 8000
+--relaxed --mode play --seed 43 --level 14 --lives --frames 8000
+--relaxed --mode play --seed 46 --level 15 --lives --frames 8000
+--relaxed --mode play --seed 49 --level 16 --lives --frames 8000
+--relaxed --mode play --seed 52 --level 17 --lives --frames 8000
+--mode play --seed 2 --level 1 --lives --frames 12000
+--mode play --seed 3 --level 1 --lives --frames 12000
+--mode play --seed 1 --level 2 --lives --frames 12000
+--mode play --seed 3 --level 2 --lives --frames 12000
+--mode play --seed 1 --level 3 --lives --frames 12000
+--mode play --seed 2 --level 3 --lives --frames 12000
+--mode play --seed 1 --level 4 --lives --frames 12000
+--mode play --seed 2 --level 4 --lives --frames 12000
+--mode play --seed 3 --level 4 --lives --frames 12000
+--mode play --seed 1 --level 5 --lives --frames 12000
+--mode play --seed 2 --level 5 --lives --frames 12000
+--mode play --seed 3 --level 5 --lives --frames 12000
+--mode play --seed 1 --level 6 --lives --frames 12000
+--mode play --seed 2 --level 6 --lives --frames 12000
+--mode play --seed 3 --level 6 --lives --frames 12000
+--mode play --seed 1 --level 7 --lives --frames 12000
+--mode play --seed 2 --level 7 --lives --frames 12000
+--mode play --seed 3 --level 7 --lives --frames 12000
+--mode play --seed 1 --level 8 --lives --frames 12000
+--mode play --seed 2 --level 8 --lives --frames 12000
+--mode play --seed 3 --level 8 --lives --frames 12000
+--mode play --seed 1 --level 9 --lives --frames 12000
+--mode play --seed 2 --level 9 --lives --frames 12000
+--mode play --seed 3 --level 9 --lives --frames 12000
+--mode play --seed 1 --level 10 --lives --frames 12000
+--mode play --seed 2 --level 10 --lives --frames 12000
+--mode play --seed 3 --level 10 --lives --frames 12000
+--mode play --seed 1 --level 11 --lives --frames 12000
+--mode play --seed 2 --level 11 --lives --frames 12000
+--mode play --seed 3 --level 11 --lives --frames 12000
+--mode play --seed 1 --level 12 --lives --frames 12000
+--mode play --seed 2 --level 12 --lives --frames 12000
+--mode play --seed 3 --level 12 --lives --frames 12000
+--mode play --seed 1 --level 13 --lives --frames 12000
+--mode play --seed 2 --level 13 --lives --frames 12000
+--mode play --seed 3 --level 13 --lives --frames 12000
+--mode play --seed 1 --level 14 --lives --frames 12000
+--mode play --seed 2 --level 14 --lives --frames 12000
+--mode play --seed 3 --level 14 --lives --frames 12000
+--mode play --seed 1 --level 15 --lives --frames 12000
+--mode play --seed 2 --level 15 --lives --frames 12000
+--mode play --seed 3 --level 15 --lives --frames 12000
+--mode play --seed 1 --level 16 --lives --frames 12000
+--mode play --seed 2 --level 16 --lives --frames 12000
+--mode play --seed 3 --level 16 --lives --frames 12000
+--mode play --seed 1 --level 17 --lives --frames 12000
+--mode play --seed 2 --level 17 --lives --frames 12000
+--mode play --seed 3 --level 17 --lives --frames 12000
+--mode play --seed 11 --level 1 --lives --frames 8000
+--mode play --seed 12 --level 1 --lives --frames 8000
+--mode play --seed 13 --level 1 --lives --frames 8000
+--mode play --seed 11 --level 2 --lives --frames 8000
+--mode play --seed 12 --level 2 --lives --frames 8000
+--mode play --seed 13 --level 2 --lives --frames 8000
+--mode play --seed 11 --level 3 --lives --frames 8000
+--mode play --seed 12 --level 3 --lives --frames 8000
+--mode play --seed 13 --level 3 --lives --frames 8000
+--mode play --seed 11 --level 4 --lives --frames 8000
+--mode play --seed 12 --level 4 --lives --frames 8000
+--mode play --seed 13 --level 4 --lives --frames 8000
+--mode play --seed 11 --level 5 --lives --frames 8000
+--mode play --seed 12 --level 5 --lives --frames 8000
+--mode play --seed 13 --level 5 --lives --frames 8000
+--mode play --seed 11 --level 6 --lives --frames 8000
+--mode play --seed 12 --level 6 --lives --frames 8000
+--mode play --seed 13 --level 6 --lives --frames 8000
+--mode play --seed 11 --level 7 --lives --frames 8000
+--mode play --seed 12 --level 7 --lives --frames 8000
+--mode play --seed 13 --level 7 --lives --frames 8000
+--mode play --seed 11 --level 8 --lives --frames 8000
+--mode play --seed 12 --level 8 --lives --frames 8000
+--mode play --seed 13 --level 8 --lives --frames 8000
+--mode play --seed 11 --level 9 --lives --frames 8000
+--mode play --seed 12 --level 9 --lives --frames 8000
+--mode play --seed 13 --level 9 --lives --frames 8000
+--mode play --seed 11 --level 10 --lives --frames 8000
+--mode play --seed 12 --level 10 --lives --frames 8000
+--mode play --seed 13 --level 10 --lives --frames 8000
+--mode play --seed 12 --level 11 --lives --frames 8000
+--mode play --seed 13 --level 11 --lives --frames 8000
+--mode play --seed 11 --level 12 --lives --frames 8000
+--mode play --seed 13 --level 12 --lives --frames 8000
+--mode play --seed 11 --level 13 --lives --frames 8000
+--mode play --seed 12 --level 13 --lives --frames 8000
+--mode play --seed 11 --level 14 --lives --frames 8000
+--mode play --seed 12 --level 14 --lives --frames 8000
+--mode play --seed 13 --level 14 --lives --frames 8000
+--mode play --seed 11 --level 15 --lives --frames 8000
+--mode play --seed 12 --level 15 --lives --frames 8000
+--mode play --seed 13 --level 15 --lives --frames 8000
+--mode play --seed 11 --level 16 --lives --frames 8000
+--mode play --seed 12 --level 16 --lives --frames 8000
+--mode play --seed 13 --level 16 --lives --frames 8000
+--mode play --seed 11 --level 17 --lives --frames 8000
+--mode play --seed 12 --level 17 --lives --frames 8000
+--mode play --seed 13 --level 17 --lives --frames 8000

@@ -1,0 +1,17 @@
+# run: --level 2 --lives --frames 1100
+# ladder top from the floor, climbing to the floor above, jumping off left (level 2)
+100 keys 1
+106 keys -
+600 poke CD0A 3F
+600 poke CD0B A0
+610 keys D
+640 keys -
+700 poke C31A 0A
+710 keys U
+740 keys -
+800 poke C31A 0A
+810 keys L
+820 keys -
+900 poke CD0A 0D
+900 poke CD0B A0
+950 poke CC8B 80

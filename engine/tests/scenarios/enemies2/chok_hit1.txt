@@ -1,0 +1,906 @@
+# run: --level 11 --lives --frames 4500
+100 keys 1
+106 keys -
+800 poke C3A3 5
+800 poke C3AC B0
+800 poke C3AE 90
+800 poke C3BA 0
+801 poke C3A1 0
+801 poke C3A9 0
+801 poke C3AA 0
+802 poke C3A0 1E
+806 poke C317 2
+806 poke C3B7 0
+831 poke C317 2
+831 poke C3B7 0
+856 poke C317 2
+856 poke C3B7 0
+860 keys 2
+863 keys -
+881 poke C317 2
+881 poke C3B7 0
+906 poke C317 2
+906 poke C3B7 0
+910 keys 2
+913 keys -
+931 poke C317 2
+931 poke C3B7 0
+956 poke C317 2
+956 poke C3B7 0
+960 keys 2
+963 keys -
+981 poke C317 2
+981 poke C3B7 0
+1006 poke C317 2
+1006 poke C3B7 0
+1010 keys 2
+1013 keys -
+1031 poke C317 2
+1031 poke C3B7 0
+1056 poke C317 2
+1056 poke C3B7 0
+1060 keys 2
+1063 keys -
+1081 poke C317 2
+1081 poke C3B7 0
+1106 poke C317 2
+1106 poke C3B7 0
+1110 keys 2
+1113 keys -
+1131 poke C317 2
+1131 poke C3B7 0
+1156 poke C317 2
+1156 poke C3B7 0
+1160 keys 2
+1163 keys -
+1181 poke C317 2
+1181 poke C3B7 0
+1206 poke C317 2
+1206 poke C3B7 0
+1210 keys 2
+1213 keys -
+1231 poke C317 2
+1231 poke C3B7 0
+1256 poke C317 2
+1256 poke C3B7 0
+1260 keys 2
+1263 keys -
+1281 poke C317 2
+1281 poke C3B7 0
+1306 poke C317 2
+1306 poke C3B7 0
+1310 keys 2
+1313 keys -
+1331 poke C317 2
+1331 poke C3B7 0
+1356 poke C317 2
+1356 poke C3B7 0
+1360 keys 2
+1363 keys -
+1381 poke C317 2
+1381 poke C3B7 0
+1406 poke C317 2
+1406 poke C3B7 0
+1410 keys 2
+1413 keys -
+1431 poke C317 2
+1431 poke C3B7 0
+1456 poke C317 2
+1456 poke C3B7 0
+1460 keys 2
+1463 keys -
+1481 poke C317 2
+1481 poke C3B7 0
+1506 poke C317 2
+1506 poke C3B7 0
+1510 keys 2
+1513 keys -
+1531 poke C317 2
+1531 poke C3B7 0
+1556 poke C317 2
+1556 poke C3B7 0
+1560 keys 2
+1563 keys -
+1581 poke C317 2
+1581 poke C3B7 0
+1606 poke C317 2
+1606 poke C3B7 0
+1610 keys 2
+1613 keys -
+1631 poke C317 2
+1631 poke C3B7 0
+1656 poke C317 2
+1656 poke C3B7 0
+1660 keys 2
+1663 keys -
+1681 poke C317 2
+1681 poke C3B7 0
+1706 poke C317 2
+1706 poke C3B7 0
+1710 keys 2
+1713 keys -
+1731 poke C317 2
+1731 poke C3B7 0
+1756 poke C317 2
+1756 poke C3B7 0
+1760 keys 2
+1763 keys -
+1781 poke C317 2
+1781 poke C3B7 0
+1806 poke C317 2
+1806 poke C3B7 0
+1810 keys 2
+1813 keys -
+1831 poke C317 2
+1831 poke C3B7 0
+1856 poke C317 2
+1856 poke C3B7 0
+1860 keys 2
+1863 keys -
+1881 poke C317 2
+1881 poke C3B7 0
+1906 poke C317 2
+1906 poke C3B7 0
+1910 keys 2
+1913 keys -
+1931 poke C317 2
+1931 poke C3B7 0
+1956 poke C317 2
+1956 poke C3B7 0
+1960 keys 2
+1963 keys -
+1981 poke C317 2
+1981 poke C3B7 0
+2006 poke C317 2
+2006 poke C3B7 0
+2010 keys 2
+2013 keys -
+2031 poke C317 2
+2031 poke C3B7 0
+2056 poke C317 2
+2056 poke C3B7 0
+2060 keys 2
+2063 keys -
+2081 poke C317 2
+2081 poke C3B7 0
+2106 poke C317 2
+2106 poke C3B7 0
+2110 keys 2
+2113 keys -
+2131 poke C317 2
+2131 poke C3B7 0
+2156 poke C317 2
+2156 poke C3B7 0
+2160 keys 2
+2163 keys -
+2181 poke C317 2
+2181 poke C3B7 0
+2206 poke C317 2
+2206 poke C3B7 0
+2210 keys 2
+2213 keys -
+2231 poke C317 2
+2231 poke C3B7 0
+2256 poke C317 2
+2256 poke C3B7 0
+2260 keys 2
+2263 keys -
+2281 poke C317 2
+2281 poke C3B7 0
+2306 poke C317 2
+2306 poke C3B7 0
+2310 keys 2
+2313 keys -
+2331 poke C317 2
+2331 poke C3B7 0
+2356 poke C317 2
+2356 poke C3B7 0
+2360 keys 2
+2363 keys -
+2381 poke C317 2
+2381 poke C3B7 0
+2406 poke C317 2
+2406 poke C3B7 0
+2410 keys 2
+2413 keys -
+2431 poke C317 2
+2431 poke C3B7 0
+2456 poke C317 2
+2456 poke C3B7 0
+2460 keys 2
+2463 keys -
+2481 poke C317 2
+2481 poke C3B7 0
+2506 poke C317 2
+2506 poke C3B7 0
+2510 keys 2
+2513 keys -
+2531 poke C317 2
+2531 poke C3B7 0
+2556 poke C317 2
+2556 poke C3B7 0
+2560 keys 2
+2563 keys -
+2581 poke C317 2
+2581 poke C3B7 0
+2606 poke C317 2
+2606 poke C3B7 0
+2610 keys 2
+2613 keys -
+2631 poke C317 2
+2631 poke C3B7 0
+2656 poke C317 2
+2656 poke C3B7 0
+2660 keys 2
+2663 keys -
+2681 poke C317 2
+2681 poke C3B7 0
+2706 poke C317 2
+2706 poke C3B7 0
+2710 keys 2
+2713 keys -
+2731 poke C317 2
+2731 poke C3B7 0
+2756 poke C317 2
+2756 poke C3B7 0
+2760 keys 2
+2763 keys -
+2781 poke C317 2
+2781 poke C3B7 0
+2806 poke C317 2
+2806 poke C3B7 0
+2810 keys 2
+2813 keys -
+2831 poke C317 2
+2831 poke C3B7 0
+2856 poke C317 2
+2856 poke C3B7 0
+2860 keys 2
+2863 keys -
+2881 poke C317 2
+2881 poke C3B7 0
+2906 poke C317 2
+2906 poke C3B7 0
+2910 keys 2
+2913 keys -
+2931 poke C317 2
+2931 poke C3B7 0
+2956 poke C317 2
+2956 poke C3B7 0
+2960 keys 2
+2963 keys -
+2981 poke C317 2
+2981 poke C3B7 0
+3006 poke C317 2
+3006 poke C3B7 0
+3010 keys 2
+3013 keys -
+3031 poke C317 2
+3031 poke C3B7 0
+3056 poke C317 2
+3056 poke C3B7 0
+3060 keys 2
+3063 keys -
+3081 poke C317 2
+3081 poke C3B7 0
+3100 keys 2
+3105 keys -
+3110 keys 2
+3115 keys -
+3120 keys 2
+3125 keys -
+3130 keys 2
+3135 keys -
+3140 keys 2
+3145 keys -
+3150 keys 2
+3155 keys -
+3160 keys 2
+3165 keys -
+3170 keys 2
+3175 keys -
+3180 keys 2
+3185 keys -
+3190 keys 2
+3195 keys -
+3200 poke C3DA 1
+3200 poke C3CC 38
+3200 poke C3CE 98
+3200 keys 2
+3205 keys -
+3210 poke C3DA 1
+3210 poke C3CC 38
+3210 poke C3CE 98
+3210 keys 2
+3215 keys -
+3220 poke C3DA 1
+3220 poke C3CC 38
+3220 poke C3CE 98
+3220 keys 2
+3225 keys -
+3230 poke C3DA 1
+3230 poke C3CC 38
+3230 poke C3CE 98
+3230 keys 2
+3235 keys -
+3240 poke C3DA 1
+3240 poke C3CC 38
+3240 poke C3CE 98
+3240 keys 2
+3245 keys -
+3250 poke C3DA 1
+3250 poke C3CC 38
+3250 poke C3CE 98
+3250 keys 2
+3255 keys -
+3260 poke C3DA 1
+3260 poke C3CC 38
+3260 poke C3CE 98
+3260 keys 2
+3265 keys -
+3270 poke C3DA 1
+3270 poke C3CC 38
+3270 poke C3CE 98
+3270 keys 2
+3275 keys -
+3280 poke C3DA 1
+3280 poke C3CC 38
+3280 poke C3CE 98
+3280 keys 2
+3285 keys -
+3290 poke C3DA 1
+3290 poke C3CC 38
+3290 poke C3CE 98
+3290 keys 2
+3295 keys -
+3300 poke C3DA 1
+3300 poke C3CC 38
+3300 poke C3CE 98
+3300 keys 2
+3305 keys -
+3310 poke C3DA 1
+3310 poke C3CC 38
+3310 poke C3CE 98
+3310 keys 2
+3315 keys -
+3320 poke C3DA 1
+3320 poke C3CC 38
+3320 poke C3CE 98
+3320 keys 2
+3325 keys -
+3330 poke C3DA 1
+3330 poke C3CC 38
+3330 poke C3CE 98
+3330 keys 2
+3335 keys -
+3340 poke C3DA 1
+3340 poke C3CC 38
+3340 poke C3CE 98
+3340 keys 2
+3345 keys -
+3350 poke C3DA 1
+3350 poke C3CC 38
+3350 poke C3CE 98
+3350 keys 2
+3355 keys -
+3360 poke C3DA 1
+3360 poke C3CC 38
+3360 poke C3CE 98
+3360 keys 2
+3365 keys -
+3370 poke C3DA 1
+3370 poke C3CC 38
+3370 poke C3CE 98
+3370 keys 2
+3375 keys -
+3380 poke C3DA 1
+3380 poke C3CC 38
+3380 poke C3CE 98
+3380 keys 2
+3385 keys -
+3390 poke C3DA 1
+3390 poke C3CC 38
+3390 poke C3CE 98
+3390 keys 2
+3395 keys -
+3400 poke C3DA 1
+3400 poke C3CC 38
+3400 poke C3CE 98
+3400 keys 2
+3405 keys -
+3410 poke C3DA 1
+3410 poke C3CC 38
+3410 poke C3CE 98
+3410 keys 2
+3415 keys -
+3420 poke C3DA 1
+3420 poke C3CC 38
+3420 poke C3CE 98
+3420 keys 2
+3425 keys -
+3430 poke C3DA 1
+3430 poke C3CC 38
+3430 poke C3CE 98
+3430 keys 2
+3435 keys -
+3440 poke C3DA 1
+3440 poke C3CC 38
+3440 poke C3CE 98
+3440 keys 2
+3445 keys -
+3450 poke C3DA 1
+3450 poke C3CC 38
+3450 poke C3CE 98
+3450 keys 2
+3455 keys -
+3460 poke C3DA 1
+3460 poke C3CC 38
+3460 poke C3CE 98
+3460 keys 2
+3465 keys -
+3470 poke C3DA 1
+3470 poke C3CC 38
+3470 poke C3CE 98
+3470 keys 2
+3475 keys -
+3480 poke C3DA 1
+3480 poke C3CC 38
+3480 poke C3CE 98
+3480 keys 2
+3485 keys -
+3490 poke C3DA 1
+3490 poke C3CC 38
+3490 poke C3CE 98
+3490 keys 2
+3495 keys -
+3500 poke C3DA 1
+3500 poke C3CC 38
+3500 poke C3CE 98
+3500 keys 2
+3505 keys -
+3510 poke C3DA 1
+3510 poke C3CC 38
+3510 poke C3CE 98
+3510 keys 2
+3515 keys -
+3520 poke C3DA 1
+3520 poke C3CC 38
+3520 poke C3CE 98
+3520 keys 2
+3525 keys -
+3530 poke C3DA 1
+3530 poke C3CC 38
+3530 poke C3CE 98
+3530 keys 2
+3535 keys -
+3540 poke C3DA 1
+3540 poke C3CC 38
+3540 poke C3CE 98
+3540 keys 2
+3545 keys -
+3550 poke C3DA 1
+3550 poke C3CC 38
+3550 poke C3CE 98
+3550 keys 2
+3555 keys -
+3560 poke C3DA 1
+3560 poke C3CC 38
+3560 poke C3CE 98
+3560 keys 2
+3565 keys -
+3570 poke C3DA 1
+3570 poke C3CC 38
+3570 poke C3CE 98
+3570 keys 2
+3575 keys -
+3580 poke C3DA 1
+3580 poke C3CC 38
+3580 poke C3CE 98
+3580 keys 2
+3585 keys -
+3590 poke C3DA 1
+3590 poke C3CC 38
+3590 poke C3CE 98
+3590 keys 2
+3595 keys -
+3600 poke C3DA 1
+3600 poke C3CC 38
+3600 poke C3CE 98
+3600 keys 2
+3605 keys -
+3610 poke C3DA 1
+3610 poke C3CC 38
+3610 poke C3CE 98
+3610 keys 2
+3615 keys -
+3620 poke C3DA 1
+3620 poke C3CC 38
+3620 poke C3CE 98
+3620 keys 2
+3625 keys -
+3630 poke C3DA 1
+3630 poke C3CC 38
+3630 poke C3CE 98
+3630 keys 2
+3635 keys -
+3640 poke C3DA 1
+3640 poke C3CC 38
+3640 poke C3CE 98
+3640 keys 2
+3645 keys -
+3650 poke C3DA 1
+3650 poke C3CC 38
+3650 poke C3CE 98
+3650 keys 2
+3655 keys -
+3660 poke C3DA 1
+3660 poke C3CC 38
+3660 poke C3CE 98
+3660 keys 2
+3665 keys -
+3670 poke C3DA 1
+3670 poke C3CC 38
+3670 poke C3CE 98
+3670 keys 2
+3675 keys -
+3680 poke C3DA 1
+3680 poke C3CC 38
+3680 poke C3CE 98
+3680 keys 2
+3685 keys -
+3690 poke C3DA 1
+3690 poke C3CC 38
+3690 poke C3CE 98
+3690 keys 2
+3695 keys -
+3700 poke C3DA 1
+3700 poke C3CC 38
+3700 poke C3CE 98
+3700 keys 2
+3705 keys -
+3710 poke C3DA 1
+3710 poke C3CC 38
+3710 poke C3CE 98
+3710 keys 2
+3715 keys -
+3720 poke C3DA 1
+3720 poke C3CC 38
+3720 poke C3CE 98
+3720 keys 2
+3725 keys -
+3730 poke C3DA 1
+3730 poke C3CC 38
+3730 poke C3CE 98
+3730 keys 2
+3735 keys -
+3740 poke C3DA 1
+3740 poke C3CC 38
+3740 poke C3CE 98
+3740 keys 2
+3745 keys -
+3750 poke C3DA 1
+3750 poke C3CC 38
+3750 poke C3CE 98
+3750 keys 2
+3755 keys -
+3760 poke C3DA 1
+3760 poke C3CC 38
+3760 poke C3CE 98
+3760 keys 2
+3765 keys -
+3770 poke C3DA 1
+3770 poke C3CC 38
+3770 poke C3CE 98
+3770 keys 2
+3775 keys -
+3780 poke C3DA 1
+3780 poke C3CC 38
+3780 poke C3CE 98
+3780 keys 2
+3785 keys -
+3790 poke C3DA 1
+3790 poke C3CC 38
+3790 poke C3CE 98
+3790 keys 2
+3795 keys -
+3800 poke C3DA 1
+3800 poke C3CC 38
+3800 poke C3CE 98
+3800 keys 2
+3805 keys -
+3810 poke C3DA 1
+3810 poke C3CC 38
+3810 poke C3CE 98
+3810 keys 2
+3815 keys -
+3820 poke C3DA 1
+3820 poke C3CC 38
+3820 poke C3CE 98
+3820 keys 2
+3825 keys -
+3830 poke C3DA 1
+3830 poke C3CC 38
+3830 poke C3CE 98
+3830 keys 2
+3835 keys -
+3840 poke C3DA 1
+3840 poke C3CC 38
+3840 poke C3CE 98
+3840 keys 2
+3845 keys -
+3850 poke C3DA 1
+3850 poke C3CC 38
+3850 poke C3CE 98
+3850 keys 2
+3855 keys -
+3860 poke C3DA 1
+3860 poke C3CC 38
+3860 poke C3CE 98
+3860 keys 2
+3865 keys -
+3870 poke C3DA 1
+3870 poke C3CC 38
+3870 poke C3CE 98
+3870 keys 2
+3875 keys -
+3880 poke C3DA 1
+3880 poke C3CC 38
+3880 poke C3CE 98
+3880 keys 2
+3885 keys -
+3890 poke C3DA 1
+3890 poke C3CC 38
+3890 poke C3CE 98
+3890 keys 2
+3895 keys -
+3900 poke C3DA 1
+3900 poke C3CC 38
+3900 poke C3CE 98
+3900 keys 2
+3905 keys -
+3910 poke C3DA 1
+3910 poke C3CC 38
+3910 poke C3CE 98
+3910 keys 2
+3915 keys -
+3920 poke C3DA 1
+3920 poke C3CC 38
+3920 poke C3CE 98
+3920 keys 2
+3925 keys -
+3930 poke C3DA 1
+3930 poke C3CC 38
+3930 poke C3CE 98
+3930 keys 2
+3935 keys -
+3940 poke C3DA 1
+3940 poke C3CC 38
+3940 poke C3CE 98
+3940 keys 2
+3945 keys -
+3950 poke C3DA 1
+3950 poke C3CC 38
+3950 poke C3CE 98
+3950 keys 2
+3955 keys -
+3960 poke C3DA 1
+3960 poke C3CC 38
+3960 poke C3CE 98
+3960 keys 2
+3965 keys -
+3970 poke C3DA 1
+3970 poke C3CC 38
+3970 poke C3CE 98
+3970 keys 2
+3975 keys -
+3980 poke C3DA 1
+3980 poke C3CC 38
+3980 poke C3CE 98
+3980 keys 2
+3985 keys -
+3990 poke C3DA 1
+3990 poke C3CC 38
+3990 poke C3CE 98
+3990 keys 2
+3995 keys -
+4000 poke C3DA 1
+4000 poke C3CC 38
+4000 poke C3CE 98
+4000 keys 2
+4005 keys -
+4010 poke C3DA 1
+4010 poke C3CC 38
+4010 poke C3CE 98
+4010 keys 2
+4015 keys -
+4020 poke C3DA 1
+4020 poke C3CC 38
+4020 poke C3CE 98
+4020 keys 2
+4025 keys -
+4030 poke C3DA 1
+4030 poke C3CC 38
+4030 poke C3CE 98
+4030 keys 2
+4035 keys -
+4040 poke C3DA 1
+4040 poke C3CC 38
+4040 poke C3CE 98
+4040 keys 2
+4045 keys -
+4050 poke C3DA 1
+4050 poke C3CC 38
+4050 poke C3CE 98
+4050 keys 2
+4055 keys -
+4060 poke C3DA 1
+4060 poke C3CC 38
+4060 poke C3CE 98
+4060 keys 2
+4065 keys -
+4070 poke C3DA 1
+4070 poke C3CC 38
+4070 poke C3CE 98
+4070 keys 2
+4075 keys -
+4080 poke C3DA 1
+4080 poke C3CC 38
+4080 poke C3CE 98
+4080 keys 2
+4085 keys -
+4090 poke C3DA 1
+4090 poke C3CC 38
+4090 poke C3CE 98
+4090 keys 2
+4095 keys -
+4100 poke C3DA 1
+4100 poke C3CC 38
+4100 poke C3CE 98
+4100 keys 2
+4105 keys -
+4110 poke C3DA 1
+4110 poke C3CC 38
+4110 poke C3CE 98
+4110 keys 2
+4115 keys -
+4120 poke C3DA 1
+4120 poke C3CC 38
+4120 poke C3CE 98
+4120 keys 2
+4125 keys -
+4130 poke C3DA 1
+4130 poke C3CC 38
+4130 poke C3CE 98
+4130 keys 2
+4135 keys -
+4140 poke C3DA 1
+4140 poke C3CC 38
+4140 poke C3CE 98
+4140 keys 2
+4145 keys -
+4150 poke C3DA 1
+4150 poke C3CC 38
+4150 poke C3CE 98
+4150 keys 2
+4155 keys -
+4160 poke C3DA 1
+4160 poke C3CC 38
+4160 poke C3CE 98
+4160 keys 2
+4165 keys -
+4170 poke C3DA 1
+4170 poke C3CC 38
+4170 poke C3CE 98
+4170 keys 2
+4175 keys -
+4180 poke C3DA 1
+4180 poke C3CC 38
+4180 poke C3CE 98
+4180 keys 2
+4185 keys -
+4190 poke C3DA 1
+4190 poke C3CC 38
+4190 poke C3CE 98
+4190 keys 2
+4195 keys -
+4200 poke C3DA 1
+4200 poke C3CC 38
+4200 poke C3CE 98
+4200 keys 2
+4205 keys -
+4210 poke C3DA 1
+4210 poke C3CC 38
+4210 poke C3CE 98
+4210 keys 2
+4215 keys -
+4220 poke C3DA 1
+4220 poke C3CC 38
+4220 poke C3CE 98
+4220 keys 2
+4225 keys -
+4230 poke C3DA 1
+4230 poke C3CC 38
+4230 poke C3CE 98
+4230 keys 2
+4235 keys -
+4240 poke C3DA 1
+4240 poke C3CC 38
+4240 poke C3CE 98
+4240 keys 2
+4245 keys -
+4250 poke C3DA 1
+4250 poke C3CC 38
+4250 poke C3CE 98
+4250 keys 2
+4255 keys -
+4260 poke C3DA 1
+4260 poke C3CC 38
+4260 poke C3CE 98
+4260 keys 2
+4265 keys -
+4270 poke C3DA 1
+4270 poke C3CC 38
+4270 poke C3CE 98
+4270 keys 2
+4275 keys -
+4280 poke C3DA 1
+4280 poke C3CC 38
+4280 poke C3CE 98
+4280 keys 2
+4285 keys -
+4290 poke C3DA 1
+4290 poke C3CC 38
+4290 poke C3CE 98
+4290 keys 2
+4295 keys -
+4300 poke C3DA 1
+4300 poke C3CC 38
+4300 poke C3CE 98
+4300 keys 2
+4305 keys -
+4310 poke C3DA 1
+4310 poke C3CC 38
+4310 poke C3CE 98
+4310 keys 2
+4315 keys -
+4320 poke C3DA 1
+4320 poke C3CC 38
+4320 poke C3CE 98
+4320 keys 2
+4325 keys -
+4330 poke C3DA 1
+4330 poke C3CC 38
+4330 poke C3CE 98
+4330 keys 2
+4335 keys -
+4340 poke C3DA 1
+4340 poke C3CC 38
+4340 poke C3CE 98
+4340 keys 2
+4345 keys -
+4350 poke C3DA 1
+4350 poke C3CC 38
+4350 poke C3CE 98
+4350 keys 2
+4355 keys -
+4360 poke C3DA 1
+4360 poke C3CC 38
+4360 poke C3CE 98
+4360 keys 2
+4365 keys -
+4370 poke C3DA 1
+4370 poke C3CC 38
+4370 poke C3CE 98
+4370 keys 2
+4375 keys -
+4380 poke C3DA 1
+4380 poke C3CC 38
+4380 poke C3CE 98
+4380 keys 2
+4385 keys -
+4390 poke C3DA 1
+4390 poke C3CC 38
+4390 poke C3CE 98
+4390 keys 2
+4395 keys -
+4400 keys -

@@ -1,0 +1,32 @@
+# run: --frames 5300
+# Life lost situations, all by poking the state.
+100 keys 1
+106 keys -
+# walking in level 1: ground search
+700 poke C01F 06
+900 peek C01F 1
+# swimming before the hit
+1000 poke C090 05
+1001 poke C01F 06
+1200 peek C01F 1
+# peticopter before the hit: restart the level
+1300 poke C090 06
+1301 poke C01F 06
+1600 peek C01F 1
+# on a vehicle: restart
+2200 poke C054 07
+2201 poke C01F 06
+2500 peek C01F 1
+# riding the boat: restart
+3000 poke C051 01
+3001 poke C01F 06
+3300 peek C01F 1
+3301 poke C051 00
+# level 13
+3400 poke C023 0D
+3401 poke C01F 06
+3700 peek C01F 1
+4200 poke C025 01
+4201 poke C01F 06
+4500 peek C01F 1
+4700 peek C01F 1

@@ -1,0 +1,284 @@
+# run: --frames 3100
+100 keys 1
+106 keys -
+700 poke C563 0
+700 poke C56C 90
+700 poke C56E 22
+700 poke C57A 0
+700 poke C583 0
+700 poke C58C C0
+700 poke C58E 22
+700 poke C59A 0
+700 peek C560 20
+700 peek C0AB 6
+701 poke C561 0
+701 poke C569 0
+701 poke C56A 0
+701 poke C577 0
+701 poke C581 0
+701 poke C589 0
+701 poke C58A 0
+701 poke C597 0
+702 poke C578 0
+702 poke C576 0
+702 poke C56F 0
+702 poke C570 0
+702 poke C598 0
+702 poke C596 0
+702 poke C58F 0
+702 poke C590 0
+703 poke C571 0
+703 poke C572 0
+703 poke C565 1
+703 poke C591 0
+703 poke C592 0
+703 poke C585 1
+704 poke C560 3D
+704 poke C580 3D
+710 keys R
+718 keys R1
+726 keys R
+734 keys R
+742 keys R
+750 keys R
+758 keys R
+766 keys R1
+774 keys R
+782 keys R
+790 keys R
+798 keys R
+806 keys R
+814 keys R1
+822 keys R
+830 keys R
+838 keys R
+846 keys R
+850 peek C560 20
+850 peek C0AB 6
+854 keys R
+862 keys R1
+870 keys R
+878 keys R
+886 keys R
+894 keys R
+902 keys R
+910 keys R1
+918 keys R
+926 keys R
+934 keys R
+942 keys R
+950 keys R
+958 keys R1
+966 keys R
+974 keys R
+982 keys R
+990 keys R
+998 keys R
+1000 peek C560 20
+1000 peek C0AB 6
+1006 keys R1
+1014 keys R
+1022 keys R
+1030 keys R
+1038 keys R
+1046 keys R
+1054 keys R1
+1062 keys R
+1070 keys R
+1078 keys R
+1086 keys R
+1094 keys R
+1102 keys R1
+1110 keys R
+1118 keys R
+1126 keys R
+1134 keys R
+1142 keys R
+1150 keys R1
+1150 peek C560 20
+1150 peek C0AB 6
+1158 keys R
+1166 keys R
+1174 keys R
+1182 keys R
+1190 keys R
+1198 keys R1
+1206 keys R
+1214 keys R
+1222 keys R
+1230 keys R
+1238 keys R
+1246 keys R1
+1254 keys R
+1262 keys R
+1270 keys R
+1278 keys R
+1286 keys R
+1294 keys R1
+1300 peek C560 20
+1300 peek C0AB 6
+1302 keys R
+1310 keys R
+1318 keys R
+1326 keys R
+1334 keys R
+1342 keys R1
+1350 keys R
+1358 keys R
+1366 keys R
+1374 keys R
+1382 keys R
+1390 keys R1
+1398 keys R
+1406 keys R
+1414 keys R
+1422 keys R
+1430 keys R
+1438 keys R1
+1446 keys R
+1450 peek C560 20
+1450 peek C0AB 6
+1454 keys R
+1462 keys R
+1470 keys R
+1478 keys R
+1486 keys R1
+1494 keys R
+1502 keys R
+1510 keys R
+1518 keys R
+1526 keys R
+1534 keys R1
+1542 keys R
+1550 keys R
+1558 keys R
+1566 keys R
+1574 keys R
+1582 keys R1
+1590 keys R
+1598 keys R
+1600 peek C560 20
+1600 peek C0AB 6
+1606 keys R
+1614 keys R
+1622 keys R
+1630 keys R1
+1638 keys R
+1646 keys R
+1654 keys R
+1662 keys R
+1670 keys R
+1678 keys R1
+1686 keys R
+1694 keys R
+1702 keys R
+1710 keys R
+1718 keys R
+1726 keys R1
+1734 keys R
+1742 keys R
+1750 keys R
+1750 peek C560 20
+1750 peek C0AB 6
+1758 keys R
+1766 keys R
+1774 keys R1
+1782 keys R
+1790 keys R
+1798 keys R
+1806 keys R
+1814 keys R
+1822 keys R1
+1830 keys R
+1838 keys R
+1846 keys R
+1854 keys R
+1862 keys R
+1870 keys R1
+1878 keys R
+1886 keys R
+1894 keys R
+1900 peek C560 20
+1900 peek C0AB 6
+1902 keys R
+1910 keys R
+1918 keys R1
+1926 keys R
+1934 keys R
+1942 keys R
+1950 keys R
+1958 keys R
+1966 keys R1
+1974 keys R
+1982 keys R
+1990 keys R
+1998 keys R
+2006 keys R
+2014 keys R1
+2022 keys R
+2030 keys R
+2038 keys R
+2046 keys R
+2050 peek C560 20
+2050 peek C0AB 6
+2054 keys R
+2062 keys R1
+2070 keys R
+2078 keys R
+2086 keys R
+2094 keys R
+2102 keys R
+2110 keys R1
+2118 keys R
+2126 keys R
+2134 keys R
+2142 keys R
+2150 keys R
+2158 keys R1
+2166 keys R
+2174 keys R
+2182 keys R
+2190 keys R
+2198 keys R
+2200 peek C560 20
+2200 peek C0AB 6
+2206 keys R1
+2214 keys R
+2222 keys R
+2230 keys R
+2238 keys R
+2246 keys R
+2254 keys R1
+2262 keys R
+2270 keys R
+2278 keys R
+2286 keys R
+2294 keys R
+2302 keys R1
+2310 keys R
+2318 keys R
+2326 keys R
+2334 keys R
+2342 keys R
+2350 keys R1
+2350 peek C560 20
+2350 peek C0AB 6
+2358 keys R
+2366 keys R
+2374 keys R
+2382 keys R
+2390 keys R
+2398 keys R1
+2406 keys R
+2414 keys R
+2422 keys R
+2430 keys R
+2438 keys R
+2446 keys R1
+2454 keys R
+2462 keys R
+2470 keys R
+2478 keys R
+2486 keys R
+2494 keys R1
+2500 keys -

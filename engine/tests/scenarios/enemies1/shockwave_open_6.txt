@@ -1,0 +1,159 @@
+# run: --level 6 --frames 2170 --lives
+100 keys 1
+106 keys -
+700 poke C054 05
+700 peek C320 1
+701 keys 2
+705 keys -
+706 peek C320 1
+712 peek C320 1
+718 peek C320 1
+724 peek C320 1
+730 peek C320 1
+736 peek C320 1
+742 peek C320 1
+748 peek C320 1
+754 peek C320 1
+770 poke C054 05
+770 peek C320 1
+771 keys 2
+775 keys -
+776 peek C320 1
+782 peek C320 1
+788 peek C320 1
+794 peek C320 1
+800 peek C320 1
+806 peek C320 1
+812 peek C320 1
+818 peek C320 1
+824 peek C320 1
+840 poke C054 05
+840 peek C320 1
+841 keys 2
+845 keys -
+846 peek C320 1
+852 peek C320 1
+858 peek C320 1
+864 peek C320 1
+870 peek C320 1
+876 peek C320 1
+882 peek C320 1
+888 peek C320 1
+894 peek C320 1
+910 poke C054 05
+910 peek C320 1
+911 keys 2
+915 keys -
+916 peek C320 1
+922 peek C320 1
+928 peek C320 1
+934 peek C320 1
+940 peek C320 1
+946 peek C320 1
+952 peek C320 1
+958 peek C320 1
+964 peek C320 1
+980 poke C054 05
+980 peek C320 1
+981 keys 2
+985 keys -
+986 peek C320 1
+992 peek C320 1
+998 peek C320 1
+1004 peek C320 1
+1010 peek C320 1
+1016 peek C320 1
+1022 peek C320 1
+1028 peek C320 1
+1034 peek C320 1
+1050 poke C054 05
+1050 peek C320 1
+1051 keys 2
+1055 keys -
+1056 peek C320 1
+1062 peek C320 1
+1068 peek C320 1
+1074 peek C320 1
+1080 peek C320 1
+1086 peek C320 1
+1092 peek C320 1
+1098 peek C320 1
+1104 peek C320 1
+1120 poke C054 05
+1120 peek C320 1
+1121 keys 2
+1125 keys -
+1126 peek C320 1
+1132 peek C320 1
+1138 peek C320 1
+1144 peek C320 1
+1150 peek C320 1
+1156 peek C320 1
+1162 peek C320 1
+1168 peek C320 1
+1174 peek C320 1
+1190 poke C054 05
+1190 peek C320 1
+1191 keys 2
+1195 keys -
+1196 peek C320 1
+1202 peek C320 1
+1208 peek C320 1
+1214 peek C320 1
+1220 peek C320 1
+1226 peek C320 1
+1232 peek C320 1
+1238 peek C320 1
+1244 peek C320 1
+1260 poke C054 05
+1260 peek C320 1
+1261 keys 2
+1265 keys -
+1266 peek C320 1
+1272 peek C320 1
+1278 peek C320 1
+1284 peek C320 1
+1290 peek C320 1
+1296 peek C320 1
+1302 peek C320 1
+1308 peek C320 1
+1314 peek C320 1
+1330 poke C054 05
+1330 peek C320 1
+1331 keys 2
+1335 keys -
+1336 peek C320 1
+1342 peek C320 1
+1348 peek C320 1
+1354 peek C320 1
+1360 peek C320 1
+1366 peek C320 1
+1372 peek C320 1
+1378 peek C320 1
+1384 peek C320 1
+1400 keys R
+1700 keys -
+1700 poke C054 05
+1700 poke C30C F8
+1701 keys R2
+1705 keys -
+1770 poke C054 05
+1770 poke C30C F4
+1771 keys R2
+1775 keys -
+1840 poke C054 05
+1840 poke C30C F0
+1841 keys R2
+1845 keys -
+1910 poke C054 05
+1910 poke C30C EC
+1911 keys R2
+1915 keys -
+1980 poke C054 05
+1980 poke C30C E8
+1981 keys R2
+1985 keys -
+2050 poke C054 05
+2050 poke C30C E4
+2051 keys R2
+2055 keys -

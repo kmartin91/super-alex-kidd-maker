@@ -1,0 +1,1008 @@
+# run: --level 11 --lives --frames 5500
+100 keys 1
+106 keys -
+800 poke C3A3 7
+800 poke C3AC B0
+800 poke C3AE 90
+800 poke C3BA 0
+801 poke C3A1 0
+801 poke C3A9 0
+801 poke C3AA 0
+802 poke C3A0 1F
+806 poke C317 2
+806 poke C3B7 0
+826 poke C317 2
+826 poke C3B7 0
+846 poke C317 2
+846 poke C3B7 0
+860 keys 2
+863 keys -
+866 poke C317 2
+866 poke C3B7 0
+886 poke C317 2
+886 poke C3B7 0
+906 poke C317 2
+906 poke C3B7 0
+910 keys 2
+913 keys -
+926 poke C317 2
+926 poke C3B7 0
+946 poke C317 2
+946 poke C3B7 0
+960 keys 2
+963 keys -
+966 poke C317 2
+966 poke C3B7 0
+986 poke C317 2
+986 poke C3B7 0
+1006 poke C317 2
+1006 poke C3B7 0
+1010 keys 2
+1013 keys -
+1026 poke C317 2
+1026 poke C3B7 0
+1046 poke C317 2
+1046 poke C3B7 0
+1060 keys 2
+1063 keys -
+1066 poke C317 2
+1066 poke C3B7 0
+1086 poke C317 2
+1086 poke C3B7 0
+1106 poke C317 2
+1106 poke C3B7 0
+1110 keys 2
+1113 keys -
+1126 poke C317 2
+1126 poke C3B7 0
+1146 poke C317 2
+1146 poke C3B7 0
+1160 keys 2
+1163 keys -
+1166 poke C317 2
+1166 poke C3B7 0
+1186 poke C317 2
+1186 poke C3B7 0
+1206 poke C317 2
+1206 poke C3B7 0
+1210 keys 2
+1213 keys -
+1226 poke C317 2
+1226 poke C3B7 0
+1246 poke C317 2
+1246 poke C3B7 0
+1260 keys 2
+1263 keys -
+1266 poke C317 2
+1266 poke C3B7 0
+1286 poke C317 2
+1286 poke C3B7 0
+1306 poke C317 2
+1306 poke C3B7 0
+1310 keys 2
+1313 keys -
+1326 poke C317 2
+1326 poke C3B7 0
+1346 poke C317 2
+1346 poke C3B7 0
+1360 keys 2
+1363 keys -
+1366 poke C317 2
+1366 poke C3B7 0
+1386 poke C317 2
+1386 poke C3B7 0
+1406 poke C317 2
+1406 poke C3B7 0
+1410 keys 2
+1413 keys -
+1426 poke C317 2
+1426 poke C3B7 0
+1446 poke C317 2
+1446 poke C3B7 0
+1460 keys 2
+1463 keys -
+1466 poke C317 2
+1466 poke C3B7 0
+1486 poke C317 2
+1486 poke C3B7 0
+1506 poke C317 2
+1506 poke C3B7 0
+1510 keys 2
+1513 keys -
+1526 poke C317 2
+1526 poke C3B7 0
+1546 poke C317 2
+1546 poke C3B7 0
+1560 keys 2
+1563 keys -
+1566 poke C317 2
+1566 poke C3B7 0
+1586 poke C317 2
+1586 poke C3B7 0
+1606 poke C317 2
+1606 poke C3B7 0
+1610 keys 2
+1613 keys -
+1626 poke C317 2
+1626 poke C3B7 0
+1646 poke C317 2
+1646 poke C3B7 0
+1660 keys 2
+1663 keys -
+1666 poke C317 2
+1666 poke C3B7 0
+1686 poke C317 2
+1686 poke C3B7 0
+1706 poke C317 2
+1706 poke C3B7 0
+1710 keys 2
+1713 keys -
+1726 poke C317 2
+1726 poke C3B7 0
+1746 poke C317 2
+1746 poke C3B7 0
+1760 keys 2
+1763 keys -
+1766 poke C317 2
+1766 poke C3B7 0
+1786 poke C317 2
+1786 poke C3B7 0
+1806 poke C317 2
+1806 poke C3B7 0
+1810 keys 2
+1813 keys -
+1826 poke C317 2
+1826 poke C3B7 0
+1846 poke C317 2
+1846 poke C3B7 0
+1860 keys 2
+1863 keys -
+1866 poke C317 2
+1866 poke C3B7 0
+1886 poke C317 2
+1886 poke C3B7 0
+1906 poke C317 2
+1906 poke C3B7 0
+1910 keys 2
+1913 keys -
+1926 poke C317 2
+1926 poke C3B7 0
+1946 poke C317 2
+1946 poke C3B7 0
+1960 keys 2
+1963 keys -
+1966 poke C317 2
+1966 poke C3B7 0
+1986 poke C317 2
+1986 poke C3B7 0
+2006 poke C317 2
+2006 poke C3B7 0
+2010 keys 2
+2013 keys -
+2026 poke C317 2
+2026 poke C3B7 0
+2046 poke C317 2
+2046 poke C3B7 0
+2060 keys 2
+2063 keys -
+2066 poke C317 2
+2066 poke C3B7 0
+2086 poke C317 2
+2086 poke C3B7 0
+2106 poke C317 2
+2106 poke C3B7 0
+2110 keys 2
+2113 keys -
+2126 poke C317 2
+2126 poke C3B7 0
+2146 poke C317 2
+2146 poke C3B7 0
+2160 keys 2
+2163 keys -
+2166 poke C317 2
+2166 poke C3B7 0
+2186 poke C317 2
+2186 poke C3B7 0
+2206 poke C317 2
+2206 poke C3B7 0
+2210 keys 2
+2213 keys -
+2226 poke C317 2
+2226 poke C3B7 0
+2246 poke C317 2
+2246 poke C3B7 0
+2260 keys 2
+2263 keys -
+2266 poke C317 2
+2266 poke C3B7 0
+2286 poke C317 2
+2286 poke C3B7 0
+2306 poke C317 2
+2306 poke C3B7 0
+2310 keys 2
+2313 keys -
+2326 poke C317 2
+2326 poke C3B7 0
+2346 poke C317 2
+2346 poke C3B7 0
+2360 keys 2
+2363 keys -
+2366 poke C317 2
+2366 poke C3B7 0
+2386 poke C317 2
+2386 poke C3B7 0
+2406 poke C317 2
+2406 poke C3B7 0
+2410 keys 2
+2413 keys -
+2426 poke C317 2
+2426 poke C3B7 0
+2446 poke C317 2
+2446 poke C3B7 0
+2460 keys 2
+2463 keys -
+2466 poke C317 2
+2466 poke C3B7 0
+2486 poke C317 2
+2486 poke C3B7 0
+2506 poke C317 2
+2506 poke C3B7 0
+2510 keys 2
+2513 keys -
+2526 poke C317 2
+2526 poke C3B7 0
+2546 poke C317 2
+2546 poke C3B7 0
+2560 keys 2
+2563 keys -
+2566 poke C317 2
+2566 poke C3B7 0
+2586 poke C317 2
+2586 poke C3B7 0
+2606 poke C317 2
+2606 poke C3B7 0
+2610 keys 2
+2613 keys -
+2626 poke C317 2
+2626 poke C3B7 0
+2646 poke C317 2
+2646 poke C3B7 0
+2660 keys 2
+2663 keys -
+2666 poke C317 2
+2666 poke C3B7 0
+2686 poke C317 2
+2686 poke C3B7 0
+2706 poke C317 2
+2706 poke C3B7 0
+2710 keys 2
+2713 keys -
+2726 poke C317 2
+2726 poke C3B7 0
+2746 poke C317 2
+2746 poke C3B7 0
+2760 keys 2
+2763 keys -
+2766 poke C317 2
+2766 poke C3B7 0
+2786 poke C317 2
+2786 poke C3B7 0
+2806 poke C317 2
+2806 poke C3B7 0
+2810 keys 2
+2813 keys -
+2826 poke C317 2
+2826 poke C3B7 0
+2846 poke C317 2
+2846 poke C3B7 0
+2860 keys 2
+2863 keys -
+2866 poke C317 2
+2866 poke C3B7 0
+2886 poke C317 2
+2886 poke C3B7 0
+2906 poke C317 2
+2906 poke C3B7 0
+2910 keys 2
+2913 keys -
+2926 poke C317 2
+2926 poke C3B7 0
+2946 poke C317 2
+2946 poke C3B7 0
+2960 keys 2
+2963 keys -
+2966 poke C317 2
+2966 poke C3B7 0
+2986 poke C317 2
+2986 poke C3B7 0
+3006 poke C317 2
+3006 poke C3B7 0
+3010 keys 2
+3013 keys -
+3026 poke C317 2
+3026 poke C3B7 0
+3046 poke C317 2
+3046 poke C3B7 0
+3060 keys 2
+3063 keys -
+3066 poke C317 2
+3066 poke C3B7 0
+3086 poke C317 2
+3086 poke C3B7 0
+3100 keys 2
+3104 keys -
+3108 keys 2
+3112 keys -
+3116 keys 2
+3120 keys -
+3124 keys 2
+3128 keys -
+3132 keys 2
+3136 keys -
+3140 keys 2
+3144 keys -
+3148 keys 2
+3152 keys -
+3156 keys 2
+3160 keys -
+3164 keys 2
+3168 keys -
+3172 keys 2
+3176 keys -
+3180 keys 2
+3184 keys -
+3188 keys 2
+3192 keys -
+3196 keys 2
+3200 poke C3CC 38
+3200 keys -
+3201 poke C3CE 98
+3204 keys 2
+3208 poke C3CC 38
+3208 keys -
+3209 poke C3CE 98
+3212 keys 2
+3216 poke C3CC 38
+3216 keys -
+3217 poke C3CE 98
+3220 keys 2
+3224 poke C3CC 38
+3224 keys -
+3225 poke C3CE 98
+3228 keys 2
+3232 poke C3CC 38
+3232 keys -
+3233 poke C3CE 98
+3236 keys 2
+3240 poke C3CC 38
+3240 keys -
+3241 poke C3CE 98
+3244 keys 2
+3248 poke C3CC 38
+3248 keys -
+3249 poke C3CE 98
+3252 keys 2
+3256 poke C3CC 38
+3256 keys -
+3257 poke C3CE 98
+3260 keys 2
+3264 poke C3CC 38
+3264 keys -
+3265 poke C3CE 98
+3268 keys 2
+3272 poke C3CC 38
+3272 keys -
+3273 poke C3CE 98
+3276 keys 2
+3280 poke C3CC 38
+3280 keys -
+3281 poke C3CE 98
+3284 keys 2
+3288 poke C3CC 38
+3288 keys -
+3289 poke C3CE 98
+3292 keys 2
+3296 poke C3CC 38
+3296 keys -
+3297 poke C3CE 98
+3300 keys 2
+3304 poke C3CC 38
+3304 keys -
+3305 poke C3CE 98
+3308 keys 2
+3312 poke C3CC 38
+3312 keys -
+3313 poke C3CE 98
+3316 keys 2
+3320 poke C3CC 38
+3320 keys -
+3321 poke C3CE 98
+3324 keys 2
+3328 poke C3CC 38
+3328 keys -
+3329 poke C3CE 98
+3332 keys 2
+3336 poke C3CC 38
+3336 keys -
+3337 poke C3CE 98
+3340 keys 2
+3344 poke C3CC 38
+3344 keys -
+3345 poke C3CE 98
+3348 keys 2
+3352 poke C3CC 38
+3352 keys -
+3353 poke C3CE 98
+3356 keys 2
+3360 poke C3CC 38
+3360 keys -
+3361 poke C3CE 98
+3364 keys 2
+3368 poke C3CC 38
+3368 keys -
+3369 poke C3CE 98
+3372 keys 2
+3376 poke C3CC 38
+3376 keys -
+3377 poke C3CE 98
+3380 keys 2
+3384 poke C3CC 38
+3384 keys -
+3385 poke C3CE 98
+3388 keys 2
+3392 poke C3CC 38
+3392 keys -
+3393 poke C3CE 98
+3396 keys 2
+3400 poke C3CC 38
+3400 keys -
+3401 poke C3CE 98
+3404 keys 2
+3408 poke C3CC 38
+3408 keys -
+3409 poke C3CE 98
+3412 keys 2
+3416 poke C3CC 38
+3416 keys -
+3417 poke C3CE 98
+3420 keys 2
+3424 poke C3CC 38
+3424 keys -
+3425 poke C3CE 98
+3428 keys 2
+3432 poke C3CC 38
+3432 keys -
+3433 poke C3CE 98
+3436 keys 2
+3440 poke C3CC 38
+3440 keys -
+3441 poke C3CE 98
+3444 keys 2
+3448 poke C3CC 38
+3448 keys -
+3449 poke C3CE 98
+3452 keys 2
+3456 poke C3CC 38
+3456 keys -
+3457 poke C3CE 98
+3460 keys 2
+3464 poke C3CC 38
+3464 keys -
+3465 poke C3CE 98
+3468 keys 2
+3472 poke C3CC 38
+3472 keys -
+3473 poke C3CE 98
+3476 keys 2
+3480 poke C3CC 38
+3480 keys -
+3481 poke C3CE 98
+3484 keys 2
+3488 poke C3CC 38
+3488 keys -
+3489 poke C3CE 98
+3492 keys 2
+3496 poke C3CC 38
+3496 keys -
+3497 poke C3CE 98
+3500 keys 2
+3504 keys -
+3508 keys 2
+3512 keys -
+3516 keys 2
+3520 keys -
+3524 keys 2
+3528 keys -
+3532 keys 2
+3536 keys -
+3540 keys 2
+3544 keys -
+3548 keys 2
+3552 keys -
+3556 keys 2
+3560 keys -
+3564 keys 2
+3568 keys -
+3572 keys 2
+3576 keys -
+3580 keys 2
+3584 keys -
+3588 keys 2
+3592 keys -
+3596 keys 2
+3600 keys -
+3604 keys 2
+3608 keys -
+3612 keys 2
+3616 keys -
+3620 keys 2
+3624 keys -
+3628 keys 2
+3632 keys -
+3636 keys 2
+3640 keys -
+3644 keys 2
+3648 keys -
+3652 keys 2
+3656 keys -
+3660 keys 2
+3664 keys -
+3668 keys 2
+3672 keys -
+3676 keys 2
+3680 keys -
+3684 keys 2
+3688 keys -
+3692 keys 2
+3696 keys -
+3700 keys 2
+3704 keys -
+3708 keys 2
+3712 keys -
+3716 keys 2
+3720 keys -
+3724 keys 2
+3728 keys -
+3732 keys 2
+3736 keys -
+3740 keys 2
+3744 keys -
+3748 keys 2
+3752 keys -
+3756 keys 2
+3760 keys -
+3764 keys 2
+3768 keys -
+3772 keys 2
+3776 keys -
+3780 keys 2
+3784 keys -
+3788 keys 2
+3792 keys -
+3796 keys 2
+3800 keys -
+3804 keys 2
+3808 keys -
+3812 keys 2
+3816 keys -
+3820 keys 2
+3824 keys -
+3828 keys 2
+3832 keys -
+3836 keys 2
+3840 keys -
+3844 keys 2
+3848 keys -
+3852 keys 2
+3856 keys -
+3860 keys 2
+3864 keys -
+3868 keys 2
+3872 keys -
+3876 keys 2
+3880 keys -
+3884 keys 2
+3888 keys -
+3892 keys 2
+3896 keys -
+3900 keys 2
+3904 keys -
+3908 keys 2
+3912 keys -
+3916 keys 2
+3920 keys -
+3924 keys 2
+3928 keys -
+3932 keys 2
+3936 keys -
+3940 keys 2
+3944 keys -
+3948 keys 2
+3952 keys -
+3956 keys 2
+3960 keys -
+3964 keys 2
+3968 keys -
+3972 keys 2
+3976 keys -
+3980 keys 2
+3984 keys -
+3988 keys 2
+3992 keys -
+3996 keys 2
+4000 keys -
+4004 keys 2
+4008 keys -
+4012 keys 2
+4016 keys -
+4020 keys 2
+4024 keys -
+4028 keys 2
+4032 keys -
+4036 keys 2
+4040 keys -
+4044 keys 2
+4048 keys -
+4052 keys 2
+4056 keys -
+4060 keys 2
+4064 keys -
+4068 keys 2
+4072 keys -
+4076 keys 2
+4080 keys -
+4084 keys 2
+4088 keys -
+4092 keys 2
+4096 keys -
+4100 keys 2
+4104 keys -
+4108 keys 2
+4112 keys -
+4116 keys 2
+4120 keys -
+4124 keys 2
+4128 keys -
+4132 keys 2
+4136 keys -
+4140 keys 2
+4144 keys -
+4148 keys 2
+4152 keys -
+4156 keys 2
+4160 keys -
+4164 keys 2
+4168 keys -
+4172 keys 2
+4176 keys -
+4180 keys 2
+4184 keys -
+4188 keys 2
+4192 keys -
+4196 keys 2
+4200 keys -
+4204 keys 2
+4208 keys -
+4212 keys 2
+4216 keys -
+4220 keys 2
+4224 keys -
+4228 keys 2
+4232 keys -
+4236 keys 2
+4240 keys -
+4244 keys 2
+4248 keys -
+4252 keys 2
+4256 keys -
+4260 keys 2
+4264 keys -
+4268 keys 2
+4272 keys -
+4276 keys 2
+4280 keys -
+4284 keys 2
+4288 keys -
+4292 keys 2
+4296 keys -
+4300 keys 2
+4304 keys -
+4308 keys 2
+4312 keys -
+4316 keys 2
+4320 keys -
+4324 keys 2
+4328 keys -
+4332 keys 2
+4336 keys -
+4340 keys 2
+4344 keys -
+4348 keys 2
+4352 keys -
+4356 keys 2
+4360 keys -
+4364 keys 2
+4368 keys -
+4372 keys 2
+4376 keys -
+4380 keys 2
+4384 keys -
+4388 keys 2
+4392 keys -
+4396 keys 2
+4400 keys -
+4404 keys 2
+4408 keys -
+4412 keys 2
+4416 keys -
+4420 keys 2
+4424 keys -
+4428 keys 2
+4432 keys -
+4436 keys 2
+4440 keys -
+4444 keys 2
+4448 keys -
+4452 keys 2
+4456 keys -
+4460 keys 2
+4464 keys -
+4468 keys 2
+4472 keys -
+4476 keys 2
+4480 keys -
+4484 keys 2
+4488 keys -
+4492 keys 2
+4496 keys -
+4500 keys 2
+4504 keys -
+4508 keys 2
+4512 keys -
+4516 keys 2
+4520 keys -
+4524 keys 2
+4528 keys -
+4532 keys 2
+4536 keys -
+4540 keys 2
+4544 keys -
+4548 keys 2
+4552 keys -
+4556 keys 2
+4560 keys -
+4564 keys 2
+4568 keys -
+4572 keys 2
+4576 keys -
+4580 keys 2
+4584 keys -
+4588 keys 2
+4592 keys -
+4596 keys 2
+4600 keys -
+4604 keys 2
+4608 keys -
+4612 keys 2
+4616 keys -
+4620 keys 2
+4624 keys -
+4628 keys 2
+4632 keys -
+4636 keys 2
+4640 keys -
+4644 keys 2
+4648 keys -
+4652 keys 2
+4656 keys -
+4660 keys 2
+4664 keys -
+4668 keys 2
+4672 keys -
+4676 keys 2
+4680 keys -
+4684 keys 2
+4688 keys -
+4692 keys 2
+4696 keys -
+4700 keys 2
+4704 keys -
+4708 keys 2
+4712 keys -
+4716 keys 2
+4720 keys -
+4724 keys 2
+4728 keys -
+4732 keys 2
+4736 keys -
+4740 keys 2
+4744 keys -
+4748 keys 2
+4752 keys -
+4756 keys 2
+4760 keys -
+4764 keys 2
+4768 keys -
+4772 keys 2
+4776 keys -
+4780 keys 2
+4784 keys -
+4788 keys 2
+4792 keys -
+4796 keys 2
+4800 keys -
+4804 keys 2
+4808 keys -
+4812 keys 2
+4816 keys -
+4820 keys 2
+4824 keys -
+4828 keys 2
+4832 keys -
+4836 keys 2
+4840 keys -
+4844 keys 2
+4848 keys -
+4852 keys 2
+4856 keys -
+4860 keys 2
+4864 keys -
+4868 keys 2
+4872 keys -
+4876 keys 2
+4880 keys -
+4884 keys 2
+4888 keys -
+4892 keys 2
+4896 keys -
+4900 keys 2
+4904 keys -
+4908 keys 2
+4912 keys -
+4916 keys 2
+4920 keys -
+4924 keys 2
+4928 keys -
+4932 keys 2
+4936 keys -
+4940 keys 2
+4944 keys -
+4948 keys 2
+4952 keys -
+4956 keys 2
+4960 keys -
+4964 keys 2
+4968 keys -
+4972 keys 2
+4976 keys -
+4980 keys 2
+4984 keys -
+4988 keys 2
+4992 keys -
+4996 keys 2
+5000 keys -
+5004 keys 2
+5008 keys -
+5012 keys 2
+5016 keys -
+5020 keys 2
+5024 keys -
+5028 keys 2
+5032 keys -
+5036 keys 2
+5040 keys -
+5044 keys 2
+5048 keys -
+5052 keys 2
+5056 keys -
+5060 keys 2
+5064 keys -
+5068 keys 2
+5072 keys -
+5076 keys 2
+5080 keys -
+5084 keys 2
+5088 keys -
+5092 keys 2
+5096 keys -
+5100 keys 2
+5104 keys -
+5108 keys 2
+5112 keys -
+5116 keys 2
+5120 keys -
+5124 keys 2
+5128 keys -
+5132 keys 2
+5136 keys -
+5140 keys 2
+5144 keys -
+5148 keys 2
+5152 keys -
+5156 keys 2
+5160 keys -
+5164 keys 2
+5168 keys -
+5172 keys 2
+5176 keys -
+5180 keys 2
+5184 keys -
+5188 keys 2
+5192 keys -
+5196 keys 2
+5200 keys -
+5204 keys 2
+5208 keys -
+5212 keys 2
+5216 keys -
+5220 keys 2
+5224 keys -
+5228 keys 2
+5232 keys -
+5236 keys 2
+5240 keys -
+5244 keys 2
+5248 keys -
+5252 keys 2
+5256 keys -
+5260 keys 2
+5264 keys -
+5268 keys 2
+5272 keys -
+5276 keys 2
+5280 keys -
+5284 keys 2
+5288 keys -
+5292 keys 2
+5296 keys -
+5300 keys 2
+5304 keys -
+5308 keys 2
+5312 keys -
+5316 keys 2
+5320 keys -
+5324 keys 2
+5328 keys -
+5332 keys 2
+5336 keys -
+5340 keys 2
+5344 keys -
+5348 keys 2
+5352 keys -
+5356 keys 2
+5360 keys -
+5364 keys 2
+5368 keys -
+5372 keys 2
+5376 keys -
+5380 keys 2
+5384 keys -
+5388 keys 2
+5392 keys -
+5396 keys 2
+5400 keys -
+5404 keys 2
+5408 keys -
+5412 keys 2
+5416 keys -
+5420 keys 2
+5424 keys -
+5428 keys 2
+5432 keys -
+5436 keys 2
+5440 keys -
+5444 keys 2
+5448 keys -
+5452 keys 2
+5456 keys -
+5460 keys 2
+5464 keys -
+5468 keys 2
+5472 keys -
+5476 keys 2
+5480 keys -
+5484 keys 2
+5488 keys -
+5492 keys 2
+5496 keys -
+5500 keys -

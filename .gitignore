@@ -1,0 +1,13 @@
+*.sms
+engine/build/
+build/
+reference/
+packs/original/
+maker/cache/
+engine/build-*/
+maker/public/engine/
+mods/
+node_modules/
+.DS_Store
+__pycache__/
+*.ppm

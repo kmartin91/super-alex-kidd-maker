@@ -1,0 +1,29 @@
+# run: --frames 1600
+# Game over, continue attempt without money, released Up in between.
+100 keys 1
+106 keys -
+700 poke C025 01
+701 poke C01F 06
+760 keys U
+770 keys U2
+772 keys U
+775 keys -
+780 keys U2
+782 keys U
+790 keys U2
+792 keys U
+800 keys U2
+802 keys U
+810 keys U2
+812 keys U
+820 keys U2
+822 keys U
+830 keys U2
+832 keys U
+840 keys U2
+842 keys U
+850 keys U2
+852 keys U
+860 keys U2
+862 keys -
+1000 peek C01F 1

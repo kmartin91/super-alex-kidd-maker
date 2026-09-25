@@ -1,0 +1,25 @@
+# run: --frames 1463
+# Castle (level 11): repeated upward moves up to the top row, then one more (refused).
+# Run with: --level 11 --lives --frames 900
+100 keys 1
+106 keys -
+503 poke C30E F0
+563 peek C0C4 1
+563 peek C0C9 1
+563 peek C0BE 1
+563 peek C01F 1
+603 poke C30E F0
+663 peek C0C4 1
+663 peek C0C9 1
+663 peek C0BE 1
+663 peek C01F 1
+703 poke C30E F0
+763 peek C0C4 1
+763 peek C0C9 1
+763 peek C0BE 1
+763 peek C01F 1
+803 poke C30E F0
+863 peek C0C4 1
+863 peek C0C9 1
+863 peek C0BE 1
+863 peek C01F 1

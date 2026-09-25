@@ -1,0 +1,388 @@
+# run: --level 10 --lives --frames 6000 --depth 12
+# run: --level 1 --lives --frames 6000 --depth 5
+# run: --relaxed --level 16 --lives --frames 6000
+100 keys 1
+106 keys -
+200 keys L1
+239 keys L2
+249 keys R21
+290 keys RD1
+323 keys D2
+352 keys U1
+356 keys U
+381 keys U1
+403 keys R1
+435 keys RD1
+448 keys LD2
+462 keys R21
+500 keys L1
+539 keys U2
+575 keys L1
+590 keys L2
+599 keys RD2
+600 poke C054 03
+638 keys R1
+642 keys 1
+650 poke C054 03
+654 keys R
+659 keys LD1
+666 keys U2
+699 keys R21
+700 poke C054 03
+736 keys R1
+750 poke C054 03
+756 keys R2
+768 keys LD1
+776 keys D21
+799 keys D
+800 poke C054 03
+827 keys R
+844 keys LD21
+850 poke C054 03
+881 keys LD21
+884 keys R2
+900 poke C054 03
+913 keys R2
+936 keys LD1
+950 poke C054 03
+973 keys RD
+992 keys 21
+1000 poke C054 03
+1003 keys D2
+1016 keys RD
+1044 keys L2
+1050 poke C054 03
+1080 keys LD2
+1098 keys R21
+1100 poke C054 03
+1131 keys D
+1150 poke C054 03
+1171 keys D21
+1195 keys L2
+1200 poke C054 03
+1207 keys D2
+1239 keys LD
+1246 keys D21
+1250 poke C054 03
+1257 keys LD2
+1266 keys L1
+1270 keys L1
+1300 poke C054 03
+1308 keys RD2
+1327 keys R21
+1334 keys R1
+1350 poke C054 03
+1359 keys L
+1399 keys R21
+1400 poke C054 03
+1412 keys 2
+1432 keys RD1
+1437 keys -
+1450 poke C054 03
+1459 keys 21
+1474 keys R
+1500 poke C054 03
+1515 keys R
+1544 keys U1
+1550 poke C054 03
+1581 keys L2
+1591 keys U2
+1595 keys RD2
+1600 poke C054 03
+1631 keys R21
+1636 keys 21
+1648 keys D2
+1650 poke C054 03
+1652 keys L21
+1677 keys RD
+1700 poke C054 03
+1718 keys D1
+1748 keys R1
+1750 poke C054 03
+1754 keys RD1
+1780 keys L21
+1800 poke C054 03
+1806 keys U
+1825 keys R2
+1850 poke C054 03
+1864 keys LD2
+1870 keys D21
+1891 keys R
+1900 poke C054 03
+1931 keys R1
+1950 poke C054 03
+1955 keys L21
+1988 keys LD
+2000 poke C054 03
+2011 keys 2
+2048 keys R2
+2050 poke C054 03
+2058 keys R1
+2076 keys R
+2083 keys -
+2087 keys LD2
+2100 poke C054 03
+2115 keys 1
+2121 keys R21
+2126 keys R2
+2150 poke C054 03
+2166 keys D
+2200 poke C054 03
+2204 keys D
+2214 keys R1
+2250 poke C054 03
+2253 keys LD
+2255 keys RD21
+2296 keys 1
+2300 poke C054 03
+2305 keys R2
+2314 keys D1
+2326 keys LD
+2350 poke C054 03
+2366 keys R1
+2400 poke C054 03
+2406 keys R
+2416 keys R1
+2431 keys LD21
+2439 keys R2
+2450 poke C054 03
+2468 keys RD2
+2485 keys U2
+2493 keys R1
+2500 poke C054 03
+2530 keys U
+2550 poke C054 03
+2560 keys 2
+2584 keys R2
+2600 poke C054 03
+2607 keys L21
+2639 keys R2
+2650 poke C054 03
+2665 keys 2
+2671 keys 2
+2694 keys R2
+2700 poke C054 03
+2717 keys D
+2728 keys D2
+2750 poke C054 03
+2763 keys LD
+2800 poke C054 03
+2804 keys LD2
+2844 keys L21
+2850 poke C054 03
+2855 keys -
+2892 keys R1
+2897 keys D
+2900 poke C054 03
+2916 keys R2
+2932 keys U2
+2949 keys R
+2950 poke C054 03
+2967 keys L1
+2982 keys R
+2993 keys RD
+3000 poke C054 03
+3021 keys U21
+3050 poke C054 03
+3050 keys -
+3089 keys R21
+3100 poke C054 03
+3102 keys R1
+3112 keys U2
+3137 keys U2
+3150 poke C054 03
+3168 keys R
+3200 poke C054 03
+3208 keys L1
+3220 keys -
+3224 keys R2
+3250 poke C054 03
+3254 keys R1
+3268 keys 2
+3282 keys R21
+3284 keys L2
+3297 keys D21
+3300 poke C054 03
+3312 keys D
+3321 keys L2
+3337 keys R2
+3350 poke C054 03
+3357 keys LD21
+3370 keys D2
+3374 keys LD1
+3377 keys 21
+3400 poke C054 03
+3415 keys -
+3450 poke C054 03
+3453 keys RD
+3469 keys L2
+3471 keys R21
+3488 keys R
+3500 poke C054 03
+3518 keys LD21
+3522 keys 1
+3544 keys LD1
+3546 keys D2
+3550 poke C054 03
+3550 keys U
+3587 keys LD
+3600 poke C054 03
+3620 keys U2
+3642 keys L2
+3650 poke C054 03
+3670 keys R1
+3676 keys U2
+3700 poke C054 03
+3704 keys R
+3716 keys R2
+3750 poke C054 03
+3752 keys R2
+3784 keys L2
+3800 poke C054 03
+3819 keys R2
+3832 keys LD1
+3850 poke C054 03
+3867 keys L1
+3878 keys R1
+3900 poke C054 03
+3903 keys RD2
+3906 keys 2
+3922 keys R1
+3925 keys LD1
+3941 keys LD1
+3950 poke C054 03
+3977 keys RD21
+4000 poke C054 03
+4014 keys D2
+4036 keys R1
+4050 poke C054 03
+4050 keys 2
+4070 keys R21
+4074 keys 1
+4090 keys R1
+4100 poke C054 03
+4125 keys R21
+4134 keys R21
+4150 poke C054 03
+4151 keys RD21
+4170 keys R21
+4187 keys R
+4200 poke C054 03
+4223 keys L
+4236 keys D1
+4250 poke C054 03
+4264 keys L1
+4266 keys RD2
+4273 keys R2
+4286 keys 1
+4300 poke C054 03
+4318 keys U2
+4350 poke C054 03
+4356 keys U1
+4380 keys R1
+4400 poke C054 03
+4408 keys U21
+4436 keys R
+4450 poke C054 03
+4462 keys D1
+4474 keys 21
+4500 poke C054 03
+4512 keys 2
+4533 keys U2
+4550 poke C054 03
+4565 keys L1
+4593 keys RD21
+4600 poke C054 03
+4607 keys RD2
+4614 keys R2
+4620 keys U1
+4629 keys L
+4632 keys LD2
+4647 keys U2
+4650 poke C054 03
+4669 keys U21
+4694 keys 21
+4700 poke C054 03
+4724 keys LD21
+4733 keys LD
+4750 poke C054 03
+4769 keys R1
+4798 keys L1
+4800 poke C054 03
+4804 keys U21
+4809 keys LD21
+4840 keys R21
+4850 poke C054 03
+4870 keys R21
+4900 poke C054 03
+4903 keys 2
+4921 keys RD1
+4950 poke C054 03
+4961 keys R
+4965 keys R
+4995 keys R2
+5000 poke C054 03
+5024 keys D21
+5050 poke C054 03
+5058 keys RD2
+5069 keys L21
+5091 keys L1
+5100 poke C054 03
+5115 keys U
+5117 keys L
+5140 keys R2
+5150 poke C054 03
+5156 keys R
+5173 keys LD1
+5200 poke C054 03
+5204 keys RD21
+5212 keys R2
+5235 keys R1
+5250 poke C054 03
+5265 keys 1
+5292 keys U
+5300 poke C054 03
+5309 keys R1
+5315 keys R2
+5332 keys D1
+5350 poke C054 03
+5373 keys 21
+5400 poke C054 03
+5401 keys U21
+5420 keys -
+5450 poke C054 03
+5453 keys R2
+5484 keys R2
+5487 keys R
+5500 poke C054 03
+5515 keys RD2
+5547 keys D1
+5550 poke C054 03
+5569 keys L21
+5574 keys L1
+5599 keys 1
+5600 poke C054 03
+5635 keys RD2
+5650 poke C054 03
+5657 keys L1
+5694 keys R
+5700 poke C054 03
+5707 keys R1
+5718 keys R2
+5750 poke C054 03
+5758 keys LD
+5785 keys R1
+5800 poke C054 03
+5822 keys LD21
+5830 keys 21
+5845 keys R21
+5850 poke C054 03
+5880 keys D
+5885 keys R21
+5900 poke C054 03
+5908 keys R2
+5910 keys LD2
+5929 keys L21
+5950 poke C054 03
+5958 keys R
+5964 keys R21

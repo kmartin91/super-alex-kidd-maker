@@ -1,0 +1,13 @@
+# run: --frames 1195
+100 keys 1
+106 keys -
+300 peek C01F 1
+400 peek C01F 1
+450 peek C01F 1
+500 peek C01F 1
+520 peek C01F 1
+540 peek C01F 1
+560 peek C01F 1
+580 peek C01F 1
+590 peek C01F 1
+595 peek C01F 1

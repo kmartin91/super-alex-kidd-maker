@@ -1,0 +1,90 @@
+# Routines of module 'enemies1' (address, generated name, instructions, in / out)
+04CE  unknownAnimate                                     21  in: IXH IXL  out: -
+04FE  unknownAnimateState1Updater                        26  in: C IXH IXL  out: -
+0535  unknownAnimateState2Updater                        30  in: C IXH IXL  out: -
+0571  unknownAnimateState3Updater                        26  in: C IXH IXL  out: -
+05A8  unknownAnimateState4Updater                        30  in: C IXH IXL  out: -
+05E4  unknownAnimateState5Updater                        26  in: C IXH IXL  out: -
+061B  unknownAnimateState6Updater                        30  in: C IXH IXL  out: -
+0657  unknownAnimateState7Updater                        26  in: C IXH IXL  out: -
+068E  unknownAnimateState8Updater                        30  in: C IXH IXL  out: -
+074C  multiply                                            9  in: E L  out: B D H L
+1B41  updateArrow                                        33  in: IXH IXL  out: -
+1B8E  updateJankensCastle                                 3  in: IXH IXL  out: -
+39DB  updateEntity0x62                                    5  in: IXH IXL  out: -
+3E28  updateEntity0x60                                    3  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+3EBA  updateEntity0x61                                   24  in: IXH IXL  out: -
+3EFC  updateEntity0x63                                   23  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+443F  updateEntity0x03                                    5  in: IXH IXL  out: -
+4489  updateEntity0x02                                   27  in: IXH IXL  out: IYH IYL
+44CD  updateEntity0x04                                    7  in: IXH IXL  out: -
+4689  updateEntity0x05                                   21  in: IXH IXL  out: -
+46C2  updateEntity0x06                                   32  in: IXH IXL  out: IYH IYL
+4719  updateEntity0x07                                   29  in: IXH IXL  out: -
+4768  updateEntity0x09                                   71  in: IXH IXL  out: IYH IYL
+4830  sub_4830                                            9  in: -  out: H L fZ
+483F  _LABEL_4846_                                        6  in: IXH IXL  out: fC
+484D  _LABEL_4854_                                        3  in: IXH IXL  out: fC
+4853  _LABEL_485A_                                        6  in: IXH IXL  out: fC
+485E  sub_485E                                            3  in: IXH IXL  out: fC
+4863  updateEntity0x0A                                   13  in: IXH IXL  out: -
+4885  updateEntity0x08                                   25  in: IXH IXL  out: -
+48BE  _LABEL_48C5_                                       13  in: IXH IXL  out: -
+48E1  sub_48E1                                            3  in: A  out: -
+48E9  sub_48E9                                            2  in: A  out: -
+48EF  sub_48EF                                           15  in: A D E H L  out: -
+4914  updateShockwave                                    19  in: IXH IXL  out: IYH IYL
+493D  _LABEL_4944_                                       28  in: D E IXH IXL  out: -
+497D  updateEntity0x14                                   51  in: IXH IXL  out: -
+49EB  updateEntity0x10                                    3  in: IXH IXL  out: -
+49F5  _LABEL_49FC_                                       18  in: B C H L IXH IXL  out: -
+4A26  updateEntity0x11                                    4  in: IXH IXL  out: -
+4A32  updateEntity0x12                                    4  in: IXH IXL  out: -
+4A3E  updateEntity0x13                                    4  in: IXH IXL  out: -
+4A4A  updateEntity0x16                                   24  in: IXH IXL  out: -
+4A72  _LABEL_4A79_                                        4  in: IXH IXL  out: -
+4A7F  _LABEL_4A86_                                       26  in: IXH IXL  out: -
+4AD0  _LABEL_4AD7_                                        7  in: IXH IXL  out: -
+4AE7  updateEntity0x17                                   19  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+4B1C  updateEntity0x15                                   46  in: IXH IXL  out: -
+4B97  _LABEL_4B9E_                                       29  in: -  out: -
+4BC6  _LABEL_4BCD_                                       23  in: -  out: -
+4BEC  _LABEL_4BF3_                                        8  in: -  out: -
+4BFE  sub_4BFE                                           23  in: B C H L  out: H L
+4C1C  _LABEL_4C23_                                        7  in: H L  out: H L
+4C27  updateOctopusArm                                  147  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IXH IXL IYH IYL B' C' D' E' H' L'
+4DA6  getVelocitiesToPursuitAlex                         62  in: IXH IXL  out: D E H L
+4E0D  sub_4E0D                                           19  in: E H L  out: L
+4E29  updateMerman                                       39  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+4E96  updateMermanBubbles                                33  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+4EE8  updateBatLeft                                      26  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+4F3C  bat_LABEL_4F43_                                    30  in: IXH IXL  out: -
+4F75  _LABEL_4F7C_                                        2  in: IXH IXL  out: -
+4F7B  updateBatRight                                     14  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+4FA6  spawnMermanBubbles                                 26  in: IXH IXL  out: IYH IYL
+4FEA  updatePlant                                        26  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+5030  updateMonsterbirdLeft                              25  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F'
+5081  updateMonsterbirdRight                             28  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F'
+50DA  updateSmallFishLeft                                25  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F'
+512B  updateSmallFishRight                               15  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F'
+5158  updateKillerFishLeft                               59  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F'
+51EC  updateKillerFishRight                              43  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F'
+52E0  updateEntity0x25                                   37  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+5350  _LABEL_5357_                                        3  in: IXH IXL  out: -
+5359  updateEntity0x26                                   35  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+53BF  _LABEL_53C6_                                        3  in: IXH IXL  out: -
+53C8  updateEntity0x27                                   46  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+544A  updateEntity0x28                                   50  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+54D8  _LABEL_54DF_                                       17  in: IXH IXL  out: -
+550E  updateEntity0x4A                                   19  in: IXH IXL  out: -
+5540  killOpponent                                        7  in: IXH IXL  out: -
+556A  _LABEL_5571_                                        3  in: IXH IXL  out: -
+5573  updateEntity0x2A                                   38  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+559E  killEnemy                                           6  in: IXH IXL  out: -
+55EC  updateMonkeyLeaf                                   17  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+5622  updateEntity0x43                                   30  in: IXH IXL  out: -
+567D  updateSmokePuff                                    22  in: IXH IXL  out: -
+56C5  updateEntity0x2F                                   30  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+571C  updateMonsterFrogJumping                           26  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+57C7  updateSeaHorseLeft                                 59  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+587C  updateSeaHorseRight                                45  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL

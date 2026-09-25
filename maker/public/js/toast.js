@@ -1,0 +1,13 @@
+// Short message at the bottom of the screen.
+
+import { $ } from './dom.js';
+
+let timer = null;
+
+export function toast(text) {
+  const el = $('toast');
+  el.textContent = text;
+  el.hidden = false;
+  clearTimeout(timer);
+  timer = setTimeout(() => { el.hidden = true; }, 2200);
+}

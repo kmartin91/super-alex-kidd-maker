@@ -1,0 +1,90 @@
+# Routines of module 'enemies2' (address, generated name, instructions, in / out)
+5901  updateDebrisTopLeft                                28  in: IXH IXL  out: IYH IYL
+5964  updateDebris                                       12  in: IXH IXL  out: -
+5985  sub_5985                                            4  in: IXH IXL  out: -
+598F  updateDebrisBottomLeft                             15  in: IXH IXL  out: -
+59C1  updateDebrisTopRight                               15  in: IXH IXL  out: -
+59F4  updateDebrisBottomRight                            16  in: IXH IXL  out: -
+5A2A  updateMoneyBag                                     32  in: IXH IXL  out: IYH IYL
+5A8F  updateLife                                         28  in: IXH IXL  out: IYH IYL
+5ADF  updatePowerBracelet                                27  in: IXH IXL  out: IYH IYL
+5B30  updateGhost                                        29  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+5BCA  updateRiceBall                                     18  in: IXH IXL  out: IYH IYL
+5C20  unused_LABEL_5C27_                                  5  in: D E  out: -
+5C2F  updateEntity0x46                                   34  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+5C99  _LABEL_5CA0_                                        8  in: IXH IXL  out: A
+5CA9  updateEntity0x47                                   31  in: IXH IXL  out: -
+5CF0  updateEntity0x48                                   21  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+5D2F  updateEntity0x49                                   30  in: IXH IXL  out: -
+5D74  _LABEL_5D7B_                                        8  in: IXH IXL  out: -
+5D8D  updateCircularFlame                                45  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: B' C' D' E' H' L'
+5E0D  updateflameOrScorpionLeft                          37  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+5E74  updateflameOrScorpionRight                         25  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+5EB3  updateEntity0x40                                   24  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+5EFE  updateEntity0x41                                   28  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+5F45  updateEntity0x42                                   36  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+5FAA  updateEntity0x51                                   77  in: IXH IXL  out: IYH IYL
+6077  updateEntity0x50                                   21  in: IXH IXL  out: IYH IYL
+60B5  updateSaintNurari                                  18  in: IXH IXL  out: IYH IYL
+60CD  _LABEL_60D4_                                       11  in: A H L IXH IXL  out: -
+6106  updateEntity0x52                                   46  in: IXH IXL  out: IYH IYL
+616F  updateEntity0x53                                   34  in: IXH IXL  out: IYH IYL
+6279  updateEntity0x4C                                   16  in: IXH IXL  out: IYH IYL
+62A8  updateEntity0x54                                   64  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F'
+6361  updateEntity0x55                                   52  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL A' F'
+63F4  updateEntity0x57                                   12  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+71A9  updateBattleMakeAlexGetIntoPosition                13  in: IXH IXL  out: -
+751E  _LABEL_7525_                                        6  in: IXH IXL  out: -
+752E  _LABEL_7535_                                       12  in: A IXH IXL  out: -
+7548  sub_7548                                            8  in: D E IXH IXL  out: -
+755D  _LABEL_7564_                                        4  in: IXH IXL  out: -
+7565  _LABEL_756C_                                       13  in: A IXH IXL  out: -
+7581  _LABEL_7588_                                        4  in: IXH IXL  out: -
+758A  simulateOpponentChoosing_LABEL_7941_               29  in: IXH IXL  out: -
+75BF  drawThoughtClouds                                  27  in: -  out: IYH IYL
+778F  updateGooseka                                       4  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL B' C' D' E' H' L'
+77B7  updateBattleBattleWonAndSetupNametablePatches       6  in: IXH IXL  out: -
+77C6  updateGoosekaSpawnHead                             22  in: IXH IXL  out: IYH IYL
+7804  updateBattleDestroyWhenDefeated                     5  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+780F  updateChokkinna                                     4  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL B' C' D' E' H' L'
+7835  updateChokkinnaSpawnHead                           18  in: IXH IXL  out: IYH IYL
+7868  updateChokkinnaCastSpells                          20  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+789E  updateChokkinnaSpell                                1  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: -
+78A1  updateParplin                                       4  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL B' C' D' E' H' L'
+78C7  updateBattleBattleWon                              13  in: IXH IXL  out: -
+78EA  updateParplinSpawnHead                             18  in: IXH IXL  out: IYH IYL
+791D  prepareForBattle                                   12  in: -  out: -
+793A  drawAlexName_LABEL_7941_                           18  in: -  out: -
+7982  updateEntity0x0C                                    8  in: IXH IXL  out: -
+799A  updateGoosekaHead                                   4  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+79AA  updateGoosekaHeadState0                            12  in: IXH IXL  out: -
+79C9  updateGoosekaHeadState1                            13  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+79E9  updateGoosekaHeadState2                            13  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+7A09  _LABEL_7A10_                                       19  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+7A39  _LABEL_7A40_                                        1  in: IXH IXL  out: -
+7A3A  _LABEL_7A41_                                       19  in: IXH IXL  out: -
+7A72  updateBattleHeadState3                              9  in: IXH IXL  out: -
+7A89  updateChokkinnaHead                                 4  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+7A99  updateChokkinnaHeadState0                          13  in: IXH IXL  out: -
+7ABB  updateChokkinnaHeadState1                          21  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+7AEC  updateChokkinnaHeadState2                          15  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+7B11  _LABEL_7B18_                                       11  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+7B2E  updateParplinHead                                  19  in: B C IXH IXL IYH IYL A' F' B' C' D' E' H' L'  out: IYH IYL
+7B71  _LABEL_7B78_                                        7  in: IXH IXL  out: -
+7B81  _LABEL_7B88_                                        7  in: A IXH IXL  out: -
+7B92  _LABEL_7B99_                                        7  in: A IXH IXL  out: -
+7BA3  _LABEL_7BAA_                                        5  in: IXH IXL  out: -
+7BAD  _LABEL_7BB4_                                        7  in: A IXH IXL  out: -
+7BBE  _LABEL_7BC5_                                        7  in: A IXH IXL  out: -
+7BCF  _LABEL_7BD6_                                        9  in: IXH IXL  out: -
+7BE5  _LABEL_7BEC_                                        9  in: IXH IXL  out: -
+7BFC  _LABEL_7C03_                                        6  in: A  out: fZ
+7C09  _LABEL_7C10_                                        5  in: -  out: -
+7C14  _LABEL_7C1B_                                        6  in: A  out: fZ
+7C21  _LABEL_7C28_                                        5  in: -  out: -
+7C2C  _LABEL_7C33_                                        6  in: A  out: fZ
+7C39  _LABEL_7C40_                                        5  in: -  out: -
+7C44  getNearEntityTileAttrWithOffset                     2  in: D E IXH IXL  out: A B C H L fS fZ fP
+7C48  _LABEL_7C4F_                                        9  in: A D IXH IXL  out: A B C H L fS fZ fP
+7C56  sub_7C56                                           19  in: A E  out: A B H L fS fZ fP
+7C73  _LABEL_7C7A_                                       10  in: D E  out: A B C H L

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Super Alex Kidd Maker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <div id="brand">
+    <div class="logo"><span>Super</span><b>Alex Kidd</b><span>Maker</span></div>
+  </div>
+
+  <nav id="palette">
+    <div class="palette-head">
+      <div id="categories"></div>
+      <div id="itemName"></div>
+    </div>
+    <div id="items"></div>
+  </nav>
+
+  <aside id="left">
+    <button id="levelBtn" class="side level" title="Choisir un niveau">
+      <span class="side-label">Niveau</span>
+      <span id="levelNum" class="level-num">1</span>
+      <span id="levelName" class="side-value"></span>
+    </button>
+    <button id="themeBtn" class="side" title="Graphismes et ennemis d'un autre niveau">
+      <i data-icon="theme" data-scale="3"></i><span class="side-label">Thème</span><span id="themeName" class="side-value"></span>
+    </button>
+    <button id="musicBtn" class="side" title="Musique du thème ou du niveau d'origine">
+      <i data-icon="music" data-scale="3"></i><span class="side-label">Musique</span><span id="musicName" class="side-value"></span>
+    </button>
+    <button id="surpriseBtn" class="side" title="Ce que donnent les boîtes ?">
+      <i data-icon="box" data-scale="3"></i><span class="side-label">Surprises</span><span id="surpriseName" class="side-value"></span>
+    </button>
+  </aside>
+
+  <main id="stage">
+    <div id="mapWrap">
+      <div id="mapInner">
+        <canvas id="map"></canvas>
+        <canvas id="ghost"></canvas>
+        <div id="bubble" hidden>
+          <div class="bubble-title"><span id="bubbleLock" hidden><i data-icon="lock"></i></span><b id="bubbleName"></b></div>
+          <div class="bubble-row">
+            <span id="bubbleVariant" class="variant">
+              <button id="variantDown" class="mini" title="Variante précédente">‹</button>
+              <span>Variante <b id="variantValue">0</b></span>
+              <button id="variantUp" class="mini" title="Variante suivante">›</button>
+            </span>
+            <button id="bubbleDelete" class="mini danger" title="Supprimer (Suppr)"><i data-icon="trash"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="playView" hidden>
+      <div class="screen"><canvas id="game" width="256" height="192"></canvas></div>
+      <div class="play-bar">
+        <span id="playStatus">chargement…</span>
+        <span id="playFrom"></span>
+        <span class="play-keys"><kbd>←</kbd><kbd>→</kbd> bouger · <kbd>Espace</kbd> sauter · <kbd>Z</kbd> coup de poing · <kbd>Entrée</kbd> pause</span>
+        <button id="playStart" class="key small"><i data-icon="start"></i> Depuis le début</button>
+      </div>
+    </div>
+  </main>
+
+  <aside id="right">
+    <button id="undo" class="tool" title="Annuler (Ctrl+Z)"><i data-icon="undo" data-scale="3"></i></button>
+    <button id="redo" class="tool" title="Rétablir (Ctrl+Y)"><i data-icon="redo" data-scale="3"></i></button>
+    <button id="eraser" class="tool" title="Gomme (E) · clic droit efface aussi"><i data-icon="eraser" data-scale="3"></i></button>
+    <span class="tool-gap"></span>
+    <button id="gridBtn" class="tool active" title="Grille (G)"><i data-icon="grid" data-scale="3"></i></button>
+    <button id="solidBtn" class="tool" title="Montrer ce qui est solide (C)"><i data-icon="solid" data-scale="3"></i></button>
+    <button id="zoomIn" class="tool" title="Zoom avant (+)"><i data-icon="zoomIn" data-scale="3"></i></button>
+    <button id="zoomOut" class="tool" title="Zoom arrière (−)"><i data-icon="zoomOut" data-scale="3"></i></button>
+    <span class="tool-gap"></span>
+    <button id="save" class="tool" title="Enregistrer (Ctrl+S)"><i data-icon="save" data-scale="3"></i></button>
+    <button id="menuBtn" class="tool" title="Menu"><i data-icon="menu" data-scale="3"></i></button>
+    <button id="helpBtn" class="tool" title="Commandes (?)"><i data-icon="help" data-scale="3"></i></button>
+  </aside>
+
+  <div id="corner">
+    <button id="playBtn" class="clapper" title="Jouer depuis l'écran affiché (Espace)">
+      <span id="playIconPlay"><i data-icon="play" data-scale="3"></i></span>
+      <span id="playIconEdit" hidden><i data-icon="pencil" data-scale="3"></i></span>
+      <span id="playLabel">Jouer</span>
+    </button>
+  </div>
+
+  <footer id="bottom">
+    <div class="minimap-wrap"><canvas id="minimap"></canvas><div id="viewport"></div></div>
+    <div class="screen-tools">
+      <button id="screenAdd" class="key small"><i data-icon="plus"></i> Écran</button>
+      <button id="screenDel" class="key small"><i data-icon="minus"></i> Écran</button>
+    </div>
+    <span id="status"></span>
+  </footer>
+</div>
+
+<div id="modal" hidden>
+  <div class="sheet">
+    <header><h2 id="modalTitle"></h2><button id="modalClose" class="mini" title="Fermer (Échap)"><i data-icon="close"></i></button></header>
+    <div id="modalBody"></div>
+  </div>
+</div>
+<div id="toast" hidden></div>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

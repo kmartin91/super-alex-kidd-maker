@@ -1,0 +1,183 @@
+# run: --frames 1621
+100 keys 1
+106 keys -
+700 peek C054 1
+700 peek C31A 1
+700 poke C054 02
+701 poke C5A0 00
+702 peek C054 1
+702 peek C31A 1
+702 poke C5A1 00
+702 poke C5A2 00
+702 poke C5A3 00
+702 poke C5A4 00
+703 poke C5A5 01
+703 poke C5A6 00
+703 poke C5A7 00
+703 poke C5A8 00
+704 peek C054 1
+704 peek C31A 1
+704 poke C5A9 00
+704 poke C5AA 00
+704 poke C5AB 00
+704 poke C5AC 00
+705 poke C5AD 00
+705 poke C5AE 00
+705 poke C5AF 00
+705 poke C5B0 00
+706 peek C054 1
+706 peek C31A 1
+706 poke C5B1 00
+706 poke C5B2 00
+706 poke C5B3 00
+706 poke C5B4 00
+707 poke C5B5 00
+707 poke C5B6 00
+707 poke C5B7 00
+707 poke C5B8 00
+708 peek C054 1
+708 peek C31A 1
+708 poke C5B9 00
+708 poke C5BA 00
+708 poke C5BB 00
+708 poke C5BC 00
+709 poke C5AC 30
+709 poke C5BD 00
+709 poke C5BE 00
+709 poke C5BF 00
+710 peek C054 1
+710 peek C31A 1
+710 poke C5AE 88
+710 poke C5BE 88
+710 poke C5BF 30
+711 poke C5A0 24
+712 peek C054 1
+712 peek C31A 1
+712 poke C5C0 00
+713 poke C5C1 00
+713 poke C5C2 00
+713 poke C5C3 00
+713 poke C5C4 00
+714 peek C054 1
+714 peek C31A 1
+714 poke C5C5 01
+714 poke C5C6 00
+714 poke C5C7 00
+714 poke C5C8 00
+715 poke C5C9 00
+715 poke C5CA 00
+715 poke C5CB 00
+715 poke C5CC 00
+716 peek C054 1
+716 peek C31A 1
+716 poke C5CD 00
+716 poke C5CE 00
+716 poke C5CF 00
+716 poke C5D0 00
+717 poke C5D1 00
+717 poke C5D2 00
+717 poke C5D3 00
+717 poke C5D4 00
+718 peek C054 1
+718 peek C31A 1
+718 poke C5D5 00
+718 poke C5D6 00
+718 poke C5D7 00
+718 poke C5D8 00
+719 poke C5D9 00
+719 poke C5DA 00
+719 poke C5DB 00
+719 poke C5DC 00
+720 peek C054 1
+720 peek C31A 1
+720 poke C5CC 30
+720 poke C5DD 00
+720 poke C5DE 00
+720 poke C5DF 00
+721 poke C5CE 88
+721 poke C5D5 01
+721 poke C5DE 88
+721 poke C5DF 30
+722 peek C054 1
+722 peek C31A 1
+722 poke C5C0 24
+724 peek C054 1
+724 peek C31A 1
+725 poke C054 02
+726 peek C054 1
+726 peek C31A 1
+728 peek C054 1
+728 peek C31A 1
+729 keys 2
+730 peek C054 1
+730 peek C31A 1
+732 peek C054 1
+732 peek C31A 1
+733 keys -
+734 peek C054 1
+734 peek C31A 1
+736 peek C054 1
+736 peek C31A 1
+738 peek C054 1
+738 peek C31A 1
+740 peek C054 1
+740 peek C31A 1
+741 keys 2
+745 keys -
+750 poke C054 02
+753 keys 2
+757 keys -
+765 keys 2
+769 keys -
+775 poke C054 02
+777 keys 2
+781 keys -
+789 keys 2
+793 keys -
+800 poke C054 02
+801 keys 2
+805 keys -
+813 keys 2
+817 keys -
+825 keys 2
+825 poke C054 02
+829 keys -
+837 keys 2
+841 keys -
+849 keys 2
+850 poke C054 02
+853 keys -
+861 keys 2
+865 keys -
+873 keys 2
+875 poke C054 02
+877 keys -
+885 keys 2
+889 keys -
+897 keys 2
+900 poke C054 02
+901 keys -
+909 keys 2
+913 keys -
+921 keys 2
+925 keys -
+925 poke C054 02
+933 keys 2
+937 keys -
+945 keys 2
+949 keys -
+950 poke C054 02
+957 keys 2
+961 keys -
+969 keys 2
+973 keys -
+975 poke C054 02
+981 keys 2
+985 keys -
+993 keys 2
+997 keys -
+1000 poke C054 02
+1005 keys 2
+1009 keys -
+1017 keys 2
+1021 keys -

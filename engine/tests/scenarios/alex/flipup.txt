@@ -1,0 +1,8 @@
+# run: --level 11 --lives --frames 800
+100 keys 1
+106 keys -
+600 poke C31A 03
+600 poke C314 01
+600 poke C312 FE
+600 poke C311 00
+601 poke C30E B0

@@ -1,0 +1,24 @@
+# run: --frames 2100
+100 keys 1
+106 keys -
+600 peek C300 20
+600 poke C069 10
+601 poke C31A 0D
+650 peek C01F 1
+650 peek C300 20
+700 peek C01F 1
+800 peek C01F 1
+800 peek C300 20
+850 poke C054 07
+900 keys L
+1000 peek C01F 1
+1000 peek C300 20
+1100 keys -
+1100 peek C01F 1
+1200 keys L
+1300 peek C01F 1
+1300 peek C300 20
+1300 keys -
+1400 keys R
+1500 peek C01F 1
+1500 peek C300 20

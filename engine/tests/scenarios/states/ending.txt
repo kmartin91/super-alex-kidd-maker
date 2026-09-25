@@ -1,0 +1,13 @@
+# run: --frames 7600
+# The ending (level 17, _RAM_D800_ != 0): text scroll, then game over.
+100 keys 1
+106 keys -
+700 poke D800 01
+701 poke C01F 08
+800 peek C01F 1
+1500 shot
+3000 shot
+3000 peek C094 2
+5000 peek C094 2
+6000 peek C01F 1
+7000 peek C01F 1

@@ -1,0 +1,52 @@
+# run: --level 2 --lives --frames 1400
+# run: --level 9 --lives --frames 1400
+100 keys 1
+106 keys -
+600 poke C054 09
+600 poke C31D 08
+600 poke C30E 70
+601 poke C31A 06
+620 keys 1
+622 keys -
+628 keys 1
+630 keys -
+636 keys 1
+638 keys -
+644 keys 1
+646 keys -
+652 keys 1
+654 keys -
+660 keys 1
+662 keys -
+668 keys 1
+670 keys -
+676 keys 1
+678 keys -
+684 keys 1
+686 keys -
+692 keys 1
+694 keys -
+700 keys 1
+702 keys -
+708 keys 1
+710 keys -
+716 keys 1
+718 keys -
+724 keys 1
+726 keys -
+732 keys 1
+734 keys -
+740 keys 1
+742 keys -
+748 keys 1
+750 keys -
+756 keys 1
+758 keys -
+770 keys L
+830 keys LR
+840 keys R
+990 keys RL
+1000 keys L
+1100 keys -
+1150 keys D
+1300 keys -

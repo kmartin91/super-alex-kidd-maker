@@ -1,0 +1,36 @@
+# run: --frames 2290
+# Level 9: at the end, crash state $1B with an odd column: the camera is pushed right
+# without SCROLL_RIGHT. Run with: --level 9 --lives --frames 1700
+100 keys 1
+106 keys -
+401 poke C0B6 0E
+1600 peek C0C9 1
+1601 poke C31A 1B
+1601 poke C0B7 02
+1610 peek C0AB 2
+1610 peek C0AF 2
+1610 peek C0C9 1
+1620 peek C0AB 2
+1620 peek C0AF 2
+1620 peek C0C9 1
+1630 peek C0AB 2
+1630 peek C0AF 2
+1630 peek C0C9 1
+1640 peek C0AB 2
+1640 peek C0AF 2
+1640 peek C0C9 1
+1650 peek C0AB 2
+1650 peek C0AF 2
+1650 peek C0C9 1
+1660 peek C0AB 2
+1660 peek C0AF 2
+1660 peek C0C9 1
+1670 peek C0AB 2
+1670 peek C0AF 2
+1670 peek C0C9 1
+1680 peek C0AB 2
+1680 peek C0AF 2
+1680 peek C0C9 1
+1690 peek C0AB 2
+1690 peek C0AF 2
+1690 peek C0C9 1

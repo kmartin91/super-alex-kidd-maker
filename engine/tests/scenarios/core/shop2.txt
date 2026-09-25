@@ -1,0 +1,19 @@
+# run: --frames 1400 --depth 12
+# run: --relaxed --frames 1400
+100 keys 1
+106 keys -
+700 poke C01F 05
+800 poke C030 00
+800 poke C031 00
+800 poke C032 00
+810 poke C056 03
+900 keys 1
+906 keys -
+1000 poke C030 50
+1000 poke C031 02
+1010 poke C056 07
+1100 keys 1
+1106 keys -
+1200 poke C030 00
+1200 poke C031 10
+1210 poke C056 05

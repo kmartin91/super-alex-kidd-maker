@@ -1,0 +1,8 @@
+# run: --level 7 --lives --frames 6000 --depth 12
+# run: --frames 1500 --depth 12
+# run: --relaxed --frames 1500
+50 poke C005 01
+300 poke C005 03
+600 poke C005 21
+900 poke C005 01
+1200 poke C005 00

@@ -1,0 +1,8 @@
+# run: --frames 1300
+# Level 2 mod (tools/leveledit.py build), scrolled right. Run with: --mod PATCH --level 2 --lives --frames 800
+100 keys 1
+106 keys -
+400 peek C081 1
+400 shot
+402 keys R
+700 shot

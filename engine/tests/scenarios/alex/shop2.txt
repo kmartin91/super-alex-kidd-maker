@@ -1,0 +1,134 @@
+# run: --frames 3586
+100 keys 1
+106 keys -
+600 poke C069 10
+601 poke C31A 0D
+700 keys 2
+700 peek C01F 1
+706 keys -
+740 keys 2
+746 keys -
+780 keys 2
+786 keys -
+820 keys 2
+826 keys -
+860 keys 2
+866 keys -
+900 keys 2
+900 peek C01F 1
+906 keys -
+940 keys 2
+946 keys -
+980 keys 2
+986 keys -
+1020 keys 2
+1026 keys -
+1060 keys 2
+1066 keys -
+1100 keys 2
+1100 peek C01F 1
+1106 keys -
+1140 keys 2
+1146 keys -
+1180 keys 2
+1186 keys -
+1220 keys 2
+1226 keys -
+1260 keys 2
+1266 keys -
+1300 keys 2
+1300 peek C01F 1
+1306 keys -
+1340 keys 2
+1346 keys -
+1380 keys 2
+1386 keys -
+1420 keys 2
+1426 keys -
+1460 keys 2
+1466 keys -
+1500 keys 2
+1500 peek C01F 1
+1500 poke C054 07
+1506 keys -
+1540 keys 2
+1546 keys -
+1580 keys 2
+1586 keys -
+1620 keys 2
+1626 keys -
+1660 keys 2
+1666 keys -
+1700 keys 2
+1700 peek C01F 1
+1706 keys -
+1740 keys 2
+1746 keys -
+1780 keys 2
+1786 keys -
+1820 keys 2
+1826 keys -
+1860 keys 2
+1866 keys -
+1900 keys 2
+1900 peek C01F 1
+1906 keys -
+1940 keys 2
+1946 keys -
+1980 keys 2
+1986 keys -
+2020 keys 2
+2026 keys -
+2060 keys 2
+2066 keys -
+2100 keys 2
+2100 peek C01F 1
+2106 keys -
+2140 keys 2
+2146 keys -
+2180 keys 2
+2186 keys -
+2220 keys 2
+2226 keys -
+2260 keys 2
+2266 keys -
+2300 keys 2
+2300 peek C01F 1
+2306 keys -
+2340 keys 2
+2346 keys -
+2380 keys 2
+2386 keys -
+2420 keys 2
+2426 keys -
+2460 keys 2
+2466 keys -
+2500 keys 2
+2500 peek C01F 1
+2506 keys -
+2540 keys 2
+2546 keys -
+2580 keys 2
+2586 keys -
+2620 keys 2
+2626 keys -
+2660 keys 2
+2666 keys -
+2700 keys 2
+2700 peek C01F 1
+2706 keys -
+2740 keys 2
+2746 keys -
+2780 keys 2
+2786 keys -
+2820 keys 2
+2826 keys -
+2860 keys 2
+2866 keys -
+2900 keys 2
+2900 peek C01F 1
+2906 keys -
+2940 keys 2
+2946 keys -
+2980 keys 2
+2986 keys -

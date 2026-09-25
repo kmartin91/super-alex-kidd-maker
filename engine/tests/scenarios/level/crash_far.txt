@@ -1,0 +1,47 @@
+# run: --frames 1930
+# Crash dive (Alex state $1B) from screen 12: lower screen 3, no more scrolling.
+# Run with: --level 9 (or 5) --lives --frames 1400
+100 keys 1
+106 keys -
+401 poke C0B6 0C
+420 poke C31A 1B
+430 peek C0B6 1
+430 peek C0C9 1
+430 peek C0C4 1
+430 peek C08D 1
+530 peek C0B6 1
+530 peek C0C9 1
+530 peek C0C4 1
+530 peek C08D 1
+630 peek C0B6 1
+630 peek C0C9 1
+630 peek C0C4 1
+630 peek C08D 1
+730 peek C0B6 1
+730 peek C0C9 1
+730 peek C0C4 1
+730 peek C08D 1
+830 peek C0B6 1
+830 peek C0C9 1
+830 peek C0C4 1
+830 peek C08D 1
+930 peek C0B6 1
+930 peek C0C9 1
+930 peek C0C4 1
+930 peek C08D 1
+1030 peek C0B6 1
+1030 peek C0C9 1
+1030 peek C0C4 1
+1030 peek C08D 1
+1130 peek C0B6 1
+1130 peek C0C9 1
+1130 peek C0C4 1
+1130 peek C08D 1
+1230 peek C0B6 1
+1230 peek C0C9 1
+1230 peek C0C4 1
+1230 peek C08D 1
+1330 peek C0B6 1
+1330 peek C0C9 1
+1330 peek C0C4 1
+1330 peek C08D 1

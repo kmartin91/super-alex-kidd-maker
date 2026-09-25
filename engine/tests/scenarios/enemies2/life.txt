@@ -1,0 +1,35 @@
+# run: --level 12 --lives --frames 1200
+100 keys 1
+106 keys -
+700 poke C563 0
+700 poke C56C 24
+700 poke C56E 88
+700 poke C57A 0
+701 poke C561 0
+701 poke C569 0
+701 poke C56A 0
+701 poke C577 0
+702 poke C578 0
+702 poke C576 0
+702 poke C56F 0
+702 poke C570 0
+703 poke C571 0
+703 poke C572 0
+703 poke C565 1
+704 poke C560 4D
+720 poke C583 0
+720 poke C58C C0
+720 poke C58E 50
+720 poke C59A 0
+721 poke C581 0
+721 poke C589 0
+721 poke C58A 0
+721 poke C597 0
+722 poke C598 0
+722 poke C596 0
+722 poke C58F 0
+722 poke C590 0
+723 poke C591 0
+723 poke C592 0
+723 poke C585 1
+724 poke C580 4D

@@ -1,0 +1,597 @@
+# run: --level 2 --frames 1872 --lives
+100 keys 1
+106 keys -
+700 poke C05A FF
+700 poke C05B 10
+700 poke C054 02
+701 poke C5A0 00
+702 poke C5A1 00
+702 poke C5A2 00
+702 poke C5A3 00
+702 poke C5A4 00
+703 poke C5A5 01
+703 poke C5A6 00
+703 poke C5A7 00
+703 poke C5A8 00
+704 poke C5A9 00
+704 poke C5AA 00
+704 poke C5AB 00
+704 poke C5AC 00
+705 poke C5AD 00
+705 poke C5AE 00
+705 poke C5AF 00
+705 poke C5B0 00
+706 poke C5B1 00
+706 poke C5B2 00
+706 poke C5B3 00
+706 poke C5B4 00
+707 poke C5B5 00
+707 poke C5B6 00
+707 poke C5B7 00
+707 poke C5B8 00
+708 poke C5B9 00
+708 poke C5BA 00
+708 poke C5BB 00
+708 poke C5BC 00
+709 poke C5BD 00
+709 poke C5BE 00
+709 poke C5BF 00
+709 poke C5AC 30
+710 poke C5AE 88
+710 poke C5BF 30
+710 poke C5BE 88
+711 poke C5A0 24
+712 poke C08D 03
+716 poke C08D 03
+718 keys 2
+720 poke C08D 03
+720 poke C05A FF
+720 poke C05B 10
+720 poke C054 02
+722 keys -
+724 poke C08D 03
+728 poke C08D 03
+730 keys 2
+732 poke C08D 03
+734 keys -
+736 poke C08D 03
+740 poke C08D 03
+742 keys 2
+744 poke C08D 03
+746 keys -
+748 poke C08D 03
+752 poke C08D 03
+754 keys 2
+756 poke C08D 03
+758 keys -
+760 poke C08D 03
+764 poke C08D 03
+766 keys 2
+768 poke C08D 03
+770 keys -
+772 poke C08D 03
+776 poke C08D 03
+778 keys 2
+780 poke C08D 03
+782 keys -
+784 poke C08D 03
+788 poke C08D 03
+790 keys 2
+792 poke C08D 03
+794 keys -
+796 poke C08D 03
+800 poke C08D 03
+802 keys 2
+804 poke C08D 03
+806 keys -
+808 poke C08D 03
+812 poke C08D 03
+814 keys 2
+816 poke C08D 03
+818 keys -
+820 poke C08D 03
+824 poke C08D 03
+826 keys 2
+828 poke C08D 03
+830 keys -
+832 poke C08D 03
+836 poke C08D 03
+838 keys 2
+840 poke C08D 03
+842 keys -
+844 poke C08D 03
+848 poke C08D 03
+850 keys 2
+852 poke C08D 03
+854 keys -
+856 poke C08D 03
+860 poke C08D 03
+862 keys 2
+864 poke C08D 03
+866 keys -
+868 poke C08D 03
+870 poke C05A FF
+870 poke C05B 10
+870 poke C054 02
+872 poke C08D 03
+874 keys 2
+876 poke C08D 03
+878 keys -
+880 poke C08D 03
+884 poke C08D 03
+886 keys 2
+888 poke C08D 03
+890 keys -
+892 poke C08D 03
+896 poke C08D 03
+898 keys 2
+900 poke C08D 03
+902 keys -
+904 poke C08D 03
+908 poke C08D 03
+910 keys 2
+912 poke C08D 03
+914 keys -
+916 poke C08D 03
+920 poke C08D 03
+922 keys 2
+924 poke C08D 03
+926 keys -
+928 poke C08D 03
+932 poke C08D 03
+934 keys 2
+936 poke C08D 03
+938 keys -
+940 poke C08D 03
+944 poke C08D 03
+946 keys 2
+948 poke C08D 03
+950 keys -
+952 poke C08D 03
+956 poke C08D 03
+958 keys 2
+960 poke C08D 03
+962 keys -
+964 poke C08D 03
+968 poke C08D 03
+970 keys 2
+972 poke C08D 03
+974 keys -
+976 poke C08D 03
+980 poke C08D 03
+982 keys 2
+984 poke C08D 03
+986 keys -
+988 poke C08D 03
+992 poke C08D 03
+994 keys 2
+996 poke C08D 03
+998 keys -
+1000 poke C08D 03
+1004 poke C08D 03
+1006 keys 2
+1008 poke C08D 03
+1010 keys -
+1012 poke C08D 03
+1016 poke C08D 03
+1018 keys 2
+1020 poke C08D 03
+1020 poke C05A FF
+1020 poke C05B 10
+1020 poke C054 02
+1022 keys -
+1024 poke C08D 03
+1028 poke C08D 03
+1030 keys 2
+1032 poke C08D 03
+1034 keys -
+1036 poke C08D 03
+1040 poke C08D 03
+1042 keys 2
+1044 poke C08D 03
+1046 keys -
+1048 poke C08D 03
+1052 poke C08D 03
+1054 keys 2
+1056 poke C08D 03
+1058 keys -
+1060 poke C08D 03
+1064 poke C08D 03
+1066 keys 2
+1068 poke C08D 03
+1070 keys -
+1074 poke C05A FF
+1074 poke C05B 10
+1074 poke C054 02
+1075 poke C5A0 00
+1076 poke C5A1 00
+1076 poke C5A2 00
+1076 poke C5A3 00
+1076 poke C5A4 00
+1077 poke C5A5 01
+1077 poke C5A6 00
+1077 poke C5A7 00
+1077 poke C5A8 00
+1078 poke C5A9 00
+1078 poke C5AA 00
+1078 poke C5AB 00
+1078 poke C5AC 00
+1079 poke C5AD 00
+1079 poke C5AE 00
+1079 poke C5AF 00
+1079 poke C5B0 00
+1080 poke C5B1 00
+1080 poke C5B2 00
+1080 poke C5B3 00
+1080 poke C5B4 00
+1081 poke C5B5 00
+1081 poke C5B6 00
+1081 poke C5B7 00
+1081 poke C5B8 00
+1082 poke C5B9 00
+1082 poke C5BA 00
+1082 poke C5BB 00
+1082 poke C5BC 00
+1083 poke C5BD 00
+1083 poke C5BE 00
+1083 poke C5BF 00
+1083 poke C5AC 30
+1084 poke C5AE 88
+1084 poke C5BF 30
+1084 poke C5BE 88
+1085 poke C5A0 24
+1086 poke C08D 04
+1090 poke C08D 04
+1092 keys 2
+1094 poke C08D 04
+1096 keys -
+1098 poke C08D 04
+1102 poke C08D 04
+1104 keys 2
+1106 poke C08D 04
+1108 keys -
+1110 poke C08D 04
+1114 poke C08D 04
+1116 keys 2
+1118 poke C08D 04
+1120 keys -
+1122 poke C08D 04
+1126 poke C08D 04
+1128 keys 2
+1130 poke C08D 04
+1132 keys -
+1134 poke C08D 04
+1138 poke C08D 04
+1140 keys 2
+1142 poke C08D 04
+1144 keys -
+1146 poke C08D 04
+1150 poke C08D 04
+1152 keys 2
+1154 poke C08D 04
+1156 keys -
+1158 poke C08D 04
+1162 poke C08D 04
+1164 keys 2
+1166 poke C08D 04
+1168 keys -
+1170 poke C08D 04
+1170 poke C05A FF
+1170 poke C05B 10
+1170 poke C054 02
+1174 poke C08D 04
+1176 keys 2
+1178 poke C08D 04
+1180 keys -
+1182 poke C08D 04
+1186 poke C08D 04
+1188 keys 2
+1190 poke C08D 04
+1192 keys -
+1194 poke C08D 04
+1198 poke C08D 04
+1200 keys 2
+1202 poke C08D 04
+1204 keys -
+1206 poke C08D 04
+1210 poke C08D 04
+1212 keys 2
+1214 poke C08D 04
+1216 keys -
+1218 poke C08D 04
+1222 poke C08D 04
+1224 keys 2
+1226 poke C08D 04
+1228 keys -
+1230 poke C08D 04
+1234 poke C08D 04
+1236 keys 2
+1238 poke C08D 04
+1240 keys -
+1242 poke C08D 04
+1246 poke C08D 04
+1248 keys 2
+1250 poke C08D 04
+1252 keys -
+1254 poke C08D 04
+1258 poke C08D 04
+1260 keys 2
+1262 poke C08D 04
+1264 keys -
+1266 poke C08D 04
+1270 poke C08D 04
+1272 keys 2
+1274 poke C08D 04
+1276 keys -
+1278 poke C08D 04
+1282 poke C08D 04
+1284 keys 2
+1286 poke C08D 04
+1288 keys -
+1290 poke C08D 04
+1294 poke C08D 04
+1296 keys 2
+1298 poke C08D 04
+1300 keys -
+1302 poke C08D 04
+1306 poke C08D 04
+1308 keys 2
+1310 poke C08D 04
+1312 keys -
+1314 poke C08D 04
+1318 poke C08D 04
+1320 keys 2
+1320 poke C05A FF
+1320 poke C05B 10
+1320 poke C054 02
+1322 poke C08D 04
+1324 keys -
+1326 poke C08D 04
+1330 poke C08D 04
+1332 keys 2
+1334 poke C08D 04
+1336 keys -
+1338 poke C08D 04
+1342 poke C08D 04
+1344 keys 2
+1346 poke C08D 04
+1348 keys -
+1350 poke C08D 04
+1354 poke C08D 04
+1356 keys 2
+1358 poke C08D 04
+1360 keys -
+1362 poke C08D 04
+1366 poke C08D 04
+1368 keys 2
+1370 poke C08D 04
+1372 keys -
+1374 poke C08D 04
+1378 poke C08D 04
+1380 keys 2
+1382 poke C08D 04
+1384 keys -
+1386 poke C08D 04
+1390 poke C08D 04
+1392 keys 2
+1394 poke C08D 04
+1396 keys -
+1398 poke C08D 04
+1402 poke C08D 04
+1404 keys 2
+1406 poke C08D 04
+1408 keys -
+1410 poke C08D 04
+1414 poke C08D 04
+1416 keys 2
+1418 poke C08D 04
+1420 keys -
+1422 poke C08D 04
+1426 poke C08D 04
+1428 keys 2
+1430 poke C08D 04
+1432 keys -
+1434 poke C08D 04
+1438 poke C08D 04
+1440 keys 2
+1442 poke C08D 04
+1444 keys -
+1448 poke C05A FF
+1448 poke C05B 10
+1448 poke C054 02
+1449 poke C5A0 00
+1450 poke C5A1 00
+1450 poke C5A2 00
+1450 poke C5A3 00
+1450 poke C5A4 00
+1451 poke C5A5 01
+1451 poke C5A6 00
+1451 poke C5A7 00
+1451 poke C5A8 00
+1452 poke C5A9 00
+1452 poke C5AA 00
+1452 poke C5AB 00
+1452 poke C5AC 00
+1453 poke C5AD 00
+1453 poke C5AE 00
+1453 poke C5AF 00
+1453 poke C5B0 00
+1454 poke C5B1 00
+1454 poke C5B2 00
+1454 poke C5B3 00
+1454 poke C5B4 00
+1455 poke C5B5 00
+1455 poke C5B6 00
+1455 poke C5B7 00
+1455 poke C5B8 00
+1456 poke C5B9 00
+1456 poke C5BA 00
+1456 poke C5BB 00
+1456 poke C5BC 00
+1457 poke C5BD 00
+1457 poke C5BE 00
+1457 poke C5BF 00
+1457 poke C5AC 30
+1458 poke C5AE 88
+1458 poke C5BF 30
+1458 poke C5BE 88
+1459 poke C5A0 24
+1460 poke C08D 05
+1464 poke C08D 05
+1466 keys 2
+1468 poke C08D 05
+1470 keys -
+1470 poke C05A FF
+1470 poke C05B 10
+1470 poke C054 02
+1472 poke C08D 05
+1476 poke C08D 05
+1478 keys 2
+1480 poke C08D 05
+1482 keys -
+1484 poke C08D 05
+1488 poke C08D 05
+1490 keys 2
+1492 poke C08D 05
+1494 keys -
+1496 poke C08D 05
+1500 poke C08D 05
+1502 keys 2
+1504 poke C08D 05
+1506 keys -
+1508 poke C08D 05
+1512 poke C08D 05
+1514 keys 2
+1516 poke C08D 05
+1518 keys -
+1520 poke C08D 05
+1524 poke C08D 05
+1526 keys 2
+1528 poke C08D 05
+1530 keys -
+1532 poke C08D 05
+1536 poke C08D 05
+1538 keys 2
+1540 poke C08D 05
+1542 keys -
+1544 poke C08D 05
+1548 poke C08D 05
+1550 keys 2
+1552 poke C08D 05
+1554 keys -
+1556 poke C08D 05
+1560 poke C08D 05
+1562 keys 2
+1564 poke C08D 05
+1566 keys -
+1568 poke C08D 05
+1572 poke C08D 05
+1574 keys 2
+1576 poke C08D 05
+1578 keys -
+1580 poke C08D 05
+1584 poke C08D 05
+1586 keys 2
+1588 poke C08D 05
+1590 keys -
+1592 poke C08D 05
+1596 poke C08D 05
+1598 keys 2
+1600 poke C08D 05
+1602 keys -
+1604 poke C08D 05
+1608 poke C08D 05
+1610 keys 2
+1612 poke C08D 05
+1614 keys -
+1616 poke C08D 05
+1620 poke C08D 05
+1620 poke C05A FF
+1620 poke C05B 10
+1620 poke C054 02
+1622 keys 2
+1624 poke C08D 05
+1626 keys -
+1628 poke C08D 05
+1632 poke C08D 05
+1634 keys 2
+1636 poke C08D 05
+1638 keys -
+1640 poke C08D 05
+1644 poke C08D 05
+1646 keys 2
+1648 poke C08D 05
+1650 keys -
+1652 poke C08D 05
+1656 poke C08D 05
+1658 keys 2
+1660 poke C08D 05
+1662 keys -
+1664 poke C08D 05
+1668 poke C08D 05
+1670 keys 2
+1672 poke C08D 05
+1674 keys -
+1676 poke C08D 05
+1680 poke C08D 05
+1682 keys 2
+1684 poke C08D 05
+1686 keys -
+1688 poke C08D 05
+1692 poke C08D 05
+1694 keys 2
+1696 poke C08D 05
+1698 keys -
+1700 poke C08D 05
+1704 poke C08D 05
+1706 keys 2
+1708 poke C08D 05
+1710 keys -
+1712 poke C08D 05
+1716 poke C08D 05
+1718 keys 2
+1720 poke C08D 05
+1722 keys -
+1724 poke C08D 05
+1728 poke C08D 05
+1730 keys 2
+1732 poke C08D 05
+1734 keys -
+1736 poke C08D 05
+1740 poke C08D 05
+1742 keys 2
+1744 poke C08D 05
+1746 keys -
+1748 poke C08D 05
+1752 poke C08D 05
+1754 keys 2
+1756 poke C08D 05
+1758 keys -
+1760 poke C08D 05
+1764 poke C08D 05
+1766 keys 2
+1768 poke C08D 05
+1770 keys -
+1770 poke C05A FF
+1770 poke C05B 10
+1770 poke C054 02
+1772 poke C08D 05
+1776 poke C08D 05
+1778 keys 2
+1780 poke C08D 05
+1782 keys -
+1784 poke C08D 05
+1788 poke C08D 05
+1790 keys 2
+1792 poke C08D 05
+1794 keys -
+1796 poke C08D 05
+1800 poke C08D 05
+1802 keys 2
+1804 poke C08D 05
+1806 keys -
+1808 poke C08D 05
+1812 poke C08D 05
+1814 keys 2
+1816 poke C08D 05
+1818 keys -

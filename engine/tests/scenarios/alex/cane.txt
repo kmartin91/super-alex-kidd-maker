@@ -1,0 +1,25 @@
+# run: --level 2 --lives --frames 1800
+# Cane of Flight: select it on the map (pause), fly around, punch, then lose it
+100 keys 1
+106 keys -
+600 pause
+640 poke C054 01
+640 poke C05A FF
+640 poke C05B 04
+700 pause
+720 keys U
+800 keys R
+850 keys D
+900 keys L
+950 keys UR
+1000 keys 2
+1006 keys -
+1040 keys DL
+1080 keys U
+1200 keys U2
+1206 keys D
+1300 keys L
+1400 keys R
+1500 keys -
+1520 poke C054 00
+1600 keys R

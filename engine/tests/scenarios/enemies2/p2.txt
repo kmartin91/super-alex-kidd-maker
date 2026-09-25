@@ -1,0 +1,7 @@
+# run: --frames 1300
+100 keys 1
+106 keys -
+700 peek C300 32
+700 peek C3A0 32
+700 peek C01F 1
+700 shot

@@ -1,0 +1,62 @@
+# Routines of module 'audio' (address, generated name, instructions, in / out)
+984F  update                                             12  in: -  out: -
+986C  handleFadeOutAndSfx                                31  in: -  out: A
+98AE  readSoundRequest                                   27  in: -  out: -
+99A3  _LABEL_99A3_                                       12  in: -  out: -
+99BE  _LABEL_99BE_                                        9  in: -  out: -
+99D3  handler_LABEL_99D3_                                12  in: -  out: -
+99F0  handleSong                                          3  in: B C  out: -
+99F9  _LABEL_99F9_                                        2  in: B C E  out: -
+99FC  _LABEL_99FC_                                        2  in: B C E  out: -
+9A00  _LABEL_9A00_                                        2  in: B C E  out: -
+9A04  _LABEL_9A04_                                        1  in: B C E  out: -
+9A06  sub_9A06                                           10  in: A B C E  out: -
+9A1F  _LABEL_9A1F_                                        2  in: B C  out: -
+9A24  _LABEL_9A24_                                       11  in: B C E  out: -
+9A3E  sub_9A3E                                            2  in: A B C  out: -
+9A43  _LABEL_9A43_                                        2  in: B C E  out: -
+9A47  _LABEL_9A47_                                        1  in: B C E  out: -
+9A49  sub_9A49                                           10  in: A B C E  out: -
+9A60  _LABEL_9A60_                                        4  in: B C  out: -
+9A68  _LABEL_9A68_                                        2  in: B C  out: -
+9A6D  _LABEL_9A6D_                                        5  in: B C  out: -
+9A7A  _LABEL_9A7A_                                        2  in: B C E  out: -
+9A7D  _LABEL_9A7D_                                        2  in: B C E  out: -
+9A81  _LABEL_9A81_                                        2  in: B C E  out: -
+9A85  _LABEL_9A85_                                        2  in: B C E  out: -
+9A89  _LABEL_9A89_                                        1  in: B C E  out: -
+9A8B  _LABEL_9A8B_                                        8  in: A B C E  out: -
+9A9D  _LABEL_9A9D_                                        2  in: A B C D E  out: -
+9AA3  realHandleSong                                     27  in: B C D E  out: -
+9AC6  resetSoundControl                                   3  in: -  out: -
+9ACC  runChannel                                         95  in: A IXH IXL  out: A
+9B0B  loadAthPointer                                     10  in: A H L  out: H L
+9BB2  applyVolumeEnvelope                                41  in: H L IXH IXL  out: -
+9BF8  applyPitchEnvelope                                 41  in: D E H L IXH IXL  out: -
+9C39  readChannelInstruction                             89  in: IXH IXL  out: -
+9D08  handleF1                                            8  in: -  out: -
+9D17  handleEE                                            4  in: D E IXH IXL  out: -
+9D1F  handleE0                                            3  in: D E IXH IXL  out: -
+9D24  handleE1                                            3  in: D E IXH IXL  out: -
+9D29  handleE3                                           12  in: D E IXH IXL  out: -
+9D40  handleE4VolumeEnvelope                              3  in: D E IXH IXL  out: -
+9D45  handleEDPitchEnvelope                               3  in: D E IXH IXL  out: -
+9D4A  handleE5                                            6  in: D E  out: D E
+9D50  handleE6                                            3  in: D E IXH IXL  out: D E
+9D56  handleE7                                            3  in: D E IXH IXL  out: D E
+9D5C  handleE8                                            3  in: D E IXH IXL  out: D E
+9D62  handleE9                                            3  in: D E IXH IXL  out: D E
+9D68  handleEF                                            3  in: IXH IXL  out: -
+9D6E  handleF0                                            2  in: D E IXH IXL  out: -
+9D72  handleE2                                            2  in: IXH IXL  out: -
+9D76  sub_9D76                                           18  in: A IXH IXL  out: -
+9D9E  handleEA                                           19  in: D E IXH IXL  out: D E
+9DB9  handleEB                                           11  in: IXH IXL  out: D E
+9DCC  handleECLoop                                       18  in: D E IXH IXL  out: D E
+9DE4  _LABEL_9DE4_                                        3  in: IXH IXL  out: -
+9DEB  writeAToPsgIfFlagBit2_LABEL_9DEB_                   4  in: A IXH IXL  out: -
+9DF3  reset                                               7  in: -  out: A B C
+9E02  resetVolume                                         8  in: -  out: A B C
+9E0F  _LABEL_9E0F_                                        5  in: -  out: -
+9EAE  multiplyWord                                        8  in: E H  out: H L fC
+9EBA  _LABEL_9EBA_                                       14  in: E H L fC  out: A

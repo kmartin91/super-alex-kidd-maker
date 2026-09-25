@@ -1,0 +1,13 @@
+# run: --frames 1240
+100 keys 1
+106 keys -
+600 poke C054 09
+600 poke C31D 08
+600 poke C30E 70
+601 poke C31A 06
+620 keys 1
+622 keys L
+622 peek C300 20
+626 peek C300 20
+630 peek C300 20
+640 peek C300 20

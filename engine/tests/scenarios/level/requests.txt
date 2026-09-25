@@ -1,0 +1,21 @@
+# run: --frames 1380
+# Name-table requests $83, $84, $82, $81, $89 and Janken's petrification ($88, source $AAFE)
+# poked one after the other. Run with: --level 3 --lives --frames 800 (also --level 16)
+100 keys 1
+106 keys -
+400 peek C0FD 2
+400 poke C202 83
+430 shot
+450 poke C202 84
+480 shot
+500 poke C202 82
+530 shot
+550 poke C202 81
+600 poke C202 89
+630 shot
+700 poke C21B FE
+700 poke C21C AA
+700 poke C218 00
+701 poke C202 88
+760 peek C218 1
+780 shot

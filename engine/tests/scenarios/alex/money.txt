@@ -1,0 +1,9 @@
+# run: --level 2 --lives --frames 800
+# money bag in the background while a name table change is pending (level 2)
+100 keys 1
+106 keys -
+600 poke C202 80
+600 poke CC8A 50
+600 poke CC8B 40
+700 poke CC8A 50
+700 poke CC8B 40

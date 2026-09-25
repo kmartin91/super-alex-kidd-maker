@@ -1,0 +1,21 @@
+# run: --frames 1520
+# Pause map: open, use the power bracelet (under the arrow at start), close.
+100 keys 1
+106 keys -
+700 poke C046 01
+700 poke C047 01
+700 poke C048 01
+700 poke C049 01
+701 poke C04A 01
+701 poke C04B 01
+701 poke C04C 01
+701 poke C04D 01
+702 poke C04E 01
+702 poke C04F 01
+750 pause
+800 peek C01F 1
+900 shot
+900 peek CF8C 1
+920 keys 1
+900 peek CCC0 40
+900 peek CD00 40

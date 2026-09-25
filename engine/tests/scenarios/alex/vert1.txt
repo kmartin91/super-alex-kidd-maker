@@ -1,0 +1,15 @@
+# run: --level 1 --lives --frames 800
+# run: --level 17 --lives --frames 800
+100 keys 1
+106 keys -
+600 peek C0C9 1
+600 peek C300 20
+650 poke C054 07
+651 keys 2
+657 keys -
+700 poke C0C9 08
+701 peek C0C9 1
+750 poke C0C9 02
+750 poke C30E B0
+751 peek C0C9 1
+751 peek C300 20
