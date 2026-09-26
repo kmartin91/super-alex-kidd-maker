@@ -1,8 +1,11 @@
 // In-page game player: runs the C engine compiled to WebAssembly
-// (engine/src/platform/main_web.c, built with `make -C port web`).
+// (engine/src/platform/main_web.c, built with `make -C engine web`).
+
+import { romBytes } from './backend.js';
 
 const JOY_UP = 0x01, JOY_DOWN = 0x02, JOY_LEFT = 0x04, JOY_RIGHT = 0x08, JOY_BTN1 = 0x10, JOY_BTN2 = 0x20;
 const W = 256, H = 192, RATE = 44100, FRAME_MS = 1000 / 60;
+const HIDDEN_LEFT = 8;
 
 function loadScript(src) {
   return new Promise((resolve, reject) => {
@@ -40,7 +43,7 @@ export class Player {
       print: (t) => console.log('[engine]', t),
       printErr: (t) => console.warn('[engine]', t),
     });
-    const rom = new Uint8Array(await (await fetch('/api/rom')).arrayBuffer());
+    const rom = romBytes();
     const p = this.engine._malloc(rom.length);
     this.engine.HEAPU8.set(rom, p);
     this.engine._web_set_rom(p, rom.length);
@@ -74,6 +77,12 @@ export class Player {
     return this.running;
   }
 
+  // Copy of the game's RAM ($C000-$DFFF), for tests.
+  ram() {
+    const p = this.engine._web_ram();
+    return this.engine.HEAPU8.slice(p, p + 0x3000); // + maker mode extra RAM (engine/src/rt/maker.h)
+  }
+
   async stop() {
     if (!this.running) return;
     this.engine._web_stop();
@@ -88,7 +97,9 @@ export class Player {
       const p = src[i];
       d[j] = (p >> 16) & 255; d[j + 1] = (p >> 8) & 255; d[j + 2] = p & 255; d[j + 3] = 255;
     }
-    this.ctx.putImageData(this.image, 0, 0);
+    // The console masks the leftmost 8-pixel column with a plain colour: it
+    // is left out of the picture (the canvas is 248 pixels wide).
+    this.ctx.putImageData(this.image, -HIDDEN_LEFT, 0, HIDDEN_LEFT, 0, W - HIDDEN_LEFT, H);
     if (this.audio) {
       const pcm = this.engine.HEAP16.subarray(sndPtr >> 1, (sndPtr >> 1) + count);
       const buf = this.audio.createBuffer(1, count, RATE);

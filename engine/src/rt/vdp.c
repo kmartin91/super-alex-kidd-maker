@@ -1,4 +1,5 @@
 #include "vdp.h"
+#include "maker.h"
 
 #include <string.h>
 
@@ -28,7 +29,7 @@ void vdp_write_data(Vdp *v, uint8_t value) {
     v->latch = false;
     if (v->code == 3) {
         v->cram[v->addr & 0x1F] = value;
-    } else {
+    } else if (!maker_capture_write(v->addr, value)) {
         v->vram[v->addr] = value;
     }
     v->read_buf = value;

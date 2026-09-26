@@ -8,6 +8,7 @@
  * inside the screen that is entering.
  */
 #include "level.h"
+#include "rt/maker.h"
 
 #define FIRST_NORMAL_SLOT 0xC3C0      /* slot 6 (0-based): v_entities.7 */
 #define NORMAL_SLOT_COUNT 10          /* slots 6-15 */
@@ -39,6 +40,10 @@ static uint16_t find_free_normal_slot(void) {
     uint16_t slot = FIRST_NORMAL_SLOT;
     for (int n = 0; n < NORMAL_SLOT_COUNT; n++, slot += ENTITY_SIZE)
         if (entity_at(slot)->type == 0) return slot;
+    /* Maker mode (rt/maker.h): as many as the level wants, in the extra slots. */
+    if (maker.active)
+        for (slot = MAKER_EXTRA_RAM; slot < MAKER_EXTRA_RAM + MAKER_EXTRA_SLOTS * ENTITY_SIZE; slot += ENTITY_SIZE)
+            if (entity_at(slot)->type == 0) return slot;
     return 0;
 }
 
@@ -46,11 +51,27 @@ static uint16_t find_free_normal_slot(void) {
  * first free slot among 6-15; when none is free, the rest of the screen's
  * entities are dropped. C is the number of records left when the last slot
  * search started, as the original leaves it. Returns the stream position. */
+/* Maker mode (rt/maker.h): the camera goes back and forth, so a screen can
+ * enter again while entities it spawned are still alive: those are not
+ * spawned twice. */
+static bool maker_record_alive(uint16_t record) {
+    for (uint16_t slot = FIRST_NORMAL_SLOT, n = 0; n < NORMAL_SLOT_COUNT; n++, slot += ENTITY_SIZE)
+        if (entity_at(slot)->type != 0 && maker.slot_record[maker_slot_index(slot)] == record) return true;
+    for (uint16_t slot = MAKER_EXTRA_RAM; slot < MAKER_EXTRA_RAM + MAKER_EXTRA_SLOTS * ENTITY_SIZE; slot += ENTITY_SIZE)
+        if (entity_at(slot)->type != 0 && maker.slot_record[maker_slot_index(slot)] == record) return true;
+    return false;
+}
+
 static uint16_t spawn_entities(uint16_t stream, uint8_t count) {
     do {
         cpu.c = count;
+        if (maker.active && maker_record_alive((uint16_t)(stream + 1))) {
+            stream = (uint16_t)(stream + 4);
+            continue;
+        }
         uint16_t slot = find_free_normal_slot();
         if (slot == 0) break;
+        if (maker.active) maker.slot_record[maker_slot_index(slot)] = (uint16_t)(stream + 1);
         stream = spawn_entity_from_record(slot, stream);
     } while (--count != 0);
     return stream;

@@ -38,6 +38,7 @@
  * $C2A0: tile $A4 (Alex won) or $A5 (opponent won) at $C2A6 + 2 * round.
  */
 #include "states.h"
+#include "rt/maker.h"
 
 #define JANKEN_UPDATERS 0x714B
 #define BATTLE_ROUND_RESULT_HANDLERS 0x72C3
@@ -94,6 +95,7 @@ LIFTED(updateBattleInit, 0x7175) {
     Entity *opponent = entity_at(OPPONENT);
     opponent->animationTimer = 1;
     opponent->unknown11 = 1; /* simulateOpponentChoosing runs while non-zero */
+    maker.janken_throws = 0;
     uint8_t settings = (uint8_t)((opponent->data & 0xFE) * 8);
     /* Janken himself (data 0/1) is visible from the start. */
     opponent->spriteDescriptorPointer = settings ? NULL_SPRITE_DESCRIPTOR : CHARACTER_SPRITE_DESCRIPTOR;
@@ -187,6 +189,11 @@ LIFTED(updateBattleThrow, 0x7278) {
     entity_at(v_alex)->state = ALEX_BATTLE_THROW;
     /* Sprite of the opponent's hand: rock, scissors or paper. */
     Entity *opponent = entity_at(OPPONENT);
+    int forced = maker_janken_next(opponent->data); /* Maker levels: the throws chosen in the editor */
+    if (forced >= 0) {
+        opponent->battleDecision = (uint8_t)forced;
+        maker.janken_throws++;
+    }
     uint16_t throws = ram16(v_opponentThrowSpriteDescriptorPointer);
     opponent->spriteDescriptorPointer = rd16((uint16_t)(throws + (uint8_t)(opponent->battleDecision * 2)));
     entity_at(cpu.ix)->unknown6 = 0x1E;

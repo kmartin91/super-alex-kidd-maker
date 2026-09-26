@@ -1,6 +1,7 @@
 // Mouse on the map, Mario Maker style:
 //   click / drag            place the item in hand (blocks paint while dragging)
 //   press on an entity      pick it up and move it; a simple click selects it
+//   drag Alex ("Départ")    move where the level starts
 //   right click / drag      erase (entities first, then blocks)
 //   Shift + drag            fill a rectangle with the block in hand
 //   Alt + click             take the block under the mouse in hand
@@ -11,7 +12,7 @@ import { state, BLOCK } from './state.js';
 import { locate, eventLevelPos } from './level.js';
 import { selectPart, isBlockPart } from './brush.js';
 import { applyBrush, fillBlocks } from './parts.js';
-import { entityAt, moveEntityTo, addEntity, placeGoal, confirmRemove, removeEntity } from './entities.js';
+import { entityAt, moveEntityTo, addEntity, placeGoal, placeBoss, confirmRemove, removeEntity, startAt, moveStartTo } from './entities.js';
 import { pushUndo, dropUndo } from './history.js';
 import { render, renderGhost, snapEntity } from './render.js';
 
@@ -29,14 +30,20 @@ function place(part, p) {
   const at = locate(snapped.x, snapped.y);
   const spot = at && at.list !== null ? at : loc;
   if (part.kind === 'goal') { placeGoal(spot); return true; }
+  if (part.kind === 'boss') { placeBoss(spot, part); return true; }
   return addEntity(part.type, spot);
 }
 
 // Erases what is under a level pixel: an entity, else the block.
 function eraseAt(p) {
   const hit = entityAt(p.x, p.y);
+  if (hit && hit.special) {
+    // Bosses and the level end are only removed once confirmed (in a dialog,
+    // so not as part of the gesture).
+    confirmRemove(hit).then((yes) => { if (yes) { pushUndo(); removeEntity(hit); render(); } });
+    return false;
+  }
   if (hit) {
-    if (!confirmRemove(hit)) return false;
     removeEntity(hit);
     return true;
   }
@@ -58,7 +65,10 @@ function onMouseDown(ev) {
   const erase = ev.button === 2 || state.part.kind === 'eraser';
   const hit = !erase && entityAt(p.x, p.y);
   pushUndo();
-  if (hit) {
+  if (ev.button === 0 && startAt(p.x, p.y)) {
+    state.selected = null;
+    state.gesture = { kind: 'start', from: p, moved: false };
+  } else if (hit) {
     // Pick up an entity: moving it is a drag, not moving it is a selection.
     state.selected = hit;
     state.gesture = { kind: 'move', sel: hit, from: p, moved: false };
@@ -84,11 +94,17 @@ function onMouseMove(ev) {
   state.hover = p;
   const g = state.gesture;
   if (!g) {
-    $('map').style.cursor = entityAt(p.x, p.y) ? 'grab' : 'crosshair';
+    $('map').style.cursor = startAt(p.x, p.y) || entityAt(p.x, p.y) ? 'grab' : 'crosshair';
     renderGhost();
     return;
   }
-  if (g.kind === 'move') {
+  if (g.kind === 'start') {
+    if (!g.moved && Math.hypot(p.x - g.from.x, p.y - g.from.y) < 3) return;
+    g.moved = true;
+    $('map').style.cursor = 'grabbing';
+    moveStartTo(p.x, p.y);
+    render();
+  } else if (g.kind === 'move') {
     if (!g.moved && Math.hypot(p.x - g.from.x, p.y - g.from.y) < 3) return;
     g.moved = true;
     $('map').style.cursor = 'grabbing';
@@ -111,7 +127,7 @@ function onMouseUp() {
   const g = state.gesture;
   if (!g) return;
   if (g.kind === 'rect') fillBlocks(state.rect);
-  if ((g.kind === 'move' && !g.moved) || ((g.kind === 'paint' || g.kind === 'erase') && !g.changed)) dropUndo();
+  if (((g.kind === 'move' || g.kind === 'start') && !g.moved) || ((g.kind === 'paint' || g.kind === 'erase') && !g.changed)) dropUndo();
   state.gesture = null;
   state.rect = null;
   render();

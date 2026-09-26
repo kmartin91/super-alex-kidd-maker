@@ -3,7 +3,7 @@
 import { state, setDirty } from './state.js';
 import { render } from './render.js';
 
-const FIELDS = ['screens', 'entities', 'specials', 'grid', 'columns', 'surprises', 'themeMusic'];
+const FIELDS = ['screens', 'entities', 'specials', 'grid', 'columns', 'surprises', 'themeMusic', 'start'];
 const LIMIT = 200;
 
 function snapshot() {

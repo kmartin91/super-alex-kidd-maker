@@ -9,6 +9,7 @@
  * state machine itself (updateBattle*) is in the game states module.
  */
 #include "game/enemies2/enemies2.h"
+#include "rt/maker.h"
 
 /* $71A9: battle state 1: once the opponent is on screen, the screen stopped
  * scrolling and Alex stands on the ground, Alex walks to his battle position
@@ -117,6 +118,8 @@ LIFTED(simulateOpponentChoosing_LABEL_7941_, 0x758A) {
 
     uint8_t index = ++ram8(v_BattleOpponentDecisionIndex) & DECISION_INDEX_MASK;
     uint8_t decision = rd8((uint16_t)(decisions + index));
+    int forced = maker_janken_next(opponent->data); /* Maker levels: what it will throw */
+    if (forced >= 0) decision = (uint8_t)forced;
     e->battleDecision = decision;
     if (ram8(v_hasTelepathyBall) == 0) LIFTED_RETURN();
     entity_at(SLOT_THOUGHT_OPPONENT)->battleDecision = decision;

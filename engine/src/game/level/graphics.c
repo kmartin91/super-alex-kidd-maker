@@ -8,6 +8,9 @@
  * callers map (initGameplayState, the sub-area loader, the map and shop exits).
  */
 #include "level.h"
+#include "rt/maker.h"
+
+#include <string.h>
 
 /* VDP write address of background tile n (32 bytes per tile). */
 #define TILE(n) VDP_VRAM_WRITE((n) * 32)
@@ -189,9 +192,42 @@ LIFTED(loadTheKingdomOfNibanaPart1Tileset, 0x1058) {
 
 /* ---------------------------------------------------------- sprite tiles */
 
+/* Maker mode: runs every level's sprite tile loader with its VRAM writes
+ * redirected to that level's extended sprite memory (see rt/maker.h), which
+ * starts as a copy of the current sprite tiles (those shared by all levels),
+ * and keeps each level's sprite colours. */
+static void maker_capture_all_levels(void) {
+    const uint8_t level = ram8(v_level);
+    const uint8_t bank = (uint8_t)mach.slot[2];
+    for (int h = 1; h <= MAKER_LEVELS; h++) {
+        memcpy(maker.sprite_tiles[h], &mach.vdp.vram[0x2000], MAKER_SPRITE_TILES_BYTES);
+        maker.capturing = h;
+        ram8(v_level) = (uint8_t)h;
+        CALL_ROUTINE(f_loadLevelSpriteTiles);
+        map_bank(BANK(7));
+        uint16_t palette = rd16((uint16_t)(LEVEL_PALETTES_MINUS_2 + (uint8_t)(2 * h)));
+        for (int i = 0; i < 16; i++) maker.sprite_cram[h][i] = rd8((uint16_t)(palette + 16 + i));
+    }
+    maker.capturing = 0;
+    ram8(v_level) = level;
+    map_bank(BANK(bank));
+}
+
 /* $1134 loadLevelSpriteTiles: maps bank 7 and jumps to the level's sprite
  * tile loader (spriteTilesLoadersPointers, sprite_tiles.c). */
 LIFTED(loadLevelSpriteTiles, 0x1134) {
+    if (maker.active && !maker.capturing) {
+        maker_capture_all_levels();
+        /* The level's own enemies: in VRAM only (not in the other levels'
+         * copies, see maker_capture_write). */
+        maker.loading_own_sprites = true;
+        map_bank(BANK(7));
+        cpu.a = ram8(v_level);
+        cpu.hl = SPRITE_TILE_LOADERS_MINUS_2;
+        CALL_ROUTINE(f_jumpToAthPointer);
+        maker.loading_own_sprites = false;
+        LIFTED_RETURN();
+    }
     map_bank(BANK(7));
     cpu.a = ram8(v_level);
     cpu.hl = SPRITE_TILE_LOADERS_MINUS_2;

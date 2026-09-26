@@ -6,6 +6,7 @@ import { listOrigin } from './level.js';
 import { entityBox, entityName, specialName, selectedRecord, deleteSelected } from './entities.js';
 import { pushUndo } from './history.js';
 import { render } from './render.js';
+import { isBoss, openBossSheet } from './boss.js';
 
 export function renderBubble() {
   const bubble = $('bubble');
@@ -22,6 +23,7 @@ export function renderBubble() {
   $('bubbleName').textContent = sel.special ? specialName(e.type) : entityName(e.type);
   $('bubbleLock').hidden = !sel.special;
   $('bubbleVariant').hidden = !!sel.special;
+  $('bubbleBoss').hidden = !(sel.special && isBoss(e.type));
   $('variantValue').textContent = e.data;
 }
 
@@ -37,5 +39,6 @@ export function bindBubble() {
   $('variantDown').addEventListener('click', () => changeVariant(-1));
   $('variantUp').addEventListener('click', () => changeVariant(1));
   $('bubbleDelete').addEventListener('click', deleteSelected);
+  $('bubbleBoss').addEventListener('click', () => { const e = selectedRecord(); if (e) openBossSheet(e); });
   $('bubble').addEventListener('mousedown', (ev) => ev.stopPropagation());
 }

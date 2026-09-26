@@ -44,5 +44,8 @@ check('plays after theme change', (await status()) === 'en jeu', await status())
 await p.evaluate("document.getElementById('playBtn').click()");
 await waitFor(p, "document.getElementById('playView').hidden");
 await p.evaluate("document.getElementById('save').click()");
+// First save: the level's name is asked.
+check('name asked', await waitFor(p, "!!document.getElementById('nameOk')"));
+await p.evaluate("document.getElementById('levelNameInput').value = 'Test'; document.getElementById('nameOk').click()");
 check('saved', await waitFor(p, "document.getElementById('status').textContent === 'enregistré'"));
 done(p);

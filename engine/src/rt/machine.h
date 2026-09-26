@@ -6,6 +6,7 @@
 #include <stdint.h>
 
 #include "psg.h"
+#include "maker.h"
 #include "vdp.h"
 
 /* Active-low joypad bits on port $DC. */
@@ -21,7 +22,7 @@ typedef struct Machine {
     uint32_t rom_size;
     uint8_t bank_mask;
     uint8_t slot[3];     /* ROM bank mapped in each 16 KB slot */
-    uint8_t ram[0x2000];
+    uint8_t ram[0x3000]; /* $C000-$DFFF, then maker mode's extra RAM at $E000-$EFFF (rt/maker.h) */
     Vdp vdp;
     Psg psg;
     uint8_t joy;         /* pressed JOY_* bits (active high here) */
@@ -31,7 +32,7 @@ typedef struct Machine {
 void machine_init(Machine *m, const uint8_t *rom, uint32_t rom_size);
 
 static inline uint8_t machine_read(const Machine *m, uint16_t a) {
-    if (a >= 0xC000) return m->ram[a & 0x1FFF];
+    if (a >= 0xC000) return m->ram[maker_ram_offset(a)];
     if (a < 0x0400) return m->rom[a];
     uint32_t bank = m->slot[a >> 14];
     return m->rom[(bank << 14) | (a & 0x3FFF)];

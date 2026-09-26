@@ -1,4 +1,5 @@
 #include "machine.h"
+#include "maker.h"
 
 #include <string.h>
 
@@ -12,11 +13,12 @@ void machine_init(Machine *m, const uint8_t *rom, uint32_t rom_size) {
     m->slot[2] = 2;
     vdp_reset(&m->vdp);
     psg_reset(&m->psg);
+    maker_detect(rom, rom_size);
 }
 
 void machine_write(Machine *m, uint16_t a, uint8_t v) {
     if (a < 0xC000) return; /* ROM */
-    m->ram[a & 0x1FFF] = v;
+    m->ram[maker_ram_offset(a)] = v;
     if (a >= 0xFFFD) m->slot[a - 0xFFFD] = v & m->bank_mask;
 }
 

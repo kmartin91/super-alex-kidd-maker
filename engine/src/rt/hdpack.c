@@ -1,4 +1,5 @@
 #include "hdpack.h"
+#include "maker.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -182,8 +183,18 @@ static inline int pattern_pixel(const Vdp *v, int tile, int row, int col) {
 
 typedef struct LineSprite {
     int x, top, tile, zoom;
+    int home;             /* maker mode: level its tiles come from, 0 = VRAM */
     const HdTile *sub[2]; /* tile and tile+1 (8x16) */
 } LineSprite;
+
+/* Pixel of sprite tile `tile` (256..447) as it is in level `home` (rt/maker.h). */
+static inline int maker_pixel(const Vdp *v, int home, int tile, int row, int col) {
+    int offset = (tile - 256) * 32 + row * 4;
+    if (offset < 0 || offset >= MAKER_SPRITE_TILES_BYTES) return pattern_pixel(v, tile, row, col);
+    const uint8_t *r = &maker.sprite_tiles[home][offset];
+    int bit = 7 - col;
+    return ((r[0] >> bit) & 1) | (((r[1] >> bit) & 1) << 1) | (((r[2] >> bit) & 1) << 2) | (((r[3] >> bit) & 1) << 3);
+}
 
 static const HdTile *lookup(const HdPack *p, const Vdp *v, int tile, int half, int context) {
     const HdTile *t = find(p, hdpack_tile_key(v, tile, half));
@@ -220,10 +231,13 @@ void hdpack_render(const Vdp *v, const HdPack *p, int context, int scale, uint32
     int sprite_count = 0;
     while (sprite_count < 64 && v->vram[(sat + sprite_count) & 0x3FFF] != 0xD0) sprite_count++;
 
+    /* The console shows 8 sprites per line at most (the later ones vanish:
+     * the original game's flicker). Maker mode has no such limit. */
+    const int line_limit = maker.active ? 64 : 8;
     for (int y = 0; y < VDP_HEIGHT; y++) {
-        LineSprite ls[8];
+        LineSprite ls[64];
         int nls = 0;
-        for (int i = 0; i < sprite_count && nls < 8; i++) {
+        for (int i = 0; i < sprite_count && nls < line_limit; i++) {
             int top = v->vram[(sat + i) & 0x3FFF] + 1;
             if (top > 240) top -= 256;
             int dy = y - top;
@@ -235,8 +249,24 @@ void hdpack_render(const Vdp *v, const HdPack *p, int context, int scale, uint32
             int n = v->vram[(sat + 0x81 + i * 2) & 0x3FFF];
             if (spr_h == 16) n &= 0xFE;
             s->tile = spr_base + n;
-            s->sub[0] = SUB(s->tile & 511, 1);
-            s->sub[1] = spr_h == 16 ? SUB((s->tile + 1) & 511, 1) : NULL;
+            s->home = maker.active ? maker.vdp_home[i] : 0;
+            s->sub[0] = s->home ? NULL : SUB(s->tile & 511, 1);
+            s->sub[1] = spr_h == 16 && !s->home ? SUB((s->tile + 1) & 511, 1) : NULL;
+        }
+        /* Maker mode: the sprites beyond the console's 64 (rt/maker.h). */
+        for (int i = 0; maker.active && i < maker.sprite_count && nls < line_limit; i++) {
+            const MakerSprite *ms = &maker.sprites[i];
+            int top = ms->y + 1;
+            if (top > 240) top -= 256;
+            int dy = y - top;
+            if (dy < 0 || dy >= spr_h * zoom) continue;
+            LineSprite *s = &ls[nls++];
+            s->top = top;
+            s->zoom = zoom;
+            s->x = ms->x - ((r[0] & 0x08) ? 8 : 0);
+            s->tile = spr_base + (spr_h == 16 ? ms->tile & 0xFE : ms->tile);
+            s->home = ms->home;
+            s->sub[0] = s->sub[1] = NULL;
         }
         int hs = ((r[0] & 0x40) && y < 16) ? 0 : r[8];
         for (int x = 0; x < VDP_WIDTH; x++) {
@@ -285,6 +315,10 @@ void hdpack_render(const Vdp *v, const HdPack *p, int context, int scale, uint32
                                 uint32_t px = ss->argb[vv * 8 * scale + U];
                                 if (px >> 24 < 128) continue;
                                 color = px | 0xFF000000u;
+                            } else if (s->home) {
+                                int c = maker_pixel(v, s->home, t, vv / scale, U / scale);
+                                if (!c) continue;
+                                color = vdp_color(maker.sprite_cram[s->home][c]);
                             } else {
                                 int c = pattern_pixel(v, t, vv / scale, U / scale);
                                 if (!c) continue;

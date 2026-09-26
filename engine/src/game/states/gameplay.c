@@ -16,6 +16,7 @@
  * they run out or when a button is pressed.
  */
 #include "states.h"
+#include "rt/maker.h"
 
 #define DEMO_COUNT 5              /* demo indexes run 1..4 */
 #define DEMO_LEVELS 0x0A7C        /* bank 0: level of each demo */
@@ -303,7 +304,19 @@ LIFTED(loadEntitiesNormal_LABEL_6F48_, 0x6F41) {
     /* (vertical << 8) | horizontal off-screen flags of the new entities. */
     uint16_t offscreen;
     uint8_t scroll = ram8(v_scrollFlags);
-    if (ram8(v_isScrollingDownToNextScreen) || (scroll & SCROLL_DOWN)) offscreen = 0x0100;
+    if (maker.active && maker.start_screen_pending) {
+        /* Maker mode: the start screen, already on view. */
+        maker.start_screen_pending = false;
+        offscreen = 0x0000;
+        if (maker.after_start_screen) {
+            ram8(v_currentScreenNumber) = maker.after_start_screen;
+            maker.after_start_screen = 0;
+        }
+    } else if (maker.active && maker.camera_both_ways) {
+        /* Maker mode: the scroll flags allow both ways; the screen came in
+         * from where the camera really went. */
+        offscreen = maker.entered_from_left ? 0x0001 : 0x00FF;
+    } else if (ram8(v_isScrollingDownToNextScreen) || (scroll & SCROLL_DOWN)) offscreen = 0x0100;
     else if (scroll & SCROLL_UP) offscreen = 0xFF00;
     else if (scroll & SCROLL_LEFT) offscreen = 0x0001;
     else offscreen = 0x00FF;

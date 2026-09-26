@@ -8,7 +8,8 @@ import { icon } from './icons.js';
 import { partCanvas } from './parts.js';
 import { selectPart, samePart } from './brush.js';
 import { blockClass, classLabel } from './blocks.js';
-import { GOAL_TYPE, entityColor } from './entities.js';
+import { GOAL_TYPE, BOSSES, entityColor } from './entities.js';
+import { setTip } from './tooltip.js';
 
 const SLOT = 44; // largest picture size in a slot, in CSS pixels
 
@@ -28,10 +29,11 @@ function items(category) {
       return p.stamps.map((st, i) => ({ part: { kind: 'stamp', index: i }, name: `Décor ${st.w}×${st.h}` }));
     case 'enemies': {
       const list = [{ part: { kind: 'goal' }, name: 'Arrivée : la boule de riz (une par niveau)' }];
+      for (const b of BOSSES) list.push({ part: { kind: 'boss', type: b.type, data: b.data }, name: `${b.name} · boss : ${b.what}` });
+      // Enemies of every setting work anywhere (engine/src/rt/maker.h); the
+      // setting's own come first.
       const types = state.model.entityTypes.slice().sort((a, b) => inTheme(b) - inTheme(a));
-      for (const t of types) {
-        list.push({ part: { kind: 'entity', type: t.id }, name: inTheme(t) ? t.name : `${t.name} · graphismes absents dans ce thème`, off: !inTheme(t) });
-      }
+      for (const t of types) list.push({ part: { kind: 'entity', type: t.id }, name: t.name });
       return list;
     }
     default:
@@ -39,8 +41,10 @@ function items(category) {
   }
 }
 
+const isEntity = (part) => part.kind === 'entity' || part.kind === 'goal' || part.kind === 'boss';
+
 function picture(part) {
-  if (part.kind === 'goal' || part.kind === 'entity') {
+  if (part.kind === 'goal' || part.kind === 'entity' || part.kind === 'boss') {
     const type = part.kind === 'goal' ? GOAL_TYPE : part.type;
     const ic = state.icons[type];
     if (ic) return copyCanvas(ic.canvas);
@@ -64,11 +68,11 @@ function fit(canvas, max) {
 }
 
 const CATEGORIES = [
-  { id: 'terrain', label: 'Sol', icon: 'theme' },
-  { id: 'blocks', label: 'Blocs', icon: 'box' },
-  { id: 'decor', label: 'Décor', icon: 'tree' },
-  { id: 'enemies', label: 'Ennemis', icon: 'enemy' },
-  { id: 'all', label: 'Tous les blocs', icon: 'grid' },
+  { id: 'terrain', label: 'Sol', icon: 'theme', tip: 'Le sol et les murs : les bords et les coins se raccordent tout seuls' },
+  { id: 'blocks', label: 'Blocs', icon: 'box', tip: 'Boîtes ?, boîtes étoile, têtes de mort, argent, roches cassables, pièges…' },
+  { id: 'decor', label: 'Décor', icon: 'tree', tip: 'Nuages, arbres, maisons… posés d\'un clic, sans effet sur le jeu' },
+  { id: 'enemies', label: 'Ennemis', icon: 'enemy', tip: 'Les ennemis et la boule de riz qui termine le niveau' },
+  { id: 'all', label: 'Tous les blocs', icon: 'grid', tip: 'Les 256 blocs bruts du niveau, pour les experts' },
 ];
 
 function showName(text) {
@@ -89,6 +93,7 @@ export function renderPalette() {
     const b = document.createElement('button');
     b.className = 'tab' + (c.id === state.category ? ' active' : '');
     b.dataset.category = c.id;
+    setTip(b, c.label, c.tip);
     b.append(icon(c.icon, 2), Object.assign(document.createElement('span'), { textContent: c.label }));
     b.addEventListener('click', () => { state.category = c.id; renderPalette(); });
     tabs.appendChild(b);
@@ -96,16 +101,12 @@ export function renderPalette() {
   const shelf = $('items');
   shelf.replaceChildren();
   shelf.classList.toggle('dense', state.category === 'all');
-  let theme = true;
   for (const it of items(state.category)) {
-    if (it.off && theme) {
-      theme = false;
-      shelf.appendChild(Object.assign(document.createElement('span'), { className: 'shelf-sep', textContent: 'autres thèmes' }));
-    }
     const slot = document.createElement('button');
     slot.className = 'slot' + (samePart(it.part, state.part) ? ' active' : '') + (it.off ? ' off' : '');
     slot.draggable = true;
-    slot.title = it.name;
+    const [title, more] = it.name.split(' · ');
+    setTip(slot, title, more || (isEntity(it.part) ? 'Clique puis pose-le sur la carte, ou glisse-le' : 'Clique puis peins sur la carte, ou glisse-le'));
     slot.appendChild(fit(picture(it.part), state.category === 'all' ? 32 : SLOT));
     slot.addEventListener('click', () => selectPart(it.part));
     slot.addEventListener('mouseenter', () => showName(it.name));

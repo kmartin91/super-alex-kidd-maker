@@ -3,16 +3,11 @@
 <head>
 <meta charset="utf-8">
 <title>Super Alex Kidd Maker</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div id="app">
-  <div id="brand">
-    <div class="logo"><span>Super</span><b>Alex Kidd</b><span>Maker</span></div>
-  </div>
+  <div id="brand" data-tip="Menu|Revenir au menu du jeu"></div>
 
   <nav id="palette">
     <div class="palette-head">
@@ -23,18 +18,18 @@
   </nav>
 
   <aside id="left">
-    <button id="levelBtn" class="side level" title="Choisir un niveau">
+    <button id="levelBtn" class="side level" data-tip="Mes niveaux|Crée un nouveau niveau, ouvre un de tes niveaux ou pars d'un niveau du jeu">
       <span class="side-label">Niveau</span>
-      <span id="levelNum" class="level-num">1</span>
-      <span id="levelName" class="side-value"></span>
+      <span id="levelName" class="level-title"></span>
+      <span id="levelStars" class="level-stars"></span>
     </button>
-    <button id="themeBtn" class="side" title="Graphismes et ennemis d'un autre niveau">
+    <button id="themeBtn" class="side" data-tip="Thème|Donne à ce niveau les graphismes, les ennemis et la musique d'un autre niveau">
       <i data-icon="theme" data-scale="3"></i><span class="side-label">Thème</span><span id="themeName" class="side-value"></span>
     </button>
-    <button id="musicBtn" class="side" title="Musique du thème ou du niveau d'origine">
+    <button id="musicBtn" class="side" data-tip="Musique|Choisis entre la musique du thème et celle du niveau d'origine">
       <i data-icon="music" data-scale="3"></i><span class="side-label">Musique</span><span id="musicName" class="side-value"></span>
     </button>
-    <button id="surpriseBtn" class="side" title="Ce que donnent les boîtes ?">
+    <button id="surpriseBtn" class="side" data-tip="Surprises|Choisis ce que donnent les boîtes ? quand Alex les casse">
       <i data-icon="box" data-scale="3"></i><span class="side-label">Surprises</span><span id="surpriseName" class="side-value"></span>
     </button>
   </aside>
@@ -48,43 +43,44 @@
           <div class="bubble-title"><span id="bubbleLock" hidden><i data-icon="lock"></i></span><b id="bubbleName"></b></div>
           <div class="bubble-row">
             <span id="bubbleVariant" class="variant">
-              <button id="variantDown" class="mini" title="Variante précédente">‹</button>
+              <button id="variantDown" class="mini" data-tip="Variante précédente|Certains ennemis changent de comportement selon leur variante">‹</button>
               <span>Variante <b id="variantValue">0</b></span>
-              <button id="variantUp" class="mini" title="Variante suivante">›</button>
+              <button id="variantUp" class="mini" data-tip="Variante suivante|Certains ennemis changent de comportement selon leur variante">›</button>
             </span>
-            <button id="bubbleDelete" class="mini danger" title="Supprimer (Suppr)"><i data-icon="trash"></i></button>
+            <button id="bubbleBoss" class="mini boss" hidden data-tip="Paramétrer|Son texte avant le match et ses coups à pierre-feuille-ciseaux"><i data-icon="pencil"></i> Paramétrer</button>
+            <button id="bubbleDelete" class="mini danger" data-tip="Supprimer|Retire cet ennemi du niveau (touche Suppr)"><i data-icon="trash"></i></button>
           </div>
         </div>
       </div>
     </div>
     <div id="playView" hidden>
-      <div class="screen"><canvas id="game" width="256" height="192"></canvas></div>
+      <div class="screen"><canvas id="game" width="248" height="192"></canvas></div>
       <div class="play-bar">
         <span id="playStatus">chargement…</span>
         <span id="playFrom"></span>
         <span class="play-keys"><kbd>←</kbd><kbd>→</kbd> bouger · <kbd>Espace</kbd> sauter · <kbd>Z</kbd> coup de poing · <kbd>Entrée</kbd> pause</span>
-        <button id="playStart" class="key small"><i data-icon="start"></i> Depuis le début</button>
+        <button id="playStart" class="key small" data-tip="Rejouer depuis le début|Relance le niveau à partir du départ"><i data-icon="start"></i> Depuis le début</button>
       </div>
     </div>
   </main>
 
   <aside id="right">
-    <button id="undo" class="tool" title="Annuler (Ctrl+Z)"><i data-icon="undo" data-scale="3"></i></button>
-    <button id="redo" class="tool" title="Rétablir (Ctrl+Y)"><i data-icon="redo" data-scale="3"></i></button>
-    <button id="eraser" class="tool" title="Gomme (E) · clic droit efface aussi"><i data-icon="eraser" data-scale="3"></i></button>
+    <button id="undo" class="tool" data-tip="Annuler|Défait ta dernière modification (Ctrl+Z)"><i data-icon="undo" data-scale="3"></i></button>
+    <button id="redo" class="tool" data-tip="Rétablir|Refait ce que tu viens d'annuler (Ctrl+Y)"><i data-icon="redo" data-scale="3"></i></button>
+    <button id="eraser" class="tool" data-tip="Gomme|Efface les blocs et les ennemis sous la souris (touche E). Le clic droit efface aussi"><i data-icon="eraser" data-scale="3"></i></button>
     <span class="tool-gap"></span>
-    <button id="gridBtn" class="tool active" title="Grille (G)"><i data-icon="grid" data-scale="3"></i></button>
-    <button id="solidBtn" class="tool" title="Montrer ce qui est solide (C)"><i data-icon="solid" data-scale="3"></i></button>
-    <button id="zoomIn" class="tool" title="Zoom avant (+)"><i data-icon="zoomIn" data-scale="3"></i></button>
-    <button id="zoomOut" class="tool" title="Zoom arrière (−)"><i data-icon="zoomOut" data-scale="3"></i></button>
+    <button id="gridBtn" class="tool active" data-tip="Grille|Affiche ou cache le quadrillage des blocs (touche G)"><i data-icon="grid" data-scale="3"></i></button>
+    <button id="solidBtn" class="tool" data-tip="Collisions|Colore en rouge tout ce qui est solide : le sol, les murs, les blocs (touche C)"><i data-icon="solid" data-scale="3"></i></button>
+    <button id="zoomIn" class="tool" data-tip="Zoom avant|Agrandit la carte (touche +, ou Ctrl + molette)"><i data-icon="zoomIn" data-scale="3"></i></button>
+    <button id="zoomOut" class="tool" data-tip="Zoom arrière|Rapetisse la carte (touche −, ou Ctrl + molette)"><i data-icon="zoomOut" data-scale="3"></i></button>
     <span class="tool-gap"></span>
-    <button id="save" class="tool" title="Enregistrer (Ctrl+S)"><i data-icon="save" data-scale="3"></i></button>
-    <button id="menuBtn" class="tool" title="Menu"><i data-icon="menu" data-scale="3"></i></button>
-    <button id="helpBtn" class="tool" title="Commandes (?)"><i data-icon="help" data-scale="3"></i></button>
+    <button id="save" class="tool" data-tip="Enregistrer|Garde ton niveau dans le mod (Ctrl+S). En rouge : des changements ne sont pas encore enregistrés"><i data-icon="save" data-scale="3"></i></button>
+    <button id="menuBtn" class="tool" data-tip="Menu|Enregistrer, renommer, exporter ou importer un niveau, commandes"><i data-icon="menu" data-scale="3"></i></button>
+    <button id="helpBtn" class="tool" data-tip="Commandes|Toutes les commandes de la souris et du clavier (touche ?)"><i data-icon="help" data-scale="3"></i></button>
   </aside>
 
   <div id="corner">
-    <button id="playBtn" class="clapper" title="Jouer depuis l'écran affiché (Espace)">
+    <button id="playBtn" class="clapper" data-tip="Jouer|Teste ton niveau tout de suite, à partir de l'écran affiché (touche Espace)">
       <span id="playIconPlay"><i data-icon="play" data-scale="3"></i></span>
       <span id="playIconEdit" hidden><i data-icon="pencil" data-scale="3"></i></span>
       <span id="playLabel">Jouer</span>
@@ -92,10 +88,10 @@
   </div>
 
   <footer id="bottom">
-    <div class="minimap-wrap"><canvas id="minimap"></canvas><div id="viewport"></div></div>
+    <div class="minimap-wrap"><canvas id="minimap" data-tip="Vue d'ensemble|Tout le niveau en petit : clique ou glisse pour te déplacer"></canvas><div id="viewport"></div></div>
     <div class="screen-tools">
-      <button id="screenAdd" class="key small"><i data-icon="plus"></i> Écran</button>
-      <button id="screenDel" class="key small"><i data-icon="minus"></i> Écran</button>
+      <button id="screenAdd" class="key small" data-tip="Ajouter un écran|Copie l'écran du milieu de la vue et le place juste après"><i data-icon="plus"></i> Écran</button>
+      <button id="screenDel" class="key small" data-tip="Retirer un écran|Retire du niveau l'écran du milieu de la vue"><i data-icon="minus"></i> Écran</button>
     </div>
     <span id="status"></span>
   </footer>
@@ -103,11 +99,12 @@
 
 <div id="modal" hidden>
   <div class="sheet">
-    <header><h2 id="modalTitle"></h2><button id="modalClose" class="mini" title="Fermer (Échap)"><i data-icon="close"></i></button></header>
+    <header><h2 id="modalTitle"></h2><button id="modalClose" class="mini" data-tip="Fermer|Ferme cette fenêtre (Échap)"><i data-icon="close"></i></button></header>
     <div id="modalBody"></div>
   </div>
 </div>
 <div id="toast" hidden></div>
+<div id="tip" hidden></div>
 <script type="module" src="js/main.js"></script>
 </body>
 </html>

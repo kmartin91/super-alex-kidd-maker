@@ -5,7 +5,7 @@ import { $ } from './dom.js';
 import { state, SCREEN_W, BLOCK, SCREEN_PX_W, SCREEN_PX_H } from './state.js';
 import { levelSize, listOrigin, cellUsage } from './level.js';
 import { blockIsSolid } from './blocks.js';
-import { entityBox, entityName, specialName, entityColor, isSelected, GOAL_TYPE, startList } from './entities.js';
+import { entityBox, entityName, specialName, entityColor, isSelected, GOAL_TYPE, startBox, startIcon } from './entities.js';
 import { partCanvas } from './parts.js';
 import { isBlockPart } from './brush.js';
 import { renderBubble } from './bubble.js';
@@ -13,7 +13,7 @@ import { renderMinimap } from './minimap.js';
 import { renderScreenTools } from './screens.js';
 import { renderLevelPanel } from './level-panel.js';
 
-const INK = '#19121c', YELLOW = '#ffc933', RED = '#e4412f';
+const INK = '#3b2f22', YELLOW = '#ff8a1f', RED = '#ff4d3d'; // YELLOW: what is selected (orange)
 
 function drawScreens(ctx, z) {
   for (let row = 0; row < state.model.rows; row++) {
@@ -59,11 +59,11 @@ function drawScreenEdges(ctx, z, w, h) {
 }
 
 function label(ctx, text, x, y) {
-  ctx.font = '600 12px "Pixelify Sans", system-ui, sans-serif';
+  ctx.font = '600 12px Fredoka, system-ui, sans-serif';
   const w = ctx.measureText(text).width + 8;
   ctx.fillStyle = INK;
   ctx.fillRect(x, y - 15, w, 15);
-  ctx.fillStyle = '#fff4d8';
+  ctx.fillStyle = '#ffffff';
   ctx.fillText(text, x + 4, y - 4);
 }
 
@@ -96,6 +96,13 @@ function drawEntities(ctx, z) {
   draw(state.model.entities, false);
 }
 
+function drawStart(ctx, z) {
+  const b = startBox();
+  if (!b) return;
+  ctx.drawImage(startIcon(), b.x * z, (b.y + 1) * z, b.w * z, b.h * z); // sprites are drawn a line lower
+  label(ctx, 'Départ', b.x * z, b.y * z - 2);
+}
+
 export function render() {
   const { w, h } = levelSize();
   const z = state.zoom;
@@ -106,14 +113,13 @@ export function render() {
   }
   const ctx = canvas.getContext('2d');
   ctx.imageSmoothingEnabled = false;
-  ctx.fillStyle = '#0e0c12';
+  ctx.fillStyle = '#262a3d';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   drawScreens(ctx, z);
   if (state.showGrid) drawGrid(ctx, z, w, h);
   drawScreenEdges(ctx, z, w, h);
-  const start = listOrigin(startList());
-  if (start) label(ctx, 'Départ · pas d\'ennemis ici', start.x * z + 6, start.y * z + 20);
   drawEntities(ctx, z);
+  drawStart(ctx, z);
   renderGhost();
   renderBubble();
   renderMinimap();
@@ -132,7 +138,7 @@ export function renderGhost() {
     const r = state.rect;
     const x = r.x0 * BLOCK * z, y = r.y0 * BLOCK * z;
     const w = (r.x1 - r.x0 + 1) * BLOCK * z, h = (r.y1 - r.y0 + 1) * BLOCK * z;
-    ctx.fillStyle = 'rgba(255, 201, 51, 0.25)';
+    ctx.fillStyle = 'rgba(255, 138, 31, 0.25)';
     ctx.fillRect(x, y, w, h);
     ctx.strokeStyle = YELLOW;
     ctx.lineWidth = 3;

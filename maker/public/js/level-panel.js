@@ -2,13 +2,16 @@
 
 import { $ } from './dom.js';
 import { state, setDirty } from './state.js';
-import { api } from './api.js';
+import { retheme } from './backend.js';
 import { levelBlocks } from './level.js';
 import { blockClass } from './blocks.js';
 import { pushUndo } from './history.js';
-import { loadLevel, showModel } from './storage.js';
-import { openModal, closeModal, h } from './modal.js';
+import { showModel } from './storage.js';
+import { openLevelSheet } from './new-level.js';
+import { openModal, closeModal, h, tell } from './modal.js';
 import { toast } from './toast.js';
+import { setTip } from './tooltip.js';
+import { rateDifficulty, starsText } from './difficulty.js';
 
 const theme = () => state.model.theme || state.level;
 
@@ -30,11 +33,16 @@ export function normalizeSurprises() {
 
 export function renderLevelPanel() {
   const names = state.model.levelNames;
-  $('levelNum').textContent = state.level;
-  $('levelName').textContent = names[state.level];
-  $('themeName').textContent = theme() === state.level ? 'd\'origine' : names[theme()];
-  const own = theme() === state.level;
-  $('musicBtn').disabled = own;
+  $('levelName').textContent = state.doc.name || 'Sans nom';
+  const { stars } = rateDifficulty(state.model);
+  $('levelStars').textContent = starsText(stars);
+  setTip($('levelBtn'), `${state.doc.name} · difficulté ${stars}/5`,
+    'Estimée d\'après les ennemis, les boss, les trous, les pièges et la longueur. Clique pour tes autres niveaux');
+  $('themeName').textContent = names[theme()];
+  const own = theme() === state.doc.base;
+  $('musicBtn').classList.toggle('is-off', own);
+  setTip($('musicBtn'), 'Musique', own ? 'Change d\'abord de thème : ce niveau joue déjà sa propre musique'
+    : 'Choisis entre la musique du thème et celle du niveau d\'origine');
   $('musicName').textContent = !own && state.model.themeMusic !== false ? 'du thème' : 'd\'origine';
   const n = questionBoxCount();
   $('surpriseName').textContent = !n ? 'aucune boîte' : state.model.surprises ? 'personnalisées' : 'd\'origine';
@@ -49,40 +57,31 @@ function levelCards(current, pick, tag) {
     tag && tag(Number(k)) ? h('span.card-tag', { textContent: tag(Number(k)) }) : null)));
 }
 
-function chooseLevel() {
-  openModal('Choisir un niveau', levelCards(state.level, async (n) => {
-    if (n === state.level) return closeModal();
-    if (state.dirty && !confirm('Des modifications ne sont pas enregistrées. Changer de niveau quand même ?')) return;
-    closeModal();
-    await loadLevel(n);
-  }), { wide: true });
-}
-
 function chooseTheme() {
   const body = h('div', {},
     h('p.hint', { textContent: 'Le thème donne au niveau les graphismes, les ennemis et la musique d\'un autre niveau. ' +
       'Le sol, les boîtes et l\'eau sont gardés ; le décor propre à l\'ancien thème est effacé.' }),
-    levelCards(theme(), async (t) => { closeModal(); await changeTheme(t); }, (k) => (k === state.level ? 'd\'origine' : '')));
+    levelCards(theme(), async (t) => { closeModal(); await changeTheme(t); }));
   openModal('Thème du niveau', body, { wide: true });
 }
 
-// Converts the level to another level's graphics and enemies (server side).
+// Converts the level to another level's graphics and enemies.
 async function changeTheme(t) {
   if (t === theme()) return;
   $('status').textContent = 'conversion du thème…';
   try {
-    const { model, video } = await api(`/api/retheme/${state.level}?theme=${t}`,
-      { method: 'POST', body: JSON.stringify(state.model) });
+    const { model, video } = await retheme(state.level, state.model, t);
     showModel(model, video);
     setDirty(true);
     toast(`Thème : ${state.model.levelNames[t]}`);
   } catch (err) {
     $('status').textContent = 'erreur : ' + err.message;
-    alert(err.message);
+    tell(err.message);
   }
 }
 
 function toggleMusic() {
+  if (theme() === state.doc.base) { toast('Change d\'abord de thème : ce niveau joue déjà sa propre musique'); return; }
   pushUndo();
   state.model.themeMusic = state.model.themeMusic === false;
   renderLevelPanel();
@@ -124,7 +123,7 @@ function openSurprises() {
 }
 
 export function bindLevelPanel() {
-  $('levelBtn').addEventListener('click', chooseLevel);
+  $('levelBtn').addEventListener('click', openLevelSheet);
   $('themeBtn').addEventListener('click', chooseTheme);
   $('musicBtn').addEventListener('click', toggleMusic);
   $('surpriseBtn').addEventListener('click', openSurprises);

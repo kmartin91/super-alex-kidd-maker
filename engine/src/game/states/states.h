@@ -27,6 +27,7 @@
 #include <stddef.h>
 
 #include "game/lift.h"
+#include "rt/maker.h"
 #include "game/ram.h"
 #include "game/vdp_io.h"
 
@@ -177,6 +178,9 @@ static inline void wait_frame(uint8_t irq_flags) {
 /* destroyCurrentEntity on `count` consecutive slots from `first`. Leaves the
  * registers like the original loop (IX past the last slot, B = 0, DE = $20). */
 static inline void destroy_entities(uint16_t first, uint8_t count) {
+    /* Maker mode (rt/maker.h): all of the level's entities, extra slots too. */
+    if (maker.active && first == v_entities && count == ENTITY_ARRAY_SIZE)
+        for (uint16_t a = MAKER_EXTRA_RAM; a < MAKER_EXTRA_RAM + MAKER_EXTRA_SLOTS * ENTITY_SIZE; a++) ram8(a) = 0;
     cpu.ix = first;
     int n = count ? count : 256; /* DJNZ loop */
     for (int i = 0; i < n; i++) {

@@ -1,6 +1,6 @@
 // Shared editor state.
 //
-// Level model (GET /api/level/N, produced by maker/tools/leveledit.py export):
+// Level model (backend.js, produced by rom/leveledit.js exportLevel):
 //   { level, name, kind, columns, rows,
 //     grid[row][col] = { screen, entities } | null    screen id + entity list index
 //     screens[s] = { blocks: [16*12 metatile ids] }   shared by every cell showing s
@@ -18,7 +18,10 @@ export const SCREEN_W = 16, SCREEN_H = 12, BLOCK = 16;
 export const SCREEN_PX_W = SCREEN_W * BLOCK, SCREEN_PX_H = SCREEN_H * BLOCK;
 
 export const state = {
-  level: 1, model: null, video: null,
+  // doc: the level being edited { id (null until saved), name, base: the level
+  // of the game whose place it takes }; level = doc.base.
+  doc: null,
+  level: 1, levels: [], model: null, video: null,  // levels: [{level, name, canExtend}]
   tiles: null, blockCanvases: [], blockColors: [],
   zoom: 3, showGrid: true, showSolid: false,
   // Item in hand: { kind: 'terrain', index } | { kind: 'block', id } | { kind: 'stamp', index }

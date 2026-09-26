@@ -53,6 +53,7 @@
  * noted where it happens.
  */
 #include "level.h"
+#include "rt/maker.h"
 
 #define COLUMNS_PER_SCREEN 32           /* 8-px columns */
 #define COLUMN_CURSOR_STEP 0x0080       /* v_columnCursor per column */
@@ -175,6 +176,8 @@ static void scroll_left(uint16_t accumulator) {
     cpu.bc = COLUMN_CURSOR_STEP;
 
     if (!previous_screen) {
+        /* Maker mode: the decoded screen may be the one on the right. */
+        if (maker.camera_both_ways) level_fetch_screen_from_rows(ram8(v_horizontalScreenNumber));
         level_build_column();
         return;
     }
@@ -182,6 +185,11 @@ static void scroll_left(uint16_t accumulator) {
     uint8_t h = ram8(v_horizontalScreenNumber);
     ram8(v_horizontalScreenNumber) = (uint8_t)(h - 1);
     step_screen_number(-1, true);
+    if (maker.camera_both_ways && h != 0) {
+        /* That screen is the one entering: load its entities. */
+        ram8(v_currentScreenNumber) = (uint8_t)((h - 1) | NEW_SCREEN);
+        maker.entered_from_left = true;
+    }
     if (h != 0) {
         level_fetch_screen_from_rows((uint8_t)(h - 1));
         level_build_column();
@@ -209,6 +217,12 @@ static void scroll_right(uint16_t accumulator, bool crossed) {
     if (ram8(v_nametableColumn) == 0) {
         /* Column 0 of the next screen. */
         step_screen_number(+1, true);
+        if (maker.camera_both_ways) {
+            ram8(v_currentScreenNumber) = (uint8_t)((ram8(v_horizontalScreenNumber) + 1) | NEW_SCREEN);
+            maker.entered_from_left = false;
+        }
+        level_fetch_screen_from_rows((uint8_t)(ram8(v_horizontalScreenNumber) + 1));
+    } else if (maker.camera_both_ways) {
         level_fetch_screen_from_rows((uint8_t)(ram8(v_horizontalScreenNumber) + 1));
     }
     level_build_column();
@@ -327,7 +341,35 @@ static void update_vertical_scroll(void) {
  * the screen (see the top of this file). Called every frame of gameplay, and
  * in loops to draw whole screens (loadLevel, sub-area loader).
  * out: BC, DE (see the exit paths). */
+/* Maker mode: the camera may go back left anywhere but at the start of the
+ * level, and right again until the last screen (the original levels only ever
+ * scroll one way). */
+#define MAKER_OPPONENT_SLOT 0xC3A0   /* slot 6 (1-based): janken opponents, bosses */
+#define MAKER_ARENA_X 0xC0            /* the opponent is well inside the view */
+
+static void maker_scroll_flags(void) {
+    /* A janken opponent in view: the camera stops, as at the end of the
+     * original levels, and the match can start (updateBattleMakeAlexGet-
+     * IntoPosition waits for that). */
+    const Entity *opponent = entity_at(MAKER_OPPONENT_SLOT);
+    uint8_t type = opponent->type & 0x7F;
+    if (type >= 0x1C && type <= 0x1F && opponent->isOffScreenFlags == 0 && (opponent->xPos >> 8) < MAKER_ARENA_X) {
+        ram8(v_scrollFlags) &= (uint8_t)~(SCROLL_LEFT | SCROLL_RIGHT);
+        maker.scroll_flags_set = 0;
+        return;
+    }
+    /* The game stopped the scrolling itself: leave it stopped until it
+     * scrolls again. */
+    if (maker.scroll_flags_set && !(ram8(v_scrollFlags) & (SCROLL_LEFT | SCROLL_RIGHT))) return;
+    uint8_t flags = (uint8_t)(ram8(v_scrollFlags) & ~(SCROLL_LEFT | SCROLL_RIGHT));
+    if (ram8(v_horizontalScreenNumber) != 0 || ram16(v_columnCursor) >= COLUMN_CURSOR_STEP) flags |= SCROLL_LEFT;
+    if (ram8(v_horizontalScreenNumber) < ram8(v_levelWidth)) flags |= SCROLL_RIGHT;
+    ram8(v_scrollFlags) = flags;
+    maker.scroll_flags_set = flags & (SCROLL_LEFT | SCROLL_RIGHT);
+}
+
 void level_update_scroll(void) {
+    if (maker.active && maker.camera_both_ways) maker_scroll_flags();
     uint16_t speed = ram16(v_horizontalScrollSpeed);
     if (speed == 0) {
         update_vertical_scroll();

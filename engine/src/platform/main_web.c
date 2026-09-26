@@ -9,6 +9,9 @@
  *                                   level intro until LEVEL is playable
  *   web_stop()                      ends the current run at the next frame
  *   web_set_joy(bits), web_press_pause()
+ *   web_ram()                       the game's RAM (for tests)
+ * A run plays one level only, like a level of the Maker: lives never run out,
+ * and the run ends a moment after the level is completed (status "cleared").
  * Every displayed frame calls Module.present(pixels, samples, count) and then
  * awaits Module.waitFrame(), which resolves at the next 60 Hz tick.
  */
@@ -38,6 +41,9 @@ static int target_level;
 static long frame_no;
 static int level_set;
 static int booting; /* fast-forward until the level is playable */
+static long cleared_at; /* frame the level was completed, 0 before */
+
+#define CLEARED_FRAMES 150 /* the end of the level stays on screen this long */
 
 EM_ASYNC_JS(void, web_wait_frame, (void), { await Module.waitFrame(); });
 EM_JS(void, web_present, (const uint32_t *pixels, const int16_t *audio, int count),
@@ -66,6 +72,9 @@ static void frame(void) {
             return;                                                      /* no display, no wait */
         }
     }
+    if (!cleared_at) mach.ram[0x0025] = 3; /* v_lives: endless tries */
+    if ((state & 0x0F) == 4 && !cleared_at) cleared_at = frame_no; /* level completed */
+    if (cleared_at && (frame_no - cleared_at > CLEARED_FRAMES || (state & 0x0F) != 4)) rt_quit();
     mach.joy = joy;
     if (pause_requested) {
         pause_requested = 0;
@@ -80,6 +89,8 @@ static void frame(void) {
 EMSCRIPTEN_KEEPALIVE void web_set_joy(int bits) { joy = (uint8_t)bits; }
 EMSCRIPTEN_KEEPALIVE void web_press_pause(void) { pause_requested = 1; }
 EMSCRIPTEN_KEEPALIVE void web_stop(void) { stop_requested = 1; }
+/* The game's 8 KB of RAM ($C000-$DFFF), read by the automated tests. */
+EMSCRIPTEN_KEEPALIVE uint8_t *web_ram(void) { return mach.ram; }
 
 EMSCRIPTEN_KEEPALIVE int web_set_rom(const uint8_t *data, int size) {
     free(base_rom);
@@ -112,12 +123,13 @@ EMSCRIPTEN_KEEPALIVE int web_play(const uint8_t *patch, int patch_size, int leve
     joy = 0;
     frame_no = 0;
     level_set = 0;
+    cleared_at = 0;
     target_level = level;
     booting = 1;
     web_status("starting");
     rt_frame_hook = frame;
     rt_run();
-    web_status("stopped");
+    web_status(cleared_at ? "cleared" : "stopped");
     return 0;
 }
 

@@ -14,6 +14,7 @@
  * Table indexes are doubled in 8 bits: at most 128 screens per row/column.
  */
 #include "level.h"
+#include "rt/maker.h"
 
 #define DECODED_SCREEN v_decompressedLevelLayoutData  /* $D700, 192 bytes */
 
@@ -152,6 +153,8 @@ static void set_vdp_register0(uint8_t value) {
  *   others: descriptor flag bit 7 makes Alex walk in (castle entrance) and
  *     starts the castle entity index at the descriptor's height byte. */
 LIFTED(loadLevel, 0x65AA) {
+    maker.camera_both_ways = false;
+    maker.scroll_flags_set = 0;
     read_level_descriptor(ram8(v_level));
     ram16(v_rowVdpAddress) = NAMETABLE_VDP_WRITE;
     ram16(v_topRowVdpAddress) = NAMETABLE_VDP_WRITE;
@@ -170,6 +173,13 @@ LIFTED(loadLevel, 0x65AA) {
     if (level == LEVEL_MT_ETERNAL || level == LEVEL_CRAG_LAKE) {
         ram8(v_verticalScreenNumber) = 0;
         ram8(v_currentScreenNumber) = NEW_SCREEN | 1;
+        if (maker.active) {
+            /* Maker mode (rt/maker.h): the start screen's entities first,
+             * then those of the screen below as in the original. */
+            ram8(v_currentScreenNumber) = NEW_SCREEN | 0;
+            maker.start_screen_pending = true;
+            maker.after_start_screen = NEW_SCREEN | 1;
+        }
         ram8(v_rowColumnsLeft) = SCREEN_METATILE_COLUMNS;
         level_build_row_below();
         level_update_nametable_mirror();
@@ -185,6 +195,12 @@ LIFTED(loadLevel, 0x65AA) {
         if (flags & SCROLL_SPECIAL) {
             ram8(v_shouldAlexStartWalkingtoNextScreen) = 1;
             ram8(v_entityIndex) = ram8(v_levelHeight);
+        } else if (maker.active && flags == SCROLL_RIGHT) {
+            /* Maker mode (rt/maker.h), plain horizontal level: the camera
+             * scrolls both ways, and the start screen's entities load too. */
+            maker.camera_both_ways = true;
+            maker.start_screen_pending = true;
+            ram8(v_currentScreenNumber) |= NEW_SCREEN;
         }
     }
     LIFTED_RETURN();

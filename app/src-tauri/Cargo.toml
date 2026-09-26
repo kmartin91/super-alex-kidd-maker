@@ -1,0 +1,16 @@
+[package]
+name = "super-alex-kidd-maker"
+version = "0.1.0"
+description = "Super Alex Kidd Maker"
+edition = "2021"
+
+[lib]
+name = "super_alex_kidd_maker_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = [] }
+serde = { version = "1", features = ["derive"] }

@@ -14,7 +14,7 @@ export function renderMinimap() {
   canvas.width = bw * scale;
   canvas.height = bh * scale;
   const ctx = canvas.getContext('2d');
-  ctx.fillStyle = '#0e0c12';
+  ctx.fillStyle = '#262a3d';
   ctx.fillRect(0, 0, canvas.width, canvas.height);
   for (let row = 0; row < state.model.rows; row++) {
     for (let col = 0; col < state.model.columns; col++) {

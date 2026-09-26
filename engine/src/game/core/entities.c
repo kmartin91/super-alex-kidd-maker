@@ -9,6 +9,9 @@
  * vertically (0/0 = on screen, $FF above, +1 below).
  */
 #include "game/core/core.h"
+#include "rt/maker.h"
+
+#include <string.h>
 
 /* Byte offsets of the two halves of Entity.isOffScreenFlags. */
 #define ENTITY_SCREEN_X 0x09
@@ -147,6 +150,22 @@ LIFTED(_LABEL_273A_, 0x273A) {
  * The hitbox offset is copied to Entity.unknown2. A sprite pushed past the
  * left/right edge by its offset is hidden (Y = $E0) instead. Entities off the
  * screen are skipped, except those just above it (low enough to show). */
+/* Maker mode (rt/maker.h): an entity's sprites when the console's table is
+ * full go to the extra sprite list, placed by the same rules. */
+static void maker_add_extra_sprites(const Entity *e, uint16_t data, uint8_t count, uint8_t y, bool from_screen_above,
+                                    uint8_t home) {
+    uint16_t pairs = (uint16_t)(data + count);
+    uint8_t x = (uint8_t)(e->xPos >> 8);
+    for (int k = 0; k < count && maker.sprite_count < MAKER_EXTRA_SPRITES; k++) {
+        uint8_t sprite_y = (uint8_t)(y + rd8((uint16_t)(data + k)));
+        if (!from_screen_above && sprite_y == SPRITE_LIST_END) sprite_y--;
+        int sprite_x = x + (int8_t)rd8((uint16_t)(pairs + 2 * k));
+        if (sprite_x < 0 || sprite_x > 0xFF) continue;
+        maker.sprites[maker.sprite_count++] =
+            (MakerSprite){ sprite_y, (uint8_t)sprite_x, rd8((uint16_t)(pairs + 2 * k + 1)), home };
+    }
+}
+
 static void add_entity_sprites(uint16_t slot) {
     Entity *e = entity_at(slot);
     if (e->type == 0) return;
@@ -166,11 +185,17 @@ static void add_entity_sprites(uint16_t slot) {
 
     /* Y bytes (the Y slot index only advances in its page). */
     uint16_t first = ram16(v_spriteTerminatorPointer), out = first;
+    if (maker.active && (first & 0xFF) + count > LAST_SPRITE_INDEX + 1) {
+        maker_add_extra_sprites(e, data, count, y, from_screen_above, maker.slot_home[maker_slot_index(slot)]);
+        return;
+    }
     uint8_t n = count;
     do {
         uint8_t sprite_y = (uint8_t)(y + rd8(data++));
         /* $D0 would end the sprite list: use the line above. */
         if (!from_screen_above && sprite_y == SPRITE_LIST_END) sprite_y--;
+        if (maker.active) maker.ram_home[out & 0x3F] = maker.slot_home[maker_slot_index(slot)];
+        if (maker.trace) maker.ram_traced[out & 0x3F] = slot < MAKER_EXTRA_RAM && maker.traced[maker_slot_index(slot)];
         wr8(out, sprite_y);
         out = core_inc_low(out, 1);
     } while (--n);
@@ -205,8 +230,83 @@ LIFTED(updateEntitySprites, 0x26D7) {
 /* $2694: update every entity slot of the current array (v_entitydataArrayPointer,
  * v_entitydataArrayLength entries): run its type's updater, then move it with
  * the scrolling and add its sprites. Rebuilds the RAM sprite table. */
+/* Maker mode (rt/maker.h): the home level of each entity. An entity takes its
+ * type's home, except those created while another entity is being updated
+ * (the parts and shots of an enemy), which take the home of their creator.
+ * Slots: the game's 30, then the extra ones (maker_slot_index). */
+static uint8_t maker_types_before[MAKER_SLOTS];
+
+static uint16_t maker_slot_address(int i) {
+    return (uint16_t)(i < 30 ? v_entities + i * ENTITY_SIZE : MAKER_EXTRA_RAM + (i - 30) * ENTITY_SIZE);
+}
+
+static void maker_note_types(void) {
+    for (int i = 0; i < MAKER_SLOTS; i++) maker_types_before[i] = entity_at(maker_slot_address(i))->type & 0x7F;
+}
+
+static void maker_update_homes(uint16_t updated, bool after_update) {
+    uint8_t creator = maker.slot_home[maker_slot_index(updated)];
+    for (int i = 0; i < MAKER_SLOTS; i++) {
+        uint16_t slot = maker_slot_address(i);
+        uint8_t type = entity_at(slot)->type & 0x7F;
+        if (type == 0) maker.slot_record[i] = 0; /* free: no longer from a level record */
+        if (type == 0 || type == maker.slot_type[i]) continue;
+        /* Created by the entity just updated, or its own new type. */
+        bool from_updated = after_update && (slot == updated || type != maker_types_before[i]);
+        maker.slot_home[i] = from_updated && creator ? creator : maker.home[type];
+        maker.slot_type[i] = type;
+    }
+}
+
+/* Capture tracing (rt/maker.h): entities created while a traced one is
+ * updated are traced too; a freed slot is not. */
+static uint8_t trace_types_before[30];
+
+static void trace_note_types(void) {
+    for (int i = 0; i < 30; i++) trace_types_before[i] = entity_at((uint16_t)(v_entities + i * ENTITY_SIZE))->type & 0x7F;
+}
+
+static void trace_update(uint16_t updated) {
+    bool owner = updated < MAKER_EXTRA_RAM && maker.traced[maker_slot_index(updated)];
+    for (int i = 0; i < 30; i++) {
+        uint8_t type = entity_at((uint16_t)(v_entities + i * ENTITY_SIZE))->type & 0x7F;
+        if (type == 0) maker.traced[i] = false;
+        else if (owner && type != trace_types_before[i]) maker.traced[i] = true;
+    }
+}
+
+/* Maker mode: the extra slots get the same update as the game's, after them. */
+static void maker_update_extra_slots(uint8_t caller_c) {
+    for (int k = 0; k < MAKER_EXTRA_SLOTS; k++) {
+        cpu.ix = (uint16_t)(MAKER_EXTRA_RAM + k * ENTITY_SIZE);
+        uint8_t type = entity_at(cpu.ix)->type & 0x7F;
+        if (type == 0) continue;
+        const uint16_t updated = cpu.ix;
+        maker_update_homes(updated, false);
+        maker_note_types();
+        cpu.b = (uint8_t)(MAKER_EXTRA_SLOTS - k);
+        cpu.c = caller_c;
+        cpu.a = type;
+        cpu.hl = ENTITY_UPDATERS;
+        CALL_ROUTINE(f_jumpToAthPointer);
+        maker_update_homes(updated, true);
+        if (entity_at(cpu.ix)->type != 0) {
+            move_entity_horizontally(cpu.ix);
+            move_entity_vertically(cpu.ix);
+            add_entity_sprites(cpu.ix);
+        }
+    }
+}
+
 LIFTED(updateEntities, 0x2694) {
     const uint8_t caller_c = cpu.c;
+    /* Maker mode on the level's entities (not the map's or the shop's). */
+    const bool maker_level = maker.active && ram16(v_entitydataArrayPointer) == v_entities;
+    if (maker.active) {
+        memset(maker.ram_home, 0, sizeof(maker.ram_home));
+        maker.sprite_count = 0;
+    }
+    if (maker.trace) memset(maker.ram_traced, 0, sizeof(maker.ram_traced));
     ram16(v_spriteTerminatorPointer) = FIRST_ENTITY_SPRITE;
     cpu.ix = ram16(v_entitydataArrayPointer);
     uint8_t remaining = ram8(v_entitydataArrayLength);
@@ -216,11 +316,19 @@ LIFTED(updateEntities, 0x2694) {
             /* The updater (entry `type` of ENTITY_UPDATERS, through rst $20)
              * sees B = slots left and the caller's C, as in the original. It
              * may move IX: the rest of the loop follows it. */
+            const uint16_t updated = cpu.ix;
+            if (maker_level) {
+                maker_update_homes(updated, false); /* entities loaded since the last update */
+                maker_note_types();
+            }
+            if (maker.trace) trace_note_types();
             cpu.b = remaining;
             cpu.c = caller_c;
             cpu.a = type;
             cpu.hl = ENTITY_UPDATERS;
             CALL_ROUTINE(f_jumpToAthPointer);
+            if (maker_level) maker_update_homes(updated, true);
+            if (maker.trace) trace_update(updated);
             if (entity_at(cpu.ix)->type != 0) {
                 move_entity_horizontally(cpu.ix);
                 move_entity_vertically(cpu.ix);
@@ -229,6 +337,7 @@ LIFTED(updateEntities, 0x2694) {
         }
         cpu.ix += ENTITY_SIZE;
     } while (--remaining);
+    if (maker_level) maker_update_extra_slots(caller_c);
 
     /* Keep at most 64 sprites, then end the list. */
     uint16_t end = ram16(v_spriteTerminatorPointer);

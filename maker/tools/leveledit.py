@@ -157,16 +157,44 @@ def retheme(model, ed, theme):
 
 
 def extendable(level):
-    """Horizontal levels whose row holds exactly the playable screens, one entity list each."""
+    """Levels whose shape can change: horizontal levels whose row holds exactly the
+    playable screens (one entity list each), and vertical levels made of one
+    column of screens then a row at the bottom (level 1)."""
+    d = level["descriptor"]
+    if level["kind"] == "vertical":
+        return vertical_shape(level) is not None
     if level["kind"] != "horizontal":
         return False
-    d = level["descriptor"]
     row = level["layout"]["rows"][d["start_screen_y"]]["screens"]
     return len(row) == d["width"] + 1 and len(level["entities"]["screens"]) == d["width"] + 1
 
 
+def vertical_shape(level):
+    """(column, bottom row) of a level made of one column of screens going down,
+    then a row at the bottom starting under it, with one entity list per screen
+    (column first); None for other shapes."""
+    lay, d = level["layout"], level["descriptor"]
+    if lay["cols_is_rows"] or len(lay["cols"]) != 1 or len(lay["rows"]) != 2 or d["start_screen_y"] != 1:
+        return None
+    column, bottom, top = lay["cols"][0]["screens"], lay["rows"][0]["screens"], lay["rows"][1]["screens"]
+    if top != column[:1] or bottom[:1] != column[-1:] or d["height"] != len(column) - 1 or d["width"] != len(bottom) - 1:
+        return None
+    if len(level["entities"]["screens"]) != len(column) + len(bottom) - 1:
+        return None
+    return column, bottom
+
+
 def cmd_list(model):
-    return [{"level": l["number"], "name": l["name"]} for l in model["levels"]]
+    return [{"level": l["number"], "name": l["name"], "canExtend": extendable(l)} for l in model["levels"]]
+
+
+def level_start(level):
+    """Where Alex appears: a grid cell of the editor and a pixel of its screen (the
+    top left of his 16x24 box)."""
+    d, t = level["descriptor"], level["tables"]
+    col = 0 if level["kind"] == "vertical" else d["start_screen_x"] - 1
+    row = d["start_screen_y"] if level["kind"] == "castle" else 0
+    return {"col": col, "row": row, "x": t["start_x"], "y": t["start_y"]}
 
 
 def export_level(model, lv):
@@ -210,6 +238,7 @@ def export_level(model, lv):
         "entityTypes": entity_type_list(model),
         "specialTypes": [{"id": t, "name": special_type_name(t)} for t in special_types],
         "canExtend": extendable(level),
+        "start": level_start(level),
         "parts": parts.learn_parts(model, level),
         "theme": lv,
         "themeMusic": True,
@@ -223,6 +252,7 @@ def export_level(model, lv):
 # ------------------------------------------------------------------------- build
 def apply_edits(level, ed):
     """Copies the editor's screens, layout changes and entities into the decoded level."""
+    can_extend = extendable(level)  # before the layout changes below
     n_old = len(level["screens"])
     if len(ed["screens"]) < n_old:
         raise ValueError("level %d: screens cannot be removed from the list (%d < %d)"
@@ -243,8 +273,10 @@ def apply_edits(level, ed):
     if level["kind"] == "horizontal" and ed.get("grid"):
         new_row = [c["screen"] for c in ed["grid"][0] if c]
     old_row = level["layout"]["rows"][d["start_screen_y"]]["screens"]
+    if level["kind"] == "vertical" and can_extend and ed.get("grid"):
+        apply_vertical_shape(level, ed["grid"])
     if level["kind"] == "horizontal" and new_row is not None and new_row != old_row[:d["width"] + 1]:
-        if not extendable(level):
+        if not can_extend:
             raise ValueError("level %d: its screen layout cannot be changed" % level["number"])
         if len(new_row) < 2:
             raise ValueError("a level needs at least two screens")
@@ -257,7 +289,7 @@ def apply_edits(level, ed):
     streams = level["entities"]["screens"]
     ents = ed["entities"]
     specials = ed.get("specials") or [None] * len(ents)
-    if len(ents) < len(streams) and not extendable(level):
+    if len(ents) < len(streams) and not can_extend:
         raise ValueError("level %d: wrong number of entity lists" % level["number"])
     while len(streams) < len(ents):
         streams.append({"ptr": None, "records": []})
@@ -265,7 +297,8 @@ def apply_edits(level, ed):
     for stream, lst, spec in zip(streams, ents, specials):
         if spec is None:
             spec = [r for r in stream["records"] if r["kind"] not in ("entity", "end")]
-        recs = [dict(r) for r in spec]
+        # text / moves: the Maker's janken opponent set-up (written apart, backend.js).
+        recs = [{k: v for k, v in r.items() if k not in ("text", "moves")} for r in spec]
         for r in recs:
             for k in ("type", "x", "y", "data"):
                 if k in r:
@@ -274,6 +307,35 @@ def apply_edits(level, ed):
             recs.append({"kind": "entity", "type": int(e["type"]) & 0xFF, "y": int(e["y"]) & 0xFF,
                          "x": int(e["x"]) & 0xFF, "data": int(e["data"]) & 0xFF})
         stream["records"] = recs
+
+    # Alex's start: a pixel of the start screen, which simple horizontal levels
+    # can move to any of their screens.
+    if ed.get("start"):
+        level["tables"]["start_x"] = int(ed["start"]["x"]) & 0xFF
+        level["tables"]["start_y"] = int(ed["start"]["y"]) & 0xFF
+        col = int(ed["start"]["col"])
+        if level["kind"] == "horizontal" and can_extend and 0 <= col <= d["width"]:
+            d["start_screen_x"] = col + 1
+
+
+def apply_vertical_shape(level, grid):
+    """New column/bottom row of a vertical level from the editor grid: the first
+    cell of every row is the column, the last row carries on to the right."""
+    column = []
+    for r, row in enumerate(grid):
+        cells = [c for c in row if c]
+        if not row or not row[0] or (r < len(grid) - 1 and len(cells) != 1):
+            raise ValueError("level %d: a vertical level is one column of screens, then a row at the bottom" % level["number"])
+        column.append(row[0]["screen"])
+    bottom = [c["screen"] for c in grid[-1] if c]
+    if len(column) < 2:
+        raise ValueError("a level needs at least two screens")
+    lay, d = level["layout"], level["descriptor"]
+    lay["cols"][0]["screens"] = column
+    lay["rows"][1]["screens"] = column[:1]
+    lay["rows"][0]["screens"] = bottom
+    d["height"] = len(column) - 1
+    d["width"] = len(bottom) - 1
 
 
 def relocate_layout(level, bank, extra=None):

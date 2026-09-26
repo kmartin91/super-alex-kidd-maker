@@ -29,17 +29,18 @@ take this repository down, I will, no questions asked.
 
 ## What you need
 
-- `make` and a C compiler (clang or gcc)
-- SDL2 (`brew install sdl2` on Mac, `libsdl2-dev` on Debian/Ubuntu)
-- Python 3.7+ and Node.js 18+ for the Maker
-- Emscripten if you want to play inside the Maker (`brew install emscripten`)
-- your ROM, copied to the root of the repository as `original.sms` (CRC32 `17A40E29`). The game
-  checks that it's the right version and refuses to start otherwise.
+- your ROM (CRC32 `17A40E29`). The game checks that it's the right version and refuses to start
+  otherwise.
+- for the Maker: Node.js 18+ and Emscripten (`brew install emscripten`), which builds the game for
+  the browser the first time;
+- for the game in its own window: `make`, a C compiler (clang or gcc) and SDL2 (`brew install sdl2`
+  on Mac, `libsdl2-dev` on Debian/Ubuntu), with the ROM copied to the root of the repository as
+  `original.sms`.
 
 **On Windows**, the simplest route is [MSYS2](https://www.msys2.org/). In the "MSYS2 UCRT64"
 terminal:
 
-    pacman -S make mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-SDL2 mingw-w64-ucrt-x86_64-python mingw-w64-ucrt-x86_64-nodejs
+    pacman -S make mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-SDL2 mingw-w64-ucrt-x86_64-nodejs mingw-w64-ucrt-x86_64-emscripten
 
 Then use the same commands as below from that terminal. Windows support is new and hasn't been
 tested much yet: feedback is welcome.
@@ -59,28 +60,65 @@ Enter again to resume.
 
     npm run maker
 
-This builds whatever is missing and opens the Maker in your browser (`http://localhost:8080`).
-Everything stays on your computer: the ROM is never sent anywhere.
+The first time, this builds the game for the browser (several minutes), then opens the Maker
+(`http://localhost:8080`). The Maker asks for your ROM once and keeps it in your browser, like your
+levels: nothing is ever sent anywhere.
 
+The Maker uses the game as a source of content (graphics, sounds, enemies and how they behave)
+and the C engine lifts the console's limits for your levels:
+
+- **New level**: horizontal (Alex can walk back) or vertical (going down, then on to the right
+  at the bottom), in any of the 17 settings of the game. Or start from a copy of a game level.
 - **At the top**, the pieces: ground (edges and corners join up by themselves), blocks ("?"
-  boxes, star boxes, skulls, money, breakable rock...), decorations, enemies and the rice ball
-  that ends the level. Click a piece, then click or drag on the map.
+  boxes, star boxes, skulls, money, rocks...), decorations, **any enemy of the game in any
+  setting**, the janken bosses and the rice ball that ends the level. Click a piece, then click or
+  drag on the map. Enemies can go anywhere, the start screen included, and as many as you like:
+  the console's limits (10 enemies alive at once, 64 sprites, 8 per line) are lifted, so
+  "anarchy" levels crowded with enemies work.
 - **Click an enemy** to select it, drag it to move it. **Right click** erases. **Shift + drag**
   fills a rectangle.
-- **On the left**, the level, its theme (the graphics and enemies of another level), its music,
-  and what the "?" boxes give.
+- **On the left**, the level (name and estimated difficulty, 1 to 5 stars), its setting, its
+  music, and what the "?" boxes give.
 - **On the right**, undo, the eraser, the view, save and the menu.
 - **At the bottom**, the whole level in small: click it to move around, and add or remove
   screens.
 - **The big Play button** (or Space) runs the level right in the page, starting from the screen
-  you're looking at, even if you haven't saved. Press it again (or Escape) to go back to editing.
+  you're looking at, even if you haven't saved. The level ends when Alex reaches the rice ball
+  (or beats the boss); lives never run out while you test.
 
-Your creations are saved in `mods/<name>/` and compiled into a small `patch.bin` file. That file
-only contains your changes, never the game. To play a mod in the native window:
+Your levels are saved in your browser ("My levels"). The menu exports a level as a file (to keep
+or share) and imports it back. It also exports a small `patch.bin` mod for the game in its own
+window; that file only contains your level, never the game:
 
-    ./engine/build/alexkidd original.sms --mod mods/mymod/patch.bin --level 6
+    ./engine/build/alexkidd original.sms --mod patch.bin --level 2 --single-level
+
+The original levels still run exactly as on the console: the engine only changes its behaviour
+for the Maker's levels.
 
 The level format is described in detail in `docs/level-format.md`.
+
+## The desktop app
+
+The Maker also comes as an app to install (Windows, macOS, Linux). To build it yourself you
+need Rust on top of the Maker's requirements.
+
+**Mac** (one app for Intel and Apple Silicon, in `app/src-tauri/target/universal-apple-darwin/release/bundle/`):
+
+    rustup target add x86_64-apple-darwin
+    npm install
+    npm run app:mac
+
+To sign and notarize it, set these in the terminal first (`security find-identity -v -p codesigning`
+lists your identities; the password is an app-specific password of your Apple ID):
+
+    export APPLE_SIGNING_IDENTITY="Developer ID Application: Your Name (TEAMID)"
+    export APPLE_ID="you@example.com" APPLE_PASSWORD="xxxx-xxxx-xxxx-xxxx" APPLE_TEAM_ID="TEAMID"
+
+**Windows**: install Node.js and Rust (with the Visual Studio Build Tools, "Desktop development with
+C++"). Copy `maker/public/engine/` from a machine that built it (or build it with MSYS2's `make`
+and Emscripten), then `npm install` and `npm run app`: the installers
+are in `app/src-tauri/target/release/bundle/`. They are not signed, so Windows shows a warning the
+first time: "More info", then "Run anyway".
 
 ## Your own graphics
 
@@ -108,8 +146,10 @@ generated from your ROM: don't publish it.
   - `tools/`: small programs the Maker uses (level captures, enemy pictures, graphics sheets)
   - `recomp/`: the Python tools that produced `src/gen/`
   - `tests/`: the checks against the original game
-- `maker/`: Super Alex Kidd Maker (a small Node server with no dependencies, the web page in
-  `public/`, and the level tools in `tools/`)
+- `maker/`: Super Alex Kidd Maker, a web page that runs entirely in the browser (`public/`; the
+  level format in `public/js/rom/`), served by a tiny Node server. `tools/` keeps the original
+  Python level tools, used as the reference in `tests/port_check.mjs`.
+- `app/`: the desktop app (Tauri): the Maker in a window
 - `docs/`: documentation, including a detailed description of how each part of the game works
   in `docs/notes/` (Alex's physics, enemies, bosses, levels, sound...)
 
@@ -203,17 +243,18 @@ commerciaux. Si Sega ou un ayant droit me demande de retirer ce dépôt, je le f
 
 ## Ce qu'il vous faut
 
-- `make` et un compilateur C (clang ou gcc)
-- SDL2 (`brew install sdl2` sur Mac, `libsdl2-dev` sur Debian/Ubuntu)
-- Python 3.7 ou plus récent, et Node.js 18 ou plus récent pour le Maker
-- Emscripten si vous voulez jouer dans le Maker (`brew install emscripten`)
-- votre ROM, copiée à la racine du dépôt sous le nom `original.sms` (CRC32 `17A40E29`). Le jeu
-  vérifie qu'il s'agit bien de la bonne version et refuse de démarrer sinon.
+- votre ROM (CRC32 `17A40E29`). Le jeu vérifie qu'il s'agit bien de la bonne version et refuse de
+  démarrer sinon ;
+- pour le Maker : Node.js 18 ou plus récent et Emscripten (`brew install emscripten`), qui
+  compile le jeu pour le navigateur la première fois ;
+- pour le jeu dans sa propre fenêtre : `make`, un compilateur C (clang ou gcc) et SDL2
+  (`brew install sdl2` sur Mac, `libsdl2-dev` sur Debian/Ubuntu), avec la ROM copiée à la racine
+  du dépôt sous le nom `original.sms`.
 
 **Sous Windows**, le plus simple est de passer par [MSYS2](https://www.msys2.org/). Dans le
 terminal « MSYS2 UCRT64 » :
 
-    pacman -S make mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-SDL2 mingw-w64-ucrt-x86_64-python mingw-w64-ucrt-x86_64-nodejs
+    pacman -S make mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-SDL2 mingw-w64-ucrt-x86_64-nodejs mingw-w64-ucrt-x86_64-emscripten
 
 Ensuite, les commandes sont les mêmes que ci-dessous, depuis ce terminal. La prise en charge de
 Windows est récente et encore peu testée : les retours sont les bienvenus.
@@ -233,31 +274,70 @@ pour l'équiper, puis de nouveau sur Entrée pour reprendre.
 
     npm run maker
 
-La commande compile ce qui manque et ouvre le Maker dans votre navigateur
-(`http://localhost:8080`). Tout reste sur votre machine : la ROM n'est jamais envoyée ailleurs.
+La première fois, la commande compile le jeu pour le navigateur (plusieurs minutes), puis ouvre le
+Maker (`http://localhost:8080`). Le Maker demande votre ROM une seule fois et la garde dans votre
+navigateur, comme vos niveaux : rien n'est jamais envoyé ailleurs.
 
+Le Maker se sert du jeu comme d'une source de contenu (graphismes, sons, ennemis et leur
+comportement), et le moteur en C lève les limites de la console pour vos niveaux :
+
+- **Nouveau niveau** : horizontal (Alex peut revenir en arrière) ou vertical (on descend, puis on
+  continue vers la droite en bas), dans n'importe lequel des 17 décors du jeu. Ou bien une copie
+  d'un niveau du jeu comme point de départ.
 - **En haut**, les pièces : le sol (les bords et les coins se raccordent tout seuls), les blocs
-  (boîtes « ? », boîtes étoile, têtes de mort, argent, roches cassables…), le décor, les ennemis
-  et la boule de riz qui termine le niveau. Cliquez sur une pièce, puis cliquez ou glissez sur la
-  carte.
+  (boîtes « ? », boîtes étoile, têtes de mort, argent, rochers…), le décor, **n'importe quel ennemi
+  du jeu dans n'importe quel décor**, les boss de pierre-feuille-ciseaux et la boule de riz qui
+  termine le niveau. Cliquez sur une pièce, puis cliquez ou glissez sur la carte. Les ennemis se
+  posent partout, écran de départ compris, et autant que vous voulez : les limites de la console
+  (10 ennemis vivants à la fois, 64 sprites, 8 par ligne) sont levées, donc les niveaux
+  « anarchie » bourrés d'ennemis fonctionnent.
 - **Cliquez sur un ennemi** pour le choisir, glissez-le pour le déplacer. **Le clic droit**
   efface. **Maj + glisser** remplit un rectangle.
-- **À gauche**, le niveau, son thème (les graphismes et les ennemis d'un autre niveau), sa
+- **À gauche**, le niveau (son nom et sa difficulté estimée, de 1 à 5 étoiles), son décor, sa
   musique, et ce que donnent les boîtes « ? ».
 - **À droite**, annuler, la gomme, l'affichage, l'enregistrement et le menu.
 - **En bas**, tout le niveau en petit : cliquez dessus pour vous déplacer, et ajoutez ou retirez
   des écrans.
 - **Le gros bouton Jouer** (ou Espace) lance le niveau directement dans la page, à partir de
-  l'écran affiché, même si vous n'avez pas enregistré. Appuyez de nouveau (ou sur Échap) pour
-  revenir à l'édition.
+  l'écran affiché, même si vous n'avez pas enregistré. Le niveau se termine quand Alex atteint la
+  boule de riz (ou bat le boss) ; les vies sont illimitées pendant les essais.
 
-Vos créations sont enregistrées dans `mods/<nom>/` et compilées en un petit fichier `patch.bin`.
-Ce fichier ne contient que vos modifications, jamais le jeu. Pour jouer un mod dans la fenêtre
-native :
+Vos niveaux sont enregistrés dans votre navigateur (« Mes niveaux »). Le menu exporte un niveau
+dans un fichier (à garder ou à partager) et le réimporte. Il exporte aussi un petit mod
+`patch.bin` pour le jeu dans sa propre fenêtre ; ce fichier ne contient que votre niveau, jamais le
+jeu :
 
-    ./engine/build/alexkidd original.sms --mod mods/mymod/patch.bin --level 6
+    ./engine/build/alexkidd original.sms --mod patch.bin --level 2 --single-level
+
+Les niveaux d'origine tournent toujours exactement comme sur la console : le moteur ne change son
+comportement que pour les niveaux du Maker.
 
 Le format des niveaux est décrit en détail dans `docs/level-format.md`.
+
+## L'application à installer
+
+Le Maker existe aussi en application à installer (Windows, macOS, Linux). Pour la construire
+vous-même, il faut Rust en plus de ce que demande le Maker.
+
+**Mac** (une seule app pour Intel et Apple Silicon, dans `app/src-tauri/target/universal-apple-darwin/release/bundle/`) :
+
+    rustup target add x86_64-apple-darwin
+    npm install
+    npm run app:mac
+
+Pour la signer et la notariser, définissez d'abord ces variables dans le terminal
+(`security find-identity -v -p codesigning` liste vos identités ; le mot de passe est un mot de
+passe d'application de votre identifiant Apple) :
+
+    export APPLE_SIGNING_IDENTITY="Developer ID Application: Votre Nom (TEAMID)"
+    export APPLE_ID="vous@exemple.com" APPLE_PASSWORD="xxxx-xxxx-xxxx-xxxx" APPLE_TEAM_ID="TEAMID"
+
+**Windows** : installez Node.js et Rust (avec les Visual Studio Build Tools, « Développement Desktop
+en C++ »). Copiez `maker/public/engine/` depuis une machine qui l'a compilé (ou compilez-le avec le
+`make` de MSYS2 et Emscripten), puis `npm install` et `npm run app` :
+les installateurs sont dans `app/src-tauri/target/release/bundle/`. Ils ne sont pas signés, donc
+Windows affiche un avertissement la première fois : « Informations complémentaires », puis
+« Exécuter quand même ».
 
 ## Vos propres graphismes
 
@@ -286,8 +366,11 @@ par la palette de la Master System. Ce dossier est généré à partir de votre 
     ennemis, planches graphiques)
   - `recomp/` : les outils Python qui ont produit `src/gen/`
   - `tests/` : les vérifications contre le jeu original
-- `maker/` : Super Alex Kidd Maker (un petit serveur Node sans dépendance, la page web dans
-  `public/`, et les outils de niveaux dans `tools/`)
+- `maker/` : Super Alex Kidd Maker, une page web qui tourne entièrement dans le navigateur
+  (`public/` ; le format des niveaux dans `public/js/rom/`), servie par un tout petit serveur
+  Node. `tools/` garde les outils de niveaux Python d'origine, qui servent de référence à
+  `tests/port_check.mjs`.
+- `app/` : l'application à installer (Tauri) : le Maker dans une fenêtre
 - `docs/` : la documentation, dont une description détaillée du fonctionnement de chaque partie
   du jeu dans `docs/notes/` (physique d'Alex, ennemis, boss, niveaux, son…)
 

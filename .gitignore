@@ -11,3 +11,9 @@ node_modules/
 .DS_Store
 __pycache__/
 *.ppm
+
+# Desktop app
+app/src-tauri/target/
+app/src-tauri/gen/
+app/src-tauri/binaries/
+app/.deps/

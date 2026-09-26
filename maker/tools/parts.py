@@ -18,6 +18,9 @@ from collections import Counter, defaultdict
 import levels
 
 UP, RIGHT, DOWN, LEFT = 1, 2, 4, 8
+# Metatile 20 is the unbreakable rock in every level (a red ball, a grey stone...):
+# levels stack it on their ground, but it is an object, not ground to paint.
+ROCK = 20
 BLOCK_KINDS = [
     ("question_box", "Boîte ?"), ("star_box", "Boîte étoile (argent)"), ("skull_box", "Boîte tête de mort"),
     ("money", "Argent"), ("breakable", "Roche cassable"), ("water", "Eau"), ("deadly", "Danger (mortel)"),
@@ -54,7 +57,7 @@ def learn_parts(model, level):
     eraser = max(backgrounds)[1] if backgrounds else 0
 
     # Terrain families: solid blocks joined when they touch often enough.
-    solid = set(m for m in used if "solid" in cls[m] and not cls[m].endswith("_box"))
+    solid = set(m for m in used if "solid" in cls[m] and not cls[m].endswith("_box") and m != ROCK)
     parent = {m: m for m in solid}
 
     def find(a):
@@ -122,6 +125,7 @@ def learn_parts(model, level):
             candidates = [i for i, e in enumerate(all_classes) if e.get("class") == kind]
         if candidates:
             blocks.append({"kind": kind, "name": label, "metatile": candidates[0]})
+    blocks.insert(0, {"kind": "rock", "name": "Rocher", "metatile": ROCK})
 
     # Decorations: connected groups of non-background, non-solid, non-special blocks.
     deco_ok = lambda m: m != eraser and cls[m] in ("background",) and used[m] > 0

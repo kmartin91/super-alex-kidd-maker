@@ -6,9 +6,14 @@ import { undo, redo } from './history.js';
 import { render } from './render.js';
 import { selectPart } from './brush.js';
 import { deleteSelected } from './entities.js';
-import { save, revert } from './storage.js';
-import { togglePlay, backToEdit, playNative } from './play.js';
-import { openModal, closeModal, h } from './modal.js';
+import { save, rename, deleteCurrent, openLevel } from './storage.js';
+import { togglePlay, backToEdit, download } from './play.js';
+import { levelFile, importLevelFile } from './backend.js';
+import { rateDifficulty } from './difficulty.js';
+import { openLevelSheet } from './new-level.js';
+import { askRom } from './rom-setup.js';
+import { toast } from './toast.js';
+import { openModal, closeModal, h, tell } from './modal.js';
 import { icon } from './icons.js';
 
 function setZoom(z) {
@@ -34,10 +39,33 @@ function openMenu() {
   const item = (id, ic, title, text, action) => h('button.menu-item', { id, onclick: () => { closeModal(); action(); } },
     icon(ic, 3), h('span', {}, h('b', { textContent: title }), h('small', { textContent: text })));
   openModal('Menu', h('div.menu', {},
-    item('saveMenu', 'save', 'Enregistrer', 'dans le mod (Ctrl+S)', save),
-    item('playNative', 'window', 'Ouvrir dans la fenêtre du jeu', 'enregistre, puis lance le vrai jeu', playNative),
-    item('revert', 'start', 'Revenir au niveau d\'origine', 'efface tes changements de ce niveau', revert),
+    item('saveMenu', 'save', 'Enregistrer', 'dans Mes niveaux (Ctrl+S)', save),
+    item('renameMenu', 'pencil', 'Renommer ce niveau', state.doc.name, rename),
+    item('exportLevelMenu', 'window', 'Exporter ce niveau', 'un fichier à garder ou à partager', saveLevelFile),
+    item('importLevelMenu', 'plus', 'Importer un niveau', 'depuis un fichier exporté', openLevelFileDialog),
+    item('deleteMenu', 'trash', 'Supprimer ce niveau', 'définitivement', async () => { if (await deleteCurrent()) openLevelSheet(); }),
+    item('romMenu', 'box', 'Changer de ROM', 'si tu as une autre copie du jeu', () => askRom({ first: false })),
     item('helpMenu', 'help', 'Commandes', 'souris et clavier', openHelp)));
+}
+
+async function saveLevelFile() {
+  const data = levelFile({ ...state.doc, model: state.model, difficulty: rateDifficulty(state.model).stars });
+  const file = state.doc.name.replace(/[^\p{L}\p{N} _-]+/gu, '').trim() || 'niveau';
+  download(new Blob([JSON.stringify(data)], { type: 'application/json' }), `${file}.json`);
+}
+
+function openLevelFileDialog() {
+  const input = Object.assign(document.createElement('input'), { type: 'file' });
+  input.addEventListener('change', async () => {
+    try {
+      const docs = await importLevelFile(JSON.parse(await input.files[0].text()));
+      toast(docs.length > 1 ? `${docs.length} niveaux importés` : `« ${docs[0].name} » importé`);
+      await openLevel(docs[0].id);
+    } catch (err) {
+      tell('Import impossible : ' + err.message);
+    }
+  });
+  input.click();
 }
 
 function openHelp() {

@@ -3,6 +3,9 @@
  * decompression ($01D6-$0340, $04A1-$04CD).
  */
 #include "game/core/core.h"
+#include "rt/maker.h"
+
+#include <string.h>
 
 /* RAM copy of the sprite attribute table (v_tempSprites): 64 Y bytes at $C700,
  * then 64 (X, tile) pairs at $C780. Entity sprites start at $C706: the first
@@ -18,6 +21,15 @@
 static void out_bytes(uint8_t port, uint16_t src, unsigned count) {
     if (count == 0) count = 256;
     while (count--) io_out(port, rd8(src++));
+}
+
+/* Maker mode (rt/maker.h): the home level of each sprite follows it to its
+ * slot in VRAM. `reversed_from`: first slot sent in reverse order, or 64. */
+static void maker_upload_homes(unsigned reversed_from, uint8_t end) {
+    for (unsigned j = 0; j < 64; j++) {
+        unsigned i = j < reversed_from ? j : (unsigned)(end - 1 - (j - reversed_from));
+        maker.vdp_home[j] = i < 64 ? maker.ram_home[i] : 0;
+    }
 }
 
 static void hide_all_sprites(void) {
@@ -91,6 +103,7 @@ static void upload_all_sprites(void) {
 
 /* $0208 (updateSprites@oddUpdate): upload the RAM sprite table as it is. */
 LIFTED(updateSprites_oddUpdate, 0x0208) {
+    if (maker.active) maker_upload_homes(64, 0);
     upload_all_sprites();
     LIFTED_RETURN();
 }
@@ -108,9 +121,11 @@ LIFTED(updateSprites, 0x01F7) {
     /* v_spriteTerminatorPointer = address of the Y slot after the last sprite. */
     uint8_t end = ram8(v_spriteTerminatorPointer);
     if (!flicker_frame || end < SPRITES_ALWAYS_FIRST + 2) {
+        if (maker.active) maker_upload_homes(64, end);
         upload_all_sprites();
         LIFTED_RETURN();
     }
+    if (maker.active) maker_upload_homes(SPRITES_ALWAYS_FIRST, end);
 
     /* Y bytes: the first 17 in order, the others from the last one back. */
     uint16_t page = ram16(v_spriteTerminatorPointer) & 0xFF00;
