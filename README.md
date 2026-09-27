@@ -2,13 +2,16 @@
 
 *[Version française plus bas](#version-française)*
 
-A fan project built around *Alex Kidd in Miracle World* (Sega Master System, 1986). The whole
-game has been rewritten in C from the cartridge's program. It runs on PC with SDL2, or right in a
-browser. On top of that engine sits **Super Alex Kidd Maker**, a level editor in the spirit of
-*Super Mario Maker*: pick a piece, drop it on the map, press Play.
+**Build your own *Alex Kidd in Miracle World* levels, and play them right away.**
 
-The goal is simple: keep the exact feel of the original game (physics, enemies, sound) and let
-anyone build their own worlds.
+Super Alex Kidd Maker is a level editor in the spirit of *Super Mario Maker*, for Sega's 1986
+Master System classic. Pick a piece, drop it on the map, press Play: your level runs at once, with
+the exact physics, enemies and music of the original. Under the editor runs the whole game,
+rewritten in C from the cartridge's program, and freed from the console's limits for your levels.
+
+The Maker runs in your browser or as a desktop app (Windows, macOS, Linux). You bring your own
+copy of the game: your ROM and your levels never leave your computer. Its interface is in French
+for now.
 
 ## Before anything else
 
@@ -16,10 +19,10 @@ This is not an official project. It has no connection with Sega, which owns Alex
 and the Master System brand. It's a free, passion-driven project, made to learn, preserve and
 create. There is no commercial use, and there never will be.
 
-**The game ROM is not included**, and you won't find any link to download it here. To play, you
-need your own copy of the USA/Europe version (revision 0), dumped from your own cartridge. The
-original graphics, music and levels aren't in this repository either: the program reads them
-from your ROM when it starts.
+**The game ROM is not included**, and you won't find any link to download it here. You need your
+own copy of the USA/Europe version (revision 0), dumped from your own cartridge. The original
+graphics, music and levels aren't in this repository either: the Maker and the game read them
+from your ROM.
 
 To be upfront about one thing: the game code in `engine/src/gen/` and `engine/src/game/` is a
 translation of the original program. It remains Sega's property, even rewritten in C. It is
@@ -27,15 +30,20 @@ shared in the same spirit as the community's other decompilation projects, to un
 the game works and to allow non-commercial fan games. If Sega or any rights holder asks me to
 take this repository down, I will, no questions asked.
 
-## What you need
+## Getting started
 
-- your ROM (CRC32 `17A40E29`). The game checks that it's the right version and refuses to start
-  otherwise.
-- for the Maker: Node.js 18+ and Emscripten (`brew install emscripten`), which builds the game for
-  the browser the first time;
-- for the game in its own window: `make`, a C compiler (clang or gcc) and SDL2 (`brew install sdl2`
-  on Mac, `libsdl2-dev` on Debian/Ubuntu), with the ROM copied to the root of the repository as
-  `original.sms`.
+You need your ROM (CRC32 `17A40E29`: the Maker checks that it's the right version and refuses it
+otherwise), Node.js 18+ and Emscripten (`brew install emscripten` on Mac, or see
+[emscripten.org](https://emscripten.org/docs/getting_started/downloads.html)), which builds the
+game for the browser the first time. Then:
+
+    npm run maker
+
+The first time, this builds the game for the browser (a few minutes), then opens the Maker
+(`http://localhost:8080`). The Maker asks for your ROM once and keeps it in your browser, like
+your levels: nothing is ever sent anywhere.
+
+Rather have an app? It builds for Windows, macOS and Linux: see [The desktop app](#the-desktop-app).
 
 **On Windows**, the simplest route is [MSYS2](https://www.msys2.org/) (its installer, or
 `winget install MSYS2.MSYS2`). Open the "MSYS2 UCRT64" terminal from the Start menu (not "MSYS2
@@ -47,58 +55,84 @@ the tools, about 570 MB to download:
 
 Then close the terminal and open a new one, so that it finds `emcc`. Your drives are under `/c`,
 `/d`...: a repository in `C:\Games\super-alex-kidd-maker` is `/c/Games/super-alex-kidd-maker`.
-The commands below work as they are from that terminal; the [Windows notes](#windows-notes) have
-the details.
+The commands in this page work as they are from that terminal; the [Windows notes](#windows-notes)
+have the details.
 
-## Playing
+## Making a level
 
-    cd engine && make && ./build/alexkidd ../original.sms
+### The menu and new levels
 
-Arrows to move, Space (or X, K) to jump, Z (or W, J) to punch. Enter starts the game from the
-title screen, then opens the map and items during play. Tab speeds things up, Escape quits. A
-connected gamepad is picked up automatically.
+The Maker opens on its title screen, then its menu: **play** one of your levels, **create** a
+level, the **settings** (the intro at launch, full screen, changing your ROM) and, in the app,
+**quit**. The mouse, the keyboard (arrows, Enter, Escape) and a gamepad all work there. The logo
+at the top left of the editor brings you back to it.
 
-To use an item, open the map with Enter, move the arrow onto the item, press Z to equip it, then
-Enter again to resume.
+A new level is either:
 
-## Super Alex Kidd Maker
+- **horizontal**: Alex heads right, and can walk back. It starts with 3 empty screens, a ground
+  and the rice ball at the end;
+- **vertical**: Alex goes down 3 screens, then finishes on the right at the bottom;
+- **a copy of any level of the game**, to change as you like.
 
-    npm run maker
+New levels come in any of the game's 17 settings, with their graphics, enemies and music.
 
-The first time, this builds the game for the browser (several minutes), then opens the Maker
-(`http://localhost:8080`). The Maker asks for your ROM once and keeps it in your browser, like your
-levels: nothing is ever sent anywhere.
+### The editor
 
-The Maker uses the game as a source of content (graphics, sounds, enemies and how they behave)
-and the C engine lifts the console's limits for your levels:
+- **At the top, the pieces**, by family:
+  - **Ground**: ground and walls, whose edges and corners join up by themselves;
+  - **Blocks**: "?" boxes, star boxes, skulls, money, breakable rocks, traps...;
+  - **Decoration**: clouds, trees, houses..., with no effect on play;
+  - **Enemies**: **any enemy of the game, in any setting**, the janken bosses and the rice ball
+    that ends the level;
+  - **All blocks**: the level's 256 raw blocks, for experts.
+- **On the left, the level**: its name and estimated difficulty (1 to 5 stars), its theme (the
+  graphics, enemies and music of another setting), its music (the theme's or the original
+  level's), and its surprises: what the "?" boxes give, in the order Alex breaks them.
+- **On the right, the tools**: undo and redo, the eraser, the grid, the collision view, zoom,
+  save, the menu and the list of commands.
+- **At the bottom, the whole level in small**: click it to move around. Horizontal levels gain or
+  lose screens with its "+" and "−" buttons.
+- **Click an enemy** to select it: a bubble shows its name and its variant (some enemies behave
+  differently depending on it), and deletes it. For a janken boss, *Paramétrer* sets what it
+  says before the match and the throws it plays, up to 15.
 
-- **New level**: horizontal (Alex can walk back) or vertical (going down, then on to the right
-  at the bottom), in any of the 17 settings of the game. Or start from a copy of a game level.
-- **At the top**, the pieces: ground (edges and corners join up by themselves), blocks ("?"
-  boxes, star boxes, skulls, money, rocks...), decorations, **any enemy of the game in any
-  setting**, the janken bosses and the rice ball that ends the level. Click a piece, then click or
-  drag on the map. Enemies can go anywhere, the start screen included, and as many as you like:
-  the console's limits (10 enemies alive at once, 64 sprites, 8 per line) are lifted, so
-  "anarchy" levels crowded with enemies work.
-- **Click an enemy** to select it, drag it to move it. **Right click** erases. **Shift + drag**
-  fills a rectangle.
-- **On the left**, the level (name and estimated difficulty, 1 to 5 stars), its setting, its
-  music, and what the "?" boxes give.
-- **On the right**, undo, the eraser, the view, save and the menu.
-- **At the bottom**, the whole level in small: click it to move around, and add or remove
-  screens.
-- **The big Play button** (or Space) runs the level right in the page, starting from the screen
-  you're looking at, even if you haven't saved. The level ends when Alex reaches the rice ball
-  (or beats the boss); lives never run out while you test.
+| Mouse and keyboard | Action |
+| --- | --- |
+| Click | place the piece chosen at the top |
+| Drag | paint blocks |
+| Click an enemy | select it; drag it to move it |
+| Right click | erase (drag to erase more) |
+| Shift + drag | fill a rectangle |
+| Alt + click | pick up the block under the mouse |
+| Ctrl+Z, Ctrl+Y | undo, redo |
+| Ctrl+S | save |
+| Space or F5 | play, and back to editing |
+| E | eraser |
+| G, C | grid, collisions |
+| + and −, or Ctrl + wheel | zoom |
+| Delete | delete the selected enemy |
+| ? | the list of commands |
 
-Your levels are saved in your browser ("My levels"). The menu exports a level as a file (to keep
-or share) and imports it back. It also exports a small `patch.bin` mod for the game in its own
-window; that file only contains your level, never the game:
+### Playing it
 
-    ./engine/build/alexkidd original.sms --mod patch.bin --level 2 --single-level
+The big Play button (or Space) runs the level right in the page, from the screen you're looking
+at, even if you haven't saved. Arrows to move, Space or X to jump, Z or W to punch, Enter to
+pause; Escape goes back to editing. The level ends when Alex reaches the rice ball (or beats the
+boss), and lives never run out while you test.
 
-The original levels still run exactly as on the console: the engine only changes its behaviour
-for the Maker's levels.
+The Maker takes its content from the game (graphics, sounds, enemies and how they behave), and
+the C engine lifts the console's limits for your levels. Enemies can go anywhere, the start
+screen included, and as many as you like: 10 enemies alive at once, 64 sprites and 8 per line are
+limits of the console, not of your levels, so "anarchy" levels crowded with enemies work. Every
+enemy keeps its own graphics, whatever the setting. The original levels still run exactly as on
+the console: the engine only changes its behaviour for the Maker's levels.
+
+### Saving and sharing
+
+Your levels are saved in your browser, or in the app: **My levels**. The menu renames a level,
+deletes it, exports it as a file to keep or share, and imports such a file back. The file holds
+your level only, with no graphics, sound or code from the game: whoever opens it needs their own
+ROM.
 
 The level format is described in detail in `docs/level-format.md`.
 
@@ -124,11 +158,41 @@ lists your identities; the password is an app-specific password of your Apple ID
 
     winget install -e --id Microsoft.VisualStudio.BuildTools --override "--passive --wait --norestart --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended"
 
-Build `maker/public/engine/` with MSYS2 first (see [What you need](#what-you-need)), or copy it
-from a machine that built it. Then, from PowerShell or any terminal, `npm install` and
+Build `maker/public/engine/` with MSYS2 first (see [Getting started](#getting-started)), or copy
+it from a machine that built it. Then, from PowerShell or any terminal, `npm install` and
 `npm run app` (about two minutes the first time): the installers, an `.msi` and a `-setup.exe`,
 are in `app/src-tauri/target/release/bundle/`. They are not signed, so Windows shows a warning the
 first time: "More info", then "Run anyway".
+
+## The game in its own window
+
+The engine also plays the whole original game, in an SDL2 window. You need `make`, a C compiler
+(clang or gcc) and SDL2 (`brew install sdl2` on Mac, `libsdl2-dev` on Debian/Ubuntu), with the
+ROM copied to the root of the repository as `original.sms`:
+
+    cd engine && make && ./build/alexkidd ../original.sms
+
+Arrows to move, Space (or X, K) to jump, Z (or W, J) to punch. Enter starts the game from the
+title screen, then opens the map and items during play. Tab speeds things up, Escape quits. A
+connected gamepad is picked up automatically.
+
+To use an item, open the map with Enter, move the arrow onto the item, press Z to equip it, then
+Enter again to resume.
+
+### Your own graphics
+
+The game can display your drawings instead of the original graphics, without changing anything
+about how it plays.
+
+    ./engine/build/tileharvest original.sms packs/original   # reference sheets
+    cp -r packs/original packs/mine                            # repaint the PNGs in packs/mine
+    ./engine/build/alexkidd original.sms --pack packs/mine
+
+`packs/original/` holds every tile the game shows, sorted by level and by screen (title, map,
+shop...). Scenery is grouped in 16×16 blocks so you draw in context. Repaint the cells without
+moving them. You can also enlarge a sheet (×2, ×4...) and put `scale 2` or `scale 4` at the top
+of `pack.txt`: you're then no longer limited by the Master System palette. This folder is
+generated from your ROM: don't publish it.
 
 ## Windows notes
 
@@ -156,24 +220,13 @@ Maker, the desktop app and `make test` work. Feedback is welcome.
   thread (`BINARYEN_CORES=1`); both engines still build in about a minute. A frozen `wasm-opt.exe`
   left over from an earlier try can't be stopped: it goes away when Windows restarts.
 
-## Your own graphics
+## How it's made
 
-The game can display your drawings instead of the original graphics, without changing anything
-about how it plays.
-
-    ./engine/build/tileharvest original.sms packs/original   # reference sheets
-    cp -r packs/original packs/mine                            # repaint the PNGs in packs/mine
-    ./engine/build/alexkidd original.sms --pack packs/mine
-
-`packs/original/` holds every tile the game shows, sorted by level and by screen (title, map,
-shop...). Scenery is grouped in 16×16 blocks so you draw in context. Repaint the cells without
-moving them. You can also enlarge a sheet (×2, ×4...) and put `scale 2` or `scale 4` at the top
-of `pack.txt`: you're then no longer limited by the Master System palette. This folder is
-generated from your ROM: don't publish it.
-
-## How the code is organised
-
-- `engine/`: the game in C
+- `maker/`: Super Alex Kidd Maker, a web page that runs entirely in the browser (`public/`; the
+  level format in `public/js/rom/`), served by a tiny Node server. `tools/` keeps the original
+  Python level tools, used as the reference in `tests/port_check.mjs`.
+- `app/`: the desktop app (Tauri): the Maker in a window
+- `engine/`: the game in C, compiled to WebAssembly for the Maker
   - `src/game/`: the game code rewritten by hand, by topic (`alex/`, `enemies1/`, `enemies2/`,
     `level/`, `states/`, `core/`, `audio/`)
   - `src/gen/`: the original automatic translation, instruction by instruction
@@ -182,14 +235,10 @@ generated from your ROM: don't publish it.
   - `tools/`: small programs the Maker uses (level captures, enemy pictures, graphics sheets)
   - `recomp/`: the Python tools that produced `src/gen/`
   - `tests/`: the checks against the original game
-- `maker/`: Super Alex Kidd Maker, a web page that runs entirely in the browser (`public/`; the
-  level format in `public/js/rom/`), served by a tiny Node server. `tools/` keeps the original
-  Python level tools, used as the reference in `tests/port_check.mjs`.
-- `app/`: the desktop app (Tauri): the Maker in a window
 - `docs/`: documentation, including a detailed description of how each part of the game works
   in `docs/notes/` (Alex's physics, enemies, bosses, levels, sound...)
 
-## How we know it's faithful
+### How we know it's faithful
 
 The whole port has been checked against the original game, and the checks can be run again:
 
@@ -204,7 +253,7 @@ The whole port has been checked against the original game, and the checks can be
 
 `tests/run_scenarios.sh` replays the ~500 scenarios written while rewriting the game.
 
-## Regenerating the translated code (optional)
+### Regenerating the translated code (optional)
 
 You don't need this to play or make levels. The tools that produce `engine/src/gen/` take the
 routine and variable names from the [lhsazevedo/akmw](https://github.com/lhsazevedo/akmw)
@@ -217,7 +266,7 @@ disassembly, which goes in `reference/akmw`:
     wlalink -i -d -S -b linkfile_rev0 build/rev0.sms
     cd ../../engine && make gen
 
-## A small discovery
+### A small discovery
 
 While working on the code, I found a bug in the original game: if Alex gets hit right as the
 pause map closes, the console freezes. The game disables interrupts at that moment, then waits
@@ -251,14 +300,16 @@ The included libraries keep their own licenses: superzazu's Z80 core (MIT, in
 
 # Version française
 
-Un projet de fan autour d'*Alex Kidd in Miracle World* (Sega Master System, 1986). Le jeu a été
-entièrement réécrit en C à partir du programme de la cartouche, et il tourne sur PC avec SDL2 ou
-directement dans un navigateur. Par-dessus ce moteur, il y a **Super Alex Kidd Maker**, un
-éditeur de niveaux dans l'esprit de *Super Mario Maker* : on choisit une pièce, on la pose sur
-la carte, on appuie sur Jouer.
+**Créez vos propres niveaux d'*Alex Kidd in Miracle World*, et jouez-les aussitôt.**
 
-L'idée est simple : garder la sensation exacte du jeu d'origine (physique, ennemis, sons) et
-permettre à chacun de créer ses propres mondes.
+Super Alex Kidd Maker est un éditeur de niveaux dans l'esprit de *Super Mario Maker*, pour le
+classique de la Master System sorti en 1986. On choisit une pièce, on la pose sur la carte, on
+appuie sur Jouer : le niveau se lance tout de suite, avec la physique, les ennemis et la musique
+exacts du jeu d'origine. Sous l'éditeur tourne le jeu complet, réécrit en C à partir du programme
+de la cartouche, et libéré des limites de la console pour vos niveaux.
+
+Le Maker tourne dans votre navigateur ou en application à installer (Windows, macOS, Linux). Vous
+apportez votre propre copie du jeu : votre ROM et vos niveaux ne quittent jamais votre ordinateur.
 
 ## Avant toute chose
 
@@ -266,10 +317,10 @@ Ce projet n'est pas officiel. Il n'a aucun lien avec Sega, qui détient les droi
 sur ce jeu et sur la marque Master System. C'est un travail de passionné, gratuit, fait pour
 apprendre, préserver et créer. Il n'y a et il n'y aura aucune utilisation commerciale.
 
-**La ROM du jeu n'est pas fournie**, et vous ne trouverez ici aucun lien pour la télécharger. Pour
-jouer, il vous faut votre propre copie de la version USA/Europe (révision 0), que vous aurez
-extraite de votre cartouche. Les graphismes, la musique et les niveaux d'origine ne sont pas non
-plus dans ce dépôt : le programme les lit dans votre ROM au moment où il se lance.
+**La ROM du jeu n'est pas fournie**, et vous ne trouverez ici aucun lien pour la télécharger. Il
+vous faut votre propre copie de la version USA/Europe (révision 0), que vous aurez extraite de
+votre cartouche. Les graphismes, la musique et les niveaux d'origine ne sont pas non plus dans ce
+dépôt : le Maker et le jeu les lisent dans votre ROM.
 
 Soyons honnêtes sur un point : le code du jeu qui se trouve dans `engine/src/gen/` et
 `engine/src/game/` est une traduction du programme original. Il reste la propriété de Sega, même
@@ -277,15 +328,21 @@ réécrit en C. Il est partagé dans le même esprit que les autres projets de d
 communauté, pour comprendre comment le jeu fonctionne et pour permettre des fangames non
 commerciaux. Si Sega ou un ayant droit me demande de retirer ce dépôt, je le ferai sans discuter.
 
-## Ce qu'il vous faut
+## Pour commencer
 
-- votre ROM (CRC32 `17A40E29`). Le jeu vérifie qu'il s'agit bien de la bonne version et refuse de
-  démarrer sinon ;
-- pour le Maker : Node.js 18 ou plus récent et Emscripten (`brew install emscripten`), qui
-  compile le jeu pour le navigateur la première fois ;
-- pour le jeu dans sa propre fenêtre : `make`, un compilateur C (clang ou gcc) et SDL2
-  (`brew install sdl2` sur Mac, `libsdl2-dev` sur Debian/Ubuntu), avec la ROM copiée à la racine
-  du dépôt sous le nom `original.sms`.
+Il vous faut votre ROM (CRC32 `17A40E29` : le Maker vérifie qu'il s'agit bien de la bonne version
+et la refuse sinon), Node.js 18 ou plus récent et Emscripten (`brew install emscripten` sur Mac,
+sinon voir [emscripten.org](https://emscripten.org/docs/getting_started/downloads.html)), qui
+compile le jeu pour le navigateur la première fois. Ensuite :
+
+    npm run maker
+
+La première fois, la commande compile le jeu pour le navigateur (quelques minutes), puis ouvre le
+Maker (`http://localhost:8080`). Le Maker demande votre ROM une seule fois et la garde dans votre
+navigateur, comme vos niveaux : rien n'est jamais envoyé ailleurs.
+
+Vous préférez une application ? Elle se construit pour Windows, macOS et Linux : voir
+[L'application à installer](#lapplication-à-installer).
 
 **Sous Windows**, le plus simple est de passer par [MSYS2](https://www.msys2.org/) (son
 installateur, ou `winget install MSYS2.MSYS2`). Ouvrez le terminal « MSYS2 UCRT64 » depuis le menu
@@ -297,61 +354,89 @@ commande), puis installez les outils, environ 570 Mo à télécharger :
 
 Fermez ensuite le terminal et ouvrez-en un nouveau, pour qu'il trouve `emcc`. Vos disques sont sous
 `/c`, `/d`… : un dépôt dans `C:\Jeux\super-alex-kidd-maker` devient `/c/Jeux/super-alex-kidd-maker`.
-Les commandes ci-dessous marchent telles quelles depuis ce terminal ; les
+Les commandes de cette page marchent telles quelles depuis ce terminal ; les
 [notes pour Windows](#notes-pour-windows) donnent les détails.
 
-## Jouer
+## Créer un niveau
 
-    cd engine && make && ./build/alexkidd ../original.sms
+### Le menu et les nouveaux niveaux
 
-Les flèches servent à se déplacer, Espace (ou X, K) à sauter, et Z (ou W, J) à donner un coup de
-poing. Entrée lance la partie depuis l'écran titre, puis ouvre la carte et les objets pendant le
-jeu. Tab accélère, Échap quitte. Une manette branchée est reconnue automatiquement.
+Le Maker s'ouvre sur son écran titre, puis sur son menu : **jouer** un de vos niveaux, **créer**
+un niveau, les **paramètres** (l'intro au lancement, le plein écran, changer de ROM) et, dans
+l'application, **quitter**. La souris, le clavier (flèches, Entrée, Échap) et la manette y
+fonctionnent. Le logo en haut à gauche de l'éditeur y ramène.
 
-Pour utiliser un objet, ouvrez la carte avec Entrée, placez la flèche sur l'objet, appuyez sur Z
-pour l'équiper, puis de nouveau sur Entrée pour reprendre.
+Un nouveau niveau, c'est au choix :
 
-## Super Alex Kidd Maker
+- **horizontal** : Alex avance vers la droite, et peut revenir en arrière. Il part de 3 écrans
+  vides, avec un sol et la boule de riz au bout ;
+- **vertical** : Alex descend 3 écrans, puis finit vers la droite en bas ;
+- **une copie de n'importe quel niveau du jeu**, à modifier comme vous voulez.
 
-    npm run maker
+Les nouveaux niveaux prennent n'importe lequel des 17 décors du jeu, avec ses graphismes, ses
+ennemis et sa musique.
 
-La première fois, la commande compile le jeu pour le navigateur (plusieurs minutes), puis ouvre le
-Maker (`http://localhost:8080`). Le Maker demande votre ROM une seule fois et la garde dans votre
-navigateur, comme vos niveaux : rien n'est jamais envoyé ailleurs.
+### L'éditeur
 
-Le Maker se sert du jeu comme d'une source de contenu (graphismes, sons, ennemis et leur
-comportement), et le moteur en C lève les limites de la console pour vos niveaux :
+- **En haut, les pièces**, par famille :
+  - **Sol** : le sol et les murs, dont les bords et les coins se raccordent tout seuls ;
+  - **Blocs** : boîtes « ? », boîtes étoile, têtes de mort, argent, roches cassables, pièges… ;
+  - **Décor** : nuages, arbres, maisons…, sans effet sur le jeu ;
+  - **Ennemis** : **n'importe quel ennemi du jeu, dans n'importe quel décor**, les boss de
+    pierre-feuille-ciseaux et la boule de riz qui termine le niveau ;
+  - **Tous les blocs** : les 256 blocs bruts du niveau, pour les experts.
+- **À gauche, le niveau** : son nom et sa difficulté estimée (de 1 à 5 étoiles), son thème (les
+  graphismes, les ennemis et la musique d'un autre décor), sa musique (celle du thème ou celle du
+  niveau d'origine) et ses surprises : ce que donnent les boîtes « ? », dans l'ordre où Alex les
+  casse.
+- **À droite, les outils** : annuler et rétablir, la gomme, la grille, l'affichage des collisions,
+  le zoom, l'enregistrement, le menu et la liste des commandes.
+- **En bas, tout le niveau en petit** : cliquez dessus pour vous déplacer. Les niveaux horizontaux
+  gagnent ou perdent des écrans avec « + Écran » et « − Écran ».
+- **Cliquez sur un ennemi** pour le choisir : une bulle affiche son nom et sa variante (certains
+  ennemis changent de comportement selon leur variante), et permet de le supprimer. Pour un boss
+  de pierre-feuille-ciseaux, « Paramétrer » règle ce qu'il dit avant le match et les coups qu'il
+  joue, jusqu'à 15.
 
-- **Nouveau niveau** : horizontal (Alex peut revenir en arrière) ou vertical (on descend, puis on
-  continue vers la droite en bas), dans n'importe lequel des 17 décors du jeu. Ou bien une copie
-  d'un niveau du jeu comme point de départ.
-- **En haut**, les pièces : le sol (les bords et les coins se raccordent tout seuls), les blocs
-  (boîtes « ? », boîtes étoile, têtes de mort, argent, rochers…), le décor, **n'importe quel ennemi
-  du jeu dans n'importe quel décor**, les boss de pierre-feuille-ciseaux et la boule de riz qui
-  termine le niveau. Cliquez sur une pièce, puis cliquez ou glissez sur la carte. Les ennemis se
-  posent partout, écran de départ compris, et autant que vous voulez : les limites de la console
-  (10 ennemis vivants à la fois, 64 sprites, 8 par ligne) sont levées, donc les niveaux
-  « anarchie » bourrés d'ennemis fonctionnent.
-- **Cliquez sur un ennemi** pour le choisir, glissez-le pour le déplacer. **Le clic droit**
-  efface. **Maj + glisser** remplit un rectangle.
-- **À gauche**, le niveau (son nom et sa difficulté estimée, de 1 à 5 étoiles), son décor, sa
-  musique, et ce que donnent les boîtes « ? ».
-- **À droite**, annuler, la gomme, l'affichage, l'enregistrement et le menu.
-- **En bas**, tout le niveau en petit : cliquez dessus pour vous déplacer, et ajoutez ou retirez
-  des écrans.
-- **Le gros bouton Jouer** (ou Espace) lance le niveau directement dans la page, à partir de
-  l'écran affiché, même si vous n'avez pas enregistré. Le niveau se termine quand Alex atteint la
-  boule de riz (ou bat le boss) ; les vies sont illimitées pendant les essais.
+| Souris et clavier | Action |
+| --- | --- |
+| Clic | poser la pièce choisie en haut |
+| Glisser | peindre des blocs |
+| Clic sur un ennemi | le choisir ; le glisser pour le déplacer |
+| Clic droit | effacer (glisser pour effacer plus) |
+| Maj + glisser | remplir un rectangle |
+| Alt + clic | prendre le bloc sous la souris |
+| Ctrl+Z, Ctrl+Y | annuler, rétablir |
+| Ctrl+S | enregistrer |
+| Espace ou F5 | jouer, et revenir à l'édition |
+| E | gomme |
+| G, C | grille, collisions |
+| + et −, ou Ctrl + molette | zoom |
+| Suppr | supprimer l'ennemi choisi |
+| ? | la liste des commandes |
 
-Vos niveaux sont enregistrés dans votre navigateur (« Mes niveaux »). Le menu exporte un niveau
-dans un fichier (à garder ou à partager) et le réimporte. Il exporte aussi un petit mod
-`patch.bin` pour le jeu dans sa propre fenêtre ; ce fichier ne contient que votre niveau, jamais le
-jeu :
+### Jouer son niveau
 
-    ./engine/build/alexkidd original.sms --mod patch.bin --level 2 --single-level
+Le gros bouton Jouer (ou Espace) lance le niveau directement dans la page, à partir de l'écran
+affiché, même si vous n'avez pas enregistré. Les flèches pour se déplacer, Espace ou X pour
+sauter, Z ou W pour le coup de poing, Entrée pour la pause ; Échap revient à l'édition. Le niveau
+se termine quand Alex atteint la boule de riz (ou bat le boss), et les vies sont illimitées
+pendant les essais.
 
-Les niveaux d'origine tournent toujours exactement comme sur la console : le moteur ne change son
+Le Maker tire son contenu du jeu (graphismes, sons, ennemis et leur comportement), et le moteur en
+C lève les limites de la console pour vos niveaux. Les ennemis se posent partout, écran de départ
+compris, et autant que vous voulez : 10 ennemis vivants à la fois, 64 sprites et 8 par ligne sont
+des limites de la console, pas de vos niveaux, donc les niveaux « anarchie » bourrés d'ennemis
+fonctionnent. Chaque ennemi garde ses propres graphismes, quel que soit le décor. Les niveaux
+d'origine tournent toujours exactement comme sur la console : le moteur ne change son
 comportement que pour les niveaux du Maker.
+
+### Enregistrer et partager
+
+Vos niveaux sont enregistrés dans votre navigateur, ou dans l'application : « Mes niveaux ». Le
+menu renomme un niveau, le supprime, l'exporte dans un fichier à garder ou à partager, et
+réimporte un tel fichier. Ce fichier ne contient que votre niveau, sans graphisme, son ni code du
+jeu : qui l'ouvre a besoin de sa propre ROM.
 
 Le format des niveaux est décrit en détail dans `docs/level-format.md`.
 
@@ -378,12 +463,42 @@ passe d'application de votre identifiant Apple) :
 
     winget install -e --id Microsoft.VisualStudio.BuildTools --override "--passive --wait --norestart --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended"
 
-Compilez d'abord `maker/public/engine/` avec MSYS2 (voir [Ce qu'il vous faut](#ce-quil-vous-faut)),
-ou copiez-le depuis une machine qui l'a compilé. Ensuite, depuis PowerShell ou n'importe quel
+Compilez d'abord `maker/public/engine/` avec MSYS2 (voir [Pour commencer](#pour-commencer)), ou
+copiez-le depuis une machine qui l'a compilé. Ensuite, depuis PowerShell ou n'importe quel
 terminal, `npm install` et `npm run app` (environ deux minutes la première fois) : les
 installateurs, un `.msi` et un `-setup.exe`, sont dans `app/src-tauri/target/release/bundle/`. Ils
 ne sont pas signés, donc Windows affiche un avertissement la première fois : « Informations
 complémentaires », puis « Exécuter quand même ».
+
+## Le jeu dans sa propre fenêtre
+
+Le moteur fait aussi tourner le jeu d'origine complet, dans une fenêtre SDL2. Il faut `make`, un
+compilateur C (clang ou gcc) et SDL2 (`brew install sdl2` sur Mac, `libsdl2-dev` sur
+Debian/Ubuntu), avec la ROM copiée à la racine du dépôt sous le nom `original.sms` :
+
+    cd engine && make && ./build/alexkidd ../original.sms
+
+Les flèches servent à se déplacer, Espace (ou X, K) à sauter, et Z (ou W, J) à donner un coup de
+poing. Entrée lance la partie depuis l'écran titre, puis ouvre la carte et les objets pendant le
+jeu. Tab accélère, Échap quitte. Une manette branchée est reconnue automatiquement.
+
+Pour utiliser un objet, ouvrez la carte avec Entrée, placez la flèche sur l'objet, appuyez sur Z
+pour l'équiper, puis de nouveau sur Entrée pour reprendre.
+
+### Vos propres graphismes
+
+Le jeu peut afficher vos dessins à la place des graphismes d'origine, sans rien changer à la façon
+dont il se joue.
+
+    ./engine/build/tileharvest original.sms packs/original   # planches de référence
+    cp -r packs/original packs/moi                            # repeignez les PNG de packs/moi
+    ./engine/build/alexkidd original.sms --pack packs/moi
+
+`packs/original/` contient toutes les tuiles que le jeu affiche, rangées par niveau et par écran
+(titre, carte, boutique…). Le décor y est regroupé par blocs de 16×16, pour que vous dessiniez
+dans le bon contexte. Repeignez les cases sans les déplacer. Vous pouvez aussi agrandir une planche
+(×2, ×4…) et indiquer `scale 2` ou `scale 4` en haut de `pack.txt` : vous n'êtes alors plus limité
+par la palette de la Master System. Ce dossier est généré à partir de votre ROM : ne le publiez pas.
 
 ## Notes pour Windows
 
@@ -413,24 +528,14 @@ Maker, l'application et `make test` fonctionnent. Les retours sont les bienvenus
   quand même en une minute environ. Un `wasm-opt.exe` figé lors d'un essai précédent ne peut pas
   être arrêté : il disparaît au redémarrage de Windows.
 
-## Vos propres graphismes
+## Comment c'est fait
 
-Le jeu peut afficher vos dessins à la place des graphismes d'origine, sans rien changer à la façon
-dont il se joue.
-
-    ./engine/build/tileharvest original.sms packs/original   # planches de référence
-    cp -r packs/original packs/moi                            # repeignez les PNG de packs/moi
-    ./engine/build/alexkidd original.sms --pack packs/moi
-
-`packs/original/` contient toutes les tuiles que le jeu affiche, rangées par niveau et par écran
-(titre, carte, boutique…). Le décor y est regroupé par blocs de 16×16, pour que vous dessiniez
-dans le bon contexte. Repeignez les cases sans les déplacer. Vous pouvez aussi agrandir une planche
-(×2, ×4…) et indiquer `scale 2` ou `scale 4` en haut de `pack.txt` : vous n'êtes alors plus limité
-par la palette de la Master System. Ce dossier est généré à partir de votre ROM : ne le publiez pas.
-
-## Comment le code est organisé
-
-- `engine/` : le jeu en C
+- `maker/` : Super Alex Kidd Maker, une page web qui tourne entièrement dans le navigateur
+  (`public/` ; le format des niveaux dans `public/js/rom/`), servie par un tout petit serveur
+  Node. `tools/` garde les outils de niveaux Python d'origine, qui servent de référence à
+  `tests/port_check.mjs`.
+- `app/` : l'application à installer (Tauri) : le Maker dans une fenêtre
+- `engine/` : le jeu en C, compilé en WebAssembly pour le Maker
   - `src/game/` : le code du jeu réécrit à la main, par thèmes (`alex/`, `enemies1/`,
     `enemies2/`, `level/`, `states/`, `core/`, `audio/`)
   - `src/gen/` : la traduction automatique de départ, instruction par instruction
@@ -440,15 +545,10 @@ par la palette de la Master System. Ce dossier est généré à partir de votre 
     ennemis, planches graphiques)
   - `recomp/` : les outils Python qui ont produit `src/gen/`
   - `tests/` : les vérifications contre le jeu original
-- `maker/` : Super Alex Kidd Maker, une page web qui tourne entièrement dans le navigateur
-  (`public/` ; le format des niveaux dans `public/js/rom/`), servie par un tout petit serveur
-  Node. `tools/` garde les outils de niveaux Python d'origine, qui servent de référence à
-  `tests/port_check.mjs`.
-- `app/` : l'application à installer (Tauri) : le Maker dans une fenêtre
 - `docs/` : la documentation, dont une description détaillée du fonctionnement de chaque partie
   du jeu dans `docs/notes/` (physique d'Alex, ennemis, boss, niveaux, son…)
 
-## Comment on sait que c'est fidèle
+### Comment on sait que c'est fidèle
 
 Tout le portage a été vérifié contre le jeu original, et ces tests peuvent être relancés :
 
@@ -463,7 +563,7 @@ Tout le portage a été vérifié contre le jeu original, et ces tests peuvent �
 
 `tests/run_scenarios.sh` rejoue les quelque 500 scénarios écrits pendant la réécriture du jeu.
 
-## Régénérer le code traduit (facultatif)
+### Régénérer le code traduit (facultatif)
 
 Vous n'en avez pas besoin pour jouer ou créer des niveaux. Les outils qui produisent
 `engine/src/gen/` reprennent les noms de routines et de variables du désassemblage
@@ -476,7 +576,7 @@ Vous n'en avez pas besoin pour jouer ou créer des niveaux. Les outils qui produ
     wlalink -i -d -S -b linkfile_rev0 build/rev0.sms
     cd ../../engine && make gen
 
-## Une petite découverte
+### Une petite découverte
 
 En travaillant sur le code, j'ai trouvé un bug dans le jeu d'origine : si Alex se fait toucher
 pile au moment où la carte de pause se referme, la console se fige. Le jeu coupe les
