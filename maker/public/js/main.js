@@ -25,6 +25,7 @@
 //   rom/*.js         level decoding and mod building (ported from the Python tools)
 //   capture.js, capture-worker.js  captures from the game, in a Web Worker
 //   rom-setup.js     asking for the user's ROM
+//   i18n.js, lang/en.js  French (the source texts) and English
 //   modal.js, toast.js, tooltip.js, icons.js, prefs.js, db.js, dom.js  small helpers
 
 import { $ } from './dom.js';
@@ -49,10 +50,13 @@ import { listMyLevels } from './backend.js';
 import { bindTooltips } from './tooltip.js';
 import { pref } from './prefs.js';
 import { playIntro } from './intro.js';
-import { openMenu, setEditorReady, menuIconsReady } from './menu.js';
+import { openMenu, openOnline, setEditorReady, menuIconsReady } from './menu.js';
 import { logoImage } from './logo.js';
+import { checkUpdate } from './updates.js';
+import { t, tError, translateDom } from './i18n.js';
 
 async function main() {
+  translateDom(); // the static texts of index.html, before anything shows
   window.editorState = state; // for automated tests (maker/tests/)
   renderIcons();
   bindTooltips();
@@ -73,7 +77,28 @@ async function main() {
   if (intro) await playIntro();
   if (!(await ready)) await askRom();
   state.levels = getLevels();
-  if (!quick) openMenu({ title: intro });
+  if (quick) document.body.classList.remove('booting');
+  else {
+    // A link to an online level, from the website's gallery: its page in the
+    // menu. The app gets superalexkiddmaker://play/CODE (at launch, or while
+    // it runs); the page in development gets ?play=CODE.
+    const deepLink = window.__TAURI__ && window.__TAURI__.deepLink;
+    const linkCode = (url) => (/play\/([0-9A-Za-z-]{9,11})/.exec(url) || [])[1];
+    let play = new URLSearchParams(location.search).get('play');
+    if (deepLink) play = ((await deepLink.getCurrent().catch(() => null)) || []).map(linkCode).find(Boolean) || play;
+    await openMenu({ title: intro && !play });
+    if (play) {
+      history.replaceState(null, '', location.pathname);
+      openOnline(play);
+    }
+    if (deepLink) {
+      deepLink.onOpenUrl((urls) => {
+        const code = urls.map(linkCode).find(Boolean);
+        if (code) openMenu().then(() => openOnline(code));
+      });
+    }
+    setTimeout(() => checkUpdate({ quiet: true }), 4000); // desktop app: a newer release?
+  }
   // Behind the menu: my last level, else a level of the game.
   const editor = (async () => {
     const last = pref('lastLevel');
@@ -90,6 +115,6 @@ async function main() {
 }
 
 main().catch((err) => {
-  $('status').textContent = 'erreur : ' + err.message;
+  $('status').textContent = t('erreur : {message}', { message: tError(err.message) });
   console.error(err);
 });

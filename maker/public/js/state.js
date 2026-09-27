@@ -13,6 +13,7 @@
 // Video state (from the running game): { vram: base64, cram: [32] }.
 
 import { $ } from './dom.js';
+import { t } from './i18n.js';
 
 export const SCREEN_W = 16, SCREEN_H = 12, BLOCK = 16;
 export const SCREEN_PX_W = SCREEN_W * BLOCK, SCREEN_PX_H = SCREEN_H * BLOCK;
@@ -42,6 +43,8 @@ export const state = {
 
 export function setDirty(d) {
   state.dirty = d;
+  if (d) state.version = (state.version || 0) + 1; // changes so far
+  if (d && state.onChange) state.onChange(); // storage.js: autosave
   $('save').classList.toggle('dirty', d);
-  $('status').textContent = d ? 'modifications non enregistrées' : 'enregistré';
+  $('status').textContent = d ? t('modifications non enregistrées') : t('enregistré');
 }

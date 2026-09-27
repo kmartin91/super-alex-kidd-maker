@@ -4,8 +4,9 @@
 
 import { dbGet, dbSet, dbDelete, dbKeys } from './db.js';
 import { useRom, levelVideo, entityIcons as captureIcons } from './capture.js';
-import { listLevels, exportLevel, iconTypes, retheme as rethemeModel, buildMod } from './rom/leveledit.js';
+import { listLevels, exportLevel, iconTypes, retheme as rethemeModel, buildMod, layoutRows } from './rom/leveledit.js';
 import { opponentMessage, decodeMessage, messagePatch, wrapText } from './rom/text.js';
+import { t } from './i18n.js';
 
 // Alex Kidd in Miracle World, USA/Europe, revision 0.
 const ROM_CRC32 = 0x17A40E29;
@@ -42,7 +43,7 @@ export async function setRom(bytes) {
   // Some dumps carry a 512-byte copier header.
   if (bytes.length % 0x4000 === 512) bytes = bytes.slice(512);
   if (crc32(bytes) !== ROM_CRC32) {
-    throw new Error('Ce n\'est pas la bonne ROM : il faut Alex Kidd in Miracle World, version USA/Europe (révision 0).');
+    throw new Error(t('Ce n\'est pas la bonne ROM : il faut Alex Kidd in Miracle World, version USA/Europe (révision 0).'));
   }
   await dbSet('rom', bytes);
   await activate(bytes);
@@ -70,6 +71,9 @@ export function defaultStart(base) {
   return exportLevel(rom, base).start;
 }
 
+// A level of the game as the editor sees it (no video).
+export const exportLevelOf = (n) => exportLevel(rom, n);
+
 export async function themedLevel(base, theme) {
   const model = base === theme ? exportLevel(rom, base) : rethemeModel(rom, exportLevel(rom, base), theme);
   return { model, video: await levelVideo(theme) };
@@ -79,12 +83,12 @@ export async function listMyLevels() {
   const docs = [];
   for (const k of await dbKeys()) if (String(k).startsWith('mylevel:')) docs.push(await dbGet(k));
   return docs.sort((a, b) => b.updated - a.updated)
-    .map(({ id, name, base, updated, model, difficulty }) => ({ id, name, base, updated, difficulty, theme: model.theme || base }));
+    .map(({ id, name, base, updated, model, difficulty, thumb }) => ({ id, name, base, updated, difficulty, thumb, theme: model.theme || base }));
 }
 
 export async function openMyLevel(id) {
   const doc = await dbGet(docKey(id));
-  if (!doc) throw new Error('niveau introuvable');
+  if (!doc) throw new Error(t('niveau introuvable'));
   return { doc, video: await levelVideo(doc.model.theme || doc.base) };
 }
 
@@ -97,6 +101,17 @@ export async function saveMyLevel(doc) {
 }
 
 export const deleteMyLevel = (id) => dbDelete(docKey(id));
+
+// The level being made before its first save, kept in case the Maker closes
+// (one draft at a time).
+export const saveDraft = (doc) => dbSet('draft', { ...doc, updated: Date.now() });
+export const clearDraft = () => dbDelete('draft');
+export const getDraft = () => dbGet('draft');
+
+export async function openDraft() {
+  const doc = await dbGet('draft');
+  return { doc, video: await levelVideo(doc.model.theme || doc.base) };
+}
 
 export async function retheme(base, model, theme) {
   return { model: rethemeModel(rom, model, theme), video: await levelVideo(theme) };
@@ -126,7 +141,7 @@ function customBosses(model) {
 
 function makerBlock(model, base) {
   const theme = model.theme || base;
-  const block = new Uint8Array(8 + 256 + 8 + 4 * 16);
+  const block = new Uint8Array(8 + 256 + 8 + 4 * 16 + 8 + 5);
   block.set(ascii('AKMAKER1'));
   const types = model.entityTypes.map((t) => [t.id, t.levels || []]).concat(Object.entries(BOSS_LEVELS).map(([t, l]) => [Number(t), l]));
   for (const [type, levels] of types) if (levels.length && !levels.includes(theme)) block[8 + type] = levels[0];
@@ -136,6 +151,12 @@ function makerBlock(model, base) {
     const moves = (r.moves || []).slice(0, 15);
     block[272 + 16 * i] = moves.length;
     moves.forEach((m, k) => { block[272 + 16 * i + 1 + k] = m; });
+  }
+  // The bonus zone (engine/src/game/states/zone.c): the layout row the level
+  // tools add, its width, its first entity list, where Alex comes in.
+  if (model.zone) {
+    block.set(ascii('AKZONE01'), 336);
+    block.set([layoutRows(rom, base), model.zone.columns - 1, model.entities.length, model.zone.start.x, model.zone.start.y], 344);
   }
   return block;
 }
@@ -177,10 +198,10 @@ export async function importLevelFile(data) {
   let docs;
   if (data && data.format === 'super-alex-kidd-maker/level') docs = [{ name: data.name, base: data.base, difficulty: data.difficulty, model: data.model }];
   else if (data && data.format === 'super-alex-kidd-maker/levels') {
-    docs = Object.entries(data.levels).map(([n, model]) => ({ name: `Niveau ${n} modifié`, base: Number(n), model }));
+    docs = Object.entries(data.levels).map(([n, model]) => ({ name: t('Niveau {n} modifié', { n }), base: Number(n), model }));
   } else if (data && Number.isInteger(data.level) && Array.isArray(data.screens)) {
-    docs = [{ name: `Niveau ${data.level} modifié`, base: data.level, model: data }];
-  } else throw new Error('Ce fichier ne contient pas de niveau du Maker.');
+    docs = [{ name: t('Niveau {n} modifié', { n: data.level }), base: data.level, model: data }];
+  } else throw new Error(t('Ce fichier ne contient pas de niveau du Maker.'));
   const saved = [];
   for (const d of docs) saved.push(await saveMyLevel(d));
   return saved;
@@ -193,7 +214,7 @@ async function migrate() {
     const m = /^level:(\d+)$/.exec(k);
     if (!m) continue;
     const model = await dbGet(k);
-    try { await saveMyLevel({ name: `Niveau ${m[1]} modifié`, base: Number(m[1]), model }); } catch { /* kept as is */ continue; }
+    try { await saveMyLevel({ name: t('Niveau {n} modifié', { n: m[1] }), base: Number(m[1]), model }); } catch { /* kept as is */ continue; }
     await dbDelete(k);
   }
 }

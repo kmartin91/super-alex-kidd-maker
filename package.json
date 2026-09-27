@@ -8,7 +8,12 @@
     "game": "make -C engine build/alexkidd && ./engine/build/alexkidd original.sms",
     "app": "cd app && tauri build",
     "app:dev": "cd app && tauri dev",
-    "app:mac": "cd app && tauri build --target universal-apple-darwin"
+    "app:mac": "cd app && tauri build --target universal-apple-darwin",
+    "app:linux": "node app/build-linux.mjs",
+    "release:mac": "node app/release.mjs mac",
+    "release:win": "node app/release.mjs win",
+    "release:linux": "node app/build-linux.mjs --release",
+    "release:json": "node app/latest-json.mjs"
   },
   "devDependencies": {
     "@tauri-apps/cli": "^2.11.5"

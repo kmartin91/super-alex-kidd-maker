@@ -4,7 +4,8 @@
 import { openPage } from './cdp.mjs';
 import { check, done, waitFor, sleep } from './check.mjs';
 
-const p = await openPage('http://localhost:8099/?level=2');
+// lang=fr: the checks below read the French status texts.
+const p = await openPage('http://localhost:8099/?level=2&lang=fr');
 await waitFor(p, "document.getElementById('status').textContent.includes('niveau')");
 await p.evaluate('window.confirm = () => true; window.alert = (m) => console.log("ALERT " + m)');
 const playing = "['en jeu'].includes(document.getElementById('playStatus').textContent) || document.getElementById('playStatus').textContent.startsWith('erreur')";

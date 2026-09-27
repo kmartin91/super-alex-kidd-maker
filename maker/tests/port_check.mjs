@@ -382,6 +382,25 @@ buildBoth('i. start 1:0 (vertical level, start unchanged)', {}, { level: 1, colu
 buildBoth('i. start 2:1 with level 3 edited', { 3: exported[3] }, { level: 2, column: 1 });
 buildBoth('i. start 12:99 (column out of range)', { 12: exported[12] }, { level: 12, column: 99 });
 
+// i3. levels that start on a vehicle
+for (const vehicle of ['bike', 'boat', 'peticopter']) {
+  buildBoth(`i3. level 2 on the ${vehicle}`, { 2: { ...copy(exported[2]), vehicle } });
+}
+buildBoth('i3. level 1 (vertical) on the peticopter, rethemed', { 1: { ...copy(rethemed['1:5'] || exported[1]), vehicle: 'peticopter' } });
+
+// i4. a bonus zone: one more layout row, its entity lists after the level's
+{
+  const m = copy(exported[2]);
+  const blank = m.screens[0].blocks.map(() => m.parts.eraser);
+  m.screens.push({ blocks: blank.slice() }, { blocks: blank.slice() });
+  const s0 = m.screens.length - 2;
+  m.zone = { grid: [[{ screen: s0, entities: 0 }, { screen: s0 + 1, entities: 1 }]], columns: 2, rows: 1,
+    entities: [[{ type: m.entityTypes[0].id, x: 100, y: 120, data: 0 }], []], specials: [[], []], start: { col: 0, row: 0, x: 32, y: 100 } };
+  m.entities[0].push({ type: 0x4C, x: 200, y: 136, data: 0 });
+  m.zone.entities[1].push({ type: 0x4C, x: 200, y: 136, data: 1 });
+  buildBoth('i4. level 2 with a bonus zone of 2 screens', { 2: m });
+}
+
 // i2. Alex's start position chosen in the editor
 {
   const m2 = copy(exported[2]);

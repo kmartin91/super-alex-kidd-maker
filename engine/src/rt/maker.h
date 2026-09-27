@@ -24,6 +24,11 @@
  *                         2 Chokkinna, 3 Parplin): count, then up to 15
  *                         throws (0 rock, 1 scissors, 2 paper) played in
  *                         turn, ties included; count 0 = the game's choices
+ * optionally followed by:
+ *   "AKZONE01"            magic
+ *   u8 row, width         the bonus zone: row of the level's layout, screens - 1
+ *   u8 entity_base        entity list of its first screen
+ *   u8 alex_x, alex_y     where Alex appears in it
  */
 #ifndef RT_MAKER_H
 #define RT_MAKER_H
@@ -50,11 +55,24 @@ typedef struct MakerSprite {
 #define MAKER_LEVELS 17
 #define MAKER_SPRITE_TILES_BYTES 0x1800 /* sprite tiles 256..447 (VRAM $2000-$37FF) */
 
+/* A bonus zone (game/states/zone.c): an extra row of the level's layout with
+ * its own entity lists, entered and left through doors (entity $4C, data 0
+ * into the zone, 1 back); the main level is kept meanwhile. */
+enum { MAKER_ZONE_ENTER = 1, MAKER_ZONE_LEAVE = 2 };
+typedef struct MakerZone {
+    bool defined;
+    uint8_t row, width, entity_base, alex_x, alex_y;
+    bool inside;       /* Alex is in the zone */
+    uint8_t request;   /* a door was taken: MAKER_ZONE_ENTER / _LEAVE */
+    uint16_t door;     /* slot of the door Alex left the main level by */
+} MakerZone;
+
 typedef struct Maker {
     bool active;
     uint8_t home[256];
     uint8_t janken[4][1 + MAKER_JANKEN_MOVES]; /* see the block above */
     uint8_t janken_throws;                     /* throws so far in this match */
+    MakerZone zone;
     int capturing; /* level whose sprite tiles VRAM writes go to, 0 = none */
     bool loading_own_sprites; /* the level's own enemies are being loaded */
     uint8_t sprite_tiles[MAKER_LEVELS + 1][MAKER_SPRITE_TILES_BYTES];

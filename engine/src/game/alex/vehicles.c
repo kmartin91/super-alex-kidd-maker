@@ -23,6 +23,7 @@
  * (state $1B, then diving into the water), elsewhere he jumps off ($43EB).
  */
 #include "alex.h"
+#include "rt/maker.h"
 
 #define VEHICLE_BODY 0x0C0C       /* interaction point */
 #define VEHICLE_JUMP_HEAD 0x0102
@@ -160,7 +161,7 @@ static void sail(void) {
         alex_call(f_getNearEntityTileAttrWithOffset);
         op_rlca();
         if (cpu.f & FLAG_C) {
-            alex_crash_vehicle();
+            alex_wreck_boat();
             return;
         }
     }
@@ -385,6 +386,19 @@ void alex_crash_vehicle(void) {
 LIFTED(_LABEL_389C_, 0x389C) {
     alex_crash_vehicle();
     LIFTED_RETURN();
+}
+
+/* The boat hits solid ground. In the game this only happens in levels whose
+ * crash leads to a dive into the lower row (crash table = 1); a Maker level
+ * (rt/maker.h) without one has Alex jump off instead of freezing in the air. */
+void alex_wreck_boat(void) {
+    if (maker.active && !rd8((uint16_t)(VEHICLE_CRASH_LEVELS + ram8(v_level)))) {
+        ram8(v_shouldSpawnRidingBoat_RAM_C051_) = 0;
+        ram8(v_alexActionState) = ACTION_NONE;
+        alex_call(f__LABEL_43F2_); /* Alex jumps off */
+        return;
+    }
+    alex_crash_vehicle();
 }
 
 /* $388E: the vehicle is lost (hit, or peticopter in water/ceiling). */

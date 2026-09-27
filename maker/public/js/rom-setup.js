@@ -4,6 +4,7 @@
 import { setRom } from './backend.js';
 import { openModal, closeModal, h } from './modal.js';
 import { icon } from './icons.js';
+import { t } from './i18n.js';
 
 // Resolves once a valid ROM is in place. `first`: the Maker cannot start
 // without one, so the sheet cannot be closed.
@@ -26,15 +27,15 @@ export function askRom({ first = true } = {}) {
     };
     input.addEventListener('change', () => take(input.files[0]));
     const zone = h('button.rom-drop', { id: 'romDrop', onclick: () => input.click() },
-      icon('box', 5), h('b', { textContent: 'Glisse ta ROM ici' }), h('span', { textContent: 'ou clique pour la choisir (fichier .sms)' }));
+      icon('box', 5), h('b', { textContent: t('Glisse ta ROM ici') }), h('span', { textContent: t('ou clique pour la choisir (fichier .sms)') }));
     zone.addEventListener('dragover', (ev) => { ev.preventDefault(); zone.classList.add('over'); });
     zone.addEventListener('dragleave', () => zone.classList.remove('over'));
     zone.addEventListener('drop', (ev) => { ev.preventDefault(); zone.classList.remove('over'); take(ev.dataTransfer.files[0]); });
-    openModal(first ? 'Bienvenue !' : 'Changer de ROM', h('div.rom-setup', {},
-      h('p', { textContent: 'Le Maker a besoin de ta ROM d\'Alex Kidd in Miracle World (version USA/Europe, révision 0), ' +
-        'copiée depuis ta cartouche. Les graphismes, les sons et les niveaux du jeu viennent de là.' }),
+    openModal(first ? t('Bienvenue !') : t('Changer de ROM'), h('div.rom-setup', {},
+      h('p', { textContent: t('Le Maker a besoin de ta ROM d\'Alex Kidd in Miracle World (version USA/Europe, révision 0), ' +
+        'copiée depuis ta cartouche. Les graphismes, les sons et les niveaux du jeu viennent de là.') }),
       zone, input, message,
-      h('p.hint', { textContent: 'Elle reste sur cet ordinateur, dans ce navigateur : elle n\'est envoyée nulle part.' })),
+      h('p.hint', { textContent: t('Elle reste sur cet ordinateur, dans ce navigateur : elle n\'est envoyée nulle part.') })),
     { lock: first });
   });
 }

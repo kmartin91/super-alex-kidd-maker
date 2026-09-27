@@ -4,17 +4,20 @@
 // Mouse, keyboard (arrows, Enter, Échap) or gamepad (d-pad, A, B).
 
 import { state } from './state.js';
-import { h, closeModal } from './modal.js';
+import { h, closeModal, askText } from './modal.js';
 import { logoImage } from './logo.js';
 import { icon } from './icons.js';
 import { listMyLevels } from './backend.js';
-import { openLevel } from './storage.js';
+import { openLevel, flushAutosave } from './storage.js';
 import { openLevelSheet } from './new-level.js';
 import { playLevel, playHooks } from './play.js';
 import { askRom } from './rom-setup.js';
 import { starsText } from './difficulty.js';
 import { pref, setPref } from './prefs.js';
 import { startPanorama } from './panorama.js';
+import { canUpdate, checkUpdate } from './updates.js';
+import { onlinePanel } from './online-ui.js';
+import { t, lang, setLang } from './i18n.js';
 
 const desktop = window.__TAURI__;
 let root = null, panel = null, back = null, redrawBackground = null;
@@ -38,15 +41,16 @@ function tile(kind, iconName, label, onclick) {
     h('span.menu-tile-label', { textContent: label }));
 }
 
-function row(label, onclick, extra = null) {
-  return h('button.menu-row', { onclick }, h('span', { textContent: label }), extra);
+function row(label, onclick, extra = null, thumb = null) {
+  return h('button.menu-row', { onclick }, thumb ? h('img.menu-thumb', { src: thumb, alt: '' }) : null,
+    h('span.menu-row-label', { textContent: label }), extra);
 }
 
 function card(title, ...children) {
   return h('div.menu-card', {},
     h('div.menu-card-head', {}, h('h2', { textContent: title })),
     h('div.menu-card-body', {}, ...children.filter(Boolean)),
-    h('button.menu-back', { textContent: '‹ Retour', onclick: mainPanel }));
+    h('button.menu-back', { textContent: t('‹ Retour'), onclick: mainPanel }));
 }
 
 function show(el) {
@@ -58,32 +62,55 @@ function show(el) {
 function mainPanel() {
   back = null;
   show(h('div.menu-tiles', {},
-    tile('play', 'play', 'Jouer un niveau', playPanel),
-    tile('create', 'pencil', 'Créer un niveau', createLevel),
-    tile('settings', 'gear', 'Paramètres', settingsPanel),
-    desktop ? tile('quit', 'power', 'Quitter', quit) : null));
+    tile('play', 'play', t('Jouer un niveau'), playPanel),
+    tile('create', 'pencil', t('Créer un niveau'), createLevel),
+    tile('online', 'globe', t('Niveaux en ligne'), online),
+    tile('settings', 'gear', t('Paramètres'), settingsPanel),
+    desktop ? tile('quit', 'power', t('Quitter'), quit) : null));
 }
 
 async function playPanel() {
   back = mainPanel;
   const docs = await listMyLevels();
   const n = names();
-  show(card('Jouer un niveau',
+  show(card(t('Jouer un niveau'),
     docs.length
-      ? h('div.menu-list', {}, ...docs.map((d) => row(d.name || 'Sans nom', () => play(d.id),
-        h('small', { textContent: `${n[d.theme] || ''}${d.difficulty ? ' · ' + starsText(d.difficulty) : ''}` }))))
-      : h('p.menu-hint', { textContent: 'Tu n\'as pas encore de niveau : crée le premier !' }),
-    docs.length ? null : row('Créer un niveau', createLevel)));
+      ? h('div.menu-list', {}, ...docs.map((d) => row(d.name || t('Sans nom'), () => play(d.id),
+        h('small', { textContent: `${n[d.theme] || ''}${d.difficulty ? ' · ' + starsText(d.difficulty) : ''}` }), d.thumb)))
+      : h('p.menu-hint', { textContent: t('Tu n\'as pas encore de niveau : crée le premier !') }),
+    docs.length ? null : row(t('Créer un niveau'), createLevel)));
 }
+
+// code: straight to that level (a link /?play=CODE).
+export function openOnline(code = null) {
+  back = mainPanel;
+  onlinePanel(show, {
+    back: mainPanel,
+    play: async () => {
+      closeMenu();
+      playHooks.done = () => openMenu();
+      await playLevel(null);
+    },
+  }, { code });
+}
+const online = () => openOnline();
 
 function settingsPanel() {
   back = mainPanel;
-  const intro = () => (pref('skipIntro', false) ? 'non' : 'oui');
+  const intro = () => (pref('skipIntro', false) ? t('non') : t('oui'));
   const value = h('b', { textContent: intro() });
-  show(card('Paramètres',
-    row('Intro au lancement', () => { setPref('skipIntro', !pref('skipIntro', false)); value.textContent = intro(); }, value),
-    row('Plein écran', toggleFullscreen),
-    row('Changer de ROM', () => askRom({ first: false }))));
+  show(card(t('Paramètres'),
+    row(t('Intro au lancement'), () => { setPref('skipIntro', !pref('skipIntro', false)); value.textContent = intro(); }, value),
+    row(t('Plein écran'), toggleFullscreen),
+    // Each language shows its own name; the page reloads in the other one.
+    row(t('Langue'), async () => { await flushAutosave(); setLang(lang === 'fr' ? 'en' : 'fr'); },
+      h('b', { textContent: lang === 'fr' ? 'Français' : 'English' })),
+    row(t('Ton pseudo (niveaux en ligne)'), async () => {
+      const a = await askText(t('Ton pseudo'), pref('author', ''), { text: t('Affiché avec les niveaux que tu publies.'), ok: 'OK' });
+      if (a !== null) setPref('author', a.slice(0, 24));
+    }),
+    row(t('Changer de ROM'), () => askRom({ first: false })),
+    canUpdate() ? row(t('Rechercher une mise à jour'), () => checkUpdate()) : null));
 }
 
 async function toggleFullscreen() {
@@ -168,6 +195,19 @@ function pollPad() {
   requestAnimationFrame(pollPad);
 }
 
+// The video media/menu.mp4 behind the menu when there is one (yours, not in
+// the repository), instead of the scrolling level.
+function backgroundVideo(bg) {
+  const video = h('video.menu-bg-video', { src: 'media/menu.mp4', autoplay: true, muted: true, loop: true, playsInline: true });
+  video.addEventListener('canplay', () => {
+    if (!bg.isConnected) return;
+    bg.replaceWith(video); // the scrolling level stops
+    redrawBackground = null;
+    video.play().catch(() => {});
+  }, { once: true });
+  video.load();
+}
+
 // title: the title screen first (at startup).
 export async function openMenu({ title = false } = {}) {
   if (!root) {
@@ -176,16 +216,18 @@ export async function openMenu({ title = false } = {}) {
       bg,
       h('div.menu-box', {},
         await logoImage('menu-logo'),
-        h('div.menu-press', { textContent: 'Appuie sur une touche' }),
+        h('div.menu-press', { textContent: t('Appuie sur une touche') }),
         panel = h('div.menu-panel', {})),
       h('div.menu-by', { textContent: 'By Studio KMA' }));
     root.addEventListener('pointerdown', () => { if (titleShown()) leaveTitle(); });
     document.body.appendChild(root);
     window.addEventListener('keydown', onKey, true);
     redrawBackground = startPanorama(bg);
+    backgroundVideo(bg);
   }
   closeModal();
   root.hidden = false;
+  document.body.classList.remove('booting'); // the editor was hidden until now
   pad = { prev: false, next: false, a: true, b: true }; // wait for the buttons to be released
   root.classList.toggle('title', title);
   if (title) panel.replaceChildren(); else mainPanel();

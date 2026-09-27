@@ -206,6 +206,7 @@ static inline uint16_t load_ath_pointer(uint16_t table, uint8_t index) {
 /* Tables indexed by v_level (1 = Mt Eternal ... 17 = Janken's castle). The
  * addresses are those of the entry for level 1 (bank 0 unless noted). */
 #define LEVEL_SONGS 0x0DC5 /* 1 byte: song requested when the level (re)starts */
+#define LEVEL_SPAWN_STATES 0x0E1F /* 1 byte: 0 on foot, 1 on the boat, else peticopter (7 motorbike: Maker levels) */
 
 /* Address of the entry of `level` in a per-level table of `size`-byte
  * entries whose level-1 entry is at `table` (8-bit offset like the original). */
@@ -218,6 +219,8 @@ static inline uint8_t level_song(uint8_t level) {
     cpu.bc = level;
     return rd8((uint16_t)(LEVEL_SONGS - 1 + level));
 }
+
+void maker_zone_transition(void); /* zone.c */
 
 /* Copy `count` bytes of RAM/ROM like LDIR (source and destination may overlap
  * forwards, which is how the game clears areas: dst = src + 1). */

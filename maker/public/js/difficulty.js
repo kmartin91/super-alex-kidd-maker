@@ -67,7 +67,11 @@ export function rateDifficulty(m) {
     endPit();
   }
 
-  const perScreen = danger / screens + Math.min(screens, 20) * 0.03;
+  let perScreen = danger / screens + Math.min(screens, 20) * 0.03;
+  // Clear conditions (challenge.js): no death at all, a tight clock.
+  const clear = m.clear || {};
+  if (clear.noDeath) perScreen += 0.6;
+  if (clear.time) perScreen += Math.max(0, 0.9 - clear.time / (screens * 25));
   // Calibrated on the game's 17 levels: the first ones get 2 stars, the
   // middle 3, the late ones 4 or 5.
   const thresholds = [0.8, 2.1, 3.0, 3.9];

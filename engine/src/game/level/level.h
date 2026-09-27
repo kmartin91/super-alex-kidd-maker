@@ -210,6 +210,7 @@ void level_build_row_below(void);
 /* nametable.c */
 void level_update_nametable_mirror(void);
 void level_draw(void);
+void maker_zone_draw(void); /* layout.c: the bonus zone of a Maker level */
 void level_write_scroll_registers(void);
 
 #endif

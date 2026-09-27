@@ -254,7 +254,7 @@ void alex_boat_gravity(uint16_t head_offset) {
         }
         uint8_t attr = cpu.a;
         if (attr & TILE_SOLID) {
-            alex_crash_vehicle();
+            alex_wreck_boat();
             return;
         }
         if ((attr & TILE_CLASS_MASK) == TILE_CLASS_WATER) {

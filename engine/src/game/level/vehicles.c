@@ -4,6 +4,7 @@
  * Peticopter, punching while swimming. IX = Alex's entity (v_alex).
  */
 #include "level.h"
+#include "rt/maker.h"
 
 #define SOUND_MAIN_SONG 0x82
 #define SOUND_BULLET 0xA8
@@ -54,6 +55,8 @@ LIFTED(_LABEL_4415_, 0x440E) {
  * Alex jumps out (y speed -2) facing right, then as $440E. out: IY. */
 LIFTED(_LABEL_43F2_, 0x43EB) {
     ram8(v_soundControl) = SOUND_MAIN_SONG;
+    /* Maker levels (rt/maker.h): the level's own song ($0DC5, levelSongs). */
+    if (maker.active) ram8(v_soundControl) = rd8((uint16_t)(0x0DC5 - 1 + ram8(v_level)));
     Entity *alex = entity_at(cpu.ix);
     alex->unknown8 = 0x04;
     alex->state = ALEX_STATE_JUMPING_FROM_WRECK;

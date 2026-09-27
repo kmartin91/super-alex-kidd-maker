@@ -167,10 +167,11 @@ input { font: inherit; color: inherit; }
 .slot.off canvas { opacity: 0.35; filter: grayscale(1); }
 
 /* ------------------------------------------------------ left: level panel */
-#left { grid-area: left; display: flex; flex-direction: column; gap: 12px; }
+#left { grid-area: left; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; overflow-x: hidden; padding-bottom: 6px; scrollbar-width: none; }
 .side {
-  display: flex; flex-direction: column; align-items: center; gap: 4px;
-  padding: 10px 6px 9px;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 7px 6px 7px;
+  flex: none;
   text-align: center;
 }
 .side-label { font: 600 14px var(--ui); }
@@ -264,7 +265,7 @@ body.playing #palette, body.playing #left, body.playing #right, body.playing #bo
 #right { grid-area: right; display: flex; flex-direction: column; gap: 9px; }
 .tool {
   display: grid; place-items: center;
-  height: 54px;
+  height: 50px;
   padding: 0;
   border-radius: 16px;
 }
@@ -489,14 +490,24 @@ select {
 .rom-error { color: var(--red-deep); font-weight: 600; }
 
 /* ------------------------------------------------------ intro (js/intro.js) */
+/* Until the menu shows (js/main.js): black, the editor hidden. */
+body.booting { background: #000; }
+body.booting #app { visibility: hidden; }
+.intro-screen.credits-screen { background: #000; color: #fff; padding: 24px; }
+.credits { max-width: 640px; text-align: center; font: 500 clamp(15px, 1.8vw, 19px)/1.5 var(--ui); }
+.credits p { margin: 0 0 5vh; color: #c9c3d6; }
+.credits b, .credits span { display: block; }
+.credits-game b { font: 700 clamp(22px, 3vw, 32px) var(--ui); color: #fff; }
+.credits-game span { margin-top: 4px; color: #fff; }
+.credits-dev span { font-size: 0.85em; letter-spacing: 0.12em; text-transform: uppercase; color: #8d86a0; }
+.credits-dev b { margin-top: 6px; font: 700 clamp(24px, 3.2vw, 34px) var(--ui); color: var(--sun); }
 #intro { position: fixed; inset: 0; z-index: 40; background: #000; }
 .intro-screen {
   position: absolute; inset: 0;
-  display: grid; place-items: center; align-content: center;
+  display: grid; place-items: center; place-content: center;
   opacity: 0; transition: opacity 0.3s;
 }
 .intro-screen.shown { opacity: 1; }
-.intro-sega { width: min(62vw, 560px); }
 
 /* -------------------------------------------------------- menu (js/menu.js) */
 #menu {
@@ -511,6 +522,7 @@ select {
   opacity: 0; transition: opacity 0.8s;
 }
 .menu-bg.ready { opacity: 1; }
+.menu-bg-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .menu-box {
   position: relative;
   display: grid; justify-items: center; align-content: center; gap: 4vh;
@@ -649,3 +661,87 @@ select {
 .boss-hand { font-size: 20px; line-height: 1; }
 .boss-empty { align-self: center; color: var(--muted); padding: 0 6px; }
 .boss-adds { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* level pictures (render.js levelThumbnail) and the draft */
+.card-thumb { width: 64px; height: 48px; flex: none; border-radius: 8px; image-rendering: pixelated; }
+.cards.mine { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.menu-thumb { width: 64px; height: 48px; flex: none; border-radius: 8px; image-rendering: pixelated; }
+.menu-row-label { flex: 1; }
+.draft { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding: 10px 12px; background: var(--orange-soft); border-radius: 14px; }
+.draft span { flex: 1; font-weight: 600; }
+
+/* play mode: the game takes the whole window, like in Mario Maker */
+body.playing #app { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); grid-template-areas: "stage"; }
+body.playing #brand, body.playing #palette, body.playing #left, body.playing #right, body.playing #bottom { display: none; }
+body.playing #corner { position: fixed; left: 30px; bottom: 30px; width: 110px; height: 86px; z-index: 3; }
+body.playing .play-bar { padding-left: 150px; }
+
+/* clear conditions (js/challenge.js) */
+#playTimer { font: 700 16px var(--ui); color: var(--ink); font-variant-numeric: tabular-nums; }
+.challenge .menu-row { width: 100%; }
+.boss-fight { width: 100%; margin-bottom: 8px; }
+
+/* first-run tutorial (js/tutorial.js) */
+.tuto { position: fixed; inset: 0; z-index: 20; }
+.tuto-ring {
+  position: fixed;
+  border: 4px solid var(--orange); border-radius: 22px;
+  box-shadow: 0 0 0 9999px rgba(40, 26, 0, 0.55);
+  pointer-events: none;
+  transition: all 0.25s ease-out;
+}
+.tuto-card {
+  position: fixed; width: 300px;
+  padding: 14px 16px 12px;
+  background: var(--white); border-radius: 18px;
+  box-shadow: 0 6px 0 var(--shadow);
+  transition: left 0.25s ease-out, top 0.25s ease-out;
+  animation: pop 0.2s ease-out;
+}
+.tuto-card small { color: var(--muted); font-weight: 600; }
+.tuto-card b { display: block; margin: 2px 0 6px; font: 700 19px var(--ui); color: var(--orange-deep); }
+.tuto-card p { margin: 0 0 12px; font-size: 14px; line-height: 1.4; }
+.tuto-actions { display: flex; justify-content: flex-end; gap: 8px; }
+
+/* levels online (js/online-ui.js) */
+.menu-tile.online { background: var(--grass); }
+.menu-card.wide { width: min(820px, 100%); }
+.online-bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.online-bar .name-input { width: auto; flex: 1; min-width: 160px; padding: 8px 12px; font-size: 16px; }
+.online-code { max-width: 200px; text-transform: uppercase; letter-spacing: 0.08em; }
+.online-sorts { display: flex; gap: 6px; flex-wrap: wrap; }
+.online-list { max-height: 38vh; }
+.online-list .menu-row { align-items: center; }
+.online-list .menu-row-label b { display: block; font-size: 17px; }
+.online-list .menu-row-label small { white-space: normal; }
+.menu-thumb.none, .online-big.none { display: block; background: var(--night); }
+.online-more { margin: 0 auto; }
+.online-detail { grid-template-columns: auto 1fr; align-items: start; gap: 18px; }
+.online-big { width: 256px; height: 192px; border-radius: 14px; image-rendering: pixelated; }
+.online-info p { margin: 0 0 8px; color: var(--muted); }
+.online-play { width: 100%; margin: 6px 0 10px; background: var(--orange); border-color: var(--orange); color: var(--white); font-size: 20px; }
+.online-play:hover, .online-play:focus { background: #ff9a38; color: var(--white); }
+.online-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.key.liked { background: #ffe0e0; color: var(--red-deep); }
+.level-code {
+  margin: 8px 0 4px; padding: 12px;
+  background: var(--cloud); border-radius: 14px;
+  text-align: center; font: 700 34px var(--ui); letter-spacing: 0.12em; color: var(--orange-deep);
+  user-select: text;
+}
+.level-code.small { margin: 0 0 10px; padding: 6px 10px; font-size: 20px; display: inline-block; }
+.field { display: grid; gap: 4px; margin-bottom: 10px; }
+.field span { font-weight: 700; }
+
+/* bonus zone (js/bonus-zone.js): the zone being edited */
+body.in-zone #stage { border-color: var(--sky); }
+body.in-zone #stage::before {
+  content: "Zone bonus"; content: var(--zone-label, "Zone bonus");
+  position: absolute; left: 50%; top: 10px; transform: translateX(-50%); z-index: 3;
+  padding: 4px 16px; background: var(--sky); color: var(--white);
+  border-radius: 999px; font: 700 15px var(--ui); pointer-events: none;
+}
+.side.active { background: var(--sky); color: var(--white); box-shadow: 0 5px 0 var(--sky-deep); }
+.side.active .side-value { color: var(--white); }
+/* the level panel holds 7 buttons: smaller pictures */
+#left .side .px-icon svg { width: 24px; height: 24px; }

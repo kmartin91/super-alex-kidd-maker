@@ -1,6 +1,7 @@
 // What each block does in the game (classes from maker/tools/levels.py).
 
 import { state } from './state.js';
+import { t } from './i18n.js';
 
 const CLASS_LABELS = {
   empty: 'vide', background: 'décor', solid: 'solide', water: 'eau', money: 'argent',
@@ -19,6 +20,6 @@ export function blockIsSolid(m) {
 }
 
 export function classLabel(c) {
-  return c.replace(/mixed\((.*)\)/, '$1').split(/[,/]/).map((k) => CLASS_LABELS[k] || k)
+  return c.replace(/mixed\((.*)\)/, '$1').split(/[,/]/).map((k) => (CLASS_LABELS[k] ? t(CLASS_LABELS[k]) : k))
     .filter((v, i, a) => a.indexOf(v) === i).join(' + ');
 }

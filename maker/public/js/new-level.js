@@ -6,7 +6,7 @@ import { $ } from './dom.js';
 import { state, SCREEN_W, SCREEN_H, SCREEN_PX_W } from './state.js';
 import { editNew, openLevel } from './storage.js';
 import { setDirty } from './state.js';
-import { themedLevel, templateLevel, listMyLevels, deleteMyLevel } from './backend.js';
+import { themedLevel, templateLevel, listMyLevels, deleteMyLevel, getDraft, openDraft, clearDraft } from './backend.js';
 import { fillBlocks } from './parts.js';
 import { placeGoal } from './entities.js';
 import { clearHistory } from './history.js';
@@ -15,6 +15,7 @@ import { openModal, closeModal, h, ask } from './modal.js';
 import { toast } from './toast.js';
 import { icon } from './icons.js';
 import { starsText } from './difficulty.js';
+import { t } from './i18n.js';
 
 // New levels take the place of level 2 (horizontal: a plain level on foot) or
 // level 1 (vertical: a column of screens going down, then a row at the
@@ -39,8 +40,8 @@ function emptyLevel(m) {
 }
 
 async function unsavedOk() {
-  return !state.dirty || ask('Des modifications ne sont pas enregistrées. Continuer quand même ?',
-    { title: 'Pas enregistré', ok: 'Continuer' });
+  return !state.dirty || ask(t('Des modifications ne sont pas enregistrées. Continuer quand même ?'),
+    { title: t('Pas enregistré'), ok: t('Continuer') });
 }
 
 // Vertical: 3 screens down (Alex falls from the top), then one more on the
@@ -59,7 +60,7 @@ function emptyVerticalLevel(m) {
 async function createLevel(theme, vertical) {
   if (!(await unsavedOk())) return;
   closeModal();
-  $('status').textContent = 'préparation…';
+  $('status').textContent = t('préparation…');
   const base = vertical ? VERTICAL_BASE : BASE;
   const { model, video } = await themedLevel(base, theme);
   if (vertical) emptyVerticalLevel(model); else emptyLevel(model);
@@ -82,41 +83,43 @@ async function createLevel(theme, vertical) {
   state.selected = null;
   clearHistory();
   render();
-  toast('Niveau vide : à toi de jouer !');
+  toast(t('Niveau vide : à toi de jouer !'));
 }
 
 async function copyGameLevel(n) {
   if (!(await unsavedOk())) return;
   closeModal();
   const { model, video } = await templateLevel(n);
-  editNew({ name: `${names()[n]} (copie)`, base: n, model, video });
+  editNew({ name: t('{name} (copie)', { name: names()[n] }), base: n, model, video });
 }
 
-const back = () => h('button.key.small.sheet-back', { textContent: '‹ Retour', onclick: () => openLevelSheet() });
+const back = () => h('button.key.small.sheet-back', { textContent: t('‹ Retour'), onclick: () => openLevelSheet() });
 
-function card(num, name, onclick, extra = null) {
+function card(num, name, onclick, extra = null, thumb = null) {
   return h('div.card-wrap', {},
-    h('button.card', { onclick }, h('span.card-num', { textContent: num }), h('span.card-name', { textContent: name })),
+    h('button.card', { onclick },
+      thumb ? h('img.card-thumb', { src: thumb, alt: '' }) : h('span.card-num', { textContent: num }),
+      h('span.card-name', { textContent: name })),
     extra);
 }
 
 function chooseShape() {
-  openModal('Nouveau niveau', h('div', {}, back(),
+  openModal(t('Nouveau niveau'), h('div', {}, back(),
     h('div.choices', {},
       h('button.choice', { id: 'shapeHorizontal', onclick: () => chooseSetting(false) },
-        icon('play', 5), h('b', { textContent: 'Horizontal' }), h('span', { textContent: 'On avance vers la droite (et on peut revenir)' })),
+        icon('play', 5), h('b', { textContent: t('Horizontal') }), h('span', { textContent: t('On avance vers la droite (et on peut revenir)') })),
       h('button.choice', { id: 'shapeVertical', onclick: () => chooseSetting(true) },
-        icon('flag', 5), h('b', { textContent: 'Vertical' }), h('span', { textContent: 'On descend, puis on finit vers la droite en bas' })))),
+        icon('flag', 5), h('b', { textContent: t('Vertical') }), h('span', { textContent: t('On descend, puis on finit vers la droite en bas') })))),
   { wide: true });
 }
 
 function chooseSetting(vertical) {
   const n = names();
-  openModal(vertical ? 'Nouveau niveau vertical' : 'Nouveau niveau horizontal', h('div', {},
-    h('button.key.small.sheet-back', { textContent: '‹ Retour', onclick: chooseShape }),
-    h('p.hint', { textContent: 'Choisis le décor de ton niveau : ses graphismes, ses ennemis et sa musique. ' +
-      (vertical ? 'Tu pars de 3 écrans à descendre, puis un en bas à droite, avec la boule de riz.'
-        : 'Tu pars d\'un niveau vide de 3 écrans, avec un sol et la boule de riz au bout.') }),
+  openModal(vertical ? t('Nouveau niveau vertical') : t('Nouveau niveau horizontal'), h('div', {},
+    h('button.key.small.sheet-back', { textContent: t('‹ Retour'), onclick: chooseShape }),
+    h('p.hint', { textContent: t('Choisis le décor de ton niveau : ses graphismes, ses ennemis et sa musique.') + ' ' +
+      (vertical ? t('Tu pars de 3 écrans à descendre, puis un en bas à droite, avec la boule de riz.')
+        : t('Tu pars d\'un niveau vide de 3 écrans, avec un sol et la boule de riz au bout.')) }),
     h('div.cards', {}, ...Object.keys(n).map((k) => card(k, n[k], () => createLevel(Number(k), vertical))))), { wide: true });
 }
 
@@ -124,21 +127,35 @@ async function chooseMine() {
   const docs = await listMyLevels();
   const n = names();
   const remove = (doc) => h('button.mini.danger.card-delete', {
-    title: 'Supprimer',
+    title: t('Supprimer'),
     onclick: async () => {
-      if (!(await ask(`Supprimer « ${doc.name} » ?`, { title: 'Supprimer', ok: 'Supprimer', danger: true }))) { chooseMine(); return; }
+      const yes = await ask(t('Supprimer « {name} » ?', { name: doc.name }), { title: t('Supprimer'), ok: t('Supprimer'), danger: true });
+      if (!yes) { chooseMine(); return; }
       await deleteMyLevel(doc.id);
-      toast('Niveau supprimé');
+      toast(t('Niveau supprimé'));
       chooseMine();
     },
   }, icon('trash'));
   const open = async (doc) => { if (await unsavedOk()) { closeModal(); await openLevel(doc.id); } };
-  openModal('Mes niveaux', h('div', {}, back(),
-    docs.length ? h('div.cards', {}, ...docs.map((d, i) => card(i + 1,
-      `${d.name} · ${n[d.theme]}${d.difficulty ? ' · ' + starsText(d.difficulty) : ''}`, () => open(d), remove(d))))
-      : h('p.hint', { textContent: 'Aucun niveau pour l\'instant : crée-en un avec « Nouveau niveau ».' }),
-    h('h3.sheet-sub', { textContent: 'Partir d\'un niveau du jeu' }),
-    h('p.hint', { textContent: 'Une copie du niveau, à modifier comme tu veux.' }),
+  // The level being made when the Maker closed, never saved.
+  const draft = await getDraft();
+  const draftCard = draft && h('div.draft', {},
+    h('span', { textContent: draft.name
+      ? t('Brouillon pas encore enregistré : {name} ({theme})', { name: draft.name, theme: n[draft.model.theme || draft.base] })
+      : t('Brouillon pas encore enregistré ({theme})', { theme: n[draft.model.theme || draft.base] }) }),
+    h('button.key.small.go', { textContent: t('Reprendre'), onclick: async () => {
+      if (!(await unsavedOk())) return;
+      closeModal();
+      const { doc, video } = await openDraft();
+      editNew({ name: doc.name, base: doc.base, model: doc.model, video });
+    } }),
+    h('button.key.small.plain', { textContent: t('Jeter'), onclick: async () => { await clearDraft(); chooseMine(); } }));
+  openModal(t('Mes niveaux'), h('div', {}, back(), draftCard || null,
+    docs.length ? h('div.cards.mine', {}, ...docs.map((d, i) => card(i + 1,
+      `${d.name} · ${n[d.theme]}${d.difficulty ? ' · ' + starsText(d.difficulty) : ''}`, () => open(d), remove(d), d.thumb)))
+      : h('p.hint', { textContent: t('Aucun niveau pour l\'instant : crée-en un avec « Nouveau niveau ».') }),
+    h('h3.sheet-sub', { textContent: t('Partir d\'un niveau du jeu') }),
+    h('p.hint', { textContent: t('Une copie du niveau, à modifier comme tu veux.') }),
     h('div.cards.small', {}, ...Object.keys(n).map((k) => card(k, n[k], () => copyGameLevel(Number(k)))))), { wide: true });
 }
 
@@ -146,15 +163,17 @@ export function openLevelSheet() {
   openModal('Super Alex Kidd Maker', h('div', {},
     h('div.choices', {},
       h('button.choice.main', { id: 'choiceNew', onclick: chooseShape },
-        icon('plus', 5), h('b', { textContent: 'Nouveau niveau' }), h('span', { textContent: 'Pars d\'une page blanche, dans le décor de ton choix' })),
+        icon('plus', 5), h('b', { textContent: t('Nouveau niveau') }),
+        h('span', { textContent: t('Pars d\'une page blanche, dans le décor de ton choix') })),
       h('button.choice', { id: 'choiceMine', onclick: chooseMine },
-        icon('flag', 5), h('b', { textContent: 'Mes niveaux' }), h('span', { textContent: 'Continue un niveau, ou pars d\'un niveau du jeu' })))),
+        icon('flag', 5), h('b', { textContent: t('Mes niveaux') }),
+        h('span', { textContent: t('Continue un niveau, ou pars d\'un niveau du jeu') })))),
   { wide: true });
 }
 
 // Something to show behind the sheet at startup, before any choice.
 export async function showPlaceholder() {
   const { model, video } = await templateLevel(BASE);
-  editNew({ name: `${names()[BASE]} (copie)`, base: BASE, model, video });
+  editNew({ name: t('{name} (copie)', { name: names()[BASE] }), base: BASE, model, video });
   setDirty(false); // nothing to lose yet
 }

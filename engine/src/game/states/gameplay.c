@@ -23,7 +23,6 @@
 #define DEMO_INPUT_POINTERS 0x0A80 /* bank 5: recorded input of each demo */
 
 /* Per-level tables of initGameplayState (entry of level 1). */
-#define LEVEL_SPAWN_STATES 0x0E1F      /* 0: on foot, 1: on the boat, else peticopter */
 #define SHOP_DOORS_CONFIGS 0x0D70      /* 3 bytes: door x offset, door name-table pointer */
 #define ENTITY_DESCRIPTORS_POINTERS 0xB505 /* bank 2: entities of each screen */
 #define STARTING_POSITIONS 0x0DA3      /* 2 bytes: Alex x, y */
@@ -210,6 +209,9 @@ LIFTED(initGameplayState, 0x0ABD) {
     uint8_t spawn = rd8(level_entry(LEVEL_SPAWN_STATES, level, 1));
     if (spawn != 0) {
         if (spawn == 1) ram8(v_shouldSpawnRidingBoat_RAM_C051_) = 1;
+        /* Maker levels (rt/maker.h) may also start on the motorbike (7), which
+         * the game only gives in shops. */
+        else if (maker.active && spawn == ACTION_RIDING_MOTORCYCLE) ram8(v_alexActionState) = ACTION_RIDING_MOTORCYCLE;
         else ram8(v_alexActionState) = ACTION_FLYING_PETICOPTER;
         /* Vehicle bullet tiles. */
         copy_to_vram(0x9B29, VDP_VRAM_WRITE(0x2200), 0x0020);

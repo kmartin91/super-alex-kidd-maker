@@ -5,9 +5,10 @@ import { renderPalette } from './palette.js';
 import { renderGhost } from './render.js';
 
 export function selectPart(part) {
-  if (state.part.kind !== 'eraser') state.lastPart = state.part;
+  if (state.part.kind !== 'eraser' && state.part.kind !== 'select') state.lastPart = state.part;
   state.part = part;
   state.selected = null;
+  if (part.kind !== 'select') state.selection = null;
   renderPalette();
   renderGhost();
 }

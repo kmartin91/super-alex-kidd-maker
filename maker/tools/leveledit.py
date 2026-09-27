@@ -91,6 +91,9 @@ def special_type_name(t):
 
 SURPRISE_ITEMS = [(0x4D, "Vie supplémentaire (1up)"), (0x4E, "Bracelet de puissance"), (0x4F, "Fantôme (piège)")]
 # Per-level tables that make up a level's look and sound (the rest is gameplay).
+# Vehicles a level can start on: spawn state and song.
+VEHICLES = {"bike": {"spawn": 7, "song": 0x85}, "boat": {"spawn": 1, "song": 0}, "peticopter": {"spawn": 9, "song": 0x88}}
+
 THEME_TABLES = ("palette_ptr", "palette", "main_tileset_ptr", "tileset_loader", "sprite_tiles_loader",
                 "tile_updater", "palette_updater")
 
@@ -286,9 +289,16 @@ def apply_edits(level, ed):
                 tab["screens"] = list(new_row)
         d["width"] = len(new_row) - 1
 
-    streams = level["entities"]["screens"]
+    # A bonus zone (Maker levels, engine/src/game/states/zone.c): one more row of
+    # screens at the end of the layout, its entity lists after the level's.
     ents = ed["entities"]
     specials = ed.get("specials") or [None] * len(ents)
+    if level["kind"] == "horizontal" and can_extend and ed.get("zone"):
+        zone_row = [c["screen"] for c in ed["zone"]["grid"][0] if c]
+        level["layout"]["rows"].append({"ptr": None, "screens": zone_row})
+        ents = ents + ed["zone"]["entities"]
+        specials = specials + (ed["zone"].get("specials") or [None] * len(ed["zone"]["entities"]))
+    streams = level["entities"]["screens"]
     if len(ents) < len(streams) and not can_extend:
         raise ValueError("level %d: wrong number of entity lists" % level["number"])
     while len(streams) < len(ents):
@@ -514,6 +524,18 @@ def build(rom_bytes, mod_dir, out_path, start=None):
             level["descriptor"]["metatile_table_ptr"] = src["descriptor"]["metatile_table_ptr"]
             level["descriptor"]["metatile_table"] = src["descriptor"]["metatile_table"]
     assign_surprises(model, edited)
+    # Vehicles: the level starts on one (engine/src/game/states/gameplay.c; 7 is
+    # the Maker's motorbike start), a wreck makes Alex jump off (no dive), and
+    # the vehicle's song plays (the boat keeps the level's).
+    for lv, ed in edited.items():
+        v = VEHICLES.get(ed.get("vehicle"))
+        if not v:
+            continue
+        t = model["levels"][lv - 1]["tables"]
+        t["spawn_state"] = v["spawn"]
+        t["vehicle_crash_to_water"] = 0
+        if v["song"]:
+            t["song"] = v["song"]
 
     if start:
         lv, col = start

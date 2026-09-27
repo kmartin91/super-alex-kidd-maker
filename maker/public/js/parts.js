@@ -13,7 +13,7 @@ export function buildFamilies() {
 }
 
 // Re-picks the terrain blocks of a rectangle from their neighbours (auto-tiling).
-function retile(x0, y0, x1, y1) {
+export function retile(x0, y0, x1, y1) {
   for (let y = y0; y <= y1; y++) {
     for (let x = x0; x <= x1; x++) {
       const m = blockAt(x, y);
@@ -32,7 +32,7 @@ function retile(x0, y0, x1, y1) {
 // Applies a block part at block (gx, gy). Returns true if something changed.
 export function applyBrush(gx, gy, part = state.part) {
   if (part.kind === 'stamp') {
-    const st = state.model.parts.stamps[part.index];
+    const st = part.cells ? part : state.model.parts.stamps[part.index]; // hazards.js: stamps with their own blocks
     let changed = false;
     for (let j = 0; j < st.h; j++)
       for (let i = 0; i < st.w; i++)
@@ -61,7 +61,7 @@ export function partCanvas(part) {
     return blocksCanvas([[T[2 | 4], T[2 | 4 | 8], T[4 | 8]], [T[1 | 2], T[1 | 2 | 8], T[1 | 8]]], 3, 2);
   }
   if (part.kind === 'stamp') {
-    const st = p.stamps[part.index];
+    const st = part.cells ? part : p.stamps[part.index];
     return blocksCanvas(st.cells, st.w, st.h);
   }
   return blocksCanvas([[brushBlock(part)]], 1, 1);

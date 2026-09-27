@@ -12,6 +12,8 @@ import { renderBubble } from './bubble.js';
 import { renderMinimap } from './minimap.js';
 import { renderScreenTools } from './screens.js';
 import { renderLevelPanel } from './level-panel.js';
+import { mainModel } from './bonus-zone.js';
+import { t } from './i18n.js';
 
 const INK = '#3b2f22', YELLOW = '#ff8a1f', RED = '#ff4d3d'; // YELLOW: what is selected (orange)
 
@@ -100,7 +102,32 @@ function drawStart(ctx, z) {
   const b = startBox();
   if (!b) return;
   ctx.drawImage(startIcon(), b.x * z, (b.y + 1) * z, b.w * z, b.h * z); // sprites are drawn a line lower
-  label(ctx, 'Départ', b.x * z, b.y * z - 2);
+  label(ctx, t('Départ'), b.x * z, b.y * z - 2);
+}
+
+// A small picture of the level: the screen where Alex starts, with its
+// enemies (PNG data URL, half size), for the level lists and sharing.
+export function levelThumbnail() {
+  const m = mainModel(), s = m.start || { col: 0, row: 0 };
+  const cell = (m.grid[s.row] || [])[s.col] || m.grid[0].find(Boolean);
+  const c = document.createElement('canvas');
+  c.width = SCREEN_PX_W / 2;
+  c.height = SCREEN_PX_H / 2;
+  const ctx = c.getContext('2d');
+  ctx.imageSmoothingEnabled = false;
+  ctx.scale(0.5, 0.5);
+  const blocks = m.screens[cell.screen].blocks;
+  for (let i = 0; i < blocks.length; i++) {
+    ctx.drawImage(state.blockCanvases[blocks[i]] || state.blockCanvases[0], (i % SCREEN_W) * BLOCK, Math.floor(i / SCREEN_W) * BLOCK);
+  }
+  for (const lists of [m.specials, m.entities]) {
+    for (const e of lists[cell.entities] || []) {
+      const icon = state.icons[e.type];
+      if (icon && e.type !== undefined) ctx.drawImage(icon.canvas, e.x + icon.dx, e.y + icon.dy);
+    }
+  }
+  if (m.start) ctx.drawImage(startIcon(), m.start.x, m.start.y + 1);
+  return c.toDataURL('image/png');
 }
 
 export function render() {
@@ -145,8 +172,35 @@ export function renderGhost() {
     ctx.strokeRect(x, y, w, h);
     return;
   }
+  // The selected zone (selection tool).
+  if (state.selection) {
+    const r = state.selection;
+    ctx.setLineDash([8, 6]);
+    ctx.strokeStyle = YELLOW;
+    ctx.lineWidth = 3;
+    ctx.strokeRect(r.x0 * BLOCK * z, r.y0 * BLOCK * z, (r.x1 - r.x0 + 1) * BLOCK * z, (r.y1 - r.y0 + 1) * BLOCK * z);
+    ctx.setLineDash([]);
+  }
   const hv = state.hover;
   if (!hv || state.gesture) return;
+  // A copied zone following the mouse (Ctrl+V).
+  if (state.paste) {
+    const c = state.paste, gx = Math.floor(hv.x / BLOCK), gy = Math.floor(hv.y / BLOCK);
+    ctx.globalAlpha = 0.7;
+    for (let j = 0; j < c.h; j++)
+      for (let i = 0; i < c.w; i++)
+        if (c.blocks[j][i] >= 0) ctx.drawImage(state.blockCanvases[c.blocks[j][i]], (gx + i) * BLOCK * z, (gy + j) * BLOCK * z, BLOCK * z, BLOCK * z);
+    for (const { rec, dx, dy } of c.records) {
+      const icon = state.icons[rec.type];
+      if (icon) ctx.drawImage(icon.canvas, (gx * BLOCK + dx + icon.dx) * z, (gy * BLOCK + dy + icon.dy) * z, icon.canvas.width * z, icon.canvas.height * z);
+    }
+    ctx.globalAlpha = 1;
+    ctx.strokeStyle = YELLOW;
+    ctx.lineWidth = 3;
+    ctx.strokeRect(gx * BLOCK * z, gy * BLOCK * z, c.w * BLOCK * z, c.h * BLOCK * z);
+    return;
+  }
+  if (state.part.kind === 'select') return;
   const part = state.part;
   if (isBlockPart(part)) {
     const x = Math.floor(hv.x / BLOCK) * BLOCK * z, y = Math.floor(hv.y / BLOCK) * BLOCK * z;
@@ -165,7 +219,7 @@ export function renderGhost() {
     ctx.lineWidth = 2;
     ctx.strokeRect(x, y, pic.width * z, pic.height * z);
   } else {
-    const type = part.kind === 'goal' ? GOAL_TYPE : part.type;
+    const type = part.kind === 'goal' ? GOAL_TYPE : part.kind === 'door' ? 0x4C : part.type;
     const p = snapEntity(hv);
     const box = entityBox({ type, x: p.x, y: p.y }, { x: 0, y: 0 });
     const icon = state.icons[type];

@@ -2,6 +2,7 @@
 // in a Web Worker and cached in this browser.
 
 import { dbGet, dbSet } from './db.js';
+import { t } from './i18n.js';
 
 let worker = null, nextId = 0;
 const pending = new Map();
@@ -37,7 +38,7 @@ export async function levelVideo(level) {
   let v = await dbGet(key);
   if (!v) {
     v = await call('video', { level });
-    if (!v) throw new Error(`le niveau ${level} ne démarre pas`);
+    if (!v) throw new Error(t('le niveau {level} ne démarre pas', { level }));
     await dbSet(key, v);
   }
   return v;

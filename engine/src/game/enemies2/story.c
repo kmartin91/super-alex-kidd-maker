@@ -8,6 +8,10 @@
  * animate them while the message is shown.
  */
 #include "game/enemies2/enemies2.h"
+#include "rt/maker.h"
+
+void maker_zone_door(uint16_t slot, bool touching); /* states/zone.c */
+void maker_zone_door_wait(uint16_t slot);
 
 #define NULL_SPRITE 0x80E1
 #define CHARACTER_SPRITE 0x8134      /* characterSpriteDescriptor */
@@ -240,6 +244,21 @@ LIFTED(updateEntity0x53, 0x616F) {
  * touches it. */
 LIFTED(updateEntity0x4C, 0x6279) {
     Entity *e = entity_at(cpu.ix);
+    if (maker.active && maker.zone.defined) {
+        /* Maker levels: a door of the bonus zone (states/zone.c). */
+        if (!(e->flags & EF_INITIALIZED)) {
+            e->flags |= EF_INITIALIZED;
+            e->spriteDescriptorPointer = NULL_SPRITE;
+            maker_zone_door_wait(cpu.ix); /* works once Alex has been away from it */
+        }
+        if (is_offscreen(e)) LIFTED_RETURN();
+        /* The door has no sprite: Alex touches it when his middle is within
+         * a door-sized box around its position (its bottom middle). */
+        Entity *alex = entity_at(SLOT_ALEX);
+        int dx = x_pixel(alex) + 8 - x_pixel(e), dy = y_pixel(alex) + 12 - (y_pixel(e) - 12);
+        maker_zone_door(cpu.ix, dx >= -12 && dx <= 12 && dy >= -20 && dy <= 20);
+        LIFTED_RETURN();
+    }
     if (!(e->flags & EF_INITIALIZED)) {
         e->flags |= EF_INITIALIZED;
         e->spriteDescriptorPointer = NULL_SPRITE;

@@ -3,5 +3,5 @@
   "identifier": "default",
   "description": "The Maker window",
   "windows": ["main"],
-  "permissions": ["core:default", "core:window:allow-set-fullscreen"]
+  "permissions": ["core:default", "core:window:allow-set-fullscreen", "updater:default", "process:allow-restart", "deep-link:default"]
 }

@@ -13,6 +13,17 @@
  */
 #include "game/enemies1/enemies1.h"
 #include "game/vdp_io.h"
+#include "rt/maker.h"
+
+/* The objects wait while the screen scrolls (the mirror is being rewritten).
+ * In the game only the castles use them, where v_scrollFlags is set just
+ * during a room change. In Maker levels (rt/maker.h) the flags hold the
+ * directions the camera may move, every frame: there the camera's own speed
+ * tells whether it moves. */
+static bool screen_scrolling(void) {
+    if (maker.active) return (ram16(v_horizontalScrollSpeed) | ram16(v_verticalScrollSpeed)) != 0;
+    return (ram8(v_scrollFlags) & SCROLL_ANY) != 0;
+}
 
 #define NT_CHANGE_ROWS _RAM_C208_
 #define NT_CHANGE_ROW_BYTES _RAM_C209_
@@ -135,7 +146,7 @@ LIFTED(_LABEL_4BF3_, 0x4BEC) {
  * becomes type $14. */
 static void start_sinking_block(Entity *e, uint16_t source, uint8_t rows, uint8_t row_bytes) {
     e->spriteDescriptorPointer = NULL_SPRITE;
-    if (ram8(v_scrollFlags) & SCROLL_ANY) return;
+    if (screen_scrolling()) return;
     e->state = (uint8_t)source;
     e->stateTimer = (uint8_t)(source >> 8);
     e->unknown11 = row_bytes;
@@ -188,7 +199,7 @@ LIFTED(updateEntity0x13, 0x4A3E) {
 LIFTED(updateEntity0x14, 0x497D) {
     Entity *e = entity_at(cpu.ix);
     e->flags |= EF_DESTROY_OFFSCREEN;
-    if (ram8(v_scrollFlags) & SCROLL_ANY) LIFTED_RETURN();
+    if (screen_scrolling()) LIFTED_RETURN();
     if (--e->data != 0) LIFTED_RETURN();
     if (ram8(v_nametableChangeRequest) != 0) {
         e->data++; /* the previous change is still pending: retry next frame */
@@ -273,7 +284,7 @@ LIFTED(_LABEL_4A86_, 0x4A7F) {
 LIFTED(updateEntity0x16, 0x4A4A) {
     Entity *e = entity_at(cpu.ix);
     e->spriteDescriptorPointer = NULL_SPRITE;
-    if (ram8(v_scrollFlags) & SCROLL_ANY) LIFTED_RETURN();
+    if (screen_scrolling()) LIFTED_RETURN();
     if (!(e->flags & EF_INITIALIZED)) {
         uint16_t entry = nametable_entry_at(ENT_X(e), (uint8_t)(ENT_Y(e) + 0x10));
         e->unknown8 = (uint8_t)(entry & 0xFE);
@@ -292,7 +303,7 @@ LIFTED(updateEntity0x16, 0x4A4A) {
 LIFTED(updateEntity0x17, 0x4AE7) {
     Entity *e = entity_at(cpu.ix);
     e->spriteDescriptorPointer = NULL_SPRITE;
-    if (ram8(v_scrollFlags) & SCROLL_ANY) LIFTED_RETURN();
+    if (screen_scrolling()) LIFTED_RETURN();
     if (!(e->flags & EF_INITIALIZED)) {
         uint16_t entry = (uint16_t)(nametable_entry_at(0x74, 0xA0) - 1);
         e->unknown8 = (uint8_t)entry;
@@ -317,7 +328,7 @@ LIFTED(updateEntity0x17, 0x4AE7) {
 LIFTED(updateEntity0x15, 0x4B1C) {
     Entity *e = entity_at(cpu.ix);
     e->spriteDescriptorPointer = NULL_SPRITE;
-    if (ram8(v_scrollFlags) & SCROLL_ANY) LIFTED_RETURN();
+    if (screen_scrolling()) LIFTED_RETURN();
     if (!(e->flags & EF_INITIALIZED)) {
         e->flags |= EF_INITIALIZED;
         e->unknown7 = 1;

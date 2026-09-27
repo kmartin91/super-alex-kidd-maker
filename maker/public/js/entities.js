@@ -11,6 +11,7 @@ import { pushUndo } from './history.js';
 import { alexImage } from './graphics.js';
 import { ask } from './modal.js';
 import { render } from './render.js';
+import { t, tName } from './i18n.js';
 
 // The level end (rice ball): one per level, kept in a $84 special record.
 export const GOAL_TYPE = 0x44;
@@ -18,31 +19,35 @@ export const GOAL_TYPE = 0x44;
 // Janken opponents (docs/notes/enemies2.md): a $84 special record too; `data`
 // picks the opponent's settings, bit 0 = a fight follows a won match. Beating
 // one ends the level, like the rice ball.
+// Names and descriptions in the page's language.
+const JANKEN = t('pierre-feuille-ciseaux'), FIGHT = t('pierre-feuille-ciseaux, puis combat');
 export const BOSSES = [
-  { type: 0x1d, data: 2, name: 'Gooseka', what: 'pierre-feuille-ciseaux' },
-  { type: 0x1d, data: 3, name: 'Gooseka', what: 'pierre-feuille-ciseaux, puis combat' },
-  { type: 0x1e, data: 4, name: 'Chokkinna', what: 'pierre-feuille-ciseaux' },
-  { type: 0x1e, data: 5, name: 'Chokkinna', what: 'pierre-feuille-ciseaux, puis combat' },
-  { type: 0x1f, data: 6, name: 'Parplin', what: 'pierre-feuille-ciseaux' },
-  { type: 0x1f, data: 7, name: 'Parplin', what: 'pierre-feuille-ciseaux, puis combat' },
-  { type: 0x1c, data: 1, name: 'Janken le Grand', what: 'pierre-feuille-ciseaux, puis combat' },
+  { type: 0x1d, data: 2, name: 'Gooseka', what: JANKEN },
+  { type: 0x1d, data: 3, name: 'Gooseka', what: FIGHT },
+  { type: 0x1e, data: 4, name: 'Chokkinna', what: JANKEN },
+  { type: 0x1e, data: 5, name: 'Chokkinna', what: FIGHT },
+  { type: 0x1f, data: 6, name: 'Parplin', what: JANKEN },
+  { type: 0x1f, data: 7, name: 'Parplin', what: FIGHT },
+  { type: 0x1c, data: 1, name: t('Janken le Grand'), what: FIGHT },
 ];
 
 export function hex2(n) {
   return n.toString(16).toUpperCase().padStart(2, '0');
 }
 
+// Names in the page's language (the level tools give them in French).
 export function entityName(type) {
-  const t = state.model.entityTypes.find((e) => e.id === type);
-  return t ? t.name : `Objet $${hex2(type)}`;
+  if (type === 0x4C) return t('Porte de zone bonus'); // bonus-zone.js
+  const known = state.model.entityTypes.find((e) => e.id === type);
+  return known ? tName(known.name) : t('Objet {code}', { code: `$${hex2(type)}` });
 }
 
 export function specialName(type) {
-  if (type === GOAL_TYPE) return 'Boule de riz (fin du niveau)';
+  if (type === GOAL_TYPE) return t('Boule de riz (fin du niveau)');
   const boss = BOSSES.find((b) => b.type === type);
   if (boss) return boss.name;
-  const t = (state.model.specialTypes || []).find((e) => e.id === type);
-  return t ? t.name : entityName(type);
+  const known = (state.model.specialTypes || []).find((e) => e.id === type);
+  return known ? tName(known.name) : entityName(type);
 }
 
 // Fallback colour for entities without an icon.
@@ -96,6 +101,28 @@ const CROWN = [
   '#yyyyyyyyyyyyy#.',
   '###############.',
 ];
+// The door of a bonus zone (bonus-zone.js; invisible in the game).
+const DOOR = [
+  '....########....',
+  '..##bbbbbbbb##..',
+  '.#bbbbbbbbbbbb#.',
+  '.#bbb#bbbb#bbb#.',
+  '#bbbb#bbbb#bbbb#',
+  '#bbbb#bbbb#bbbb#',
+  '#bbbb#bbbb#bbbb#',
+  '#bbbbbbbbbbbbbb#',
+  '#bbbbbbbbbbbbbb#',
+  '#bbbbbbbbbbyybb#',
+  '#bbbbbbbbbbyybb#',
+  '#bbbbbbbbbbbbbb#',
+  '#bbbb#bbbb#bbbb#',
+  '#bbbb#bbbb#bbbb#',
+  '#bbbb#bbbb#bbbb#',
+  '#bbbbbbbbbbbbbb#',
+  '#bbbbbbbbbbbbbb#',
+  '################',
+];
+
 const TARGET = [
   '...#####...',
   '..#rrrrr#..',
@@ -130,6 +157,7 @@ const DRAWN_ICONS = {
   0x15: () => pixelIcon(SPIKES, -8, -8),
   0x16: () => pixelIcon(CRUMBLE, -8, -8), 0x17: () => pixelIcon(CRUMBLE, -8, -8),
   0x53: () => pixelIcon(CROWN, -8, -12), 0x63: () => pixelIcon(TARGET, -6, -10),
+  0x4C: () => pixelIcon(DOOR, -8, -18), // its position is its bottom middle
 };
 
 // Loads the sprites drawn for each entity type (state.icons). The first time,
@@ -138,7 +166,7 @@ export async function loadIcons() {
   const before = $('status').textContent;
   try {
     const raw = await entityIcons((done, total) => {
-      $('status').textContent = `images des ennemis : ${done}/${total}`;
+      $('status').textContent = t('images des ennemis : {done}/{total}', { done, total });
       if (done === total) $('status').textContent = before;
     });
     for (const [type, ic] of Object.entries(raw)) {
@@ -216,10 +244,18 @@ export function moveEntityTo(sel, px, py) {
   return sel;
 }
 
+// Traps drawn into the background with the castles' tiles (on a black
+// background): offered only in their setting, with the game's own settings
+// (data 0 would make them huge). Objects that only work at one place of the
+// game are not offered.
+export const SETTING_ONLY = [0x10, 0x11, 0x12, 0x13, 0x15, 0x16];
+export const HIDDEN_TYPES = [0x17, 0x53, 0x63, 0x4C]; // 0x4C: the doors of bonus zones (their own parts)
+const DEFAULT_DATA = { 0x10: 32, 0x11: 60, 0x12: 60, 0x13: 240, 0x15: 22, 0x16: 4 };
+
 // No limit: the engine has extra entity slots for the Maker's levels
 // (engine/src/rt/maker.h).
-export function addEntity(type, loc) {
-  const e = { type, x: loc.lx, y: loc.ly, data: 0 };
+export function addEntity(type, loc, data = DEFAULT_DATA[type] || 0) {
+  const e = { type, x: loc.lx, y: loc.ly, data };
   clampEntity(e);
   const list = state.model.entities[loc.list];
   list.push(e);
@@ -274,7 +310,7 @@ export function startAt(px, py) {
 // Moves Alex's start so that his box is centred on a level pixel (half-block grid).
 export function moveStartTo(px, py) {
   const s = state.model.start;
-  const free = state.model.kind === 'horizontal' && state.model.canExtend;
+  const free = state.model.kind === 'horizontal' && state.model.canExtend && !state.model.inZone; // Alex enters a zone on its first screen
   const col = free ? Math.max(0, Math.min(state.model.columns - 1, Math.floor(px / SCREEN_PX_W))) : s.col;
   const x = Math.round((px - col * SCREEN_PX_W - 8) / 8) * 8;
   const y = Math.round((py - s.row * SCREEN_PX_H - 12) / 8) * 8;
@@ -285,8 +321,8 @@ export function moveStartTo(px, py) {
 
 // Special records (bosses, level end) are only removed after a confirmation.
 export async function confirmRemove(sel) {
-  return !sel.special || ask('Supprimer cet objet spécial (boss, boule de riz…) ? Le niveau risque de ne plus pouvoir se terminer.',
-    { title: 'Supprimer', ok: 'Supprimer', danger: true });
+  return !sel.special || ask(t('Supprimer cet objet spécial (boss, boule de riz…) ? Le niveau risque de ne plus pouvoir se terminer.'),
+    { title: t('Supprimer'), ok: t('Supprimer'), danger: true });
 }
 
 export function removeEntity(sel) {

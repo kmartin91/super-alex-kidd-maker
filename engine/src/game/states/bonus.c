@@ -20,6 +20,7 @@
  * completed; D800 is set by entity $51 (the level's final event).
  */
 #include "states.h"
+#include "rt/maker.h"
 
 #define LEVEL_LAST 0x11
 #define ENDING_TEXT 0xB96A           /* bank 3 */
@@ -38,6 +39,10 @@
 LIFTED(updateBonusLevelState, 0x1650) {
     enter_state_handler();
 
+    if (!(ram8(v_gameState) & STATE_INITIALIZED) && maker.active && maker.zone.request) {
+        maker_zone_transition(); /* Maker levels: into or out of the bonus zone */
+        LIFTED_RETURN();
+    }
     if (!(ram8(v_gameState) & STATE_INITIALIZED)) {
         /* _LABEL_1735_: build the bonus level / castle room / ending. */
         CALL_ROUTINE(f_reset_9DF3); /* audioEngine.reset */

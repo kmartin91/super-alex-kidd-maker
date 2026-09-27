@@ -18,10 +18,13 @@
         "height": 900,
         "minWidth": 1000,
         "minHeight": 680,
-        "dragDropEnabled": false
+        "dragDropEnabled": false,
+        "backgroundColor": "#000000"
       }
     ],
-    "security": { "csp": null }
+    "security": {
+      "csp": null
+    }
   },
   "bundle": {
     "active": true,
@@ -29,7 +32,31 @@
     "category": "Game",
     "shortDescription": "Level editor and remake of Alex Kidd in Miracle World (bring your own ROM)",
     "longDescription": "Unofficial, non-commercial fan project. Build Alex Kidd in Miracle World levels and play them. You need your own ROM of the game; none is included.",
-    "icon": ["icons/32x32.png", "icons/128x128.png", "icons/128x128@2x.png", "icons/icon.icns", "icons/icon.ico"],
-    "macOS": { "minimumSystemVersion": "11.0", "hardenedRuntime": true }
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "macOS": {
+      "minimumSystemVersion": "11.0",
+      "hardenedRuntime": true
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDgzNjExMzc2MjEyNDYzMkQKUldRdFl5UWhkaE5oZ3ljSEdIZXVHVVF5VjUzaGtBUGtWS2xCTzZHODZwbFcvMGxUODRBZ0ovbzkK",
+      "endpoints": [
+        "https://github.com/kmartin91/super-alex-kidd-maker/releases/latest/download/latest.json"
+      ]
+    },
+    "deep-link": {
+      "desktop": {
+        "schemes": [
+          "superalexkiddmaker"
+        ]
+      }
+    }
   }
 }

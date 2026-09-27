@@ -2,6 +2,7 @@
 //   click / drag            place the item in hand (blocks paint while dragging)
 //   press on an entity      pick it up and move it; a simple click selects it
 //   drag Alex ("Départ")    move where the level starts
+//   selection tool (S)      a zone to copy / cut / clear, pasted with Ctrl+V (clipboard.js)
 //   right click / drag      erase (entities first, then blocks)
 //   Shift + drag            fill a rectangle with the block in hand
 //   Alt + click             take the block under the mouse in hand
@@ -15,6 +16,7 @@ import { applyBrush, fillBlocks } from './parts.js';
 import { entityAt, moveEntityTo, addEntity, placeGoal, placeBoss, confirmRemove, removeEntity, startAt, moveStartTo } from './entities.js';
 import { pushUndo, dropUndo } from './history.js';
 import { render, renderGhost, snapEntity } from './render.js';
+import { pasteAt } from './clipboard.js';
 
 const blockOf = (p) => ({ x: Math.floor(p.x / BLOCK), y: Math.floor(p.y / BLOCK) });
 
@@ -30,6 +32,7 @@ function place(part, p) {
   const at = locate(snapped.x, snapped.y);
   const spot = at && at.list !== null ? at : loc;
   if (part.kind === 'goal') { placeGoal(spot); return true; }
+  if (part.kind === 'door') { addEntity(0x4C, spot, part.data); return true; }
   if (part.kind === 'boss') { placeBoss(spot, part); return true; }
   return addEntity(part.type, spot);
 }
@@ -62,6 +65,22 @@ function onMouseDown(ev) {
   if (ev.button === 1) return;
   const p = eventLevelPos(ev);
   if (ev.altKey) { pick(p); return; }
+  // A copied zone being placed (Ctrl+V): a click drops it, a right click cancels.
+  if (state.paste) {
+    if (ev.button === 2) { state.paste = null; render(); return; }
+    const b = blockOf(p);
+    pasteAt(b.x, b.y);
+    return;
+  }
+  // The selection tool: a rectangle of blocks.
+  if (state.part.kind === 'select' && ev.button === 0) {
+    const b = blockOf(p);
+    state.selection = null;
+    state.gesture = { kind: 'select', a: b };
+    state.rect = { x0: b.x, y0: b.y, x1: b.x, y1: b.y };
+    renderGhost();
+    return;
+  }
   const erase = ev.button === 2 || state.part.kind === 'eraser';
   const hit = !erase && entityAt(p.x, p.y);
   pushUndo();
@@ -94,7 +113,7 @@ function onMouseMove(ev) {
   state.hover = p;
   const g = state.gesture;
   if (!g) {
-    $('map').style.cursor = startAt(p.x, p.y) || entityAt(p.x, p.y) ? 'grab' : 'crosshair';
+    $('map').style.cursor = state.paste ? 'copy' : startAt(p.x, p.y) || entityAt(p.x, p.y) ? 'grab' : 'crosshair';
     renderGhost();
     return;
   }
@@ -111,7 +130,7 @@ function onMouseMove(ev) {
     const s = snapEntity(p);
     g.sel = state.selected = moveEntityTo(g.sel, s.x, s.y);
     render();
-  } else if (g.kind === 'rect') {
+  } else if (g.kind === 'rect' || g.kind === 'select') {
     const b = blockOf(p);
     state.rect = { x0: Math.min(g.a.x, b.x), y0: Math.min(g.a.y, b.y), x1: Math.max(g.a.x, b.x), y1: Math.max(g.a.y, b.y) };
     renderGhost();
@@ -127,6 +146,13 @@ function onMouseUp() {
   const g = state.gesture;
   if (!g) return;
   if (g.kind === 'rect') fillBlocks(state.rect);
+  if (g.kind === 'select') {
+    state.selection = state.rect;
+    state.gesture = null;
+    state.rect = null;
+    render();
+    return;
+  }
   if (((g.kind === 'move' || g.kind === 'start') && !g.moved) || ((g.kind === 'paint' || g.kind === 'erase') && !g.changed)) dropUndo();
   state.gesture = null;
   state.rect = null;

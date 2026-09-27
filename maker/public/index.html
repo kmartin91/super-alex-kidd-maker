@@ -5,7 +5,7 @@
 <title>Super Alex Kidd Maker</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="booting">
 <div id="app">
   <div id="brand" data-tip="Menu|Revenir au menu du jeu"></div>
 
@@ -31,6 +31,15 @@
     </button>
     <button id="surpriseBtn" class="side" data-tip="Surprises|Choisis ce que donnent les boîtes ? quand Alex les casse">
       <i data-icon="box" data-scale="3"></i><span class="side-label">Surprises</span><span id="surpriseName" class="side-value"></span>
+    </button>
+    <button id="clearBtn" class="side" data-tip="Défi|Une condition pour réussir le niveau : un temps limite, ne jamais mourir">
+      <i data-icon="clock" data-scale="3"></i><span class="side-label">Défi</span><span id="clearName" class="side-value"></span>
+    </button>
+    <button id="vehicleBtn" class="side" data-tip="Véhicule|Alex commence le niveau à pied, à moto, en bateau ou en Peticopter">
+      <i data-icon="bike" data-scale="3"></i><span class="side-label">Véhicule</span><span id="vehicleName" class="side-value"></span>
+    </button>
+    <button id="zoneBtn" class="side" data-tip="Zone bonus|Des écrans à part, où Alex entre par une porte de ton niveau et d'où il revient">
+      <i data-icon="door" data-scale="3"></i><span class="side-label">Zone bonus</span><span id="zoneName" class="side-value"></span>
     </button>
   </aside>
 
@@ -58,6 +67,7 @@
       <div class="play-bar">
         <span id="playStatus">chargement…</span>
         <span id="playFrom"></span>
+        <span id="playTimer"></span>
         <span class="play-keys"><kbd>←</kbd><kbd>→</kbd> bouger · <kbd>Espace</kbd> sauter · <kbd>Z</kbd> coup de poing · <kbd>Entrée</kbd> pause</span>
         <button id="playStart" class="key small" data-tip="Rejouer depuis le début|Relance le niveau à partir du départ"><i data-icon="start"></i> Depuis le début</button>
       </div>
@@ -68,13 +78,14 @@
     <button id="undo" class="tool" data-tip="Annuler|Défait ta dernière modification (Ctrl+Z)"><i data-icon="undo" data-scale="3"></i></button>
     <button id="redo" class="tool" data-tip="Rétablir|Refait ce que tu viens d'annuler (Ctrl+Y)"><i data-icon="redo" data-scale="3"></i></button>
     <button id="eraser" class="tool" data-tip="Gomme|Efface les blocs et les ennemis sous la souris (touche E). Le clic droit efface aussi"><i data-icon="eraser" data-scale="3"></i></button>
+    <button id="selectBtn" class="tool" data-tip="Sélection|Entoure une zone pour la copier (Ctrl+C), la couper (Ctrl+X) ou l'effacer (Suppr), puis colle-la ailleurs (Ctrl+V) · touche S"><i data-icon="select" data-scale="3"></i></button>
     <span class="tool-gap"></span>
     <button id="gridBtn" class="tool active" data-tip="Grille|Affiche ou cache le quadrillage des blocs (touche G)"><i data-icon="grid" data-scale="3"></i></button>
     <button id="solidBtn" class="tool" data-tip="Collisions|Colore en rouge tout ce qui est solide : le sol, les murs, les blocs (touche C)"><i data-icon="solid" data-scale="3"></i></button>
     <button id="zoomIn" class="tool" data-tip="Zoom avant|Agrandit la carte (touche +, ou Ctrl + molette)"><i data-icon="zoomIn" data-scale="3"></i></button>
     <button id="zoomOut" class="tool" data-tip="Zoom arrière|Rapetisse la carte (touche −, ou Ctrl + molette)"><i data-icon="zoomOut" data-scale="3"></i></button>
     <span class="tool-gap"></span>
-    <button id="save" class="tool" data-tip="Enregistrer|Garde ton niveau dans le mod (Ctrl+S). En rouge : des changements ne sont pas encore enregistrés"><i data-icon="save" data-scale="3"></i></button>
+    <button id="save" class="tool" data-tip="Enregistrer|Garde ton niveau dans Mes niveaux (Ctrl+S). Il s'enregistre aussi tout seul après chaque changement"><i data-icon="save" data-scale="3"></i></button>
     <button id="menuBtn" class="tool" data-tip="Menu|Enregistrer, renommer, exporter ou importer un niveau, commandes"><i data-icon="menu" data-scale="3"></i></button>
     <button id="helpBtn" class="tool" data-tip="Commandes|Toutes les commandes de la souris et du clavier (touche ?)"><i data-icon="help" data-scale="3"></i></button>
   </aside>

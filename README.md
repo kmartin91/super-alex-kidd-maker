@@ -62,9 +62,11 @@ have the details.
 
 ### The menu and new levels
 
-The Maker opens on its title screen, then its menu: **play** one of your levels, **create** a
-level, the **settings** (the intro at launch, full screen, changing your ROM) and, in the app,
-**quit**. The mouse, the keyboard (arrows, Enter, Escape) and a gamepad all work there. The logo
+The Maker opens on the credits and its title screen, then its menu: **play** one
+of your levels, **create** a level, the **online levels**, the **settings** (the intro at launch,
+full screen, your nickname, changing your ROM, updates in the app) and, in the app, **quit**.
+Your own video `maker/public/media/menu.mp4`, if you put one there (it is not in the repository),
+replaces the level scrolling behind the menu. The mouse, the keyboard (arrows, Enter, Escape) and a gamepad all work there. The logo
 at the top left of the editor brings you back to it.
 
 A new level is either:
@@ -87,14 +89,22 @@ New levels come in any of the game's 17 settings, with their graphics, enemies a
   - **All blocks**: the level's 256 raw blocks, for experts.
 - **On the left, the level**: its name and estimated difficulty (1 to 5 stars), its theme (the
   graphics, enemies and music of another setting), its music (the theme's or the original
-  level's), and its surprises: what the "?" boxes give, in the order Alex breaks them.
-- **On the right, the tools**: undo and redo, the eraser, the grid, the collision view, zoom,
-  save, the menu and the list of commands.
+  level's), its surprises: what the "?" boxes give, in the order Alex breaks them, and its
+  **challenge**: a time limit and/or "without dying".
+- **On the right, the tools**: undo and redo, the eraser, the **selection** (copy, cut, clear and
+  paste a zone), the grid, the collision view, zoom, save, the menu and the list of commands.
+- **Alex, marked "Start"**, is where the level begins: drag him anywhere.
+- **Hazards and more**: each setting's deadly blocks (spikes, lava, thorns, burning stakes) are in
+  the Blocks tab; the castles' spiked pillars and collapsing floors in the Enemies tab. A level can
+  start on the **motorbike**, the **boat** or the **Peticopter** (Vehicle), and have a **bonus
+  zone**: a few screens of its own, entered through a door of the level and left through another
+  (Bonus zone), like Mario Maker's sub-areas.
 - **At the bottom, the whole level in small**: click it to move around. Horizontal levels gain or
   lose screens with its "+" and "−" buttons.
 - **Click an enemy** to select it: a bubble shows its name and its variant (some enemies behave
   differently depending on it), and deletes it. For a janken boss, *Paramétrer* sets what it
-  says before the match and the throws it plays, up to 15.
+  says before the match, the throws it plays (up to 15) and whether a fight follows.
+- A first-run tutorial shows all this; the list of commands brings it back.
 
 | Mouse and keyboard | Action |
 | --- | --- |
@@ -110,6 +120,8 @@ New levels come in any of the game's 17 settings, with their graphics, enemies a
 | E | eraser |
 | G, C | grid, collisions |
 | + and −, or Ctrl + wheel | zoom |
+| S, then drag | select a zone: Ctrl+C copies it, Ctrl+X cuts it, Delete clears it |
+| Ctrl+V | paste the copied zone: click to drop it, Escape to cancel |
 | Delete | delete the selected enemy |
 | ? | the list of commands |
 
@@ -117,8 +129,10 @@ New levels come in any of the game's 17 settings, with their graphics, enemies a
 
 The big Play button (or Space) runs the level right in the page, from the screen you're looking
 at, even if you haven't saved. Arrows to move, Space or X to jump, Z or W to punch, Enter to
-pause; Escape goes back to editing. The level ends when Alex reaches the rice ball (or beats the
-boss), and lives never run out while you test.
+pause; Escape goes back to editing. The game takes the whole window, as in Mario Maker. The level
+ends when Alex reaches the rice ball (or beats the boss), and lives never run out while you test.
+With a challenge, the time shows at the bottom, and running out of time (or dying, for "without
+dying") ends the try.
 
 The Maker takes its content from the game (graphics, sounds, enemies and how they behave), and
 the C engine lifts the console's limits for your levels. Enemies can go anywhere, the start
@@ -129,17 +143,31 @@ the console: the engine only changes its behaviour for the Maker's levels.
 
 ### Saving and sharing
 
-Your levels are saved in your browser, or in the app: **My levels**. The menu renames a level,
-deletes it, exports it as a file to keep or share, and imports such a file back. The file holds
-your level only, with no graphics, sound or code from the game: whoever opens it needs their own
-ROM.
+Your levels are saved in your browser, or in the app: **My levels**, with a picture of each. The
+Maker saves by itself a few seconds after each change (a level never saved yet is kept as a
+draft, offered back in My levels). The menu renames a level, deletes it, exports it as a file to
+keep or share, and imports such a file back. The file holds your level only, with no graphics,
+sound or code from the game: whoever opens it needs their own ROM.
+
+**Online**: once you've cleared your level from its start (challenge included), as in Mario
+Maker, *Publish online* in the menu gives it a code such as `39Q-HCQ-09J`. Anyone can then find
+it in **Online levels** (newest, most played, most liked, easiest, hardest, search, or its code),
+play it, like it, keep a copy or report it. A published level can be updated or taken down. The
+website maker.kma.studio shows the community's levels too; the game itself is played in the app
+only, and the site's Play button opens it on the level. The sharing server is not part of this
+repository.
 
 The level format is described in detail in `docs/level-format.md`.
 
 ## The desktop app
 
-The Maker also comes as an app to install (Windows, macOS, Linux). To build it yourself you
-need Rust on top of the Maker's requirements.
+The Maker also comes as an app to install (Windows, macOS, Linux), which updates itself from
+the GitHub releases (how to publish one: `app/RELEASE.md`). To build it yourself you need Rust
+on top of the Maker's requirements.
+
+**Linux** (x86_64 and ARM, from any machine with Docker, in `app/src-tauri/target/linux/`):
+`npm run app:linux` (or `npm run app:linux -- amd64`). The other processor is emulated, so its
+first build takes a while.
 
 **Mac** (one app for Intel and Apple Silicon, in `app/src-tauri/target/universal-apple-darwin/release/bundle/`):
 
@@ -361,9 +389,11 @@ Les commandes de cette page marchent telles quelles depuis ce terminal ; les
 
 ### Le menu et les nouveaux niveaux
 
-Le Maker s'ouvre sur son écran titre, puis sur son menu : **jouer** un de vos niveaux, **créer**
-un niveau, les **paramètres** (l'intro au lancement, le plein écran, changer de ROM) et, dans
-l'application, **quitter**. La souris, le clavier (flèches, Entrée, Échap) et la manette y
+Le Maker s'ouvre sur les crédits et son écran titre, puis sur son menu : **jouer**
+un de vos niveaux, **créer** un niveau, les **niveaux en ligne**, les **paramètres** (l'intro au
+lancement, le plein écran, votre pseudo, changer de ROM, les mises à jour dans l'application) et,
+dans l'application, **quitter**. Votre propre vidéo `maker/public/media/menu.mp4`, si vous en mettez une (elle n'est pas dans le
+dépôt), remplace le niveau qui défile derrière le menu. La souris, le clavier (flèches, Entrée, Échap) et la manette y
 fonctionnent. Le logo en haut à gauche de l'éditeur y ramène.
 
 Un nouveau niveau, c'est au choix :
@@ -387,16 +417,24 @@ ennemis et sa musique.
   - **Tous les blocs** : les 256 blocs bruts du niveau, pour les experts.
 - **À gauche, le niveau** : son nom et sa difficulté estimée (de 1 à 5 étoiles), son thème (les
   graphismes, les ennemis et la musique d'un autre décor), sa musique (celle du thème ou celle du
-  niveau d'origine) et ses surprises : ce que donnent les boîtes « ? », dans l'ordre où Alex les
-  casse.
-- **À droite, les outils** : annuler et rétablir, la gomme, la grille, l'affichage des collisions,
-  le zoom, l'enregistrement, le menu et la liste des commandes.
+  niveau d'origine), ses surprises : ce que donnent les boîtes « ? », dans l'ordre où Alex les
+  casse, et son **défi** : un temps limite et/ou « sans mourir ».
+- **À droite, les outils** : annuler et rétablir, la gomme, la **sélection** (copier, couper,
+  effacer et coller une zone), la grille, l'affichage des collisions, le zoom, l'enregistrement,
+  le menu et la liste des commandes.
+- **Alex marqué « Départ »** est l'endroit où le niveau commence : glissez-le où vous voulez.
+- **Dangers et plus** : les blocs mortels de chaque décor (pics, lave, ronces, pieux enflammés)
+  sont dans l'onglet Blocs ; les piliers à pointes et les sols qui s'effondrent des châteaux dans
+  l'onglet Ennemis. Un niveau peut commencer à **moto**, en **bateau** ou en **Peticopter**
+  (Véhicule), et avoir une **zone bonus** : quelques écrans à part, où l'on entre par une porte du
+  niveau et d'où l'on revient par une autre (Zone bonus), comme les sous-niveaux de Mario Maker.
 - **En bas, tout le niveau en petit** : cliquez dessus pour vous déplacer. Les niveaux horizontaux
   gagnent ou perdent des écrans avec « + Écran » et « − Écran ».
 - **Cliquez sur un ennemi** pour le choisir : une bulle affiche son nom et sa variante (certains
   ennemis changent de comportement selon leur variante), et permet de le supprimer. Pour un boss
-  de pierre-feuille-ciseaux, « Paramétrer » règle ce qu'il dit avant le match et les coups qu'il
-  joue, jusqu'à 15.
+  de pierre-feuille-ciseaux, « Paramétrer » règle ce qu'il dit avant le match, les coups qu'il
+  joue (jusqu'à 15) et si un combat suit.
+- Un tutoriel présente tout cela au premier lancement ; la liste des commandes le relance.
 
 | Souris et clavier | Action |
 | --- | --- |
@@ -412,6 +450,8 @@ ennemis et sa musique.
 | E | gomme |
 | G, C | grille, collisions |
 | + et −, ou Ctrl + molette | zoom |
+| S, puis glisser | sélectionner une zone : Ctrl+C la copie, Ctrl+X la coupe, Suppr l'efface |
+| Ctrl+V | coller la zone copiée : clic pour la poser, Échap pour annuler |
 | Suppr | supprimer l'ennemi choisi |
 | ? | la liste des commandes |
 
@@ -419,9 +459,10 @@ ennemis et sa musique.
 
 Le gros bouton Jouer (ou Espace) lance le niveau directement dans la page, à partir de l'écran
 affiché, même si vous n'avez pas enregistré. Les flèches pour se déplacer, Espace ou X pour
-sauter, Z ou W pour le coup de poing, Entrée pour la pause ; Échap revient à l'édition. Le niveau
-se termine quand Alex atteint la boule de riz (ou bat le boss), et les vies sont illimitées
-pendant les essais.
+sauter, Z ou W pour le coup de poing, Entrée pour la pause ; Échap revient à l'édition. Le jeu
+prend toute la fenêtre, comme dans Mario Maker. Le niveau se termine quand Alex atteint la boule
+de riz (ou bat le boss), et les vies sont illimitées pendant les essais. Avec un défi, le temps
+s'affiche en bas, et le temps écoulé (ou une mort, pour « sans mourir ») met fin à l'essai.
 
 Le Maker tire son contenu du jeu (graphismes, sons, ennemis et leur comportement), et le moteur en
 C lève les limites de la console pour vos niveaux. Les ennemis se posent partout, écran de départ
@@ -433,17 +474,33 @@ comportement que pour les niveaux du Maker.
 
 ### Enregistrer et partager
 
-Vos niveaux sont enregistrés dans votre navigateur, ou dans l'application : « Mes niveaux ». Le
-menu renomme un niveau, le supprime, l'exporte dans un fichier à garder ou à partager, et
-réimporte un tel fichier. Ce fichier ne contient que votre niveau, sans graphisme, son ni code du
-jeu : qui l'ouvre a besoin de sa propre ROM.
+Vos niveaux sont enregistrés dans votre navigateur, ou dans l'application : « Mes niveaux », avec
+une image de chacun. Le Maker enregistre tout seul quelques secondes après chaque modification
+(un niveau jamais enregistré est gardé comme brouillon, proposé dans Mes niveaux). Le menu
+renomme un niveau, le supprime, l'exporte dans un fichier à garder ou à partager, et réimporte un
+tel fichier. Ce fichier ne contient que votre niveau, sans graphisme, son ni code du jeu : qui
+l'ouvre a besoin de sa propre ROM.
+
+**En ligne** : une fois votre niveau réussi depuis son départ (défi compris), comme dans Mario
+Maker, « Publier en ligne » dans le menu lui donne un code comme `39Q-HCQ-09J`. Tout le monde
+peut alors le trouver dans **Niveaux en ligne** (récents, les plus joués, les plus aimés, faciles,
+difficiles, recherche, ou son code), y jouer, l'aimer, en garder une copie ou le signaler. Un
+niveau publié peut être mis à jour ou retiré. Le serveur du partage ne fait pas partie de ce
+dépôt. Le site maker.kma.studio montre aussi les niveaux de
+la communauté ; le jeu, lui, ne se joue que dans l'application, et le bouton Jouer du site l'ouvre
+sur le niveau.
 
 Le format des niveaux est décrit en détail dans `docs/level-format.md`.
 
 ## L'application à installer
 
-Le Maker existe aussi en application à installer (Windows, macOS, Linux). Pour la construire
-vous-même, il faut Rust en plus de ce que demande le Maker.
+Le Maker existe aussi en application à installer (Windows, macOS, Linux), qui se met à jour
+toute seule depuis les releases GitHub (comment en publier une : `app/RELEASE.md`). Pour la
+construire vous-même, il faut Rust en plus de ce que demande le Maker.
+
+**Linux** (x86_64 et ARM, depuis n'importe quelle machine avec Docker, dans
+`app/src-tauri/target/linux/`) : `npm run app:linux` (ou `npm run app:linux -- amd64`). L'autre
+processeur est émulé : sa première construction prend du temps.
 
 **Mac** (une seule app pour Intel et Apple Silicon, dans `app/src-tauri/target/universal-apple-darwin/release/bundle/`) :
 

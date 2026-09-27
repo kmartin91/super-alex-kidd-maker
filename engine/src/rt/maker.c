@@ -16,6 +16,15 @@ void maker_detect(const uint8_t *rom, uint32_t rom_size) {
             if (maker.janken[i][0] > MAKER_JANKEN_MOVES) maker.janken[i][0] = MAKER_JANKEN_MOVES;
             for (int m = 1; m <= MAKER_JANKEN_MOVES; m++) maker.janken[i][m] %= 3;
         }
+        const uint8_t *zone = janken + 8 + sizeof(maker.janken);
+        if (rom_size >= (uint32_t)(zone - rom) + 8 + 5 && memcmp(zone, "AKZONE01", 8) == 0) {
+            maker.zone.defined = true;
+            maker.zone.row = zone[8];
+            maker.zone.width = zone[9];
+            maker.zone.entity_base = zone[10];
+            maker.zone.alex_x = zone[11];
+            maker.zone.alex_y = zone[12];
+        }
     }
 }
 

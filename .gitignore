@@ -6,6 +6,7 @@ packs/original/
 maker/cache/
 engine/build-*/
 maker/public/engine/
+maker/public/media/*.mp4
 mods/
 node_modules/
 .DS_Store
@@ -17,3 +18,6 @@ app/src-tauri/target/
 app/src-tauri/gen/
 app/src-tauri/binaries/
 app/.deps/
+
+# The sharing server (API + gallery of maker.kma.studio): kept private, not in this repository
+online/

@@ -26,6 +26,7 @@
  *   unknown7 ($19) = x saved while testing.
  */
 #include "states.h"
+#include "rt/maker.h"
 
 #define RESPAWN_ENTITY_TABLE 0x6F29 /* bank 0: (type, x, y) of respawnable entities 1-4 */
 #define CONTINUE_PRICE 0x048C       /* bank 0: the "400" entry of the score table */
@@ -34,6 +35,14 @@
 #define LEVEL_WITHOUT_RESPAWN 0x0D  /* dying here always restarts the level */
 
 /* ------------------------------------------------ respawn spot search */
+
+/* Where the search goes: in the game, the left part of the screen above
+ * y = $90 always holds ground. A Maker level (rt/maker.h) may have its ground
+ * on the bottom row only, or a pit there: the search covers the whole screen
+ * down to the bottom row, and gives up (the level restarts) instead of
+ * looping forever. */
+#define SEARCH_BOTTOM() (maker.active ? 0xA0 : 0x90)
+#define SEARCH_RIGHT() (maker.active ? 0xE0 : 0x60)
 
 /* _LABEL_39ED_ run in the alternate register bank: tests `count` 8-pixel
  * cells from Alex's position (DE = $0100, A = 8) for solid terrain. The
@@ -79,9 +88,9 @@ static void search_free_spot(Entity *alex, bool start_of_column) {
         }
 
         Y_PIXEL(alex) += 8;
-        if (Y_PIXEL(alex) < 0x90) continue;
+        if (Y_PIXEL(alex) < SEARCH_BOTTOM()) continue;
         alex->unknown5 += 8;
-        if (alex->unknown5 >= 0x60) return;
+        if (alex->unknown5 >= SEARCH_RIGHT()) return;
         start_of_column = true;
     }
 }
@@ -117,18 +126,20 @@ static bool solid_tile_at(uint16_t offset) {
 }
 
 /* Scans the screen until Alex stands on two solid tiles with free space
- * above them. Starts at x = $10, y = $10; `swimming` Alex needs no ground. */
-static void find_respawn_position(Entity *alex, bool swimming) {
+ * above them. Starts at x = $10, y = $10; `swimming` Alex needs no ground.
+ * False when there is no such spot (Maker levels only). */
+static bool find_respawn_position(Entity *alex, bool swimming) {
     alex->unknown6 = 0x10;
     alex->unknown5 = 0x10;
     alex->battleDecision = 1;
     alex->state = swimming ? 2 : 1;
     CALL_HELPER(f__LABEL_6EAF_);
-    if (swimming) return;
+    if (swimming) return true;
     for (;;) {
-        if (solid_tile_at(0x1900) && solid_tile_at(0x1908)) return;
+        if (maker.active && alex->unknown5 >= SEARCH_RIGHT()) return false;
+        if (solid_tile_at(0x1900) && solid_tile_at(0x1908)) return true;
         Y_PIXEL(alex) += 8;
-        if (Y_PIXEL(alex) < 0x90) {
+        if (Y_PIXEL(alex) < SEARCH_BOTTOM()) {
             CALL_HELPER(f__LABEL_6EBB_);
         } else {
             /* Nothing in this column: next one. */
@@ -301,14 +312,20 @@ LIFTED(updateLifeLostState, 0x6C05) {
     cpu.ix = v_alex;
     alex->type = ENTITY_ALEX;
     uint8_t before_hit = ram8(v_alexStateBeforeHit);
+    /* Maker levels that start on the motorbike restart with it, as the
+     * game's vehicle levels do (a hit on the bike has already cleared it). */
+    bool bike_level = maker.active && rd8(level_entry(LEVEL_SPAWN_STATES, ram8(v_level), 1)) == ACTION_RIDING_MOTORCYCLE;
     if (ram8(v_level) == LEVEL_WITHOUT_RESPAWN || ram8(v_shouldSpawnRidingBoat_RAM_C051_) ||
         ram8(v_alexActionState) >= ACTION_RIDING_MOTORCYCLE ||
-        before_hit == ALEX_FLYING_PETICOPTER) {
+        before_hit == ALEX_FLYING_PETICOPTER || bike_level) {
         restart_level();
         LIFTED_RETURN();
     }
 
-    find_respawn_position(alex, before_hit == ALEX_SWIMMING);
+    if (!find_respawn_position(alex, before_hit == ALEX_SWIMMING)) {
+        restart_level(); /* Maker level with no ground on this screen */
+        LIFTED_RETURN();
+    }
 
     /* _LABEL_6D4F_: found. */
     ram8(v_alexActionState) = ACTION_INVINCIBLE;

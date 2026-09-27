@@ -1,6 +1,7 @@
 // A single dialog sheet, filled by whoever opens it.
 
 import { $ } from './dom.js';
+import { t } from './i18n.js';
 
 let onClose = null, locked = false;
 
@@ -60,15 +61,15 @@ function dialog(title, text, buttons, input = null) {
 }
 const INPUT = Symbol('input');
 
-export function ask(text, { title = 'Confirmer', ok = 'Oui', cancel = 'Annuler', danger = false } = {}) {
+export function ask(text, { title = t('Confirmer'), ok = t('Oui'), cancel = t('Annuler'), danger = false } = {}) {
   return dialog(title, text, [[cancel, false, 'plain', true], [ok, true, danger ? 'danger' : 'go']]);
 }
 
-export function tell(text, title = 'Oups') {
+export function tell(text, title = t('Oups')) {
   return dialog(title, text, [['OK', undefined, 'go', true]]);
 }
 
 export function askText(title, value = '', { text = '', ok = 'OK', placeholder = '' } = {}) {
   const input = h('input.name-input', { value, placeholder, maxLength: 40 });
-  return dialog(title, text, [['Annuler', null, 'plain', true], [ok, INPUT, 'go']], input);
+  return dialog(title, text, [[t('Annuler'), null, 'plain', true], [ok, INPUT, 'go']], input);
 }

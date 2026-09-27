@@ -153,6 +153,8 @@ static void set_vdp_register0(uint8_t value) {
  *   others: descriptor flag bit 7 makes Alex walk in (castle entrance) and
  *     starts the castle entity index at the descriptor's height byte. */
 LIFTED(loadLevel, 0x65AA) {
+    maker.zone.inside = false; /* a (re)started level starts in the main area */
+    maker.zone.request = 0;
     maker.camera_both_ways = false;
     maker.scroll_flags_set = 0;
     read_level_descriptor(ram8(v_level));
@@ -249,4 +251,33 @@ LIFTED(_LABEL_6671_, 0x666A) {
     level_build_row_below();
     map_bank(BANK(2));
     LIFTED_RETURN();
+}
+
+/* Maker levels (rt/maker.h, states/zone.c): draws the bonus zone, row
+ * maker.zone.row of the level's layout, from its first screen, the way
+ * loadLevel draws a plain horizontal level (camera both ways, the first
+ * screen's entities loaded at once). The level variables are cleared. */
+void maker_zone_draw(void) {
+    read_level_descriptor(ram8(v_level));
+    ram8(v_horizontalScreenNumber) = 1;
+    ram8(v_verticalScreenNumber) = maker.zone.row;
+    ram8(v_levelWidth) = maker.zone.width;
+    ram8(v_levelHeight) = 0;
+    ram8(v_levelScrollFlags) = SCROLL_RIGHT;
+    ram16(v_rowVdpAddress) = NAMETABLE_VDP_WRITE;
+    ram16(v_topRowVdpAddress) = NAMETABLE_VDP_WRITE;
+    maker.camera_both_ways = false;
+    maker.scroll_flags_set = 0;
+    do {
+        ram16(v_horizontalScrollSpeed) = FIRST_SCREEN_SCROLL_SPEED;
+        level_update_scroll();
+        level_update_nametable_mirror();
+        level_draw();
+    } while (ram16(v_horizontalScroll) != 0);
+    ram16(v_horizontalScrollSpeed) = 0;
+    ram8(v_scrollFlags) = SCROLL_RIGHT;
+    maker.camera_both_ways = true;
+    maker.start_screen_pending = true;
+    maker.after_start_screen = 0;
+    ram8(v_currentScreenNumber) = NEW_SCREEN | 0;
 }

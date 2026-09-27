@@ -9,6 +9,7 @@ import { render } from './render.js';
 import { setTip } from './tooltip.js';
 import { toast } from './toast.js';
 import { ask } from './modal.js';
+import { t } from './i18n.js';
 
 // Horizontal levels: entity list index = column.
 function renumberColumns() {
@@ -23,7 +24,7 @@ function scrollToColumn(col) {
 
 // Inserts a copy of the screen in view right after it.
 function addScreen() {
-  if (!state.model.canExtend) { toast('Ce niveau ne peut pas être rallongé'); return; }
+  if (!state.model.canExtend) { toast(t('Ce niveau ne peut pas être rallongé')); return; }
   if (state.model.kind === 'vertical') { addScreenVertical(); return; }
   const { col } = viewCell();
   pushUndo();
@@ -41,15 +42,15 @@ function addScreen() {
 
 // Removes the screen in view; its special objects move to the previous one.
 async function removeScreen() {
-  if (!state.model.canExtend) { toast('Ce niveau ne peut pas être raccourci'); return; }
+  if (!state.model.canExtend) { toast(t('Ce niveau ne peut pas être raccourci')); return; }
   if (state.model.kind === 'vertical') { await removeScreenVertical(); return; }
-  if (state.model.grid[0].length <= 2) { toast('Un niveau garde au moins 2 écrans'); return; }
+  if (state.model.grid[0].length <= 2) { toast(t('Un niveau garde au moins 2 écrans')); return; }
   const { col } = viewCell();
-  if (col === 0) { toast('Le premier écran, celui du départ, ne peut pas être retiré'); return; }
+  if (col === 0) { toast(t('Le premier écran, celui du départ, ne peut pas être retiré')); return; }
   const keep = state.model.specials[col].filter((r) => r.type !== undefined);
-  if (!(await ask(`Retirer l'écran ${col + 1} et ses ennemis ?` +
-    (keep.length ? ' Ses objets spéciaux (boss, boule de riz…) iront sur l\'écran d\'à côté.' : ''),
-  { title: 'Retirer un écran', ok: 'Retirer', danger: true }))) return;
+  if (!(await ask(t('Retirer l\'écran {n} et ses ennemis ?', { n: col + 1 }) +
+    (keep.length ? ' ' + t('Ses objets spéciaux (boss, boule de riz…) iront sur l\'écran d\'à côté.') : ''),
+  { title: t('Retirer un écran'), ok: t('Retirer'), danger: true }))) return;
   pushUndo();
   const target = col - 1;
   state.model.specials[target].push(...state.model.specials[col]);
@@ -92,14 +93,14 @@ function addScreenVertical() {
 
 async function removeScreenVertical() {
   const m = state.model, { row, col } = viewCell(), last = m.grid.length - 1;
-  if (row === 0 && col === 0) { toast('Le premier écran, celui du départ, ne peut pas être retiré'); return; }
-  if (row < last && m.grid.length <= 2) { toast('Un niveau vertical garde au moins 2 écrans en hauteur'); return; }
+  if (row === 0 && col === 0) { toast(t('Le premier écran, celui du départ, ne peut pas être retiré')); return; }
+  if (row < last && m.grid.length <= 2) { toast(t('Un niveau vertical garde au moins 2 écrans en hauteur')); return; }
   const gone = row < last ? m.grid[row][0] : m.grid[last][col];
   if (!gone) return;
   const keep = m.specials[gone.entities].filter((r) => r.type !== undefined);
-  if (!(await ask('Retirer l\'écran visé et ses ennemis ?' +
-    (keep.length ? ' Ses objets spéciaux (boss, boule de riz…) iront sur l\'écran d\'à côté.' : ''),
-  { title: 'Retirer un écran', ok: 'Retirer', danger: true }))) return;
+  if (!(await ask(t('Retirer l\'écran visé et ses ennemis ?') +
+    (keep.length ? ' ' + t('Ses objets spéciaux (boss, boule de riz…) iront sur l\'écran d\'à côté.') : ''),
+  { title: t('Retirer un écran'), ok: t('Retirer'), danger: true }))) return;
   pushUndo();
   const oldE = m.entities.map((l) => l.slice()), oldS = m.specials.map((l) => l.slice());
   if (row < last) m.grid.splice(row, 1); else m.grid[last].splice(col, 1);
@@ -114,15 +115,15 @@ async function removeScreenVertical() {
 
 export function renderScreenTools() {
   const fixed = !state.model.canExtend;
-  const why = 'Ce niveau du jeu garde sa forme d\'origine';
+  const why = t('Ce niveau du jeu garde sa forme d\'origine');
   $('screenAdd').classList.toggle('is-off', fixed);
   const vertical = state.model.kind === 'vertical';
   $('screenDel').classList.toggle('is-off', fixed || (!vertical && state.model.grid[0].length <= 2));
-  setTip($('screenAdd'), 'Ajouter un écran', fixed ? why : vertical
-    ? 'Dans la colonne : un écran de plus en dessous. En bas : un écran de plus à droite'
-    : 'Copie l\'écran du milieu de la vue et le place juste après');
-  setTip($('screenDel'), 'Retirer un écran', fixed ? why : !vertical && state.model.grid[0].length <= 2
-    ? 'Un niveau garde au moins 2 écrans' : 'Retire du niveau l\'écran du milieu de la vue');
+  setTip($('screenAdd'), t('Ajouter un écran'), fixed ? why : vertical
+    ? t('Dans la colonne : un écran de plus en dessous. En bas : un écran de plus à droite')
+    : t('Copie l\'écran du milieu de la vue et le place juste après'));
+  setTip($('screenDel'), t('Retirer un écran'), fixed ? why : !vertical && state.model.grid[0].length <= 2
+    ? t('Un niveau garde au moins 2 écrans') : t('Retire du niveau l\'écran du milieu de la vue'));
 }
 
 export function bindScreens() {
