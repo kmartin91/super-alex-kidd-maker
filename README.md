@@ -37,13 +37,18 @@ take this repository down, I will, no questions asked.
   on Mac, `libsdl2-dev` on Debian/Ubuntu), with the ROM copied to the root of the repository as
   `original.sms`.
 
-**On Windows**, the simplest route is [MSYS2](https://www.msys2.org/). In the "MSYS2 UCRT64"
-terminal:
+**On Windows**, the simplest route is [MSYS2](https://www.msys2.org/) (its installer, or
+`winget install MSYS2.MSYS2`). Open the "MSYS2 UCRT64" terminal from the Start menu (not "MSYS2
+MSYS"), update it (if the terminal closes, open it again and rerun the command), then install
+the tools, about 570 MB to download:
 
-    pacman -S make mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-SDL2 mingw-w64-ucrt-x86_64-nodejs mingw-w64-ucrt-x86_64-emscripten
+    pacman -Syu
+    pacman -S --needed make mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-SDL2 mingw-w64-ucrt-x86_64-nodejs mingw-w64-ucrt-x86_64-emscripten
 
-Then use the same commands as below from that terminal. Windows support is new and hasn't been
-tested much yet: feedback is welcome.
+Then close the terminal and open a new one, so that it finds `emcc`. Your drives are under `/c`,
+`/d`...: a repository in `C:\Games\super-alex-kidd-maker` is `/c/Games/super-alex-kidd-maker`.
+The commands below work as they are from that terminal; the [Windows notes](#windows-notes) have
+the details.
 
 ## Playing
 
@@ -114,11 +119,42 @@ lists your identities; the password is an app-specific password of your Apple ID
     export APPLE_SIGNING_IDENTITY="Developer ID Application: Your Name (TEAMID)"
     export APPLE_ID="you@example.com" APPLE_PASSWORD="xxxx-xxxx-xxxx-xxxx" APPLE_TEAM_ID="TEAMID"
 
-**Windows**: install Node.js and Rust (with the Visual Studio Build Tools, "Desktop development with
-C++"). Copy `maker/public/engine/` from a machine that built it (or build it with MSYS2's `make`
-and Emscripten), then `npm install` and `npm run app`: the installers
+**Windows**: install Node.js, [Rust](https://rustup.rs/) and the Visual Studio Build Tools with
+"Desktop development with C++":
+
+    winget install -e --id Microsoft.VisualStudio.BuildTools --override "--passive --wait --norestart --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended"
+
+Build `maker/public/engine/` with MSYS2 first (see [What you need](#what-you-need)), or copy it
+from a machine that built it. Then, from PowerShell or any terminal, `npm install` and
+`npm run app` (about two minutes the first time): the installers, an `.msi` and a `-setup.exe`,
 are in `app/src-tauri/target/release/bundle/`. They are not signed, so Windows shows a warning the
 first time: "More info", then "Run anyway".
+
+## Windows notes
+
+Tested on Windows 11 in September 2026, with MSYS2 (GCC 16.2, SDL2 2.32, Emscripten 6.0),
+Node.js 24 and, for the app, Rust 1.98 with the Visual Studio 2026 Build Tools: the game, the
+Maker, the desktop app and `make test` work. Feedback is welcome.
+
+- **Once the engines are built** (`maker/public/engine/`), the Maker no longer needs MSYS2:
+  `npm run maker` works from PowerShell or the VS Code terminal, with the usual Node.js for
+  Windows. After a change to the engine, rebuild them with `npm run web` from the MSYS2 terminal.
+- **To play**, from the MSYS2 terminal: `cd engine && make build/alexkidd && ./build/alexkidd
+  ../original.sms`. `make build/alexkidd` only builds the game; `make` alone also builds the
+  tests and the tools. `npm run game` doesn't work on Windows: npm runs scripts with `cmd.exe`,
+  which doesn't understand `./engine/build/alexkidd`.
+- **Outside the MSYS2 terminal** (PowerShell, Explorer), the game needs `SDL2.dll`: copy
+  `C:\msys64\ucrt64\bin\SDL2.dll` next to `engine\build\alexkidd.exe`. Or build a standalone game,
+  which runs on any Windows PC without SDL2:
+
+      cd engine && make STATIC=1 BUILD=build-static build-static/alexkidd
+
+- **If `pacman` gives up on a slow mirror**, run the same command again: what was already
+  downloaded is kept. `--disable-download-timeout` helps on a slow connection.
+- **Emscripten stuck on `wasm-opt`**: MSYS2's Binaryen could freeze as it closed its threads, and
+  the first `npm run maker` then waited forever. On Windows, the Makefile now runs it on a single
+  thread (`BINARYEN_CORES=1`); both engines still build in about a minute. A frozen `wasm-opt.exe`
+  left over from an earlier try can't be stopped: it goes away when Windows restarts.
 
 ## Your own graphics
 
@@ -251,13 +287,18 @@ commerciaux. Si Sega ou un ayant droit me demande de retirer ce dépôt, je le f
   (`brew install sdl2` sur Mac, `libsdl2-dev` sur Debian/Ubuntu), avec la ROM copiée à la racine
   du dépôt sous le nom `original.sms`.
 
-**Sous Windows**, le plus simple est de passer par [MSYS2](https://www.msys2.org/). Dans le
-terminal « MSYS2 UCRT64 » :
+**Sous Windows**, le plus simple est de passer par [MSYS2](https://www.msys2.org/) (son
+installateur, ou `winget install MSYS2.MSYS2`). Ouvrez le terminal « MSYS2 UCRT64 » depuis le menu
+Démarrer (pas « MSYS2 MSYS »), mettez-le à jour (s'il se ferme, rouvrez-le et relancez la même
+commande), puis installez les outils, environ 570 Mo à télécharger :
 
-    pacman -S make mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-SDL2 mingw-w64-ucrt-x86_64-nodejs mingw-w64-ucrt-x86_64-emscripten
+    pacman -Syu
+    pacman -S --needed make mingw-w64-ucrt-x86_64-gcc mingw-w64-ucrt-x86_64-SDL2 mingw-w64-ucrt-x86_64-nodejs mingw-w64-ucrt-x86_64-emscripten
 
-Ensuite, les commandes sont les mêmes que ci-dessous, depuis ce terminal. La prise en charge de
-Windows est récente et encore peu testée : les retours sont les bienvenus.
+Fermez ensuite le terminal et ouvrez-en un nouveau, pour qu'il trouve `emcc`. Vos disques sont sous
+`/c`, `/d`… : un dépôt dans `C:\Jeux\super-alex-kidd-maker` devient `/c/Jeux/super-alex-kidd-maker`.
+Les commandes ci-dessous marchent telles quelles depuis ce terminal ; les
+[notes pour Windows](#notes-pour-windows) donnent les détails.
 
 ## Jouer
 
@@ -332,12 +373,45 @@ passe d'application de votre identifiant Apple) :
     export APPLE_SIGNING_IDENTITY="Developer ID Application: Votre Nom (TEAMID)"
     export APPLE_ID="vous@exemple.com" APPLE_PASSWORD="xxxx-xxxx-xxxx-xxxx" APPLE_TEAM_ID="TEAMID"
 
-**Windows** : installez Node.js et Rust (avec les Visual Studio Build Tools, « Développement Desktop
-en C++ »). Copiez `maker/public/engine/` depuis une machine qui l'a compilé (ou compilez-le avec le
-`make` de MSYS2 et Emscripten), puis `npm install` et `npm run app` :
-les installateurs sont dans `app/src-tauri/target/release/bundle/`. Ils ne sont pas signés, donc
-Windows affiche un avertissement la première fois : « Informations complémentaires », puis
-« Exécuter quand même ».
+**Windows** : installez Node.js, [Rust](https://rustup.rs/) et les Visual Studio Build Tools avec
+« Développement Desktop en C++ » :
+
+    winget install -e --id Microsoft.VisualStudio.BuildTools --override "--passive --wait --norestart --add Microsoft.VisualStudio.Workload.VCTools --includeRecommended"
+
+Compilez d'abord `maker/public/engine/` avec MSYS2 (voir [Ce qu'il vous faut](#ce-quil-vous-faut)),
+ou copiez-le depuis une machine qui l'a compilé. Ensuite, depuis PowerShell ou n'importe quel
+terminal, `npm install` et `npm run app` (environ deux minutes la première fois) : les
+installateurs, un `.msi` et un `-setup.exe`, sont dans `app/src-tauri/target/release/bundle/`. Ils
+ne sont pas signés, donc Windows affiche un avertissement la première fois : « Informations
+complémentaires », puis « Exécuter quand même ».
+
+## Notes pour Windows
+
+Testé sous Windows 11 en septembre 2026, avec MSYS2 (GCC 16.2, SDL2 2.32, Emscripten 6.0),
+Node.js 24 et, pour l'application, Rust 1.98 avec les Visual Studio 2026 Build Tools : le jeu, le
+Maker, l'application et `make test` fonctionnent. Les retours sont les bienvenus.
+
+- **Une fois les moteurs compilés** (`maker/public/engine/`), le Maker n'a plus besoin de MSYS2 :
+  `npm run maker` marche depuis PowerShell ou le terminal de VS Code, avec le Node.js habituel de
+  Windows. Après une modification du moteur, recompilez-les avec `npm run web` depuis le terminal
+  MSYS2.
+- **Pour jouer**, depuis le terminal MSYS2 : `cd engine && make build/alexkidd && ./build/alexkidd
+  ../original.sms`. `make build/alexkidd` ne compile que le jeu ; `make` tout court compile aussi
+  les tests et les outils. `npm run game` ne marche pas sous Windows : npm lance les scripts avec
+  `cmd.exe`, qui ne comprend pas `./engine/build/alexkidd`.
+- **En dehors du terminal MSYS2** (PowerShell, Explorateur), le jeu a besoin de `SDL2.dll` :
+  copiez `C:\msys64\ucrt64\bin\SDL2.dll` à côté de `engine\build\alexkidd.exe`. Ou compilez un jeu
+  autonome, qui tourne sur n'importe quel PC Windows, sans SDL2 :
+
+      cd engine && make STATIC=1 BUILD=build-static build-static/alexkidd
+
+- **Si `pacman` abandonne sur un miroir trop lent**, relancez la même commande : ce qui a déjà été
+  téléchargé est conservé. `--disable-download-timeout` aide avec une connexion lente.
+- **Emscripten bloqué sur `wasm-opt`** : le Binaryen de MSYS2 pouvait se figer en fermant ses
+  threads, et le premier `npm run maker` attendait alors indéfiniment. Sous Windows, le Makefile le
+  fait désormais tourner sur un seul thread (`BINARYEN_CORES=1`) ; les deux moteurs se compilent
+  quand même en une minute environ. Un `wasm-opt.exe` figé lors d'un essai précédent ne peut pas
+  être arrêté : il disparaît au redémarrage de Windows.
 
 ## Vos propres graphismes
 

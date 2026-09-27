@@ -61,6 +61,12 @@ $(BUILD)/entityicons: $(GAME_SRC) tools/entityicons.c tools/capture.c tools/capt
 $(BUILD)/tileharvest: $(GAME_SRC) tools/tileharvest.c $(HEADERS) | $(BUILD)
 	$(CC) $(CPPFLAGS) $(CFLAGS) -o $@ $(GAME_SRC) tools/tileharvest.c
 
+# On Windows, MSYS2's Binaryen optimizer (wasm-opt, run by emcc) can freeze
+# when it exits after using several threads: a single thread avoids it.
+ifeq ($(OS),Windows_NT)
+export BINARYEN_CORES ?= 1
+endif
+
 # WebAssembly engine for the level editor (needs Emscripten: brew install emscripten).
 WEB_OUT := ../maker/public/engine
 web: $(WEB_OUT)/alexkidd.js
