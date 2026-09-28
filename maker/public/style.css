@@ -1,5 +1,4 @@
-/* Super Alex Kidd Maker, in the spirit of Super Mario Maker 2:
-   white rounded panels with a soft drop shadow on a striped yellow frame,
+/* Super Alex Kidd Maker: white rounded panels with a soft drop shadow on a striped yellow frame,
    orange for what is selected, a round bold font; the level itself stays in
    the console's pixels. */
 
@@ -517,12 +516,13 @@ body.booting #app { visibility: hidden; }
   background: var(--stripes);
   overflow: auto;
 }
+/* The background stays put while the menu scrolls (the online levels). */
 .menu-bg {
-  position: absolute; inset: 0; width: 100%; height: 100%;
+  position: fixed; inset: 0; width: 100%; height: 100%;
   opacity: 0; transition: opacity 0.8s;
 }
 .menu-bg.ready { opacity: 1; }
-.menu-bg-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.menu-bg-video { position: fixed; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .menu-box {
   position: relative;
   display: grid; justify-items: center; align-content: center; gap: 4vh;
@@ -555,6 +555,24 @@ body.booting #app { visibility: hidden; }
   font: 700 clamp(14px, 1.8vw, 20px) var(--ui); color: var(--ink);
 }
 .menu-panel { display: grid; justify-items: center; width: 100%; }
+/* the music on / off, bottom right */
+.menu-sound {
+  position: fixed; right: 18px; bottom: 18px; z-index: 1;
+  display: grid; place-items: center;
+  width: 58px; height: 58px;
+  background: var(--white); border: 0; border-radius: 50%;
+  box-shadow: 0 5px 0 var(--shadow);
+  color: var(--orange-deep);
+  transition: transform 90ms ease-out, box-shadow 90ms ease-out;
+}
+.menu-sound:hover, .menu-sound:focus { outline: none; transform: translateY(-2px); box-shadow: 0 7px 0 var(--shadow), 0 0 0 4px var(--orange); }
+.menu-sound:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--shadow); }
+.menu-sound.off { color: var(--muted); }
+.menu-sound.off::after {
+  content: ""; position: absolute; width: 40px; height: 5px;
+  background: var(--red); border-radius: 3px; transform: rotate(-45deg);
+  box-shadow: 0 0 0 2px var(--white);
+}
 
 /* the big tiles */
 .menu-tiles { display: flex; flex-wrap: wrap; justify-content: center; gap: 22px; }
@@ -670,7 +688,7 @@ body.booting #app { visibility: hidden; }
 .draft { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; padding: 10px 12px; background: var(--orange-soft); border-radius: 14px; }
 .draft span { flex: 1; font-weight: 600; }
 
-/* play mode: the game takes the whole window, like in Mario Maker */
+/* play mode: the game takes the whole window */
 body.playing #app { grid-template-columns: minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); grid-template-areas: "stage"; }
 body.playing #brand, body.playing #palette, body.playing #left, body.playing #right, body.playing #bottom { display: none; }
 body.playing #corner { position: fixed; left: 30px; bottom: 30px; width: 110px; height: 86px; z-index: 3; }
@@ -706,16 +724,51 @@ body.playing .play-bar { padding-left: 150px; }
 /* levels online (js/online-ui.js) */
 .menu-tile.online { background: var(--grass); }
 .menu-card.wide { width: min(820px, 100%); }
-.online-bar { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
-.online-bar .name-input { width: auto; flex: 1; min-width: 160px; padding: 8px 12px; font-size: 16px; }
-.online-code { max-width: 200px; text-transform: uppercase; letter-spacing: 0.08em; }
-.online-sorts { display: flex; gap: 6px; flex-wrap: wrap; }
-.online-list { max-height: 38vh; }
-.online-list .menu-row { align-items: center; }
-.online-list .menu-row-label b { display: block; font-size: 17px; }
-.online-list .menu-row-label small { white-space: normal; }
-.menu-thumb.none, .online-big.none { display: block; background: var(--night); }
-.online-more { margin: 0 auto; }
+/* the gallery: a wide screen under a smaller logo, the menu scrolls */
+#menu.gallery .menu-box { align-content: start; gap: 2.5vh; }
+#menu.gallery .menu-logo { width: min(34vw, 300px); }
+.online-screen { display: grid; gap: 14px; width: min(1180px, 100%); padding-bottom: 12px; animation: pop 0.2s ease-out; }
+.online-head {
+  display: flex; align-items: center; gap: 16px;
+  padding: 10px 14px;
+  background: repeating-linear-gradient(135deg, var(--orange) 0 20px, #ff9a38 20px 40px);
+  border-radius: 20px; box-shadow: 0 6px 0 var(--orange-deep);
+}
+.online-head h2 { margin: 0; font: 700 clamp(24px, 2.6vw, 32px) var(--ui); color: var(--white); text-shadow: 0 2px 0 var(--orange-deep); }
+.online-tools {
+  display: flex; gap: 10px; flex-wrap: wrap; align-items: center;
+  padding: 12px;
+  background: var(--white); border-radius: 20px; box-shadow: 0 6px 0 var(--shadow);
+}
+.online-tools .name-input { width: auto; flex: 1; min-width: 180px; padding: 8px 12px; font-size: 16px; }
+.online-tools .online-code { flex: 0 1 220px; min-width: 150px; text-transform: uppercase; letter-spacing: 0.08em; }
+.online-select { flex: 0 1 auto; padding: 9px 10px; font: 600 15px var(--ui); outline: none; }
+.online-select:focus { border-color: var(--orange); }
+.online-sorts { display: flex; gap: 8px; flex-wrap: wrap; }
+.online-sorts .tab { padding: 6px 16px; background: var(--white); box-shadow: 0 3px 0 var(--shadow); font-size: 15px; }
+.online-sorts .tab.active { background: var(--orange); box-shadow: 0 3px 0 var(--orange-deep); }
+.online-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 18px; }
+.online-card {
+  display: flex; flex-direction: column;
+  background: var(--white); border-radius: 20px; overflow: hidden;
+  box-shadow: 0 6px 0 var(--shadow);
+  animation: tile-in 0.35s cubic-bezier(0.3, 1.5, 0.5, 1) backwards;
+  transition: transform 0.12s ease-out, box-shadow 0.12s;
+}
+.online-card:hover, .online-card:focus-within { transform: translateY(-4px); box-shadow: 0 10px 0 var(--shadow), 0 0 0 5px var(--orange); }
+.online-open { flex: 1; display: flex; flex-direction: column; gap: 3px; padding: 0 0 10px; background: none; border: 0; text-align: left; font: inherit; }
+.online-open:focus { outline: none; }
+.online-open > span:not(.online-thumb) { padding: 0 14px; }
+.online-thumb { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; image-rendering: pixelated; background: var(--night); margin-bottom: 8px; }
+.online-name { font: 700 19px/1.2 var(--ui); overflow-wrap: anywhere; }
+.online-open:hover .online-name, .online-open:focus .online-name { color: var(--orange-deep); }
+.online-meta { font-size: 13px; color: var(--muted); }
+.online-stars { color: var(--orange-deep); letter-spacing: 1px; }
+.online-card-play { justify-content: center; margin: 0 14px 14px; font-size: 17px; }
+.online-screen .key:focus, .online-screen .tab:focus { outline: 4px solid var(--ink); outline-offset: 2px; }
+.online-empty { margin: 0; padding: 26px; text-align: center; font-size: 17px; background: rgba(255, 255, 255, 0.92); border-radius: 18px; }
+.online-more { justify-self: center; font-size: 16px; padding: 9px 22px; }
+.online-thumb.none, .online-big.none { display: block; background: var(--night); }
 .online-detail { grid-template-columns: auto 1fr; align-items: start; gap: 18px; }
 .online-big { width: 256px; height: 192px; border-radius: 14px; image-rendering: pixelated; }
 .online-info p { margin: 0 0 8px; color: var(--muted); }
@@ -745,3 +798,20 @@ body.in-zone #stage::before {
 .side.active .side-value { color: var(--white); }
 /* the level panel holds 7 buttons: smaller pictures */
 #left .side .px-icon svg { width: 24px; height: 24px; }
+
+/* game controller set-up (js/pad-setup.js) */
+.pad-setup { min-width: min(460px, 80vw); }
+.pad-name { font-weight: 600; overflow-wrap: anywhere; }
+.pad-rows { display: grid; gap: 6px; }
+.pad-row {
+  display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  padding: 8px 14px;
+  background: var(--cloud); border: 3px solid transparent; border-radius: 14px;
+  transition: background-color 60ms;
+}
+.pad-row b { font: 600 16px var(--ui); }
+.pad-binding { color: var(--muted); font-weight: 600; }
+.pad-row.on { background: var(--orange-soft); border-color: var(--orange); }
+.pad-row.asking { border-color: var(--orange); animation: pad-blink 0.8s steps(2, start) infinite; }
+.pad-row.asking .pad-binding { color: var(--orange-deep); }
+@keyframes pad-blink { to { background: var(--orange-soft); } }

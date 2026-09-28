@@ -214,6 +214,15 @@ static inline uint16_t level_entry(uint16_t table, uint8_t level, uint8_t size) 
     return (uint16_t)(table - size + (uint8_t)(level * size));
 }
 
+/* Maker levels: the song once Alex is on foot. Their song table keeps the
+ * level's own song (the vehicle's plays at the start, gameplay.c), unless it
+ * is a vehicle's (the game's Peticopter levels): then the main song, as the
+ * game does when a vehicle is wrecked ($43EB). */
+static inline uint8_t maker_foot_song(uint8_t song) {
+    if (!maker.active) return song;
+    return song == SOUND_BIKE_SONG || song == SOUND_PETICOPTER_SONG ? SOUND_BASE_SONG : song;
+}
+
 /* levelSongs[level]; like the original lookup it leaves BC = level. */
 static inline uint8_t level_song(uint8_t level) {
     cpu.bc = level;

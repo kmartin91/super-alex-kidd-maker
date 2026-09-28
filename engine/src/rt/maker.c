@@ -26,6 +26,11 @@ void maker_detect(const uint8_t *rom, uint32_t rom_size) {
             maker.zone.alex_y = zone[12];
         }
     }
+
+    const uint8_t *vehicle = rom + MAKER_BLOCK_OFFSET + MAKER_VEHICLE_OFFSET;
+    if (rom_size >= MAKER_BLOCK_OFFSET + MAKER_VEHICLE_OFFSET + 8 + 1 && memcmp(vehicle, "AKVEHIC1", 8) == 0) {
+        maker.crash_ends_try = vehicle[8] != 0;
+    }
 }
 
 int maker_janken_next(uint8_t opponent_data) {

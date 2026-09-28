@@ -1,7 +1,9 @@
-// Clear conditions of a level, Mario Maker style (model.clear = { time:
-// seconds or 0, noDeath }): checked while the level is played from its
-// start. The time counts while Alex is playing (not during text boxes,
-// pauses or the level intro) and is shown in the play bar.
+// A level's time limit (model.clear = { time: seconds, 0 for none }), and the
+// try's time and lives lost, shown in the play bar. The time counts while
+// Alex is playing (not during text boxes, pauses or the level intro). There
+// is no checkpoint: a lost life starts the level over (the engine does it)
+// with the time back at 0; the lives lost are counted for the whole run and
+// go with the result (the level's record online).
 
 import { $ } from './dom.js';
 import { state } from './state.js';
@@ -9,11 +11,16 @@ import { openModal, closeModal, h } from './modal.js';
 import { pushUndo } from './history.js';
 import { render } from './render.js';
 import { t, lang } from './i18n.js';
+import { refreshRate } from './player.js';
 
 export const TIME_CHOICES = [0, 30, 60, 90, 120, 180, 300];
 const LIFE_LOST = 6, JANKEN = 9, GAMEPLAY = 0x0A;
 
-export const clearOf = (model = state.model) => model.clear || { time: 0, noDeath: false };
+// (Older levels may also say noDeath: every death restarts the level now.)
+export const clearOf = (model = state.model) => ({ time: (model.clear && model.clear.time) || 0 });
+
+// "1 vie perdue", "2 vies perdues".
+export const livesLost = (n) => (n === 1 ? t('1 vie perdue') : t('{n} vies perdues', { n }));
 
 const duration = (s) => (s % 60 ? (s >= 60 ? `${Math.floor(s / 60)} min ${s % 60} s` : `${s} s`) : `${s / 60} min`);
 // Seconds with one decimal, a comma in French.
@@ -24,50 +31,55 @@ export const seconds = (ms) => {
 
 export function clearText(c = clearOf()) {
   const parts = [];
-  if (c.time) parts.push(duration(c.time));
-  if (c.noDeath) parts.push(t('sans mourir'));
-  return parts.length ? parts.join(' · ') : t('aucun');
+  return c.time ? duration(c.time) : t('aucun');
 }
 
 // ------------------------------------------------------------ while playing
 let run = null;
 
 // A new try; `counts`: played from the start (only then does it count).
-export function beginChallenge(counts) {
+// again: the same run goes on (the time ran out): the lives lost are kept.
+export function beginChallenge(counts, again = false) {
+  const deaths = again && run ? run.deaths : 0;
   stopChallenge();
-  run = { counts, elapsed: 0, last: 0, frame: 0, failed: null, done: false };
+  run = { counts, elapsed: 0, last: 0, frame: 0, failed: null, done: false, deaths, state: 0 };
   $('playTimer').textContent = '';
 }
 
-// The game is running: watches time and deaths. `fail(reason)` stops it.
+// The game is running: watches time and deaths. `fail(reason)` when the time
+// runs out (the level then starts over).
 export function watchChallenge(player, fail) {
   if (!run) return;
   const c = clearOf();
   run.last = performance.now();
+  // Game time: at 50 Hz the game runs a sixth slower, its seconds are longer
+  // (time limits and records stay the same at 50 and 60 Hz).
+  const speed = refreshRate() / 60;
   const tick = (now) => {
     if (!run || run.done) return;
     const r = player.ram();
     const st = r ? r[0x1F] & 0x0F : 0;
-    if (st === GAMEPLAY || st === JANKEN) run.elapsed += now - run.last;
+    // A life lost: the engine starts the level over, the time with it.
+    if (st === LIFE_LOST && run.state !== LIFE_LOST) { run.deaths++; run.elapsed = 0; }
+    run.state = st;
+    if (st === GAMEPLAY || st === JANKEN) run.elapsed += (now - run.last) * speed;
     run.last = now;
-    if (c.noDeath && st === LIFE_LOST) run.failed = t('Alex est mort : ce niveau se fait sans mourir');
-    if (c.time && run.elapsed >= c.time * 1000) run.failed = t('Temps écoulé !');
-    $('playTimer').textContent = c.time
+    if (c.time && run.elapsed >= c.time * 1000) { run.failed = t('Temps écoulé !'); run.deaths++; }
+    $('playTimer').textContent = (c.time
       ? `⏱ ${Math.max(0, Math.ceil(c.time - run.elapsed / 1000))} s`
-      : `⏱ ${seconds(run.elapsed)} s`;
+      : `⏱ ${seconds(run.elapsed)} s`) + (run.deaths ? ` · ${livesLost(run.deaths)}` : '');
     if (run.failed) { run.done = true; fail(run.failed); return; }
     run.frame = requestAnimationFrame(tick);
   };
   run.frame = requestAnimationFrame(tick);
 }
 
-// The level end was reached: { counts, time } (time in ms).
+// The level end was reached: { counts, time, deaths } (time in ms).
 export function endChallenge() {
-  if (!run) return { counts: false, time: 0 };
+  if (!run) return { counts: false, time: 0, deaths: 0 };
   run.done = true;
   cancelAnimationFrame(run.frame);
-  const result = { counts: run.counts && !run.failed, time: Math.round(run.elapsed) };
-  return result;
+  return { counts: run.counts && !run.failed, time: Math.round(run.elapsed), deaths: run.deaths };
 }
 
 export function stopChallenge() {
@@ -77,26 +89,22 @@ export function stopChallenge() {
 
 // ------------------------------------------------------------ editor side
 export function openChallengeSheet() {
-  let c = { ...clearOf() };
+  const c = { ...clearOf() };
   const times = h('div.cards.small', {});
-  const death = h('button.menu-row', {});
   const draw = () => {
     times.replaceChildren(...TIME_CHOICES.map((time) => h('button.card' + (time === c.time ? '.active' : ''), {
       onclick: () => { c.time = time; draw(); },
     }, h('span.card-name', { textContent: time ? duration(time) : t('Pas de limite') }))));
-    death.replaceChildren(h('span.menu-row-label', { textContent: t('Sans mourir') }), h('b', { textContent: c.noDeath ? t('oui') : t('non') }));
   };
-  death.addEventListener('click', () => { c.noDeath = !c.noDeath; draw(); });
   draw();
   openModal(t('Défi du niveau'), h('div.challenge', {},
     h('p.hint', { textContent: t('Une condition pour réussir le niveau. Elle compte quand on joue depuis le début.') }),
     h('h3.sheet-sub', { textContent: t('Temps limite') }), times,
-    h('h3.sheet-sub', { textContent: t('Vies') }), death,
     h('div.dialog-actions', {},
       h('button.key.plain', { textContent: t('Annuler'), onclick: () => closeModal() }),
       h('button.key.go', { textContent: 'OK', onclick: () => {
         pushUndo();
-        if (c.time || c.noDeath) state.model.clear = c; else delete state.model.clear;
+        if (c.time) state.model.clear = c; else delete state.model.clear;
         closeModal();
         render();
       } }))));

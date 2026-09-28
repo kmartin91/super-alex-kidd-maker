@@ -92,7 +92,7 @@ def special_type_name(t):
 SURPRISE_ITEMS = [(0x4D, "Vie supplémentaire (1up)"), (0x4E, "Bracelet de puissance"), (0x4F, "Fantôme (piège)")]
 # Per-level tables that make up a level's look and sound (the rest is gameplay).
 # Vehicles a level can start on: spawn state and song.
-VEHICLES = {"bike": {"spawn": 7, "song": 0x85}, "boat": {"spawn": 1, "song": 0}, "peticopter": {"spawn": 9, "song": 0x88}}
+VEHICLES = {"bike": {"spawn": 7}, "boat": {"spawn": 1}, "peticopter": {"spawn": 9}}
 
 THEME_TABLES = ("palette_ptr", "palette", "main_tileset_ptr", "tileset_loader", "sprite_tiles_loader",
                 "tile_updater", "palette_updater")
@@ -525,8 +525,9 @@ def build(rom_bytes, mod_dir, out_path, start=None):
             level["descriptor"]["metatile_table"] = src["descriptor"]["metatile_table"]
     assign_surprises(model, edited)
     # Vehicles: the level starts on one (engine/src/game/states/gameplay.c; 7 is
-    # the Maker's motorbike start), a wreck makes Alex jump off (no dive), and
-    # the vehicle's song plays (the boat keeps the level's).
+    # the Maker's motorbike start) and a wreck makes Alex jump off (no dive).
+    # The song table keeps the level's song, for Alex on foot: the engine plays
+    # the vehicle's at the start.
     for lv, ed in edited.items():
         v = VEHICLES.get(ed.get("vehicle"))
         if not v:
@@ -534,8 +535,6 @@ def build(rom_bytes, mod_dir, out_path, start=None):
         t = model["levels"][lv - 1]["tables"]
         t["spawn_state"] = v["spawn"]
         t["vehicle_crash_to_water"] = 0
-        if v["song"]:
-            t["song"] = v["song"]
 
     if start:
         lv, col = start

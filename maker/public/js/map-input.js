@@ -1,4 +1,4 @@
-// Mouse on the map, Mario Maker style:
+// Mouse on the map:
 //   click / drag            place the item in hand (blocks paint while dragging)
 //   press on an entity      pick it up and move it; a simple click selects it
 //   drag Alex ("Départ")    move where the level starts

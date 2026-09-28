@@ -75,7 +75,7 @@ $(WEB_OUT)/alexkidd.js: $(GAME_SRC) src/platform/main_web.c $(HEADERS)
 	emcc $(CPPFLAGS) -std=c11 -O2 -Wno-unused-parameter -o $@ $(GAME_SRC) src/platform/main_web.c \
 	  -sASYNCIFY -sASYNCIFY_STACK_SIZE=262144 -sSTACK_SIZE=1048576 -sALLOW_MEMORY_GROWTH \
 	  -sMODULARIZE -sEXPORT_NAME=AlexKiddEngine -sENVIRONMENT=web \
-	  -sEXPORTED_FUNCTIONS=_main,_malloc,_free,_web_set_rom,_web_play,_web_stop,_web_set_joy,_web_press_pause,_web_ram \
+	  -sEXPORTED_FUNCTIONS=_main,_malloc,_free,_web_set_rom,_web_play,_web_stop,_web_set_joy,_web_press_pause,_web_ram,_web_music_start,_web_music_frame,_web_set_refresh \
 	  -sEXPORTED_RUNTIME_METHODS=ccall,HEAPU8,HEAP16,HEAPU32
 
 # Captures for the level editor (level graphics, enemy pictures), run in a Web

@@ -184,7 +184,7 @@ static void resume_gameplay(void) {
     CALL_HELPER(f_updateEntities);
     uint8_t song = ram8(v_level);
     if (ram8(v_currentLevelIsBonusLevel)) song++;
-    ram8(v_soundControl) = level_song(song);
+    ram8(v_soundControl) = maker_foot_song(level_song(song)); /* Alex is back on foot */
     if (ram8(v_level) != 0x10 && ram8(v_alexStateBeforeHit) == ALEX_SWIMMING)
         ram8(v_soundControl) = SOUND_UNDERWATER_SONG;
     if (ram8(v_hasBattleStarted)) ram8(v_soundControl) = SOUND_CASTLE_SONG;
@@ -294,6 +294,13 @@ LIFTED(updateLifeLostState, 0x6C05) {
     destroy_entities(ENTITY_SLOT(1), 5);   /* Alex and what he carries */
     destroy_entities(ENTITY_SLOT(17), 12); /* slots 17-28 */
     reset_respawnable_entities();
+
+    /* Maker levels have no checkpoint: a lost life starts the level over
+     * (the Maker counts the lives lost, maker/public/js/challenge.js). */
+    if (maker.active) {
+        restart_level();
+        LIFTED_RETURN();
+    }
 
     Entity *alex = entity_at(v_alex);
     if ((ram8(v_scrollFlags) & SCROLL_VERTICAL) && ram8(v_level) != 1) {

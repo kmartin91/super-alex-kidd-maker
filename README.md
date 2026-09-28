@@ -4,14 +4,14 @@
 
 **Build your own *Alex Kidd in Miracle World* levels, and play them right away.**
 
-Super Alex Kidd Maker is a level editor in the spirit of *Super Mario Maker*, for Sega's 1986
-Master System classic. Pick a piece, drop it on the map, press Play: your level runs at once, with
+Super Alex Kidd Maker is a level editor for Sega's 1986 Master System classic. Pick a piece, drop it on the map, press Play: your level runs at once, with
 the exact physics, enemies and music of the original. Under the editor runs the whole game,
 rewritten in C from the cartridge's program, and freed from the console's limits for your levels.
 
-The Maker runs in your browser or as a desktop app (Windows, macOS, Linux). You bring your own
-copy of the game: your ROM and your levels never leave your computer. Its interface is in French
-for now.
+Super Alex Kidd Maker is a desktop app for Windows, macOS and Linux: download it from the
+[latest release](https://github.com/kmartin91/super-alex-kidd-maker/releases/latest). There is nothing to play on a website. You bring your own
+copy of the game: your ROM and your levels stay on your computer. Its interface is in French
+and English.
 
 ## Before anything else
 
@@ -32,18 +32,20 @@ take this repository down, I will, no questions asked.
 
 ## Getting started
 
-You need your ROM (CRC32 `17A40E29`: the Maker checks that it's the right version and refuses it
-otherwise), Node.js 18+ and Emscripten (`brew install emscripten` on Mac, or see
-[emscripten.org](https://emscripten.org/docs/getting_started/downloads.html)), which builds the
-game for the browser the first time. Then:
+**To play**: install the app from the [latest release](https://github.com/kmartin91/super-alex-kidd-maker/releases/latest), open it and give it your ROM
+(CRC32 `17A40E29`: the Maker checks that it's the right version and refuses it otherwise). It
+asks for it once and keeps it, like your levels. Nothing is sent anywhere, except the levels you
+choose to publish online.
+
+**To work on it**: you need Node.js 18+ and Emscripten (`brew install emscripten` on Mac, or see
+[emscripten.org](https://emscripten.org/docs/getting_started/downloads.html)), which compiles the
+game to WebAssembly the first time. Then:
 
     npm run maker
 
-The first time, this builds the game for the browser (a few minutes), then opens the Maker
-(`http://localhost:8080`). The Maker asks for your ROM once and keeps it in your browser, like
-your levels: nothing is ever sent anywhere.
-
-Rather have an app? It builds for Windows, macOS and Linux: see [The desktop app](#the-desktop-app).
+The first time, this builds the game (a few minutes), then opens the Maker in a local page
+(`http://localhost:8080`), handy while developing: it's the same Maker as in the app. To build
+the app itself, see [The desktop app](#the-desktop-app).
 
 **On Windows**, the simplest route is [MSYS2](https://www.msys2.org/) (its installer, or
 `winget install MSYS2.MSYS2`). Open the "MSYS2 UCRT64" terminal from the Start menu (not "MSYS2
@@ -64,10 +66,15 @@ have the details.
 
 The Maker opens on the credits and its title screen, then its menu: **play** one
 of your levels, **create** a level, the **online levels**, the **settings** (the intro at launch,
-full screen, your nickname, changing your ROM, updates in the app) and, in the app, **quit**.
-Your own video `maker/public/media/menu.mp4`, if you put one there (it is not in the repository),
-replaces the level scrolling behind the menu. The mouse, the keyboard (arrows, Enter, Escape) and a gamepad all work there. The logo
-at the top left of the editor brings you back to it.
+full screen, the language, the game speed: 60 Hz as in Japan and the USA or 50 Hz as on European
+consoles, where the game and its music run a sixth slower; the controller, your nickname,
+changing your ROM, updates) and
+**quit**. The music of level 1 plays there, played by the game's own sound engine from your ROM;
+the button at the bottom right turns it off. Your own video `maker/public/media/menu.mp4`, if you
+put one there (it is not in the repository), replaces the level scrolling behind the menu. The
+mouse, the keyboard (arrows, Enter, Escape) and a controller all work there. A controller the
+system doesn't know (an arcade stick, a USB pad) is set up in Settings > Controller: press each
+action on it in turn. The logo at the top left of the editor brings you back to the menu.
 
 A new level is either:
 
@@ -90,15 +97,16 @@ New levels come in any of the game's 17 settings, with their graphics, enemies a
 - **On the left, the level**: its name and estimated difficulty (1 to 5 stars), its theme (the
   graphics, enemies and music of another setting), its music (the theme's or the original
   level's), its surprises: what the "?" boxes give, in the order Alex breaks them, and its
-  **challenge**: a time limit and/or "without dying".
+  **challenge**: a time limit.
 - **On the right, the tools**: undo and redo, the eraser, the **selection** (copy, cut, clear and
   paste a zone), the grid, the collision view, zoom, save, the menu and the list of commands.
 - **Alex, marked "Start"**, is where the level begins: drag him anywhere.
 - **Hazards and more**: each setting's deadly blocks (spikes, lava, thorns, burning stakes) are in
   the Blocks tab; the castles' spiked pillars and collapsing floors in the Enemies tab. A level can
-  start on the **motorbike**, the **boat** or the **Peticopter** (Vehicle), and have a **bonus
-  zone**: a few screens of its own, entered through a door of the level and left through another
-  (Bonus zone), like Mario Maker's sub-areas.
+  start on the **motorbike**, the **boat** or the **Peticopter** (Vehicle): losing it either
+  leaves Alex on foot, as in the game, or ends the try and the level starts over. A level can also
+  have a **bonus zone**: a few screens of its own, entered through a door of the level and left
+  through another (Bonus zone).
 - **At the bottom, the whole level in small**: click it to move around. Horizontal levels gain or
   lose screens with its "+" and "−" buttons.
 - **Click an enemy** to select it: a bubble shows its name and its variant (some enemies behave
@@ -129,10 +137,11 @@ New levels come in any of the game's 17 settings, with their graphics, enemies a
 
 The big Play button (or Space) runs the level right in the page, from the screen you're looking
 at, even if you haven't saved. Arrows to move, Space or X to jump, Z or W to punch, Enter to
-pause; Escape goes back to editing. The game takes the whole window, as in Mario Maker. The level
-ends when Alex reaches the rice ball (or beats the boss), and lives never run out while you test.
-With a challenge, the time shows at the bottom, and running out of time (or dying, for "without
-dying") ends the try.
+pause; Escape goes back to editing. The game takes the whole window. The level
+ends when Alex reaches the rice ball (or beats the boss). There is no checkpoint: when Alex loses
+a life, or the time limit runs out, the level starts over by itself with the time back at 0.
+The time and the lives lost show at the bottom; at the end, the lives lost go with your time, and
+online the record is the clear with the fewest lives lost, then the fastest.
 
 The Maker takes its content from the game (graphics, sounds, enemies and how they behave), and
 the C engine lifts the console's limits for your levels. Enemies can go anywhere, the start
@@ -143,27 +152,26 @@ the console: the engine only changes its behaviour for the Maker's levels.
 
 ### Saving and sharing
 
-Your levels are saved in your browser, or in the app: **My levels**, with a picture of each. The
+Your levels are saved in the app: **My levels**, with a picture of each. The
 Maker saves by itself a few seconds after each change (a level never saved yet is kept as a
 draft, offered back in My levels). The menu renames a level, deletes it, exports it as a file to
 keep or share, and imports such a file back. The file holds your level only, with no graphics,
 sound or code from the game: whoever opens it needs their own ROM.
 
-**Online**: once you've cleared your level from its start (challenge included), as in Mario
-Maker, *Publish online* in the menu gives it a code such as `39Q-HCQ-09J`. Anyone can then find
+**Online**: once you've cleared your level from its start (challenge included), *Publish online* in the menu gives it a code such as `39Q-HCQ-09J`. Anyone can then find
 it in **Online levels** (newest, most played, most liked, easiest, hardest, search, or its code),
-play it, like it, keep a copy or report it. A published level can be updated or taken down. The
-website maker.kma.studio shows the community's levels too; the game itself is played in the app
-only, and the site's Play button opens it on the level. The sharing server is not part of this
+play it, like it, keep a copy or report it. A published level can be updated or taken down. A
+website lists the community's levels too, but only to find them: they are played in the app, and
+the site's Play button opens the app on the level. The sharing server is not part of this
 repository.
 
 The level format is described in detail in `docs/level-format.md`.
 
 ## The desktop app
 
-The Maker also comes as an app to install (Windows, macOS, Linux), which updates itself from
+The Maker is played as an app to install (Windows, macOS, Linux), which updates itself from
 the GitHub releases (how to publish one: `app/RELEASE.md`). To build it yourself you need Rust
-on top of the Maker's requirements.
+on top of what `npm run maker` needs.
 
 **Linux** (x86_64 and ARM, from any machine with Docker, in `app/src-tauri/target/linux/`):
 `npm run app:linux` (or `npm run app:linux -- amd64`). The other processor is emulated, so its
@@ -250,8 +258,8 @@ Maker, the desktop app and `make test` work. Feedback is welcome.
 
 ## How it's made
 
-- `maker/`: Super Alex Kidd Maker, a web page that runs entirely in the browser (`public/`; the
-  level format in `public/js/rom/`), served by a tiny Node server. `tools/` keeps the original
+- `maker/`: Super Alex Kidd Maker, its interface in HTML and JavaScript (`public/`; the level
+  format in `public/js/rom/`), shown by the app, or by a tiny Node server while developing. `tools/` keeps the original
   Python level tools, used as the reference in `tests/port_check.mjs`.
 - `app/`: the desktop app (Tauri): the Maker in a window
 - `engine/`: the game in C, compiled to WebAssembly for the Maker
@@ -259,7 +267,7 @@ Maker, the desktop app and `make test` work. Feedback is welcome.
     `level/`, `states/`, `core/`, `audio/`)
   - `src/gen/`: the original automatic translation, instruction by instruction
   - `src/rt/`: the simulated machine (memory, video chip, sound chip) and graphics packs
-  - `src/platform/`: the SDL2 window and the browser version
+  - `src/platform/`: the SDL2 window and the WebAssembly version (the Maker's)
   - `tools/`: small programs the Maker uses (level captures, enemy pictures, graphics sheets)
   - `recomp/`: the Python tools that produced `src/gen/`
   - `tests/`: the checks against the original game
@@ -330,14 +338,15 @@ The included libraries keep their own licenses: superzazu's Z80 core (MIT, in
 
 **Créez vos propres niveaux d'*Alex Kidd in Miracle World*, et jouez-les aussitôt.**
 
-Super Alex Kidd Maker est un éditeur de niveaux dans l'esprit de *Super Mario Maker*, pour le
-classique de la Master System sorti en 1986. On choisit une pièce, on la pose sur la carte, on
+Super Alex Kidd Maker est un éditeur de niveaux pour le classique de la Master System sorti en 1986. On choisit une pièce, on la pose sur la carte, on
 appuie sur Jouer : le niveau se lance tout de suite, avec la physique, les ennemis et la musique
 exacts du jeu d'origine. Sous l'éditeur tourne le jeu complet, réécrit en C à partir du programme
 de la cartouche, et libéré des limites de la console pour vos niveaux.
 
-Le Maker tourne dans votre navigateur ou en application à installer (Windows, macOS, Linux). Vous
-apportez votre propre copie du jeu : votre ROM et vos niveaux ne quittent jamais votre ordinateur.
+Super Alex Kidd Maker est une application pour Windows, macOS et Linux : téléchargez-la depuis la
+[dernière release](https://github.com/kmartin91/super-alex-kidd-maker/releases/latest). Il n'y a rien à jouer sur un site web. Vous apportez votre
+propre copie du jeu : votre ROM et vos niveaux restent sur votre ordinateur. Son interface est en
+français et en anglais.
 
 ## Avant toute chose
 
@@ -358,18 +367,21 @@ commerciaux. Si Sega ou un ayant droit me demande de retirer ce dépôt, je le f
 
 ## Pour commencer
 
-Il vous faut votre ROM (CRC32 `17A40E29` : le Maker vérifie qu'il s'agit bien de la bonne version
-et la refuse sinon), Node.js 18 ou plus récent et Emscripten (`brew install emscripten` sur Mac,
-sinon voir [emscripten.org](https://emscripten.org/docs/getting_started/downloads.html)), qui
-compile le jeu pour le navigateur la première fois. Ensuite :
+**Pour jouer** : installez l'application depuis la [dernière release](https://github.com/kmartin91/super-alex-kidd-maker/releases/latest), ouvrez-la et
+donnez-lui votre ROM (CRC32 `17A40E29` : le Maker vérifie qu'il s'agit bien de la bonne version et
+la refuse sinon). Elle ne la demande qu'une fois et la garde, comme vos niveaux. Rien n'est envoyé
+ailleurs, sauf les niveaux que vous choisissez de publier en ligne.
+
+**Pour travailler dessus** : il vous faut Node.js 18 ou plus récent et Emscripten
+(`brew install emscripten` sur Mac, sinon voir
+[emscripten.org](https://emscripten.org/docs/getting_started/downloads.html)), qui compile le jeu
+en WebAssembly la première fois. Ensuite :
 
     npm run maker
 
-La première fois, la commande compile le jeu pour le navigateur (quelques minutes), puis ouvre le
-Maker (`http://localhost:8080`). Le Maker demande votre ROM une seule fois et la garde dans votre
-navigateur, comme vos niveaux : rien n'est jamais envoyé ailleurs.
-
-Vous préférez une application ? Elle se construit pour Windows, macOS et Linux : voir
+La première fois, la commande compile le jeu (quelques minutes), puis ouvre le Maker dans une page
+locale (`http://localhost:8080`), pratique pendant le développement : c'est le même Maker que dans
+l'application. Pour construire l'application elle-même, voir
 [L'application à installer](#lapplication-à-installer).
 
 **Sous Windows**, le plus simple est de passer par [MSYS2](https://www.msys2.org/) (son
@@ -391,10 +403,15 @@ Les commandes de cette page marchent telles quelles depuis ce terminal ; les
 
 Le Maker s'ouvre sur les crédits et son écran titre, puis sur son menu : **jouer**
 un de vos niveaux, **créer** un niveau, les **niveaux en ligne**, les **paramètres** (l'intro au
-lancement, le plein écran, votre pseudo, changer de ROM, les mises à jour dans l'application) et,
-dans l'application, **quitter**. Votre propre vidéo `maker/public/media/menu.mp4`, si vous en mettez une (elle n'est pas dans le
-dépôt), remplace le niveau qui défile derrière le menu. La souris, le clavier (flèches, Entrée, Échap) et la manette y
-fonctionnent. Le logo en haut à gauche de l'éditeur y ramène.
+lancement, le plein écran, la langue, la vitesse du jeu : 60 Hz comme au Japon et aux États-Unis
+ou 50 Hz comme sur les consoles européennes, où le jeu et sa musique tournent un sixième moins
+vite ; la manette, votre pseudo, changer de ROM, les mises à jour)
+et **quitter**. La musique du niveau 1 y joue, jouée par le moteur son du jeu à partir de votre
+ROM ; le bouton en bas à droite la coupe. Votre propre vidéo `maker/public/media/menu.mp4`, si vous
+en mettez une (elle n'est pas dans le dépôt), remplace le niveau qui défile derrière le menu. La
+souris, le clavier (flèches, Entrée, Échap) et la manette y fonctionnent. Une manette que le
+système ne connaît pas (un stick arcade, une manette USB) se règle dans Paramètres > Manette :
+appuyez tour à tour sur chaque action. Le logo en haut à gauche de l'éditeur ramène au menu.
 
 Un nouveau niveau, c'est au choix :
 
@@ -418,7 +435,7 @@ ennemis et sa musique.
 - **À gauche, le niveau** : son nom et sa difficulté estimée (de 1 à 5 étoiles), son thème (les
   graphismes, les ennemis et la musique d'un autre décor), sa musique (celle du thème ou celle du
   niveau d'origine), ses surprises : ce que donnent les boîtes « ? », dans l'ordre où Alex les
-  casse, et son **défi** : un temps limite et/ou « sans mourir ».
+  casse, et son **défi** : un temps limite.
 - **À droite, les outils** : annuler et rétablir, la gomme, la **sélection** (copier, couper,
   effacer et coller une zone), la grille, l'affichage des collisions, le zoom, l'enregistrement,
   le menu et la liste des commandes.
@@ -426,8 +443,9 @@ ennemis et sa musique.
 - **Dangers et plus** : les blocs mortels de chaque décor (pics, lave, ronces, pieux enflammés)
   sont dans l'onglet Blocs ; les piliers à pointes et les sols qui s'effondrent des châteaux dans
   l'onglet Ennemis. Un niveau peut commencer à **moto**, en **bateau** ou en **Peticopter**
-  (Véhicule), et avoir une **zone bonus** : quelques écrans à part, où l'on entre par une porte du
-  niveau et d'où l'on revient par une autre (Zone bonus), comme les sous-niveaux de Mario Maker.
+  (Véhicule) : s'il le perd, Alex continue à pied comme dans le jeu, ou bien l'essai s'arrête et le
+  niveau recommence. Un niveau peut aussi avoir une **zone bonus** : quelques écrans à part, où
+  l'on entre par une porte du niveau et d'où l'on revient par une autre (Zone bonus).
 - **En bas, tout le niveau en petit** : cliquez dessus pour vous déplacer. Les niveaux horizontaux
   gagnent ou perdent des écrans avec « + Écran » et « − Écran ».
 - **Cliquez sur un ennemi** pour le choisir : une bulle affiche son nom et sa variante (certains
@@ -460,9 +478,11 @@ ennemis et sa musique.
 Le gros bouton Jouer (ou Espace) lance le niveau directement dans la page, à partir de l'écran
 affiché, même si vous n'avez pas enregistré. Les flèches pour se déplacer, Espace ou X pour
 sauter, Z ou W pour le coup de poing, Entrée pour la pause ; Échap revient à l'édition. Le jeu
-prend toute la fenêtre, comme dans Mario Maker. Le niveau se termine quand Alex atteint la boule
-de riz (ou bat le boss), et les vies sont illimitées pendant les essais. Avec un défi, le temps
-s'affiche en bas, et le temps écoulé (ou une mort, pour « sans mourir ») met fin à l'essai.
+prend toute la fenêtre. Le niveau se termine quand Alex atteint la boule
+de riz (ou bat le boss). Il n'y a pas de point de passage : quand Alex perd une vie, ou que le
+temps limite est écoulé, le niveau recommence tout seul, le temps remis à 0. Le temps et les vies
+perdues s'affichent en bas ; à la fin, les vies perdues accompagnent votre temps, et en ligne le
+record est la réussite avec le moins de vies perdues, puis la plus rapide.
 
 Le Maker tire son contenu du jeu (graphismes, sons, ennemis et leur comportement), et le moteur en
 C lève les limites de la console pour vos niveaux. Les ennemis se posent partout, écran de départ
@@ -474,29 +494,27 @@ comportement que pour les niveaux du Maker.
 
 ### Enregistrer et partager
 
-Vos niveaux sont enregistrés dans votre navigateur, ou dans l'application : « Mes niveaux », avec
-une image de chacun. Le Maker enregistre tout seul quelques secondes après chaque modification
+Vos niveaux sont enregistrés dans l'application : « Mes niveaux », avec une image de chacun. Le Maker enregistre tout seul quelques secondes après chaque modification
 (un niveau jamais enregistré est gardé comme brouillon, proposé dans Mes niveaux). Le menu
 renomme un niveau, le supprime, l'exporte dans un fichier à garder ou à partager, et réimporte un
 tel fichier. Ce fichier ne contient que votre niveau, sans graphisme, son ni code du jeu : qui
 l'ouvre a besoin de sa propre ROM.
 
-**En ligne** : une fois votre niveau réussi depuis son départ (défi compris), comme dans Mario
-Maker, « Publier en ligne » dans le menu lui donne un code comme `39Q-HCQ-09J`. Tout le monde
+**En ligne** : une fois votre niveau réussi depuis son départ (défi compris), « Publier en ligne » dans le menu lui donne un code comme `39Q-HCQ-09J`. Tout le monde
 peut alors le trouver dans **Niveaux en ligne** (récents, les plus joués, les plus aimés, faciles,
 difficiles, recherche, ou son code), y jouer, l'aimer, en garder une copie ou le signaler. Un
-niveau publié peut être mis à jour ou retiré. Le serveur du partage ne fait pas partie de ce
-dépôt. Le site maker.kma.studio montre aussi les niveaux de
-la communauté ; le jeu, lui, ne se joue que dans l'application, et le bouton Jouer du site l'ouvre
-sur le niveau.
+niveau publié peut être mis à jour ou retiré. Un site web liste aussi les niveaux de la
+communauté, mais seulement pour les trouver : ils se jouent dans l'application, et le bouton
+Jouer du site ouvre l'application sur le niveau. Le serveur du partage ne fait pas partie de ce
+dépôt.
 
 Le format des niveaux est décrit en détail dans `docs/level-format.md`.
 
 ## L'application à installer
 
-Le Maker existe aussi en application à installer (Windows, macOS, Linux), qui se met à jour
-toute seule depuis les releases GitHub (comment en publier une : `app/RELEASE.md`). Pour la
-construire vous-même, il faut Rust en plus de ce que demande le Maker.
+Le Maker se joue en application à installer (Windows, macOS, Linux), qui se met à jour toute
+seule depuis les releases GitHub (comment en publier une : `app/RELEASE.md`). Pour la construire
+vous-même, il faut Rust en plus de ce que demande `npm run maker`.
 
 **Linux** (x86_64 et ARM, depuis n'importe quelle machine avec Docker, dans
 `app/src-tauri/target/linux/`) : `npm run app:linux` (ou `npm run app:linux -- amd64`). L'autre
@@ -587,9 +605,9 @@ Maker, l'application et `make test` fonctionnent. Les retours sont les bienvenus
 
 ## Comment c'est fait
 
-- `maker/` : Super Alex Kidd Maker, une page web qui tourne entièrement dans le navigateur
-  (`public/` ; le format des niveaux dans `public/js/rom/`), servie par un tout petit serveur
-  Node. `tools/` garde les outils de niveaux Python d'origine, qui servent de référence à
+- `maker/` : Super Alex Kidd Maker, son interface en HTML et JavaScript (`public/` ; le format
+  des niveaux dans `public/js/rom/`), affichée par l'application, ou par un tout petit serveur
+  Node pendant le développement. `tools/` garde les outils de niveaux Python d'origine, qui servent de référence à
   `tests/port_check.mjs`.
 - `app/` : l'application à installer (Tauri) : le Maker dans une fenêtre
 - `engine/` : le jeu en C, compilé en WebAssembly pour le Maker
@@ -597,7 +615,7 @@ Maker, l'application et `make test` fonctionnent. Les retours sont les bienvenus
     `enemies2/`, `level/`, `states/`, `core/`, `audio/`)
   - `src/gen/` : la traduction automatique de départ, instruction par instruction
   - `src/rt/` : la machine simulée (mémoire, puce vidéo, puce son) et les packs graphiques
-  - `src/platform/` : la fenêtre SDL2 et la version navigateur
+  - `src/platform/` : la fenêtre SDL2 et la version WebAssembly (celle du Maker)
   - `tools/` : de petits programmes utilisés par le Maker (captures des niveaux, images des
     ennemis, planches graphiques)
   - `recomp/` : les outils Python qui ont produit `src/gen/`

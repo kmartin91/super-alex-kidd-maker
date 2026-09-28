@@ -2,7 +2,6 @@
 
 #include <string.h>
 
-#define PSG_CLOCK (3579545.0 / 16.0)
 
 /* 2 dB per step, scaled so four channels at full volume stay within int16. */
 static const int16_t volume_table[16] = {
@@ -14,6 +13,7 @@ void psg_reset(Psg *p) {
     memset(p, 0, sizeof(*p));
     for (int i = 0; i < 4; i++) p->vol[i] = 15;
     p->lfsr = 0x8000;
+    p->clock = PSG_CLOCK_NTSC;
 }
 
 void psg_write(Psg *p, uint8_t value) {
@@ -69,7 +69,7 @@ static void psg_clock(Psg *p) {
 }
 
 void psg_render(Psg *p, int16_t *out, int count, int rate) {
-    double step = PSG_CLOCK / rate;
+    double step = p->clock / rate;
     for (int i = 0; i < count; i++) {
         p->phase += step;
         int ticks = 0;

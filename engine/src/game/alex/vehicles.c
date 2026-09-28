@@ -11,9 +11,10 @@
  * Boat (action state 8): like the motorcycle on water (max 2.5 px/frame);
  * button 2 shoots; a jump lands only on water: solid tiles wreck the boat.
  *
- * Peticopter (action state 9): button 1 starts the engine, then gives
- * 7 frames of thrust per press: up to 2 px/frame upwards (accel 1/4) while
- * climbing, braking the fall (1/4) while descending. Without thrust it glides
+ * Peticopter (action state 9): button 1 starts the engine (in Maker levels a
+ * direction does too), then gives 7 frames of thrust per press: up to
+ * 2 px/frame upwards (accel 1/4) while climbing, braking the fall (1/4) while
+ * descending. Without thrust it glides
  * (rise braked by 1/8, then falls at up to 1 px/frame). Horizontally: accel
  * 1/4 up to 2 px/frame, friction 1/8, brake 1/4. The propeller animation
  * slows down between presses. Touching a solid ceiling or water, or being
@@ -21,6 +22,7 @@
  *
  * Losing a vehicle ($388E): in levels 1, 5 and 9 (table at $3904) Alex falls
  * (state $1B, then diving into the water), elsewhere he jumps off ($43EB).
+ * A Maker level may instead end the try there (crash_ends_try below).
  */
 #include "alex.h"
 #include "rt/maker.h"
@@ -68,6 +70,16 @@ static void set_animation_speed_from_x_speed(void) {
     ALEX->animationTimerResetValue = (uint8_t)(~HI(ALEX->xSpeed) + 7);
 }
 
+/* Maker levels set up so (rt/maker.h, crash_ends_try): losing the vehicle
+ * kills Alex, the vehicle exploding where it was; the level then restarts
+ * with it (states/life_lost.c). */
+static bool crash_ends_try(void) {
+    if (!maker.active || !maker.crash_ends_try) return false;
+    alex_call(f__LABEL_4415_); /* the explosion */
+    alex_die();
+    return true;
+}
+
 /* ------------------------------------------------------------ motorcycle */
 
 /* $2FD5: the wheels hit rocks (breakable: smashed) or walls (wreck), then
@@ -81,6 +93,7 @@ static void ride_motorcycle(void) {
         if (!(cpu.f & FLAG_C)) continue; /* not solid */
         op_rlca();
         if (!(cpu.f & FLAG_C)) {
+            if (crash_ends_try()) return;
             alex_call(f__LABEL_43F2_); /* solid wall: the bike is wrecked */
             return;
         }
@@ -347,7 +360,8 @@ LIFTED(_LABEL_37D5_, 0x37D5) {
 static void update_peticopter(void) {
     Entity *alex = ALEX;
     if (!(alex->unknown8 & ACTFLAG_ENGINE_ON)) {
-        if (!(ram8(v_inputDataChanges) & PAD_JUMP)) return; /* waiting for take-off */
+        uint8_t take_off = maker.active ? (PAD_JUMP | PAD_UP | PAD_DOWN | PAD_LEFT | PAD_RIGHT) : PAD_JUMP;
+        if (!(ram8(v_inputDataChanges) & take_off)) return; /* waiting for take-off */
         alex->unknown8 |= ACTFLAG_ENGINE_ON;
     }
     alex_interact_with_tile(0x040C); /* head, body and feet */
@@ -392,6 +406,7 @@ LIFTED(_LABEL_389C_, 0x389C) {
  * crash leads to a dive into the lower row (crash table = 1); a Maker level
  * (rt/maker.h) without one has Alex jump off instead of freezing in the air. */
 void alex_wreck_boat(void) {
+    if (crash_ends_try()) return;
     if (maker.active && !rd8((uint16_t)(VEHICLE_CRASH_LEVELS + ram8(v_level)))) {
         ram8(v_shouldSpawnRidingBoat_RAM_C051_) = 0;
         ram8(v_alexActionState) = ACTION_NONE;
@@ -403,6 +418,7 @@ void alex_wreck_boat(void) {
 
 /* $388E: the vehicle is lost (hit, or peticopter in water/ceiling). */
 void alex_lose_vehicle(void) {
+    if (crash_ends_try()) return;
     cpu.de = VEHICLE_CRASH_LEVELS;
     cpu.hl = (uint16_t)(VEHICLE_CRASH_LEVELS + ram8(v_level));
     if (rd8(cpu.hl)) alex_crash_vehicle();

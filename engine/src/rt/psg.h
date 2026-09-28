@@ -14,7 +14,11 @@ typedef struct Psg {
     uint8_t output[4];
     uint16_t lfsr;
     double phase;         /* fractional PSG clocks carried between renders */
+    double clock;         /* generator ticks per second (the console's clock / 16) */
 } Psg;
+
+#define PSG_CLOCK_NTSC (3579545.0 / 16.0)
+#define PSG_CLOCK_PAL (3546893.0 / 16.0) /* European consoles: notes a little lower */
 
 void psg_reset(Psg *p);
 void psg_write(Psg *p, uint8_t value);

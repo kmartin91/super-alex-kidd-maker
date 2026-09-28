@@ -308,6 +308,7 @@ void alex_clear_attacks(void);
 
 /* vehicles.c */
 void alex_lose_vehicle(void);
+void alex_die(void);
 void alex_crash_vehicle(void);
 void alex_wreck_boat(void);
 

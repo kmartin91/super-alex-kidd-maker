@@ -574,6 +574,13 @@ static void hit(void) {
         alex_lose_vehicle();
         return;
     }
+    alex_die();
+}
+
+/* The death itself (the rest of $2F41). */
+void alex_die(void) {
+    Entity *alex = ALEX;
+    uint8_t state = alex->state;
     alex->xSpeed = 0;
     alex->unknown8 = 0;
     ram8(v_alexActionState) = ACTION_NONE;

@@ -12,7 +12,7 @@ const STEPS = [
   { at: '#palette', title: 'Les pièces', text: 'Choisis ici ce que tu poses : du sol qui se raccorde tout seul, des blocs, du décor, des ennemis et des boss.' },
   { at: '#stage', title: 'Le niveau', text: 'Clique ou glisse pour poser. Clic droit pour effacer. Maj + glisser remplit un rectangle.' },
   { at: '#stage', title: 'Le départ', text: 'Alex marqué « Départ » est l\'endroit où le niveau commence : attrape-le et pose-le où tu veux.', start: true },
-  { at: '#left', title: 'Le réglage du niveau', text: 'Son décor, sa musique, ce que donnent les boîtes ?, et un défi : un temps limite ou « sans mourir ».' },
+  { at: '#left', title: 'Le réglage du niveau', text: 'Son décor, sa musique, ce que donnent les boîtes ?, et un défi : un temps limite.' },
   { at: '#right', title: 'Les outils', text: 'Annuler, gomme, sélection (copier-coller une zone), grille, zoom, enregistrer. La sauvegarde se fait aussi toute seule.' },
   { at: '#corner', title: 'Jouer', text: 'Teste ton niveau quand tu veux, même pas fini (touche Espace). Échap pour revenir à l\'édition.' },
 ];

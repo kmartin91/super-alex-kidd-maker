@@ -206,7 +206,7 @@ static void open_map(void) {
     CALL_HELPER(f_drawThreeBcdBytes);
 
     map_bank(BANK(2));
-    uint8_t song = swimming_song(level_song(ram8(v_level)));
+    uint8_t song = swimming_song(maker_foot_song(level_song(ram8(v_level))));
     song = vehicle_song(song);
     if (ram8(v_currentLevelIsBonusLevel)) song = SOUND_BASE_SONG;
     ram8(v_soundControl) = song;
@@ -316,7 +316,7 @@ LIFTED(exitMapState, 0x1FE9) {
     CALL_ROUTINE(f_updateNametable_LABEL_6B49_);
     cpu.ix = v_alex;
 
-    uint8_t song = level_song(ram8(v_level));
+    uint8_t song = maker_foot_song(level_song(ram8(v_level)));
     if (ram8(v_currentLevelIsBonusLevel)) song = SOUND_BASE_SONG;
     else song = swimming_song(song);
     ram8(v_soundControl) = vehicle_song(song);

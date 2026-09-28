@@ -16,8 +16,8 @@ export default {
   'Musique': 'Music',
   'Surprises|Choisis ce que donnent les boîtes ? quand Alex les casse': 'Surprises|Choose what the ? boxes give when Alex breaks them',
   'Surprises': 'Surprises',
-  'Défi|Une condition pour réussir le niveau : un temps limite, ne jamais mourir':
-    'Challenge|A condition to clear the level: a time limit, never dying',
+  'Défi|Une condition pour réussir le niveau : un temps limite':
+    'Challenge|A condition to clear the level: a time limit',
   'Défi': 'Challenge',
   'Variante précédente|Certains ennemis changent de comportement selon leur variante':
     'Previous variant|Some enemies behave differently depending on their variant',
@@ -122,17 +122,13 @@ export default {
   'Surprises des boîtes ?': '? box surprises',
 
   // ------------------------------------------------------------ challenge
-  'sans mourir': 'without dying',
   'aucun': 'none',
-  'Alex est mort : ce niveau se fait sans mourir': 'Alex died: this level must be cleared without dying',
   'Temps écoulé !': 'Time\'s up!',
   'Pas de limite': 'No limit',
-  'Sans mourir': 'Without dying',
   'Défi du niveau': 'Level challenge',
   'Une condition pour réussir le niveau. Elle compte quand on joue depuis le début.':
     'A condition to clear the level. It counts when you play from the start.',
   'Temps limite': 'Time limit',
-  'Vies': 'Lives',
 
   // ------------------------------------------------------------ palette
   'Sol': 'Ground',
@@ -403,8 +399,6 @@ export default {
   'préparation du niveau…': 'getting the level ready…',
   'depuis l\'écran {n}': 'from screen {n}',
   'depuis le début': 'from the start',
-  'raté': 'failed',
-  '{reason} · « Depuis le début » pour réessayer': '{reason} · “From the start” to try again',
 
   // ------------------------------------------------------------ tutorial
   'Les pièces': 'The parts',
@@ -417,8 +411,8 @@ export default {
   'Alex marqué « Départ » est l\'endroit où le niveau commence : attrape-le et pose-le où tu veux.':
     'Alex marked “Start” is where the level begins: grab him and put him wherever you like.',
   'Le réglage du niveau': 'Level settings',
-  'Son décor, sa musique, ce que donnent les boîtes ?, et un défi : un temps limite ou « sans mourir ».':
-    'Its theme, its music, what the ? boxes give, and a challenge: a time limit or “without dying”.',
+  'Son décor, sa musique, ce que donnent les boîtes ?, et un défi : un temps limite.':
+    'Its theme, its music, what the ? boxes give, and a challenge: a time limit.',
   'Les outils': 'The tools',
   'Annuler, gomme, sélection (copier-coller une zone), grille, zoom, enregistrer. La sauvegarde se fait aussi toute seule.':
     'Undo, eraser, selection (copy and paste an area), grid, zoom, save. Saving also happens by itself.',
@@ -461,8 +455,8 @@ export default {
   'Seuls les niveaux horizontaux et verticaux peuvent être publiés pour l\'instant.': 'Only horizontal and vertical levels can be published for now.',
   'C\'est un niveau du jeu tel quel : fais-en ton propre niveau avant de le publier.':
     'This is a level of the game as it is: make it your own before publishing it.',
-  'Pour publier, termine d\'abord ton niveau en le jouant depuis le début (et en réussissant son défi s\'il en a un), comme dans Mario Maker.':
-    'To publish, first clear your level by playing it from the start (and beating its challenge if it has one), like in Mario Maker.',
+  'Pour publier, termine d\'abord ton niveau en le jouant depuis le début (et en réussissant son défi s\'il en a un).':
+    'To publish, first clear your level by playing it from the start (and beating its challenge if it has one).',
   'Pas encore réussi': 'Not cleared yet',
   'Ton pseudo (facultatif)': 'Your nickname (optional)',
   'Mise à jour…': 'Updating…',
@@ -505,6 +499,8 @@ export default {
   'record {time} s': 'record {time} s',
   'son auteur : {time} s': 'its maker: {time} s',
   'Jouer ce code': 'Play this code',
+  'Tous les décors': 'All settings',
+  'Toutes difficultés': 'Any difficulty',
   // deadly blocks (hazards.js) and vehicles (vehicle.js)
   '{name} · mortel': '{name} · deadly',
   'Ronces mortelles': 'Deadly thorns',
@@ -523,7 +519,7 @@ export default {
   'Bateau': 'Boat',
   'Il navigue sur l\'eau du bas de l\'écran et tire des boulets. Contre un mur, Alex saute à l\'eau.': 'It sails on the water at the bottom of the screen and fires. Against a wall, Alex jumps into the water.',
   'Peticopter': 'Peticopter',
-  'Il vole et tire des boulets. S\'il touche l\'eau ou le plafond, Alex tombe.': 'It flies and fires. If it touches the water or the ceiling, Alex falls.',
+  'Il décolle avec le saut ou une direction, vole et tire des boulets. S\'il touche l\'eau ou le plafond, Alex tombe.': 'It takes off with jump or a direction, flies and fires. If it touches the water or the ceiling, Alex falls.',
   'Ce décor n\'a pas d\'eau : choisis un décor avec de l\'eau (un lac, la rivière…) pour le bateau.': 'This setting has no water: pick one with water (a lake, the river…) for the boat.',
   'Les véhicules ne vont que dans les niveaux horizontaux.': 'Vehicles only go in horizontal levels.',
   'Mettre de l\'eau sur les deux rangées du bas': 'Put water on the two bottom rows',
@@ -543,7 +539,7 @@ export default {
   'Supprimer la zone': 'Delete the zone',
   'et les portes qui y mènent': 'and the doors to it',
   'Nouvelle zone bonus': 'New bonus zone',
-  'Une zone à part, comme les sous-niveaux de Mario Maker : Alex y entre par une porte de ton niveau et en ressort par une autre, là où il était entré. Ce qu\'il y gagne est gardé.': 'A separate area, like Mario Maker\'s sub-areas: Alex goes in through a door of your level and comes out through another, where he came in. What he gains there is kept.',
+  'Une zone à part : Alex y entre par une porte de ton niveau et en ressort par une autre, là où il était entré. Ce qu\'il y gagne est gardé.': 'A separate area: Alex goes in through a door of your level and comes out through another, where he came in. What he gains there is kept.',
   'une petite salle': 'a small room',
   'une zone moyenne': 'a medium zone',
   'une grande zone': 'a big zone',
@@ -551,4 +547,38 @@ export default {
   'aucune': 'none',
   'Copier le lien': 'Copy the link',
   'Lien copié': 'Link copied',
+  // game controller (pad-setup.js) and the menu's music (menu.js)
+  'Manette': 'Controller',
+  'configurer': 'set up',
+  'Haut': 'Up',
+  'Bas': 'Down',
+  'Gauche': 'Left',
+  'Droite': 'Right',
+  'Sauter': 'Jump',
+  'Coup de poing': 'Punch',
+  'Start / pause': 'Start / pause',
+  'bouton {n}': 'button {n}',
+  'axe {n} {dir}': 'axis {n} {dir}',
+  'axe {n} = {value}': 'axis {n} = {value}',
+  ' ou ': ' or ',
+  'Configurer': 'Set up',
+  'Par défaut': 'Default',
+  'Appuie…': 'Press…',
+  'Manette configurée': 'Controller set up',
+  'Dans les menus, Sauter valide et Coup de poing revient en arrière.': 'In the menus, Jump chooses and Punch goes back.',
+  'Aucune manette détectée : branche-la, puis appuie sur un de ses boutons.': 'No controller found: plug it in, then press one of its buttons.',
+  'Couper la musique': 'Mute the music',
+  'Remettre la musique': 'Turn the music back on',
+  // vehicle sheet: losing the vehicle
+  'Si le véhicule est détruit': 'If the vehicle is destroyed',
+  'il faut recommencer le niveau': 'the level starts over',
+  'Alex continue à pied': 'Alex goes on on foot',
+  // settings: game speed (player.js)
+  'Vitesse du jeu': 'Game speed',
+  '50 Hz (Europe)': '50 Hz (Europe)',
+  '60 Hz (Japon, USA)': '60 Hz (Japan, USA)',
+  // lives lost (challenge.js): no checkpoint, a lost life starts the level over
+  '1 vie perdue': '1 life lost',
+  '{n} vies perdues': '{n} lives lost',
+  '{reason} · on recommence': '{reason} · starting over',
 };

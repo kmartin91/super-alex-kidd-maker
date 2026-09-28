@@ -141,7 +141,7 @@ function customBosses(model) {
 
 function makerBlock(model, base) {
   const theme = model.theme || base;
-  const block = new Uint8Array(8 + 256 + 8 + 4 * 16 + 8 + 5);
+  const block = new Uint8Array(352 + 8 + 1);
   block.set(ascii('AKMAKER1'));
   const types = model.entityTypes.map((t) => [t.id, t.levels || []]).concat(Object.entries(BOSS_LEVELS).map(([t, l]) => [Number(t), l]));
   for (const [type, levels] of types) if (levels.length && !levels.includes(theme)) block[8 + type] = levels[0];
@@ -157,6 +157,11 @@ function makerBlock(model, base) {
   if (model.zone) {
     block.set(ascii('AKZONE01'), 336);
     block.set([layoutRows(rom, base), model.zone.columns - 1, model.entities.length, model.zone.start.x, model.zone.start.y], 344);
+  }
+  // Losing the vehicle ends the try (engine/src/game/alex/vehicles.c).
+  if (model.vehicle && model.crashEndsTry) {
+    block.set(ascii('AKVEHIC1'), 352);
+    block[360] = 1;
   }
   return block;
 }

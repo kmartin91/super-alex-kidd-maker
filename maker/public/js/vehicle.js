@@ -1,6 +1,8 @@
 // The vehicle a level starts on (model.vehicle: bike, boat, peticopter, or
 // none: on foot), horizontal levels only. The level tools set the game's
 // start table (rom/leveledit.js VEHICLES); the engine handles the rest.
+// model.crashEndsTry: losing the vehicle (a wall, water, a hit) ends the try
+// and the level restarts, instead of Alex going on on foot (backend.js).
 // The boat floats on water at the bottom of the screen (rows 10 and 11).
 
 import { state, SCREEN_W, SCREEN_H } from './state.js';
@@ -15,7 +17,7 @@ export const VEHICLES = [
   { id: null, name: 'À pied', text: 'Alex marche, saute et nage.' },
   { id: 'bike', name: 'Moto', text: 'Il fonce tout seul vers la droite : saute les trous et les ennemis. Attention, la moto ne nage pas.' },
   { id: 'boat', name: 'Bateau', text: 'Il navigue sur l\'eau du bas de l\'écran et tire des boulets. Contre un mur, Alex saute à l\'eau.' },
-  { id: 'peticopter', name: 'Peticopter', text: 'Il vole et tire des boulets. S\'il touche l\'eau ou le plafond, Alex tombe.' },
+  { id: 'peticopter', name: 'Peticopter', text: 'Il décolle avec le saut ou une direction, vole et tire des boulets. S\'il touche l\'eau ou le plafond, Alex tombe.' },
 ];
 
 export const vehicleName = (id = state.model.vehicle) => t((VEHICLES.find((v) => v.id === (id || null)) || VEHICLES[0]).name);
@@ -64,8 +66,10 @@ export function openVehicleSheet() {
   }
   let chosen = state.model.vehicle || null;
   let wantWater = false;
+  let crashEnds = !!state.model.crashEndsTry;
   const cards = h('div.choices.vehicles', {});
   const waterRow = h('button.menu-row', {});
+  const crashRow = h('button.menu-row', {});
   const draw = () => {
     cards.replaceChildren(...VEHICLES.map((v) => h(`button.choice${v.id === chosen ? '.main' : ''}`, {
       onclick: () => { chosen = v.id; draw(); },
@@ -73,17 +77,22 @@ export function openVehicleSheet() {
     waterRow.hidden = chosen !== 'boat';
     waterRow.replaceChildren(h('span.menu-row-label', { textContent: t('Mettre de l\'eau sur les deux rangées du bas') }),
       h('b', { textContent: wantWater ? t('oui') : t('non') }));
+    crashRow.hidden = !chosen;
+    crashRow.replaceChildren(h('span.menu-row-label', { textContent: t('Si le véhicule est détruit') }),
+      h('b', { textContent: crashEnds ? t('il faut recommencer le niveau') : t('Alex continue à pied') }));
   };
   waterRow.addEventListener('click', () => { wantWater = !wantWater; draw(); });
+  crashRow.addEventListener('click', () => { crashEnds = !crashEnds; draw(); });
   draw();
   openModal(t('Véhicule de départ'), h('div.vehicle-sheet', {},
     h('p.hint', { textContent: t('Alex commence le niveau sur ce véhicule. S\'il meurt, le niveau recommence avec.') }),
-    cards, waterRow,
+    cards, crashRow, waterRow,
     h('div.dialog-actions', {},
       h('button.key.plain', { textContent: t('Annuler'), onclick: () => closeModal() }),
       h('button.key.go', { textContent: 'OK', onclick: () => {
         pushUndo();
         if (chosen) state.model.vehicle = chosen; else delete state.model.vehicle;
+        if (chosen && crashEnds) state.model.crashEndsTry = true; else delete state.model.crashEndsTry;
         if (chosen === 'boat' && wantWater) flood();
         closeModal();
         render();

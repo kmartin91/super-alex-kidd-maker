@@ -1,4 +1,4 @@
-// Mario-Maker-style building parts learnt from a level's own screens: a port of
+// Building parts learnt from a level's own screens: a port of
 // maker/tools/parts.py. For each level (= theme: its graphics decide how
 // metatiles look), derives:
 //   eraser    the level's background metatile (sky, water...)

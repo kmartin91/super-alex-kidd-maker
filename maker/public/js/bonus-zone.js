@@ -1,4 +1,4 @@
-// A bonus zone (model.zone), Super Mario Maker's sub-area: a few more screens
+// A bonus zone (model.zone), a sub-area of the level: a few more screens
 // of the same setting with their own enemies, reached through doors (entity
 // $4C: data 0 in the level goes in, data 1 in the zone comes back; see
 // engine/src/game/states/zone.c). Horizontal levels whose shape can change.
@@ -100,7 +100,7 @@ export function openZoneSheet() {
     return;
   }
   openModal(t('Nouvelle zone bonus'), h('div.zone-sheet', {},
-    h('p.hint', { textContent: t('Une zone à part, comme les sous-niveaux de Mario Maker : Alex y entre par une porte de ton niveau et en ressort par une autre, là où il était entré. Ce qu\'il y gagne est gardé.') }),
+    h('p.hint', { textContent: t('Une zone à part : Alex y entre par une porte de ton niveau et en ressort par une autre, là où il était entré. Ce qu\'il y gagne est gardé.') }),
     h('div.choices', {}, ...[1, 2, 3].map((n) => h(`button.choice${n === 2 ? '.main' : ''}`, {
       onclick: () => { closeModal(); createZone(n); swap(); },
     }, h('b', { textContent: t('{n} écrans', { n }) }), h('span', { textContent: n === 1 ? t('une petite salle') : n === 2 ? t('une zone moyenne') : t('une grande zone') }))))), { wide: true });

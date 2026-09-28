@@ -1,7 +1,8 @@
-// The game menu, Mario Maker style: a level of the game scrolls behind the
+// The game menu: a level of the game scrolls behind the
 // logo, big tiles to play, create, change the settings or quit (desktop app).
 // At startup it is first the title screen ("Appuie sur une touche").
-// Mouse, keyboard (arrows, Enter, Échap) or gamepad (d-pad, A, B).
+// Mouse, keyboard (arrows, Enter, Échap) or game controller (js/gamepad.js).
+// The music of level 1 plays behind (js/menu-music.js).
 
 import { state } from './state.js';
 import { h, closeModal, askText } from './modal.js';
@@ -17,6 +18,9 @@ import { pref, setPref } from './prefs.js';
 import { startPanorama } from './panorama.js';
 import { canUpdate, checkUpdate } from './updates.js';
 import { onlinePanel } from './online-ui.js';
+import { readPads, anyButton, connectedPads } from './gamepad.js';
+import { openPadSetup } from './pad-setup.js';
+import { startMenuMusic, stopMenuMusic, menuMusicOn, setMenuMusic, wakeMenuMusic } from './menu-music.js';
 import { t, lang, setLang } from './i18n.js';
 
 const desktop = window.__TAURI__;
@@ -53,10 +57,13 @@ function card(title, ...children) {
     h('button.menu-back', { textContent: t('‹ Retour'), onclick: mainPanel }));
 }
 
-function show(el) {
+// gallery: a wide screen under a smaller logo (the online levels).
+function show(el, { gallery = false } = {}) {
+  root.classList.toggle('gallery', gallery);
   panel.replaceChildren(el);
+  root.scrollTop = 0;
   const first = panel.querySelector('button');
-  if (first) first.focus();
+  if (first) first.focus({ preventScroll: true });
 }
 
 function mainPanel() {
@@ -86,6 +93,7 @@ export function openOnline(code = null) {
   back = mainPanel;
   onlinePanel(show, {
     back: mainPanel,
+    setBack: (fn) => { back = fn; },
     play: async () => {
       closeMenu();
       playHooks.done = () => openMenu();
@@ -99,9 +107,18 @@ function settingsPanel() {
   back = mainPanel;
   const intro = () => (pref('skipIntro', false) ? t('non') : t('oui'));
   const value = h('b', { textContent: intro() });
+  // 60 Hz (Japan, USA) or 50 Hz (European consoles): js/player.js.
+  const hzText = () => (pref('hz50', false) ? t('50 Hz (Europe)') : t('60 Hz (Japon, USA)'));
+  const hz = h('b', { textContent: hzText() });
   show(card(t('Paramètres'),
     row(t('Intro au lancement'), () => { setPref('skipIntro', !pref('skipIntro', false)); value.textContent = intro(); }, value),
     row(t('Plein écran'), toggleFullscreen),
+    row(t('Vitesse du jeu'), () => {
+      setPref('hz50', !pref('hz50', false));
+      hz.textContent = hzText();
+      if (menuMusicOn()) { stopMenuMusic(); startMenuMusic(); } // heard at once
+    }, hz),
+    row(t('Manette'), openPadSetup, h('b', { textContent: connectedPads().length ? t('configurer') : t('aucune') })),
     // Each language shows its own name; the page reloads in the other one.
     row(t('Langue'), async () => { await flushAutosave(); setLang(lang === 'fr' ? 'en' : 'fr'); },
       h('b', { textContent: lang === 'fr' ? 'Français' : 'English' })),
@@ -152,41 +169,59 @@ function leaveTitle() {
   mainPanel();
 }
 
-function move(step) {
-  const items = [...panel.querySelectorAll('button')];
+// To the nearest button that way (dx, dy): the tiles, a list, the cards of
+// the online levels. Nothing that way: the next or previous one.
+function move(dx, dy) {
+  const items = [...panel.querySelectorAll('button')].filter((b) => b.offsetParent !== null);
   if (!items.length) return;
-  const i = items.indexOf(document.activeElement);
-  items[(i + step + items.length) % items.length].focus();
+  const from = document.activeElement;
+  const i = items.indexOf(from);
+  if (i < 0) { items[0].focus(); return; }
+  const a = from.getBoundingClientRect(), ax = a.left + a.width / 2, ay = a.top + a.height / 2;
+  let best = null, score = Infinity;
+  for (const b of items) {
+    const r = b.getBoundingClientRect();
+    const ahead = dx > 0 ? r.left >= a.right - 4 : dx < 0 ? r.right <= a.left + 4 : dy > 0 ? r.top >= a.bottom - 4 : r.bottom <= a.top + 4;
+    if (b === from || !ahead) continue;
+    const x = r.left + r.width / 2 - ax, y = r.top + r.height / 2 - ay;
+    const d = x * dx + y * dy + 2 * Math.abs(x * dy - y * dx);
+    if (d < score) { score = d; best = b; }
+  }
+  (best || items[(i + (dx + dy > 0 ? 1 : -1) + items.length) % items.length]).focus();
 }
 
 function onKey(ev) {
   if (!root || root.hidden || modalOpen()) return;
+  const typing = ev.target instanceof Element && ev.target.matches('input, select, textarea');
   if (titleShown()) leaveTitle();
-  else if (ev.key === 'ArrowDown' || ev.key === 'ArrowRight') move(1);
-  else if (ev.key === 'ArrowUp' || ev.key === 'ArrowLeft') move(-1);
+  else if (typing && ev.key !== 'Escape') return; // the arrows move in the text
+  else if (ev.key === 'ArrowDown') move(0, 1);
+  else if (ev.key === 'ArrowUp') move(0, -1);
+  else if (ev.key === 'ArrowRight') move(1, 0);
+  else if (ev.key === 'ArrowLeft') move(-1, 0);
   else if (ev.key === 'Escape' && back) back();
   else return;
   ev.preventDefault();
   ev.stopPropagation();
 }
 
-// Gamepad: d-pad or stick to move, A to choose, B to go back.
-let pad = { prev: false, next: false, a: true, b: true }, polling = false;
+const PAD_IDLE = { up: false, down: false, left: false, right: false, a: true, b: true, any: true }; // buttons held: wait
+let pad = PAD_IDLE, polling = false;
 function pollPad() {
   if (!root || root.hidden) { polling = false; return; }
-  const g = [...(navigator.getGamepads ? navigator.getGamepads() : [])].find(Boolean);
-  if (g && !modalOpen()) {
-    const now = {
-      prev: g.buttons[12]?.pressed || g.buttons[14]?.pressed || g.axes[1] < -0.5 || g.axes[0] < -0.5,
-      next: g.buttons[13]?.pressed || g.buttons[15]?.pressed || g.axes[1] > 0.5 || g.axes[0] > 0.5,
-      a: g.buttons[0]?.pressed || g.buttons[9]?.pressed,
-      b: g.buttons[1]?.pressed,
-    };
+  if (connectedPads().length && !modalOpen()) {
+    // The actions of Paramètres > Manette (js/gamepad.js): Sauter or Start
+    // choose, Coup de poing goes back.
+    const p = readPads();
+    const now = { up: p.up, down: p.down, left: p.left, right: p.right, a: p.jump || p.start, b: p.punch, any: anyButton() };
+    if (now.any && !pad.any) wakeMenuMusic();
     if (titleShown()) {
-      if (now.a && !pad.a) leaveTitle();
+      if ((now.any && !pad.any) || (now.a && !pad.a)) leaveTitle();
     } else {
-      if (now.prev && !pad.prev) move(-1);
-      if (now.next && !pad.next) move(1);
+      if (now.up && !pad.up) move(0, -1);
+      if (now.down && !pad.down) move(0, 1);
+      if (now.left && !pad.left) move(-1, 0);
+      if (now.right && !pad.right) move(1, 0);
       if (now.a && !pad.a && panel.contains(document.activeElement)) document.activeElement.click();
       if (now.b && !pad.b && back) back();
     }
@@ -218,7 +253,8 @@ export async function openMenu({ title = false } = {}) {
         await logoImage('menu-logo'),
         h('div.menu-press', { textContent: t('Appuie sur une touche') }),
         panel = h('div.menu-panel', {})),
-      h('div.menu-by', { textContent: 'By Studio KMA' }));
+      h('div.menu-by', { textContent: 'By Studio KMA' }),
+      soundButton());
     root.addEventListener('pointerdown', () => { if (titleShown()) leaveTitle(); });
     document.body.appendChild(root);
     window.addEventListener('keydown', onKey, true);
@@ -228,12 +264,30 @@ export async function openMenu({ title = false } = {}) {
   closeModal();
   root.hidden = false;
   document.body.classList.remove('booting'); // the editor was hidden until now
-  pad = { prev: false, next: false, a: true, b: true }; // wait for the buttons to be released
+  pad = PAD_IDLE; // wait for the buttons to be released
   root.classList.toggle('title', title);
   if (title) panel.replaceChildren(); else mainPanel();
   if (!polling) { polling = true; requestAnimationFrame(pollPad); }
+  startMenuMusic();
 }
 
 export function closeMenu() {
   if (root) root.hidden = true;
+  stopMenuMusic();
+}
+
+// The corner button: the menu's music on or off.
+function soundButton() {
+  const button = h('button.menu-sound', {});
+  const draw = () => {
+    const on = menuMusicOn();
+    button.classList.toggle('off', !on);
+    button.replaceChildren(icon('music', 3));
+    button.title = on ? t('Couper la musique') : t('Remettre la musique');
+    button.setAttribute('aria-label', button.title);
+  };
+  button.addEventListener('pointerdown', (ev) => ev.stopPropagation()); // not a "press a key" on the title
+  button.addEventListener('click', () => { setMenuMusic(!menuMusicOn()); draw(); });
+  draw();
+  return button;
 }

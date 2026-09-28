@@ -7,6 +7,8 @@
 #include "rt/maker.h"
 
 #define SOUND_MAIN_SONG 0x82
+#define SOUND_BIKE_SONG_ 0x85
+#define SOUND_PETICOPTER_SONG_ 0x88
 #define SOUND_BULLET 0xA8
 #define ALEX_IDLE_RIGHT_SPRITE 0x90BC
 
@@ -55,8 +57,12 @@ LIFTED(_LABEL_4415_, 0x440E) {
  * Alex jumps out (y speed -2) facing right, then as $440E. out: IY. */
 LIFTED(_LABEL_43F2_, 0x43EB) {
     ram8(v_soundControl) = SOUND_MAIN_SONG;
-    /* Maker levels (rt/maker.h): the level's own song ($0DC5, levelSongs). */
-    if (maker.active) ram8(v_soundControl) = rd8((uint16_t)(0x0DC5 - 1 + ram8(v_level)));
+    /* Maker levels (rt/maker.h): the level's own song ($0DC5, levelSongs),
+     * unless it is a vehicle's (states.h maker_foot_song). */
+    if (maker.active) {
+        uint8_t song = rd8((uint16_t)(0x0DC5 - 1 + ram8(v_level)));
+        if (song != SOUND_BIKE_SONG_ && song != SOUND_PETICOPTER_SONG_) ram8(v_soundControl) = song;
+    }
     Entity *alex = entity_at(cpu.ix);
     alex->unknown8 = 0x04;
     alex->state = ALEX_STATE_JUMPING_FROM_WRECK;

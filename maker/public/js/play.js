@@ -8,7 +8,7 @@ import { Player } from './player.js';
 import { normalizeSurprises } from './level-panel.js';
 import { toast } from './toast.js';
 import { setTip } from './tooltip.js';
-import { beginChallenge, watchChallenge, endChallenge, stopChallenge, seconds } from './challenge.js';
+import { beginChallenge, watchChallenge, endChallenge, stopChallenge, seconds, livesLost } from './challenge.js';
 import { levelHash, countClear } from './online.js';
 import { persistDoc } from './storage.js';
 import { mainModel } from './bonus-zone.js';
@@ -17,6 +17,7 @@ import { t, tError } from './i18n.js';
 // Engine states -> status texts (translated when shown).
 const STATUS = { starting: 'démarrage…', playing: 'en jeu', stopped: 'arrêté', cleared: 'niveau terminé !' };
 let player = null;
+let tryStart = null; // the screen the run started from (null: the level start)
 
 function setPlaying(on) {
   state.playing = on;
@@ -29,29 +30,32 @@ function setPlaying(on) {
   else setTip($('playBtn'), t('Jouer'), t('Teste ton niveau tout de suite, à partir de l\'écran affiché (touche Espace)'));
 }
 
-// startColumn: null = level start.
-export async function playLevel(startColumn = null) {
+// startColumn: null = level start. again: the same run starts over (the time
+// ran out), its lives lost kept.
+export async function playLevel(startColumn = null, again = false) {
+  tryStart = startColumn;
   if (!player) {
     player = new Player($('game'), (st) => {
       $('playStatus').textContent = STATUS[st] ? t(STATUS[st]) : st;
       if (st === 'playing') watchChallenge(player, failed);
       // A level of the Maker ends with itself: back to editing.
       if (st === 'cleared') {
-        const { counts, time } = endChallenge();
+        const { counts, time, deaths } = endChallenge();
         // Cleared from the start, conditions kept: the level can be shared.
         if (counts) {
-          state.doc.cleared = { hash: levelHash(mainModel(), state.doc.base), time };
+          state.doc.cleared = { hash: levelHash(mainModel(), state.doc.base), time, deaths };
           if (!state.dirty) persistDoc().catch(() => {});
-          if (state.doc.online) countClear(state.doc.online, time);
+          if (state.doc.online) countClear(state.doc.online, time, deaths);
         }
-        toast(counts ? t('Bravo, niveau réussi en {time} s !', { time: seconds(time) }) : t('Bravo, niveau terminé !'));
+        const lost = deaths ? ` (${livesLost(deaths)})` : '';
+        toast((counts ? t('Bravo, niveau réussi en {time} s !', { time: seconds(time) }) : t('Bravo, niveau terminé !')) + lost);
         setTimeout(backToEdit, 400);
       }
     });
   }
   normalizeSurprises();
   setPlaying(true);
-  beginChallenge(startColumn === null);
+  beginChallenge(startColumn === null, again);
   $('playStatus').textContent = t('préparation du niveau…');
   $('playFrom').textContent = startColumn ? t('depuis l\'écran {n}', { n: startColumn + 1 }) : t('depuis le début');
   const error = (err) => { $('playStatus').textContent = t('erreur : {message}', { message: tError(err.message) }); };
@@ -79,11 +83,10 @@ window.makerPlayer = () => player;
 // playHooks.done: called once when the game stops (the menu goes back to itself).
 export const playHooks = { done: null };
 
-// A clear condition broke (challenge.js): the try is over.
+// The time ran out (challenge.js): the level starts over, as after a lost life.
 async function failed(reason) {
-  if (player) await player.stop();
-  $('playStatus').textContent = t('raté');
-  toast(t('{reason} · « Depuis le début » pour réessayer', { reason }));
+  toast(t('{reason} · on recommence', { reason }));
+  playLevel(tryStart, true);
 }
 
 export async function backToEdit() {

@@ -101,8 +101,8 @@ export function specialTypeName(t) {
 
 export const SURPRISE_ITEMS = [[0x4D, 'Vie supplémentaire (1up)'], [0x4E, 'Bracelet de puissance'], [0x4F, 'Fantôme (piège)']];
 // Per-level tables that make up a level's look and sound (the rest is gameplay).
-// Vehicles a level can start on: spawn state and song.
-export const VEHICLES = { bike: { spawn: 7, song: 0x85 }, boat: { spawn: 1, song: 0 }, peticopter: { spawn: 9, song: 0x88 } };
+// Vehicles a level can start on: the spawn state.
+export const VEHICLES = { bike: { spawn: 7 }, boat: { spawn: 1 }, peticopter: { spawn: 9 } };
 
 export const THEME_TABLES = ['palette_ptr', 'palette', 'main_tileset_ptr', 'tileset_loader', 'sprite_tiles_loader',
   'tile_updater', 'palette_updater'];
@@ -536,15 +536,15 @@ export function build(romBytes, editedIn, start = null) {
   }
   assignSurprises(model, edited);
   // Vehicles: the level starts on one (engine/src/game/states/gameplay.c; 7 is
-  // the Maker's motorbike start), a wreck makes Alex jump off (no dive), and
-  // the vehicle's song plays (the boat keeps the level's).
+  // the Maker's motorbike start) and a wreck makes Alex jump off (no dive).
+  // The song table keeps the level's song, for Alex on foot: the engine plays
+  // the vehicle's at the start.
   for (const [lv, ed] of edited) {
     const v = VEHICLES[ed.vehicle];
     if (!v) continue;
     const t = pyItem(model.levels, lv - 1).tables;
     t.spawn_state = v.spawn;
     t.vehicle_crash_to_water = 0;
-    if (v.song) t.song = v.song;
   }
 
   if (start) {

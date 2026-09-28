@@ -180,7 +180,7 @@ static void enter_shop(void) {
     map_bank(BANK(2));
     enable_interrupts();
     CALL_HELPER(f_enableDisplay);
-    ram8(v_soundControl) = level_song(ram8(v_level));
+    ram8(v_soundControl) = maker_foot_song(level_song(ram8(v_level)));
 }
 
 /* _LABEL_1C33_: Alex walked out: back to the level. */
@@ -193,7 +193,7 @@ static void leave_shop(void) {
     copy_to_vram(v_nametable, VDP_VRAM_WRITE(0x3800), 0x0700);
     CALL_HELPER(f_updateVdpAddressAfterDraw);
     copy_bytes(v_levelWidth, v_temporaryLevelDataCopy, 0x2A);
-    ram8(v_soundControl) = level_song(ram8(v_level));
+    ram8(v_soundControl) = maker_foot_song(level_song(ram8(v_level)));
     ram8(v_entitydataArrayLength) = ENTITY_ARRAY_SIZE;
     copy_bytes(v_alex, SAVED_ALEX, ENTITY_SIZE);
     cpu.bc = 0; /* as left by the LDIR: C is an input of updateEntities */

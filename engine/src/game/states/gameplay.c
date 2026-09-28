@@ -276,6 +276,14 @@ LIFTED(initGameplayState, 0x0ABD) {
 
     map_bank(BANK(2));
     ram8(v_soundControl) = level_song(ram8(v_level));
+    /* Maker levels keep the song for on foot in their table: one that starts
+     * on the motorbike or the Peticopter plays its song, as Alex's spawn
+     * asked (the request above replaced it). */
+    if (maker.active) {
+        uint8_t action = ram8(v_alexActionState);
+        if (action == ACTION_RIDING_MOTORCYCLE) ram8(v_soundControl) = SOUND_BIKE_SONG;
+        else if (action == ACTION_FLYING_PETICOPTER) ram8(v_soundControl) = SOUND_PETICOPTER_SONG;
+    }
     ram8(v_gameState) |= STATE_INITIALIZED;
     cpu.hl = v_gameState;
     enable_interrupts();

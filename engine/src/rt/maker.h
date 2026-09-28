@@ -29,6 +29,11 @@
  *   u8 row, width         the bonus zone: row of the level's layout, screens - 1
  *   u8 entity_base        entity list of its first screen
  *   u8 alex_x, alex_y     where Alex appears in it
+ * and, at offset MAKER_VEHICLE_OFFSET of the block, optionally:
+ *   "AKVEHIC1"            magic
+ *   u8 crash_ends_try     1: losing the vehicle (a wall, water, a hit) kills
+ *                         Alex, and the level restarts with it; 0: Alex goes
+ *                         on on foot (the game's way)
  */
 #ifndef RT_MAKER_H
 #define RT_MAKER_H
@@ -37,6 +42,7 @@
 #include <stdint.h>
 
 #define MAKER_BLOCK_OFFSET 0x7FE00
+#define MAKER_VEHICLE_OFFSET 352 /* from the start of the block */
 #define MAKER_JANKEN_MOVES 15
 
 /* Extra entity slots (as many enemies alive at once as a level wants): 96
@@ -73,6 +79,7 @@ typedef struct Maker {
     uint8_t janken[4][1 + MAKER_JANKEN_MOVES]; /* see the block above */
     uint8_t janken_throws;                     /* throws so far in this match */
     MakerZone zone;
+    bool crash_ends_try; /* losing the vehicle ends the try (game/alex/vehicles.c) */
     int capturing; /* level whose sprite tiles VRAM writes go to, 0 = none */
     bool loading_own_sprites; /* the level's own enemies are being loaded */
     uint8_t sprite_tiles[MAKER_LEVELS + 1][MAKER_SPRITE_TILES_BYTES];

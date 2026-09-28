@@ -11,10 +11,10 @@ import { rateDifficulty, starsText } from './difficulty.js';
 import { levelThumbnail } from './render.js';
 import { save, persistDoc, flushAutosave, showModel } from './storage.js';
 import { saveMyLevel } from './backend.js';
-import { seconds } from './challenge.js';
+import { seconds, livesLost } from './challenge.js';
 import { mainModel } from './bonus-zone.js';
 import {
-  sharedLevel, openShared, levelHash, isUnmodified, listOnline, getOnline, countPlay,
+  PUBLIC, sharedLevel, openShared, levelHash, isUnmodified, listOnline, getOnline, countPlay,
   setLike, likedHere, reportOnline, publishOnline, updateOnline, removeOnline, thumbnailUrl,
 } from './online.js';
 import { t } from './i18n.js';
@@ -39,7 +39,7 @@ function showCode(code, again) {
     try { await navigator.clipboard.writeText(code); toast(t('Code copié')); } catch { toast(code); }
   } });
   // The level's page on the website's gallery, whose Play button opens the app.
-  const url = `https://maker.kma.studio/levels/?code=${code}`;
+  const url = `${PUBLIC}/levels/?code=${code}`;
   const link = h('button.key.small.plain', { textContent: t('Copier le lien'), onclick: async () => {
     try { await navigator.clipboard.writeText(url); toast(t('Lien copié')); } catch { toast(url); }
   } });
@@ -65,7 +65,7 @@ export async function openPublish() {
   }
   const hash = levelHash(m, state.doc.base);
   if (!state.doc.cleared || state.doc.cleared.hash !== hash) {
-    tell(t('Pour publier, termine d\'abord ton niveau en le jouant depuis le début (et en réussissant son défi s\'il en a un), comme dans Mario Maker.'),
+    tell(t('Pour publier, termine d\'abord ton niveau en le jouant depuis le début (et en réussissant son défi s\'il en a un).'),
       t('Pas encore réussi'));
     return;
   }
@@ -120,7 +120,7 @@ export async function openPublish() {
 // ------------------------------------------------------------ browsing
 // Sort orders (labels translated when shown).
 const SORTS = [['recent', 'Récents'], ['popular', 'Populaires'], ['likes', 'Les plus aimés'], ['easy', 'Faciles'], ['hard', 'Difficiles']];
-let query = { sort: 'recent', q: '', offset: 0 };
+let query = { sort: 'recent', q: '', theme: '', difficulty: '', offset: 0 };
 
 function thumb(s, cls) {
   const url = thumbnailUrl(s);
@@ -133,30 +133,52 @@ function summary(s) {
     .filter(Boolean).join(' · ');
 }
 
-// The online screen of the menu: `show(el)` puts an element in the menu,
-// `ctx` gives back() and play(level) from the menu.
+// A level of the gallery: its picture and numbers open its page, Jouer plays it.
+function levelCard(s, open, play) {
+  const n = names();
+  return h('div.online-card', {},
+    h('button.online-open', { onclick: () => open(s.code) },
+      thumb(s, 'online-thumb'),
+      h('span.online-name', { textContent: s.name }),
+      h('span.online-meta', { textContent: [s.author ? t('par {author}', { author: s.author }) : null, n[s.theme]].filter(Boolean).join(' · ') }),
+      h('span.online-stars', { textContent: starsText(s.difficulty) }),
+      h('span.online-meta', { textContent: `▶ ${s.plays} · ✓ ${s.clears} · ♥ ${s.likes}` })),
+    h('button.key.go.online-card-play', { onclick: () => play(s) }, icon('play', 2), t('Jouer')));
+}
+
+// The online screen of the menu, a gallery like the website's: `show(el)`
+// puts an element in the menu, `ctx` gives back(), setBack(fn) (Échap, B)
+// and play() from the menu.
 // code: open that level's page first (a link /?play=CODE).
 export function onlinePanel(show, ctx, { code: first = null } = {}) {
-  const list = h('div.menu-list.online-list', {});
-  const more = h('button.menu-back.online-more', { textContent: t('Plus de niveaux'), hidden: true });
+  const menu = document.getElementById('menu');
+  const grid = h('div.online-grid', {});
+  const empty = h('p.online-empty', { textContent: t('Chargement…') });
+  const more = h('button.key.online-more', { textContent: t('Plus de niveaux'), hidden: true });
   const code = h('input.name-input.online-code', { placeholder: t('Code (XXX-XXX-XXX)'), maxLength: 11 });
   const search = h('input.name-input.online-search', { placeholder: t('Chercher un nom, un auteur'), value: query.q });
+  const theme = h('select.online-select', {}, h('option', { value: '', textContent: t('Tous les décors') }),
+    ...state.levels.filter((l) => l.level >= 1 && l.level <= 17).map((l) => h('option', { value: l.level, textContent: l.name })));
+  const difficulty = h('select.online-select', {}, h('option', { value: '', textContent: t('Toutes difficultés') }),
+    ...[1, 2, 3, 4, 5].map((n) => h('option', { value: n, textContent: starsText(n) })));
+  theme.value = query.theme;
+  difficulty.value = query.difficulty;
   const tabs = h('div.online-sorts', {});
-  let levels = [];
+  let count = 0;
 
   const load = async (append = false) => {
-    if (!append) { query.offset = 0; levels = []; list.replaceChildren(h('p.menu-hint', { textContent: t('Chargement…') })); }
+    if (!append) { query.offset = 0; count = 0; grid.replaceChildren(); empty.hidden = false; empty.textContent = t('Chargement…'); more.hidden = true; }
     try {
-      const r = await listOnline({ sort: query.sort, q: query.q, limit: 24, offset: query.offset });
-      levels = levels.concat(r.levels);
-      query.offset = levels.length;
-      list.replaceChildren(...(levels.length ? levels.map((s) => h('button.menu-row', { onclick: () => details(s.code) },
-        thumb(s, 'menu-thumb'), h('span.menu-row-label', {}, h('b', { textContent: s.name }), h('small', { textContent: summary(s) }))))
-        : [h('p.menu-hint', { textContent: query.q ? t('Aucun niveau ne correspond.')
-          : t('Pas encore de niveau en ligne : publie le premier !') })]));
-      more.hidden = levels.length >= r.total;
+      const r = await listOnline({ sort: query.sort, q: query.q, theme: query.theme, difficulty: query.difficulty, limit: 24, offset: query.offset });
+      grid.append(...r.levels.map((s) => levelCard(s, details, playCode)));
+      count += r.levels.length;
+      query.offset = count;
+      empty.hidden = count > 0;
+      empty.textContent = query.q || query.theme || query.difficulty ? t('Aucun niveau ne correspond.') : t('Pas encore de niveau en ligne : publie le premier !');
+      more.hidden = count >= r.total;
     } catch (err) {
-      list.replaceChildren(h('p.menu-hint', { textContent: err.message }));
+      empty.hidden = false;
+      empty.textContent = err.message;
       more.hidden = true;
     }
   };
@@ -164,17 +186,34 @@ export function onlinePanel(show, ctx, { code: first = null } = {}) {
     { textContent: t(label), onclick: () => { query.sort = k; drawTabs(); load(); } })));
   let timer = 0;
   search.addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(() => { query.q = search.value.trim(); load(); }, 350); });
+  theme.addEventListener('change', () => { query.theme = theme.value; load(); });
+  difficulty.addEventListener('change', () => { query.difficulty = difficulty.value; load(); });
   const openCode = () => { const c = formatCode(code.value); if (c.length === 11) details(c); else code.focus(); };
   code.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') openCode(); });
   more.addEventListener('click', () => load(true));
 
+  const screen = h('div.online-screen', {},
+    h('div.online-head', {},
+      h('button.key.small.online-back', { textContent: t('‹ Retour'), onclick: () => ctx.back() }),
+      h('h2', { textContent: t('Niveaux en ligne') })),
+    h('div.online-tools', {}, code, h('button.key.go', { textContent: t('Jouer ce code'), onclick: openCode }), search, theme, difficulty),
+    tabs, grid, empty, more);
+  // Back to the gallery where it was.
+  const showList = (y = 0) => {
+    show(screen, { gallery: true });
+    menu.scrollTop = y;
+    ctx.setBack(ctx.back);
+  };
+
   // One level: its picture, its numbers, play / like / keep / report.
   async function details(c) {
-    show(h('div.menu-card.wide', {}, h('div.menu-card-head', {}, h('h2', { textContent: t('Chargement…') }))));
+    const y = menu.scrollTop;
+    ctx.setBack(() => showList(y));
+    show(h('div.menu-card.wide', {}, h('div.menu-card-head', {}, h('h2', { textContent: t('Chargement…') }))), { gallery: true });
     let s;
     try { s = await getOnline(c); } catch (err) {
       tell(err.status === 404 ? t('Aucun niveau avec le code {code}.', { code: c }) : err.message);
-      onlinePanel(show, ctx);
+      showList(y);
       return;
     }
     let liked = likedHere(s.code);
@@ -201,7 +240,7 @@ export function onlinePanel(show, ctx, { code: first = null } = {}) {
     } });
     const rate = s.plays ? Math.round((100 * s.clears) / s.plays) : null;
     const clears = rate !== null ? t('Réussi {n} fois ({rate} % des parties)', { n: s.clears, rate }) : t('Réussi {n} fois', { n: s.clears });
-    const best = s.bestTime ? ' · ' + t('record {time} s', { time: seconds(s.bestTime) }) : '';
+    const best = s.bestTime ? ' · ' + t('record {time} s', { time: seconds(s.bestTime) }) + (s.bestDeaths ? ` (${livesLost(s.bestDeaths)})` : '') : '';
     show(h('div.menu-card.wide', {},
       h('div.menu-card-head', {}, h('h2', { textContent: s.name })),
       h('div.menu-card-body.online-detail', {},
@@ -212,7 +251,12 @@ export function onlinePanel(show, ctx, { code: first = null } = {}) {
           h('p', { textContent: clears + best + ' · ' + t('son auteur : {time} s', { time: seconds(s.clearTime || 0) }) }),
           h('button.menu-row.online-play', { onclick: () => play(s) }, icon('play', 3), h('span.menu-row-label', { textContent: t('Jouer') })),
           h('div.online-actions', {}, like, keep, report))),
-      h('button.menu-back', { textContent: t('‹ Retour'), onclick: () => onlinePanel(show, ctx) })));
+      h('button.menu-back', { textContent: t('‹ Retour'), onclick: () => showList(y) })), { gallery: true });
+  }
+
+  // From a card: the list has no level data, its page has.
+  async function playCode(s) {
+    try { await play(await getOnline(s.code)); } catch (err) { tell(err.message); }
   }
 
   async function play(s) {
@@ -226,13 +270,7 @@ export function onlinePanel(show, ctx, { code: first = null } = {}) {
     ctx.play();
   }
 
-  show(h('div.menu-card.wide', {},
-    h('div.menu-card-head', {}, h('h2', { textContent: t('Niveaux en ligne') })),
-    h('div.menu-card-body', {},
-      h('div.online-bar', {}, code, h('button.key.small.go', { textContent: t('Jouer ce code'), onclick: openCode }), search),
-      tabs, list, more),
-    h('button.menu-back', { textContent: t('‹ Retour'), onclick: ctx.back })));
   drawTabs();
   load();
-  if (first) details(formatCode(first));
+  if (first) details(formatCode(first)); else showList();
 }

@@ -6,15 +6,17 @@ import { pref, setPref } from './prefs.js';
 import { exportLevelOf, themedLevel } from './backend.js';
 import { t } from './i18n.js';
 
-// Where the API is: the page's own server on maker.kma.studio, else the
-// public one; ?api=http://localhost:8787 (kept) for a local server.
-const PUBLIC = 'https://maker.kma.studio';
+// Where the API is: the page's own server on the website, else the public
+// one; ?api=http://localhost:8787 (kept) for a local server.
+// For now the Pages address: maker.kma.studio (its DNS) doesn't answer yet.
+export const PUBLIC = 'https://super-alex-kidd-maker.pages.dev';
+const SITE_HOSTS = ['maker.kma.studio', 'super-alex-kidd-maker.pages.dev'];
 const param = new URLSearchParams(location.search).get('api');
 if (param !== null) setPref('apiBase', param);
 export function apiBase() {
   const set = pref('apiBase', null);
   if (set) return set.replace(/\/$/, '');
-  return location.hostname === 'maker.kma.studio' ? '' : PUBLIC;
+  return SITE_HOSTS.includes(location.hostname) ? '' : PUBLIC;
 }
 
 // A random id for this player (likes, counts), kept here.
@@ -51,7 +53,7 @@ export const thumbnailUrl = (s) => (s.thumbnail ? apiBase() + s.thumbnail : null
 // ------------------------------------------------------------ level format
 // What a player made: the rest (graphics tables, parts...) comes back from
 // the ROM through the base level and the theme.
-const SHARED_FIELDS = ['kind', 'columns', 'rows', 'grid', 'screens', 'entities', 'specials', 'surprises', 'start', 'clear', 'themeMusic', 'vehicle', 'zone'];
+const SHARED_FIELDS = ['kind', 'columns', 'rows', 'grid', 'screens', 'entities', 'specials', 'surprises', 'start', 'clear', 'themeMusic', 'vehicle', 'crashEndsTry', 'zone'];
 
 export function sharedLevel(model, base) {
   const out = { format: 'super-alex-kidd-maker/shared-level', version: 1, base, theme: model.theme || base };
@@ -87,7 +89,8 @@ export const health = () => call('GET', '/api/health');
 export const listOnline = (q = {}) => call('GET', '/api/levels?' + new URLSearchParams(Object.entries(q).filter(([, v]) => v !== '' && v != null)));
 export const getOnline = (code) => call('GET', `/api/levels/${encodeURIComponent(code)}`);
 export const countPlay = (code) => call('POST', `/api/levels/${code}/plays`).catch(() => null);
-export const countClear = (code, time) => call('POST', `/api/levels/${code}/clears`, { time }).catch(() => null);
+// deaths: the lives lost on the way (the record counts them first).
+export const countClear = (code, time, deaths = 0) => call('POST', `/api/levels/${code}/clears`, { time, deaths }).catch(() => null);
 export const reportOnline = (code, reason) => call('POST', `/api/levels/${code}/reports`, { reason });
 
 // Likes are remembered here (the server does not say who liked what).

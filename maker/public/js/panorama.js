@@ -46,7 +46,9 @@ export function startPanorama(canvas) {
     if (!canvas.isConnected) return;
     const dt = Math.min(0.1, (now - last) / 1000);
     last = now;
-    if (image && canvas.offsetParent) {
+    // Shown (a hidden menu has no size; offsetParent is always null for
+    // this fixed-position canvas).
+    if (image && canvas.clientWidth > 0) {
       const w = Math.ceil(SCREEN_PX_H * canvas.clientWidth / Math.max(1, canvas.clientHeight));
       if (canvas.width !== w || canvas.height !== SCREEN_PX_H) { canvas.width = w; canvas.height = SCREEN_PX_H; }
       x = (x + SPEED * dt) % image.width;
