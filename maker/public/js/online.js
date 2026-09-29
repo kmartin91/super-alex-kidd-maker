@@ -8,8 +8,7 @@ import { t } from './i18n.js';
 
 // Where the API is: the page's own server on the website, else the public
 // one; ?api=http://localhost:8787 (kept) for a local server.
-// For now the Pages address: maker.kma.studio (its DNS) doesn't answer yet.
-export const PUBLIC = 'https://super-alex-kidd-maker.pages.dev';
+export const PUBLIC = 'https://maker.kma.studio';
 const SITE_HOSTS = ['maker.kma.studio', 'super-alex-kidd-maker.pages.dev'];
 const param = new URLSearchParams(location.search).get('api');
 if (param !== null) setPref('apiBase', param);
