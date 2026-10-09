@@ -27,6 +27,19 @@ void maker_detect(const uint8_t *rom, uint32_t rom_size) {
         }
     }
 
+    const uint8_t *vt = rom + MAKER_VTILE_OFFSET;
+    if (rom_size >= MAKER_VTILE_OFFSET + 9 && memcmp(vt, "AKVTILE1", 8) == 0) {
+        int count = vt[8];
+        if (rom_size >= MAKER_VTILE_OFFSET + 9 + 3u * count) {
+            for (int i = 0; i < count; i++) {
+                const uint8_t *e = vt + 9 + 3 * i;
+                if (e[1] < 1 || e[1] > MAKER_LEVELS) continue;
+                maker.vtile_home[e[0]] = e[1];
+                maker.vtile_tile[e[0]] = e[2];
+                maker.vtiles = true;
+            }
+        }
+    }
     const uint8_t *vehicle = rom + MAKER_BLOCK_OFFSET + MAKER_VEHICLE_OFFSET;
     if (rom_size >= MAKER_BLOCK_OFFSET + MAKER_VEHICLE_OFFSET + 8 + 1 && memcmp(vehicle, "AKVEHIC1", 8) == 0) {
         maker.crash_ends_try = vehicle[8] != 0;

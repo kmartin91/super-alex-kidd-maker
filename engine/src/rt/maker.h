@@ -29,6 +29,15 @@
  *   u8 row, width         the bonus zone: row of the level's layout, screens - 1
  *   u8 entity_base        entity list of its first screen
  *   u8 alex_x, alex_y     where Alex appears in it
+ * Blocks from other settings: their tiles that only their setting has are
+ * "virtual tiles" in the name table (tile bit 8, $100 + index: the game
+ * never uses tiles above 255 for the background), drawn with the tiles and
+ * colours of the level they come from, captured when the level's own tiles
+ * load (game/level/graphics.c). Their table, at MAKER_VTILE_OFFSET (written
+ * by maker/public/js/backend.js):
+ *   "AKVTILE1"            magic
+ *   u8 count, then count x { u8 index, level, tile }
+ *
  * and, at offset MAKER_VEHICLE_OFFSET of the block, optionally:
  *   "AKVEHIC1"            magic
  *   u8 crash_ends_try     1: losing the vehicle (a wall, water, a hit) kills
@@ -43,6 +52,7 @@
 
 #define MAKER_BLOCK_OFFSET 0x7FE00
 #define MAKER_VEHICLE_OFFSET 352 /* from the start of the block */
+#define MAKER_VTILE_OFFSET 0x7FC00
 #define MAKER_JANKEN_MOVES 15
 
 /* Extra entity slots (as many enemies alive at once as a level wants): 96
@@ -60,6 +70,7 @@ typedef struct MakerSprite {
 } MakerSprite;
 #define MAKER_LEVELS 17
 #define MAKER_SPRITE_TILES_BYTES 0x1800 /* sprite tiles 256..447 (VRAM $2000-$37FF) */
+#define MAKER_BG_TILES_BYTES 0x2000     /* background tiles 0..255 (VRAM $0000-$1FFF) */
 
 /* A bonus zone (game/states/zone.c): an extra row of the level's layout with
  * its own entity lists, entered and left through doors (entity $4C, data 0
@@ -80,6 +91,14 @@ typedef struct Maker {
     uint8_t janken_throws;                     /* throws so far in this match */
     MakerZone zone;
     bool crash_ends_try; /* losing the vehicle ends the try (game/alex/vehicles.c) */
+    /* Virtual tiles (blocks from other settings, see above): per index, the
+     * level and tile they show, 0 = none; that level's background tiles and
+     * colours (16 background, 16 sprite). */
+    bool vtiles;
+    uint8_t vtile_home[256], vtile_tile[256];
+    int capturing_bg; /* level whose background tile writes go to bg_tiles, 0 = none */
+    uint8_t bg_tiles[MAKER_LEVELS + 1][MAKER_BG_TILES_BYTES];
+    uint8_t bg_cram[MAKER_LEVELS + 1][32];
     int capturing; /* level whose sprite tiles VRAM writes go to, 0 = none */
     bool loading_own_sprites; /* the level's own enemies are being loaded */
     uint8_t sprite_tiles[MAKER_LEVELS + 1][MAKER_SPRITE_TILES_BYTES];
@@ -132,6 +151,10 @@ void maker_detect(const uint8_t *rom, uint32_t rom_size);
  * play, sprite tiles loaded at run time (the janken battle's) go everywhere,
  * so that entities from any level see them. */
 static inline bool maker_capture_write(uint16_t addr, uint8_t value) {
+    if (maker.capturing_bg && addr < MAKER_BG_TILES_BYTES) {
+        maker.bg_tiles[maker.capturing_bg][addr] = value;
+        return true;
+    }
     if (!maker.active || addr < 0x2000 || addr >= 0x2000 + MAKER_SPRITE_TILES_BYTES) return false;
     if (maker.capturing) {
         maker.sprite_tiles[maker.capturing][addr - 0x2000] = value;

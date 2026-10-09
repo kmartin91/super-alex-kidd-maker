@@ -856,7 +856,7 @@ export function load(romBytes) {
   return model;
 }
 
-function slot2Offset(addr, bank) {
+export function slot2Offset(addr, bank) {
   return (bank & 0x3F) * 0x4000 + (addr - 0x8000);
 }
 

@@ -574,7 +574,7 @@ export default {
   'Par défaut': 'Default',
   'Appuie…': 'Press…',
   'Manette configurée': 'Controller set up',
-  'Dans les menus, Sauter valide et Coup de poing revient en arrière.': 'In the menus, Jump chooses and Punch goes back.',
+  'Dans les menus, Sauter valide et Coup de poing revient en arrière. En jeu, Start met en pause ; maintenu une seconde, il quitte le niveau.': 'In the menus, Jump chooses and Punch goes back. In a level, Start pauses; held for a second, it leaves the level.',
   'Aucune manette détectée : branche-la, puis appuie sur un de ses boutons.': 'No controller found: plug it in, then press one of its buttons.',
   'Couper la musique': 'Mute the music',
   'Remettre la musique': 'Turn the music back on',
@@ -590,4 +590,12 @@ export default {
   '1 vie perdue': '1 life lost',
   '{n} vies perdues': '{n} lives lost',
   '{reason} · on recommence': '{reason} · starting over',
+  // blocks from other settings (foreign.js, palette.js)
+  'Autres décors': 'Other settings',
+  'L\'eau du lac, la lave, les pics du château… : les blocs des autres décors, qui gardent leurs couleurs et ce qu\'ils font':
+    'The lake\'s water, lava, the castle\'s spikes…: blocks of the other settings, keeping their colours and what they do',
+  '{name} · ses blocs : clique pour les voir': '{name} · its blocks: click to see them',
+  'Tous les décors · revenir à la liste': 'All settings · back to the list',
+  'Pas plus de {n} blocs d\'autres décors par niveau.': 'No more than {n} blocks from other settings in a level.',
+  'Plus de numéro libre pour un bloc d\'un autre décor dans ce niveau.': 'No free number left in this level for a block from another setting.',
 };

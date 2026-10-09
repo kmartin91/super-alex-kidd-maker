@@ -16,6 +16,7 @@ import { clearText, openChallengeSheet } from './challenge.js';
 import { vehicleName, canHaveVehicle, openVehicleSheet } from './vehicle.js';
 import { mainModel, zoneText, canHaveZone, openZoneSheet } from './bonus-zone.js';
 import { t, tName, tError } from './i18n.js';
+import { takeForeign, restoreForeign } from './foreign.js';
 
 const theme = () => state.model.theme || state.level;
 
@@ -80,7 +81,10 @@ async function changeTheme(to) {
   if (to === theme()) return;
   $('status').textContent = t('conversion du thème…');
   try {
+    // Blocks from other settings go back where they were (foreign.js).
+    const places = takeForeign(state.model);
     const { model, video } = await retheme(state.level, state.model, to);
+    restoreForeign(model, to, places);
     showModel(model, video);
     setDirty(true);
     toast(t('Thème : {name}', { name: state.model.levelNames[to] }));

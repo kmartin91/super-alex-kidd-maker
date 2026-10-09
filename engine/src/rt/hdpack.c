@@ -181,6 +181,14 @@ static inline int pattern_pixel(const Vdp *v, int tile, int row, int col) {
     return ((r[0] >> bit) & 1) | (((r[1] >> bit) & 1) << 1) | (((r[2] >> bit) & 1) << 2) | (((r[3] >> bit) & 1) << 3);
 }
 
+/* Pixel of virtual tile `index` (maker mode, blocks from other settings):
+ * its tile as it is in the level it comes from (rt/maker.h). */
+static inline int maker_bg_pixel(int index, int row, int col) {
+    const uint8_t *r = &maker.bg_tiles[maker.vtile_home[index]][maker.vtile_tile[index] * 32 + row * 4];
+    int bit = 7 - col;
+    return ((r[0] >> bit) & 1) | (((r[1] >> bit) & 1) << 1) | (((r[2] >> bit) & 1) << 2) | (((r[3] >> bit) & 1) << 3);
+}
+
 typedef struct LineSprite {
     int x, top, tile, zoom;
     int home;             /* maker mode: level its tiles come from, 0 = VRAM */
@@ -284,9 +292,11 @@ void hdpack_render(const Vdp *v, const HdPack *p, int context, int scale, uint32
             bool hflip = entry & 0x0200, vflip = entry & 0x0400;
             int prow = vflip ? 7 - (by & 7) : (by & 7);
             int pcol = hflip ? 7 - (bx & 7) : (bx & 7);
-            int bgc = pattern_pixel(v, tile, prow, pcol);
+            /* Maker mode: a virtual tile, from another setting (rt/maker.h). */
+            int vhome = maker.vtiles && (entry & 0x0100) ? maker.vtile_home[entry & 0xFF] : 0;
+            int bgc = vhome ? maker_bg_pixel(entry & 0xFF, prow, pcol) : pattern_pixel(v, tile, prow, pcol);
             bool bg_prio = (entry & 0x1000) && bgc != 0;
-            const HdTile *bgsub = SUB(tile, half);
+            const HdTile *bgsub = vhome ? NULL : SUB(tile, half);
 
             for (int sy = 0; sy < scale; sy++) {
                 for (int sx = 0; sx < scale; sx++) {
@@ -297,6 +307,8 @@ void hdpack_render(const Vdp *v, const HdPack *p, int context, int scale, uint32
                         if (hflip) u = size - 1 - u;
                         if (vflip) w = size - 1 - w;
                         color = bgsub->argb[w * size + u] | 0xFF000000u;
+                    } else if (vhome) {
+                        color = vdp_color(maker.bg_cram[vhome][half * 16 + bgc]);
                     } else {
                         color = pal[half * 16 + bgc];
                     }

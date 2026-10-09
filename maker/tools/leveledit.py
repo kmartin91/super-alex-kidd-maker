@@ -500,6 +500,71 @@ def shown_screens(level):
     return [level["screens"][i]["metatiles"] for i in row]
 
 
+# ------------------------------------------------------------ foreign blocks
+# Blocks from other settings (editor model foreignBlocks: [{id, home, metatile}]):
+# block `id` of the level's metatile table becomes a copy of block `metatile`
+# of level `home`. The copy keeps its words' game flags (what the block does:
+# water, deadly, solid...); the tiles only its setting has become "virtual
+# tiles" (tile bit 8: $100 + index), drawn by the engine with that setting's
+# tiles and colours (engine/src/rt/maker.h, the AKVTILE1 table the Maker
+# writes from `tiles`: [index, home, tile]). Only the blocks on the map are
+# written, at the free end of bank 5.
+FOREIGN_BLOCK_REGION = (0xBED1, 0xC000)  # bank 5, after the metatile data
+VIRTUAL_TILES_END = 0x70  # indexes stay below the shop door tiles (flags $60)
+
+
+def shared_tile(t):
+    """Boxes, bag, cloud, blanks, font: the same in every level."""
+    return t < 53 or t > 170
+
+
+def foreign_block_patches(model, edited, tiles):
+    with_foreign = [(lv, ed) for lv, ed in sorted(edited.items()) if ed.get("foreignBlocks")]
+    if not with_foreign:
+        return []
+    if len(with_foreign) > 1:
+        raise ValueError("blocks from other settings: one level at a time")
+    lv, ed = with_foreign[0]
+    table = model["metatile_tables"][model["levels"][lv - 1]["descriptor"]["metatile_table"]]
+    on_map = {int(b) & 0xFF for s in ed["screens"] for b in s["blocks"]}
+    index = {}
+    patches = []
+    cursor = FOREIGN_BLOCK_REGION[0]
+    for f in ed["foreignBlocks"]:
+        bid = int(f["id"]) & 0xFF
+        if bid not in on_map:
+            continue
+        home, metatile = int(f["home"]), int(f["metatile"]) & 0xFF
+        source = model["metatile_tables"][model["levels"][home - 1]["descriptor"]["metatile_table"]]["entries"][metatile]
+        words = []
+        for w in source["words"]:
+            t = w & 0x1FF
+            if shared_tile(t):
+                words.append(w)
+                continue
+            flags = (w >> 8) & levels.ATTR_GAME_FLAGS
+            if flags in (0x40, 0xA0) or (flags == 0x60 and (t == 0x3F or t >= 0x70)):
+                raise ValueError("block %d of level %d cannot go to another setting" % (metatile, home))
+            key = (home, t)
+            if key not in index:
+                v = len(index) + 1
+                if v >= 0x3F:
+                    v += 1  # $3F: the ladder tile
+                if v >= VIRTUAL_TILES_END:
+                    raise ValueError("too many tiles from other settings")
+                index[key] = v
+                tiles.append([v, home, t])
+            words.append((w & 0xFE00) | 0x100 | index[key])
+        if cursor + 8 > FOREIGN_BLOCK_REGION[1]:
+            raise ValueError("too many blocks from other settings")
+        offset = levels._slot2_offset(cursor, levels.METATILE_BANK)
+        table["entries"][bid].update({"ptr": cursor, "rom_offset": offset, "words": words})
+        patches.append((table["rom_offset"] + 2 * bid, struct.pack("<H", cursor)))
+        patches.append((offset, struct.pack("<4H", *words)))
+        cursor += 8
+    return patches
+
+
 def build(rom_bytes, mod_dir, out_path, start=None):
     """start = (level, column): test builds only, the level begins at that screen
     (simple horizontal levels)."""
@@ -569,6 +634,8 @@ def build(rom_bytes, mod_dir, out_path, start=None):
     if any(model["levels"][lv - 1]["entities"] != original["levels"][lv - 1]["entities"] for lv in edited):
         p, entity_bytes = repack_entity_data(model)
         patches += p
+    foreign_tiles = []
+    patches += foreign_block_patches(model, edited, foreign_tiles)
 
     size = MOD_ROM_SIZE if edited else len(rom_bytes)
     base = bytearray(rom_bytes) + b"\xFF" * (size - len(rom_bytes))
@@ -607,7 +674,8 @@ def build(rom_bytes, mod_dir, out_path, start=None):
             f.write(struct.pack("<II", off, len(data)))
             f.write(data)
     total = sum(len(d) for _, d in records)
-    return {"levels": sorted(edited), "records": len(records), "bytes": total, "entity_bytes": entity_bytes}
+    return {"levels": sorted(edited), "records": len(records), "bytes": total, "entity_bytes": entity_bytes,
+            "foreign_tiles": foreign_tiles}
 
 
 def main(argv):

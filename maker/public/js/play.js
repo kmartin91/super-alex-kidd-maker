@@ -54,6 +54,9 @@ export async function playLevel(startColumn = null, again = false) {
         setTimeout(backToEdit, 400);
       }
     });
+    // Start held on the controller: out of the level (not from inside the
+    // engine's frame: a moment later).
+    player.onLeave = () => setTimeout(backToEdit, 0);
   }
   normalizeSurprises();
   setPlaying(true);

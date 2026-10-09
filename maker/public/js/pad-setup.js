@@ -23,7 +23,7 @@ export function openPadSetup() {
   const reset = h('button.key.plain', { textContent: t('Par défaut') });
   const body = h('div.pad-setup', {},
     name,
-    h('p.hint', { textContent: t('Dans les menus, Sauter valide et Coup de poing revient en arrière.') }),
+    h('p.hint', { textContent: t('Dans les menus, Sauter valide et Coup de poing revient en arrière. En jeu, Start met en pause ; maintenu une seconde, il quitte le niveau.') }),
     h('div.pad-rows', {}, ...ACTIONS.map((a) => rows[a])),
     h('div.dialog-actions', {}, reset, setUp, h('button.key.plain', { textContent: 'OK', onclick: () => closeModal() })));
   openModal(t('Manette'), body);

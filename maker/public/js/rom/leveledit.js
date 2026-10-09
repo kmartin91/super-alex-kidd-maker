@@ -282,6 +282,61 @@ export function exportModel(model, lv) {
   };
 }
 
+// ------------------------------------------------------------ foreign blocks
+// Blocks from other settings (editor model foreignBlocks: [{id, home, metatile}]):
+// block `id` of the level's metatile table becomes a copy of block `metatile`
+// of level `home`. The copy keeps its words' game flags (what the block does:
+// water, deadly, solid...); the tiles only its setting has become "virtual
+// tiles" (tile bit 8: $100 + index), drawn by the engine with that setting's
+// tiles and colours (engine/src/rt/maker.h, the AKVTILE1 table written by
+// backend.js from `tiles`: [index, home, tile]). Only the blocks on the map
+// are written, at the free end of bank 5.
+export const FOREIGN_BLOCK_REGION = [0xBED1, 0xC000]; // bank 5, after the metatile data
+const sharedTile = (t) => t < 53 || t > 170; // boxes, bag, cloud, blanks, font: the same in every level
+const VIRTUAL_TILES_END = 0x70; // indexes stay below the shop door tiles (flags $60)
+
+function foreignBlockPatches(model, edited, tiles) {
+  const withForeign = [...edited].filter(([, ed]) => truthy(ed.foreignBlocks));
+  if (!withForeign.length) return [];
+  if (withForeign.length > 1) throw new Error('blocks from other settings: one level at a time');
+  const [lv, ed] = withForeign[0];
+  const table = model.metatile_tables[pyItem(model.levels, lv - 1).descriptor.metatile_table];
+  const onMap = new Set();
+  for (const s of ed.screens) for (const b of s.blocks) onMap.add(pyInt(b) & 0xFF);
+  const index = new Map();
+  const patches = [];
+  let cursor = FOREIGN_BLOCK_REGION[0];
+  for (const f of ed.foreignBlocks) {
+    const id = pyInt(f.id) & 0xFF;
+    if (!onMap.has(id)) continue;
+    const home = pyInt(f.home), metatile = pyInt(f.metatile) & 0xFF;
+    const source = model.metatile_tables[pyItem(model.levels, home - 1).descriptor.metatile_table].entries[metatile];
+    const words = source.words.map((w) => {
+      const t = w & 0x1FF;
+      if (sharedTile(t)) return w;
+      const flags = (w >> 8) & levels.ATTR_GAME_FLAGS;
+      if (flags === 0x40 || flags === 0xA0 || (flags === 0x60 && (t === 0x3F || t >= 0x70))) {
+        throw new Error(`block ${metatile} of level ${home} cannot go to another setting`);
+      }
+      const key = `${home}:${t}`;
+      if (!index.has(key)) {
+        let v = index.size + 1;
+        if (v >= 0x3F) v += 1; // $3F: the ladder tile
+        if (v >= VIRTUAL_TILES_END) throw new Error('too many tiles from other settings');
+        index.set(key, v);
+        tiles.push([v, home, t]);
+      }
+      return (w & 0xFE00) | 0x100 | index.get(key);
+    });
+    if (cursor + 8 > FOREIGN_BLOCK_REGION[1]) throw new Error('too many blocks from other settings');
+    const offset = levels.slot2Offset(cursor, levels.METATILE_BANK);
+    Object.assign(table.entries[id], { ptr: cursor, rom_offset: offset, words });
+    patches.push([table.rom_offset + 2 * id, levels.pack('<H', cursor)], [offset, levels.packWords(words)]);
+    cursor += 8;
+  }
+  return patches;
+}
+
 // ------------------------------------------------------------------------- build
 // Copies the editor's screens, layout changes and entities into the decoded level.
 export function applyEdits(level, ed) {
@@ -583,6 +638,8 @@ export function build(romBytes, editedIn, start = null) {
     patches.push(...p);
     entityBytes = n;
   }
+  const foreignTiles = [];
+  patches.push(...foreignBlockPatches(model, edited, foreignTiles));
 
   const size = edited.size ? MOD_ROM_SIZE : romBytes.length;
   const ref = new Uint8Array(Math.max(size, romBytes.length)).fill(0xFF);
@@ -622,7 +679,8 @@ export function build(romBytes, editedIn, start = null) {
   const chunks = [new TextEncoder().encode('AKMOD1\0\0'), levels.pack('<I', size)];
   for (const [off, data] of records) chunks.push(levels.pack('<II', off, data.length), data);
   const total = records.reduce((n, [, d]) => n + d.length, 0);
-  return [levels.concatBytes(chunks), { levels: order, records: records.length, bytes: total, entity_bytes: entityBytes }];
+  return [levels.concatBytes(chunks), { levels: order, records: records.length, bytes: total, entity_bytes: entityBytes,
+    foreign_tiles: foreignTiles }];
 }
 
 // ------------------------------------------------------------------------- API

@@ -64,6 +64,8 @@ export class Player {
     this.keyBits = 0;
     this.padBits = 0;
     this.padStart = true;
+    this.startFrames = 0;
+    this.onLeave = null; // Start held: leave the level (js/play.js)
     this.frameMs = 1000 / 60;
     this.next = 0;
     this.audio = null;
@@ -89,7 +91,8 @@ export class Player {
     this.keys.clear();
     this.keyBits = 0;
     this.padBits = 0;
-    this.padStart = true; // a Start still held from the menu does not pause
+    this.padStart = true; // a Start still held from the menu neither pauses nor leaves
+    this.startFrames = Infinity;
     this.engine._web_set_joy(0);
     window.addEventListener('keydown', this.onKey, true);
     window.addEventListener('keyup', this.onKey, true);
@@ -190,12 +193,19 @@ export class Player {
   }
 
   // Game controllers, once per frame: the directions and buttons add to the
-  // keyboard's; Start pauses.
+  // keyboard's. Start: a short press pauses (on release), held a second it
+  // leaves the level.
   pollPad() {
     const p = readPads();
     const bits = (p.up ? JOY_UP : 0) | (p.down ? JOY_DOWN : 0) | (p.left ? JOY_LEFT : 0) | (p.right ? JOY_RIGHT : 0)
       | (p.jump ? JOY_BTN1 : 0) | (p.punch ? JOY_BTN2 : 0);
-    if (p.start && !this.padStart) this.engine._web_press_pause();
+    const hold = Math.round(1000 / this.frameMs); // one second of frames
+    if (p.start) {
+      if (!this.padStart) this.startFrames = 0;
+      if (++this.startFrames === hold && this.onLeave) this.onLeave();
+    } else if (this.padStart && this.startFrames < hold) {
+      this.engine._web_press_pause();
+    }
     this.padStart = p.start;
     if (bits !== this.padBits) {
       this.padBits = bits;

@@ -1,6 +1,7 @@
 // Block images, decoded from the video memory of the running game.
 
 import { state, BLOCK } from './state.js';
+import { applyForeignImages } from './foreign.js';
 
 function cramColor(v) {
   const lv = [0, 85, 170, 255];
@@ -102,8 +103,11 @@ export function textBoxImage(video, rows) {
 }
 
 // Rebuilds the 256 block images from `state.video` and the level's metatiles.
+// Blocks from other settings take their pictures from their setting
+// (foreign.js), drawn again once its graphics are in.
 export function buildBlockCanvases() {
   state.blockCanvases = blockImages(state.video, state.model.metatiles);
+  applyForeignImages(state.blockCanvases, redrawForeign);
   // Average colour of each block, for the minimap.
   state.blockColors = state.blockCanvases.map((c) => {
     const d = c.getContext('2d').getImageData(0, 0, BLOCK, BLOCK).data;
@@ -112,6 +116,11 @@ export function buildBlockCanvases() {
     const n = d.length / 4;
     return `rgb(${r / n | 0},${g / n | 0},${b / n | 0})`;
   });
+}
+
+function redrawForeign() {
+  buildBlockCanvases();
+  Promise.all([import('./render.js'), import('./palette.js')]).then(([r, p]) => { r.render(); p.renderPalette(); });
 }
 
 // Image of a w x h group of blocks (-1 = transparent).

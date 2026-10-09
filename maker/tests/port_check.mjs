@@ -388,6 +388,22 @@ for (const vehicle of ['bike', 'boat', 'peticopter']) {
 }
 buildBoth('i3. level 1 (vertical) on the peticopter, rethemed', { 1: { ...copy(rethemed['1:5'] || exported[1]), vehicle: 'peticopter' } });
 
+// i4. blocks from other settings (foreignBlocks): water of level 3, lava of
+// level 4 and spikes of level 11 in the village, at ids the village doesn't use.
+{
+  const m6 = copy(exported[6]);
+  const blocks = m6.screens[m6.grid[0][0].screen].blocks;
+  const put = [[250, 3, 118], [251, 3, 120], [252, 4, 127], [253, 4, 128], [254, 11, 230]];
+  put.forEach(([id], k) => { blocks[11 * 16 + k] = id; });
+  // 249 is not on the map: left out of the ROM.
+  m6.foreignBlocks = put.map(([id, home, metatile]) => ({ id, home, metatile })).concat([{ id: 249, home: 2, metatile: 5 }]);
+  const info = buildBoth('i4. level 6 with water, lava and spikes from other settings', { 6: m6 });
+  check('i4. their tiles become virtual tiles', !!info && info.foreign_tiles.length > 0, info && info.foreign_tiles);
+  buildBoth('i4. a ladder cannot come from another setting', { 6: { ...copy(m6), foreignBlocks: [{ id: 250, home: 2, metatile: 226 }] } }, null, true);
+  buildBoth('i4. blocks from other settings: one level at a time',
+    { 6: m6, 2: { ...copy(exported[2]), foreignBlocks: [{ id: 250, home: 3, metatile: 118 }] } }, null, true);
+}
+
 // i4. a bonus zone: one more layout row, its entity lists after the level's
 {
   const m = copy(exported[2]);

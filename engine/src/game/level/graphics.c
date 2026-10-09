@@ -66,11 +66,36 @@ static void copy_raw_tiles(uint16_t src, int first, uint8_t bytes) {
 
 /* ------------------------------------------------------ tileset loaders */
 
+/* Maker mode, blocks from other settings (rt/maker.h, virtual tiles): runs
+ * the tileset loader of each level they come from, its VRAM writes going to
+ * that level's background tile copy (which starts as a copy of the current
+ * tiles, those every level shares), and keeps its colours. Bank 3 mapped. */
+static void maker_capture_backgrounds(void) {
+    bool needed[MAKER_LEVELS + 1] = {false};
+    for (int i = 0; i < 256; i++) needed[maker.vtile_home[i]] = true;
+    const uint8_t level = ram8(v_level);
+    const uint8_t bank = (uint8_t)mach.slot[2];
+    for (int h = 1; h <= MAKER_LEVELS; h++) {
+        if (!needed[h]) continue;
+        memcpy(maker.bg_tiles[h], &mach.vdp.vram[0], MAKER_BG_TILES_BYTES);
+        maker.capturing_bg = h;
+        ram8(v_level) = (uint8_t)h;
+        call_jump_table(TILESET_LOADERS_MINUS_2, (uint8_t)h);
+        maker.capturing_bg = 0;
+        map_bank(BANK(7));
+        uint16_t palette = rd16((uint16_t)(LEVEL_PALETTES_MINUS_2 + (uint8_t)(2 * h)));
+        for (int i = 0; i < 32; i++) maker.bg_cram[h][i] = rd8((uint16_t)(palette + i));
+        map_bank(BANK(bank));
+    }
+    ram8(v_level) = level;
+}
+
 /* $0E6C loadLevelTiles: the gold bag and cloud, then the level's tileset
  * through tilesetLoadersPointers (rst $20). Bank 3 must be mapped. */
 LIFTED(loadLevelTiles, 0x0E6C) {
     decompress_tiles(GOLD_BAG_AND_CLOUD_TILES, 37);
     if (call_jump_table(TILESET_LOADERS_MINUS_2, ram8(v_level))) return;
+    if (maker.active && maker.vtiles) maker_capture_backgrounds();
     LIFTED_RETURN();
 }
 

@@ -102,6 +102,10 @@ New levels come in any of the game's 17 settings, with their graphics, enemies a
 - **On the right, the tools**: undo and redo, the eraser, the **selection** (copy, cut, clear and
   paste a zone), the grid, the collision view, zoom, save, the menu and the list of commands.
 - **Alex, marked "Start"**, is where the level begins: drag him anywhere.
+- **Other settings**: the Other settings tab brings blocks from the other levels of the game, the
+  lake's water in the village, lava or the castle's spikes on the mountain, another ground... They
+  keep their colours and what they do (Alex swims in the water, the spikes kill), up to 24 in a
+  level.
 - **Hazards and more**: each setting's deadly blocks (spikes, lava, thorns, burning stakes) are in
   the Blocks tab; the castles' spiked pillars and collapsing floors in the Enemies tab. A level can
   start on the **motorbike**, the **boat** or the **Peticopter** (Vehicle): losing it either
@@ -138,7 +142,8 @@ New levels come in any of the game's 17 settings, with their graphics, enemies a
 
 The big Play button (or Space) runs the level right in the page, from the screen you're looking
 at, even if you haven't saved. Arrows to move, Space or X to jump, Z or W to punch, Enter to
-pause; Escape goes back to editing. The game takes the whole window. The level
+pause; Escape goes back to editing. On a controller, Start pauses and, held for a second, leaves
+the level. The game takes the whole window. The level
 ends when Alex reaches the rice ball (or beats the boss). There is no checkpoint: when Alex loses
 a life, or the time limit runs out, the level starts over by itself with the time back at 0.
 The time and the lives lost show at the bottom; at the end, the lives lost go with your time, and
@@ -162,7 +167,7 @@ sound or code from the game: whoever opens it needs their own ROM.
 **Online**: once you've cleared your level from its start (challenge included), *Publish online* in the menu gives it a code such as `39Q-HCQ-09J`. Anyone can then find
 it in **Online levels** (newest, most played, most liked, easiest, hardest, search, or its code),
 play it, like it, keep a copy or report it. A published level can be updated or taken down. A
-website lists the community's levels too, but only to find them: they are played in the app, and
+website, [maker.kma.studio](https://maker.kma.studio/levels/), lists the community's levels too, but only to find them: they are played in the app, and
 the site's Play button opens the app on the level. The sharing server is not part of this
 repository.
 
@@ -442,6 +447,9 @@ ennemis et sa musique.
   effacer et coller une zone), la grille, l'affichage des collisions, le zoom, l'enregistrement,
   le menu et la liste des commandes.
 - **Alex marqué « Départ »** est l'endroit où le niveau commence : glissez-le où vous voulez.
+- **Autres décors** : l'onglet Autres décors apporte des blocs des autres niveaux du jeu, l'eau du
+  lac dans le village, la lave ou les pics du château sur la montagne, un autre sol… Ils gardent
+  leurs couleurs et ce qu'ils font (Alex nage dans l'eau, les pics tuent), 24 au plus par niveau.
 - **Dangers et plus** : les blocs mortels de chaque décor (pics, lave, ronces, pieux enflammés)
   sont dans l'onglet Blocs ; les piliers à pointes et les sols qui s'effondrent des châteaux dans
   l'onglet Ennemis. Un niveau peut commencer à **moto**, en **bateau** ou en **Peticopter**
@@ -479,8 +487,8 @@ ennemis et sa musique.
 
 Le gros bouton Jouer (ou Espace) lance le niveau directement dans la page, à partir de l'écran
 affiché, même si vous n'avez pas enregistré. Les flèches pour se déplacer, Espace ou X pour
-sauter, Z ou W pour le coup de poing, Entrée pour la pause ; Échap revient à l'édition. Le jeu
-prend toute la fenêtre. Le niveau se termine quand Alex atteint la boule
+sauter, Z ou W pour le coup de poing, Entrée pour la pause ; Échap revient à l'édition. À la manette, Start met en pause et, maintenu
+une seconde, quitte le niveau. Le jeu prend toute la fenêtre. Le niveau se termine quand Alex atteint la boule
 de riz (ou bat le boss). Il n'y a pas de point de passage : quand Alex perd une vie, ou que le
 temps limite est écoulé, le niveau recommence tout seul, le temps remis à 0. Le temps et les vies
 perdues s'affichent en bas ; à la fin, les vies perdues accompagnent votre temps, et en ligne le
@@ -505,7 +513,7 @@ l'ouvre a besoin de sa propre ROM.
 **En ligne** : une fois votre niveau réussi depuis son départ (défi compris), « Publier en ligne » dans le menu lui donne un code comme `39Q-HCQ-09J`. Tout le monde
 peut alors le trouver dans **Niveaux en ligne** (récents, les plus joués, les plus aimés, faciles,
 difficiles, recherche, ou son code), y jouer, l'aimer, en garder une copie ou le signaler. Un
-niveau publié peut être mis à jour ou retiré. Un site web liste aussi les niveaux de la
+niveau publié peut être mis à jour ou retiré. Un site web, [maker.kma.studio](https://maker.kma.studio/levels/), liste aussi les niveaux de la
 communauté, mais seulement pour les trouver : ils se jouent dans l'application, et le bouton
 Jouer du site ouvre l'application sur le niveau. Le serveur du partage ne fait pas partie de ce
 dépôt.

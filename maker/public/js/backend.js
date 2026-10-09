@@ -120,6 +120,17 @@ export async function retheme(base, model, theme) {
 // Maker block (engine/src/rt/maker.h): the level each enemy comes from, so
 // that the engine draws enemies from other settings with their own tiles.
 const MAKER_BLOCK_OFFSET = 0x7FE00;
+// Virtual tiles of the blocks from other settings (rom/leveledit.js
+// foreignBlockPatches): "AKVTILE1", a count, then [index, level, tile] each.
+const VIRTUAL_TILES_OFFSET = 0x7FC00;
+
+function virtualTilesBlock(tiles) {
+  const block = new Uint8Array(9 + 3 * tiles.length);
+  block.set(ascii('AKVTILE1'));
+  block[8] = tiles.length;
+  tiles.forEach((entry, i) => block.set(entry, 9 + 3 * i));
+  return block;
+}
 
 // Janken opponents: the levels that load their sprites.
 const BOSS_LEVELS = { 0x1c: [16], 0x1d: [2, 11], 0x1e: [7, 12], 0x1f: [10, 15] };
@@ -185,7 +196,8 @@ function appendRecord(patch, offset, bytes) {
 // Mod patch to play `model` in place of level `base`; startColumn starts it
 // at that screen.
 export function testPatch(base, model, startColumn = null) {
-  let { patch } = buildMod(rom, { [base]: model }, startColumn === null ? null : { level: base, column: startColumn });
+  let { patch, info } = buildMod(rom, { [base]: model }, startColumn === null ? null : { level: base, column: startColumn });
+  if (info.foreign_tiles.length) patch = appendRecord(patch, VIRTUAL_TILES_OFFSET, virtualTilesBlock(info.foreign_tiles));
   // The janken opponents' own texts, written over the game's.
   for (const r of customBosses(model).values()) {
     if (r.text && r.text.trim()) patch = appendRecord(patch, ...messagePatch(rom, opponentMessage(rom, r.data), wrapText(r.text)));

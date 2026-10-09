@@ -12,6 +12,7 @@ import { GOAL_TYPE, BOSSES, entityColor, HIDDEN_TYPES, SETTING_ONLY } from './en
 import { setTip } from './tooltip.js';
 import { t, tName } from './i18n.js';
 import { hazardParts } from './hazards.js';
+import { foreignSettings, foreignShelf } from './foreign.js';
 
 const SLOT = 44; // largest picture size in a slot, in CSS pixels
 
@@ -49,6 +50,21 @@ function items(category) {
       for (const type of types) list.push({ part: { kind: 'entity', type: type.id }, name: tName(type.name) });
       return list;
     }
+    case 'others': {
+      // Blocks of the other settings (foreign.js): first the settings, then
+      // what the chosen one offers.
+      const theme = state.model.theme || state.level;
+      if (state.foreignHome === theme) state.foreignHome = null;
+      if (!state.foreignHome) {
+        return foreignSettings().map((n) => ({
+          part: foreignShelf(n)[0].part,
+          name: t('{name} · ses blocs : clique pour les voir', { name: state.model.levelNames[n] }),
+          open: () => { state.foreignHome = n; renderPalette(); },
+        }));
+      }
+      return [{ part: { kind: 'back' }, name: t('Tous les décors · revenir à la liste'), open: () => { state.foreignHome = null; renderPalette(); } }]
+        .concat(foreignShelf(state.foreignHome));
+    }
     default:
       return state.blockCanvases.map((_, i) => ({ part: { kind: 'block', id: i },
         name: t('Bloc {i} · {kind}', { i, kind: classLabel(blockClass(i)) || t('vide') }) }));
@@ -58,6 +74,7 @@ function items(category) {
 const isEntity = (part) => ['entity', 'goal', 'boss', 'door'].includes(part.kind);
 
 function picture(part) {
+  if (part.kind === 'back') return icon('undo', 3);
   if (part.kind === 'goal' || part.kind === 'entity' || part.kind === 'boss' || part.kind === 'door') {
     const type = part.kind === 'goal' ? GOAL_TYPE : part.kind === 'door' ? 0x4C : part.type;
     const ic = state.icons[type];
@@ -85,6 +102,7 @@ const CATEGORIES = [
   { id: 'terrain', label: 'Sol', icon: 'theme', tip: 'Le sol et les murs : les bords et les coins se raccordent tout seuls' },
   { id: 'blocks', label: 'Blocs', icon: 'box', tip: 'Boîtes ?, boîtes étoile, têtes de mort, argent, roches cassables, pièges…' },
   { id: 'decor', label: 'Décor', icon: 'tree', tip: 'Nuages, arbres, maisons… posés d\'un clic, sans effet sur le jeu' },
+  { id: 'others', label: 'Autres décors', icon: 'globe', tip: 'L\'eau du lac, la lave, les pics du château… : les blocs des autres décors, qui gardent leurs couleurs et ce qu\'ils font' },
   { id: 'enemies', label: 'Ennemis', icon: 'enemy', tip: 'Les ennemis et la boule de riz qui termine le niveau' },
   { id: 'all', label: 'Tous les blocs', icon: 'grid', tip: 'Les 256 blocs bruts du niveau, pour les experts' },
 ];
@@ -118,13 +136,14 @@ export function renderPalette() {
   shelf.classList.toggle('dense', state.category === 'all');
   for (const it of items(state.category)) {
     const slot = document.createElement('button');
-    slot.className = 'slot' + (samePart(it.part, state.part) ? ' active' : '') + (it.off ? ' off' : '');
-    slot.draggable = true;
+    slot.className = 'slot' + (!it.open && samePart(it.part, state.part) ? ' active' : '') + (it.off ? ' off' : '');
+    slot.draggable = !it.open;
     const [title, more] = it.name.split(' · ');
     setTip(slot, title, more || (isEntity(it.part) ? t('Clique puis pose-le sur la carte, ou glisse-le')
       : t('Clique puis peins sur la carte, ou glisse-le')));
-    slot.appendChild(fit(picture(it.part), state.category === 'all' ? 32 : SLOT));
-    slot.addEventListener('click', () => selectPart(it.part));
+    const pic = picture(it.part);
+    slot.appendChild(pic instanceof HTMLCanvasElement ? fit(pic, state.category === 'all' ? 32 : SLOT) : pic);
+    slot.addEventListener('click', () => (it.open ? it.open() : selectPart(it.part)));
     slot.addEventListener('mouseenter', () => showName(it.name));
     slot.addEventListener('mouseleave', () => showName(currentName()));
     slot.addEventListener('dragstart', (ev) => ev.dataTransfer.setData('text/x-part', JSON.stringify(it.part)));

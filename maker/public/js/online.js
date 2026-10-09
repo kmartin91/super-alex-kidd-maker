@@ -52,7 +52,7 @@ export const thumbnailUrl = (s) => (s.thumbnail ? apiBase() + s.thumbnail : null
 // ------------------------------------------------------------ level format
 // What a player made: the rest (graphics tables, parts...) comes back from
 // the ROM through the base level and the theme.
-const SHARED_FIELDS = ['kind', 'columns', 'rows', 'grid', 'screens', 'entities', 'specials', 'surprises', 'start', 'clear', 'themeMusic', 'vehicle', 'crashEndsTry', 'zone'];
+const SHARED_FIELDS = ['kind', 'columns', 'rows', 'grid', 'screens', 'entities', 'specials', 'surprises', 'start', 'clear', 'themeMusic', 'vehicle', 'crashEndsTry', 'zone', 'foreignBlocks'];
 
 export function sharedLevel(model, base) {
   const out = { format: 'super-alex-kidd-maker/shared-level', version: 1, base, theme: model.theme || base };
