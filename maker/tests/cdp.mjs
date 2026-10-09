@@ -1,8 +1,9 @@
 // Minimal Chrome DevTools Protocol driver for UI tests.
+// --enable-automation: the page lets the tests play (js/app-only.js).
 import { spawn } from 'node:child_process';
 const CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
 export async function openPage(url, { width = 1500, height = 900 } = {}) {
-  const proc = spawn(CHROME, ['--headless=new', '--disable-gpu', '--hide-scrollbars', '--remote-debugging-port=9223', '--autoplay-policy=no-user-gesture-required',
+  const proc = spawn(CHROME, ['--headless=new', '--enable-automation', '--disable-gpu', '--hide-scrollbars', '--remote-debugging-port=9223', '--autoplay-policy=no-user-gesture-required',
     `--window-size=${width},${height}`, '--user-data-dir=/tmp/cdp-profile-akmw', 'about:blank'], { stdio: 'ignore' });
   let targets;
   for (let i = 0; i < 50; i++) {

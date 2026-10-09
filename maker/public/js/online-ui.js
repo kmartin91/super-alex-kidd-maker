@@ -18,9 +18,12 @@ import {
   setLike, likedHere, reportOnline, publishOnline, updateOnline, removeOnline, thumbnailUrl,
 } from './online.js';
 import { t } from './i18n.js';
+import { canPlay, playInApp, downloadButton } from './app-only.js';
 
 const names = () => Object.fromEntries(state.levels.map((l) => [l.level, l.name]));
 const formatCode = (c) => c.toUpperCase().replace(/[^0-9A-Z]/g, '').replace(/(.{3})(?=.)/g, '$1-');
+// In a browser, Jouer opens the app on the level (js/app-only.js).
+const playLabel = () => (canPlay ? t('Jouer') : t('Jouer dans l\'app'));
 
 // ------------------------------------------------------------ publishing
 function publishBody(name, author) {
@@ -143,7 +146,7 @@ function levelCard(s, open, play) {
       h('span.online-meta', { textContent: [s.author ? t('par {author}', { author: s.author }) : null, n[s.theme]].filter(Boolean).join(' · ') }),
       h('span.online-stars', { textContent: starsText(s.difficulty) }),
       h('span.online-meta', { textContent: `▶ ${s.plays} · ✓ ${s.clears} · ♥ ${s.likes}` })),
-    h('button.key.go.online-card-play', { onclick: () => play(s) }, icon('play', 2), t('Jouer')));
+    h('button.key.go.online-card-play', { onclick: () => (canPlay ? play(s) : playInApp(s.code)) }, icon('play', 2), playLabel()));
 }
 
 // The online screen of the menu, a gallery like the website's: `show(el)`
@@ -196,6 +199,9 @@ export function onlinePanel(show, ctx, { code: first = null } = {}) {
     h('div.online-head', {},
       h('button.key.small.online-back', { textContent: t('‹ Retour'), onclick: () => ctx.back() }),
       h('h2', { textContent: t('Niveaux en ligne') })),
+    canPlay ? null : h('div.online-app', {},
+      h('span', { textContent: t('Les niveaux se jouent dans l\'app : « Jouer dans l\'app » l\'ouvre sur le niveau.') }),
+      downloadButton('key.small.plain')),
     h('div.online-tools', {}, code, h('button.key.go', { textContent: t('Jouer ce code'), onclick: openCode }), search, theme, difficulty),
     tabs, grid, empty, more);
   // Back to the gallery where it was.
@@ -249,7 +255,8 @@ export function onlinePanel(show, ctx, { code: first = null } = {}) {
           h('div.level-code.small', { textContent: s.code }),
           h('p', { textContent: summary(s) }),
           h('p', { textContent: clears + best + ' · ' + t('son auteur : {time} s', { time: seconds(s.clearTime || 0) }) }),
-          h('button.menu-row.online-play', { onclick: () => play(s) }, icon('play', 3), h('span.menu-row-label', { textContent: t('Jouer') })),
+          h('button.menu-row.online-play', { onclick: () => (canPlay ? play(s) : playInApp(s.code)) },
+            icon('play', 3), h('span.menu-row-label', { textContent: playLabel() })),
           h('div.online-actions', {}, like, keep, report))),
       h('button.menu-back', { textContent: t('‹ Retour'), onclick: () => showList(y) })), { gallery: true });
   }

@@ -13,6 +13,7 @@ import { levelHash, countClear } from './online.js';
 import { persistDoc } from './storage.js';
 import { mainModel } from './bonus-zone.js';
 import { t, tError } from './i18n.js';
+import { canPlay, tellPlayInApp } from './app-only.js';
 
 // Engine states -> status texts (translated when shown).
 const STATUS = { starting: 'démarrage…', playing: 'en jeu', stopped: 'arrêté', cleared: 'niveau terminé !' };
@@ -33,6 +34,7 @@ function setPlaying(on) {
 // startColumn: null = level start. again: the same run starts over (the time
 // ran out), its lives lost kept.
 export async function playLevel(startColumn = null, again = false) {
+  if (!canPlay) { tellPlayInApp(); return; } // in a browser: js/app-only.js
   tryStart = startColumn;
   if (!player) {
     player = new Player($('game'), (st) => {

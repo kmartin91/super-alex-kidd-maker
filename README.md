@@ -44,8 +44,9 @@ game to WebAssembly the first time. Then:
     npm run maker
 
 The first time, this builds the game (a few minutes), then opens the Maker in a local page
-(`http://localhost:8080`), handy while developing: it's the same Maker as in the app. To build
-the app itself, see [The desktop app](#the-desktop-app).
+(`http://localhost:8080`), handy while developing: it's the same Maker as in the app, except
+that the game only plays in the app (its Play buttons send you there). To build the app itself,
+see [The desktop app](#the-desktop-app).
 
 **On Windows**, the simplest route is [MSYS2](https://www.msys2.org/) (its installer, or
 `winget install MSYS2.MSYS2`). Open the "MSYS2 UCRT64" terminal from the Start menu (not "MSYS2
@@ -381,7 +382,8 @@ en WebAssembly la première fois. Ensuite :
 
 La première fois, la commande compile le jeu (quelques minutes), puis ouvre le Maker dans une page
 locale (`http://localhost:8080`), pratique pendant le développement : c'est le même Maker que dans
-l'application. Pour construire l'application elle-même, voir
+l'application, sauf qu'on ne joue que dans l'application (ses boutons Jouer y renvoient). Pour
+construire l'application elle-même, voir
 [L'application à installer](#lapplication-à-installer).
 
 **Sous Windows**, le plus simple est de passer par [MSYS2](https://www.msys2.org/) (son

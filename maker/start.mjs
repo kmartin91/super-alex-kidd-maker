@@ -24,7 +24,7 @@ function make(target, message) {
 
 if (!fs.existsSync(engine('tools.js'))) make('web-tools', 'Compilation des outils du Maker pour le navigateur (moins d\'une minute)…');
 if (!fs.existsSync(engine('alexkidd.js'))) {
-  make('web', 'Compilation du moteur de jeu pour le navigateur (bouton Jouer).\n' +
+  make('web', 'Compilation du moteur de jeu pour le navigateur (musique du menu, jeu de l\'app).\n' +
     'Elle prend plusieurs minutes et beaucoup de mémoire, une seule fois.\n');
 }
 

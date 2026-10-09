@@ -433,6 +433,8 @@ export default {
 
   // ------------------------------------------------------------ updates (desktop app)
   'Impossible de vérifier les mises à jour : {message}': 'Couldn\'t check for updates: {message}',
+  'Aucune mise à jour automatique n\'est publiée pour l\'instant. Les nouvelles versions sont aussi sur github.com/kmartin91/super-alex-kidd-maker/releases.':
+    'No automatic update has been published yet. New versions are also on github.com/kmartin91/super-alex-kidd-maker/releases.',
   'Tu as déjà la dernière version': 'You already have the latest version',
   'La version {version} est sortie : {body}': 'Version {version} is out: {body}',
   'La version {version} est sortie.': 'Version {version} is out.',
@@ -499,6 +501,13 @@ export default {
   'record {time} s': 'record {time} s',
   'son auteur : {time} s': 'its maker: {time} s',
   'Jouer ce code': 'Play this code',
+  // the game in the desktop app only (app-only.js)
+  'Jouer dans l\'app': 'Play in the app',
+  'Les niveaux se jouent dans l\'app : « Jouer dans l\'app » l\'ouvre sur le niveau.':
+    'Levels are played in the app: "Play in the app" opens it on the level.',
+  'Le jeu se lance dans l\'app Super Alex Kidd Maker, pas dans le navigateur.':
+    'The game runs in the Super Alex Kidd Maker app, not in the browser.',
+  'Télécharger l\'app': 'Download the app',
   'Tous les décors': 'All settings',
   'Toutes difficultés': 'Any difficulty',
   // deadly blocks (hazards.js) and vehicles (vehicle.js)

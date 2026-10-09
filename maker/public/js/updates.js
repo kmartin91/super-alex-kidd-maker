@@ -16,7 +16,11 @@ export async function checkUpdate({ quiet = false } = {}) {
   try {
     update = await tauri.updater.check();
   } catch (err) {
-    if (!quiet) tell(t('Impossible de vérifier les mises à jour : {message}', { message: err.message || err }));
+    const message = String(err.message || err);
+    // The latest GitHub release has no latest.json (app/RELEASE.md).
+    if (!quiet) tell(/valid release JSON/i.test(message)
+      ? t('Aucune mise à jour automatique n\'est publiée pour l\'instant. Les nouvelles versions sont aussi sur github.com/kmartin91/super-alex-kidd-maker/releases.')
+      : t('Impossible de vérifier les mises à jour : {message}', { message }));
     return;
   }
   if (!update) { if (!quiet) toast(t('Tu as déjà la dernière version')); return; }

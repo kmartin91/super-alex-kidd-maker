@@ -767,6 +767,12 @@ body.playing .play-bar { padding-left: 150px; }
 .online-card-play { justify-content: center; margin: 0 14px 14px; font-size: 17px; }
 .online-screen .key:focus, .online-screen .tab:focus { outline: 4px solid var(--ink); outline-offset: 2px; }
 .online-empty { margin: 0; padding: 26px; text-align: center; font-size: 17px; background: rgba(255, 255, 255, 0.92); border-radius: 18px; }
+/* in a browser: the levels are played in the app (js/app-only.js) */
+.online-app {
+  display: flex; gap: 12px; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  padding: 10px 14px; font-size: 16px;
+  background: var(--white); border-radius: 20px; box-shadow: 0 6px 0 var(--shadow);
+}
 .online-more { justify-self: center; font-size: 16px; padding: 9px 22px; }
 .online-thumb.none, .online-big.none { display: block; background: var(--night); }
 .online-detail { grid-template-columns: auto 1fr; align-items: start; gap: 18px; }

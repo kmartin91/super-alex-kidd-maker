@@ -22,6 +22,7 @@ import { readPads, anyButton, connectedPads } from './gamepad.js';
 import { openPadSetup } from './pad-setup.js';
 import { startMenuMusic, stopMenuMusic, menuMusicOn, setMenuMusic, wakeMenuMusic } from './menu-music.js';
 import { t, lang, setLang } from './i18n.js';
+import { canPlay, tellPlayInApp } from './app-only.js';
 
 const desktop = window.__TAURI__;
 let root = null, panel = null, back = null, redrawBackground = null;
@@ -147,8 +148,9 @@ async function createLevel() {
   openLevelSheet();
 }
 
-// Plays a level in the page, then back to the menu.
+// Plays a level in the page, then back to the menu (in the app only).
 async function play(id) {
+  if (!canPlay) { tellPlayInApp(); return; }
   await editorReady;
   closeMenu();
   await openLevel(id);
